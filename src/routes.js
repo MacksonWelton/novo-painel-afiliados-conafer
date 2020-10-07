@@ -22,6 +22,8 @@ import Register from "views/examples/Register.js";
 import Login from "views/examples/Login.js";
 import Tables from "views/examples/Tables.js";
 import Icons from "views/examples/Icons.js";
+import Contratos from "views/Contratos/Contratos";
+import Suporte from "views/Suporte/Suporte";
 
 var routes = [
   {
@@ -29,6 +31,20 @@ var routes = [
     name: "Dashboard",
     icon: "ni ni-tv-2 text-primary",
     component: Index,
+    layout: "/admin"
+  },
+  {
+    path: "/contratos",
+    name: "Contratos",
+    icon: "ni ni-single-copy-04 text-green",
+    component: Contratos,
+    layout: "/admin"
+  },
+  {
+    path: "/suporte",
+    name: "Ajuda",
+    icon: "ni ni-support-16 text-red",
+    component: Suporte,
     layout: "/admin"
   },
   {

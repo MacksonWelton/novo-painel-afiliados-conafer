@@ -227,7 +227,7 @@ class Sidebar extends React.Component {
                 <Input
                   aria-label="Search"
                   className="form-control-rounded form-control-prepended"
-                  placeholder="Search"
+                  placeholder="Pesquisar..."
                   type="search"
                 />
                 <InputGroupAddon addonType="prepend">
