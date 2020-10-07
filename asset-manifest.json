@@ -1,23 +1,21 @@
 {
   "files": {
-    "main.css": "/MacksonWelton/novo-painel-afiliados-conafer/static/css/main.9e2d9d2d.chunk.css",
-    "main.js": "/MacksonWelton/novo-painel-afiliados-conafer/static/js/main.46643e02.chunk.js",
-    "main.js.map": "/MacksonWelton/novo-painel-afiliados-conafer/static/js/main.46643e02.chunk.js.map",
+    "main.css": "/MacksonWelton/novo-painel-afiliados-conafer/static/css/main.d43ffff8.chunk.css",
+    "main.js": "/MacksonWelton/novo-painel-afiliados-conafer/static/js/main.5d2e077c.chunk.js",
+    "main.js.map": "/MacksonWelton/novo-painel-afiliados-conafer/static/js/main.5d2e077c.chunk.js.map",
     "runtime-main.js": "/MacksonWelton/novo-painel-afiliados-conafer/static/js/runtime-main.d414e49a.js",
     "runtime-main.js.map": "/MacksonWelton/novo-painel-afiliados-conafer/static/js/runtime-main.d414e49a.js.map",
     "static/css/2.acd1b4cf.chunk.css": "/MacksonWelton/novo-painel-afiliados-conafer/static/css/2.acd1b4cf.chunk.css",
-    "static/js/2.00260fbc.chunk.js": "/MacksonWelton/novo-painel-afiliados-conafer/static/js/2.00260fbc.chunk.js",
-    "static/js/2.00260fbc.chunk.js.map": "/MacksonWelton/novo-painel-afiliados-conafer/static/js/2.00260fbc.chunk.js.map",
+    "static/js/2.6ddd89d4.chunk.js": "/MacksonWelton/novo-painel-afiliados-conafer/static/js/2.6ddd89d4.chunk.js",
+    "static/js/2.6ddd89d4.chunk.js.map": "/MacksonWelton/novo-painel-afiliados-conafer/static/js/2.6ddd89d4.chunk.js.map",
     "index.html": "/MacksonWelton/novo-painel-afiliados-conafer/index.html",
-    "precache-manifest.2cc2e7055851f41590f3f218026b54d4.js": "/MacksonWelton/novo-painel-afiliados-conafer/precache-manifest.2cc2e7055851f41590f3f218026b54d4.js",
+    "precache-manifest.7ff6f76f25434adaf3283eab8a276e87.js": "/MacksonWelton/novo-painel-afiliados-conafer/precache-manifest.7ff6f76f25434adaf3283eab8a276e87.js",
     "service-worker.js": "/MacksonWelton/novo-painel-afiliados-conafer/service-worker.js",
     "static/css/2.acd1b4cf.chunk.css.map": "/MacksonWelton/novo-painel-afiliados-conafer/static/css/2.acd1b4cf.chunk.css.map",
-    "static/css/main.9e2d9d2d.chunk.css.map": "/MacksonWelton/novo-painel-afiliados-conafer/static/css/main.9e2d9d2d.chunk.css.map",
-    "static/js/2.00260fbc.chunk.js.LICENSE.txt": "/MacksonWelton/novo-painel-afiliados-conafer/static/js/2.00260fbc.chunk.js.LICENSE.txt",
-    "static/js/main.46643e02.chunk.js.LICENSE.txt": "/MacksonWelton/novo-painel-afiliados-conafer/static/js/main.46643e02.chunk.js.LICENSE.txt",
+    "static/css/main.d43ffff8.chunk.css.map": "/MacksonWelton/novo-painel-afiliados-conafer/static/css/main.d43ffff8.chunk.css.map",
+    "static/js/2.6ddd89d4.chunk.js.LICENSE.txt": "/MacksonWelton/novo-painel-afiliados-conafer/static/js/2.6ddd89d4.chunk.js.LICENSE.txt",
+    "static/js/main.5d2e077c.chunk.js.LICENSE.txt": "/MacksonWelton/novo-painel-afiliados-conafer/static/js/main.5d2e077c.chunk.js.LICENSE.txt",
     "static/media/angular.jpg": "/MacksonWelton/novo-painel-afiliados-conafer/static/media/angular.368685db.jpg",
-    "static/media/argon-react-white.png": "/MacksonWelton/novo-painel-afiliados-conafer/static/media/argon-react-white.275a2629.png",
-    "static/media/argon-react.png": "/MacksonWelton/novo-painel-afiliados-conafer/static/media/argon-react.f38ddea9.png",
     "static/media/bootstrap.jpg": "/MacksonWelton/novo-painel-afiliados-conafer/static/media/bootstrap.ab904daa.jpg",
     "static/media/all.min.css": "/MacksonWelton/novo-painel-afiliados-conafer/static/media/fa-solid-900.cdfec5cf.woff",
     "static/media/github.svg": "/MacksonWelton/novo-painel-afiliados-conafer/static/media/github.4ffd4fe7.svg",
@@ -25,6 +23,7 @@
     "static/media/nucleo.css": "/MacksonWelton/novo-painel-afiliados-conafer/static/media/nucleo-icons.f82ec6ba.ttf",
     "static/media/profile-cover.jpg": "/MacksonWelton/novo-painel-afiliados-conafer/static/media/profile-cover.e2582654.jpg",
     "static/media/react.jpg": "/MacksonWelton/novo-painel-afiliados-conafer/static/media/react.c4eb3d0b.jpg",
+    "static/media/sistemalogo.png": "/MacksonWelton/novo-painel-afiliados-conafer/static/media/sistemalogo.0cd7c7cc.png",
     "static/media/sketch.jpg": "/MacksonWelton/novo-painel-afiliados-conafer/static/media/sketch.e7c82e5c.jpg",
     "static/media/team-1-800x800.jpg": "/MacksonWelton/novo-painel-afiliados-conafer/static/media/team-1-800x800.53033970.jpg",
     "static/media/team-2-800x800.jpg": "/MacksonWelton/novo-painel-afiliados-conafer/static/media/team-2-800x800.dcfcf3b7.jpg",
@@ -35,8 +34,8 @@
   "entrypoints": [
     "static/js/runtime-main.d414e49a.js",
     "static/css/2.acd1b4cf.chunk.css",
-    "static/js/2.00260fbc.chunk.js",
-    "static/css/main.9e2d9d2d.chunk.css",
-    "static/js/main.46643e02.chunk.js"
+    "static/js/2.6ddd89d4.chunk.js",
+    "static/css/main.d43ffff8.chunk.css",
+    "static/js/main.5d2e077c.chunk.js"
   ]
 }
