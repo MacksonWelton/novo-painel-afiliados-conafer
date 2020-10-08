@@ -5,6 +5,9 @@ const ContratosData = [
     description:
       "Contrato referente ao processo e aprovação de afiliação a CONAFER BRASIL",
     value: "R$ 250,00",
+    createdIn: "18/08/2020",
+    assinado: "20/08/2020",
+    status: "Assinado",
     comments: [
       {
         id: 0,
@@ -22,15 +25,15 @@ const ContratosData = [
         createdIn: "19/08/2020",
       },
     ],
-    createdIn: "18/08/2020",
-    assinado: "20/08/2020",
-    status: "Assinado",
   },
   {
     id: 0,
     name: "Contrato de ETC",
     description: "Contrato referente a etc",
     value: "R$ 250,00",
+    createdIn: "19/08/2020",
+    assinado: "-",
+    status: "Pendente",
     comments: [
       {
         id: 0,
@@ -40,9 +43,7 @@ const ContratosData = [
         createdIn: "18/08/2020",
       },
     ],
-    createdIn: "19/08/2020",
-    assinado: "-",
-    status: "Pendente",
+
   },
 ];
 

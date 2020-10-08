@@ -35,7 +35,7 @@ import {
   Table,
   Container,
   Row,
-  Col
+  Col,
 } from "reactstrap";
 
 // core components
@@ -43,17 +43,36 @@ import {
   chartOptions,
   parseOptions,
   chartExample1,
-  chartExample2
+  chartExample2,
 } from "variables/charts.js";
 
 import Header from "components/Headers/Header.js";
+import StatsCard from "components/StatsCard/StatsCard";
 
 class Index extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       activeNav: 1,
-      chartExample1Data: "data1"
+      chartExample1Data: "data1",
+      CardData: [
+        {
+          title: "Novos Afiliados PJ",
+          progress: 30,
+          comparison: 10.5,
+          comparisonDate: "Desde do último mês",
+          icon: "fas fa-landmark",
+          color: "bg-danger"
+        },
+        {
+          title: "Novos Afiliados PF",
+          progress: 40,
+          comparison: 5,
+          comparisonDate: "Desde do último mês",
+          icon: "fas fa-user-friends",
+          color: "bg-success"
+        },
+      ],
     };
     if (window.Chart) {
       parseOptions(Chart, chartOptions());
@@ -64,13 +83,13 @@ class Index extends React.Component {
     this.setState({
       activeNav: index,
       chartExample1Data:
-        this.state.chartExample1Data === "data1" ? "data2" : "data1"
+        this.state.chartExample1Data === "data1" ? "data2" : "data1",
     });
   };
   render() {
     return (
       <>
-        <Header />
+        <Header children={<StatsCard CardData={this.state.CardData} />}/>
         {/* Page content */}
         <Container className="mt--7" fluid>
           <Row>
@@ -89,10 +108,10 @@ class Index extends React.Component {
                         <NavItem>
                           <NavLink
                             className={classnames("py-2 px-3", {
-                              active: this.state.activeNav === 1
+                              active: this.state.activeNav === 1,
                             })}
                             href="#pablo"
-                            onClick={e => this.toggleNavs(e, 1)}
+                            onClick={(e) => this.toggleNavs(e, 1)}
                           >
                             <span className="d-none d-md-block">Month</span>
                             <span className="d-md-none">M</span>
@@ -101,11 +120,11 @@ class Index extends React.Component {
                         <NavItem>
                           <NavLink
                             className={classnames("py-2 px-3", {
-                              active: this.state.activeNav === 2
+                              active: this.state.activeNav === 2,
                             })}
                             data-toggle="tab"
                             href="#pablo"
-                            onClick={e => this.toggleNavs(e, 2)}
+                            onClick={(e) => this.toggleNavs(e, 2)}
                           >
                             <span className="d-none d-md-block">Week</span>
                             <span className="d-md-none">W</span>
@@ -121,7 +140,7 @@ class Index extends React.Component {
                     <Line
                       data={chartExample1[this.state.chartExample1Data]}
                       options={chartExample1.options}
-                      getDatasetAtEvent={e => console.log(e)}
+                      getDatasetAtEvent={(e) => console.log(e)}
                     />
                   </div>
                 </CardBody>
@@ -163,7 +182,7 @@ class Index extends React.Component {
                       <Button
                         color="primary"
                         href="#pablo"
-                        onClick={e => e.preventDefault()}
+                        onClick={(e) => e.preventDefault()}
                         size="sm"
                       >
                         See all
@@ -241,7 +260,7 @@ class Index extends React.Component {
                       <Button
                         color="primary"
                         href="#pablo"
-                        onClick={e => e.preventDefault()}
+                        onClick={(e) => e.preventDefault()}
                         size="sm"
                       >
                         See all

@@ -28,21 +28,21 @@ import {
 
 import Header from "components/Headers/Header.js";
 
-import { newComment, newContracts } from "../../redux/actions/Contratos";
+import { newBudgets, newComment } from "../../redux/actions/Orcamentos";
 
-import ContratosData from "./ContratosData";
+import OrcamentosData from "./OrcamentosData";
 import { Td } from "./styles";
 import ProgressCard from "components/ProgressCard/ProgressCard";
 
-const Contratos = () => {
+const Orcamentos = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(newContracts(ContratosData));
+    dispatch(newBudgets(OrcamentosData));
   }, [dispatch]);
 
   const [open, setOpen] = useState(false);
-  const [contract, setContract] = useState({});
+  const [budget, setBudget] = useState({});
   const [input, setInput] = useState();
 
   const handleChangeInput = (event) => {
@@ -54,18 +54,18 @@ const Contratos = () => {
     dispatch(newComment(input));
   };
 
-  const contracts = useSelector((state) => state.ContractsReducer.contracts);
+  const budgets = useSelector((state) => state.BudgetsReducer.budgets);
 
   const getBadge = (status) => {
     switch (status) {
-      case "Assinado":
-        return "bg-success";
-      case "Inactive":
-        return "bg-secondary";
-      case "Pendente":
+      case "Enviado":
+        return "bg-blue";
+      case "Expirado":
         return "bg-yellow";
-      case "Encerrado":
-        return "bg-cancelados";
+      case "Declinado":
+        return "bg-red";
+      case "Aceito":
+        return "bg-green";
       default:
         return "primary";
     }
@@ -73,23 +73,30 @@ const Contratos = () => {
 
   const CardData = [
     {
-      title: "Pendentes",
-      progress: contracts.filter(contract => contract.status === "Pendente").length,
-      max: contracts.length,
+      title: "Enviados",
+      progress: budgets.filter(contract => contract.status === "Enviado").length,
+      max: budgets.length,
       icon: "fas fa-stopwatch",
+      color: "blue",
+    },
+    {
+      title: "Expirados",
+      progress: budgets.filter(contract => contract.status === "Expirado").length,
+      max: budgets.length,
+      icon: "fas fa-exclamation-triangle",
       color: "yellow",
     },
     {
-      title: "Cancelados",
-      progress: contracts.filter(contract => contract.status === "Cancelados").length,
-      max: contracts.length,
+      title: "Declinados",
+      progress: budgets.filter(contract => contract.status === "Declinado").length,
+      max: budgets.length,
       icon: "fas fa-times",
       color: "red",
     },
     {
-      title: "Assinados",
-      progress: contracts.filter(contract => contract.status === "Assinado").length,
-      max: contracts.length,
+      title: "Aceitos",
+      progress: budgets.filter(contract => contract.status === "Aceito").length,
+      max: budgets.length,
       icon: "fas fa-check",
       color: "green",
     },
@@ -103,7 +110,7 @@ const Contratos = () => {
           <div className="col">
             <Card className="bg-default shadow">
               <CardHeader className="bg-transparent border-0">
-                <h3 className="text-white mb-0">Lista de Contratos</h3>
+                <h3 className="text-white mb-0">Lista de Orçamentos</h3>
               </CardHeader>
               <Table
                 className="align-items-center table-dark table-flush"
@@ -111,32 +118,35 @@ const Contratos = () => {
               >
                 <thead className="thead-dark">
                   <tr>
-                    <th scope="col">Contrato</th>
+                    <th scope="col">Orçamento</th>
                     <th scope="col">Valor</th>
                     <th scope="col">Status</th>
-                    <th scope="col">Criado em</th>
+                    <th scope="col">Data</th>
+                    <th scope="col">Data de Expiração</th>
                     <th scope="col" />
                   </tr>
                 </thead>
                 <tbody>
-                  {contracts.map((contract, index) => (
+                  {budgets.map((budget, index) => (
                     <tr key={index}>
                       <Td
-                        onClick={() => {
+                        onClick={(event) => {
+                          event.stopPropagation();
                           setOpen(!open);
-                          setContract(contract);
+                          setBudget(budget);
                         }}
                       >
-                        {contract.name}
+                        {budget.name}
                       </Td>
-                      <td>{contract.value}</td>
+                      <td>{budget.value}</td>
                       <td>
                         <Badge color="" className="badge-dot">
-                          <i className={getBadge(contract.status)} />
-                          {contract.status}
+                          <i className={getBadge(budget.status)} />
+                          {budget.status}
                         </Badge>
                       </td>
-                      <td>{contract.createdIn}</td>
+                      <td>{budget.createdIn}</td>
+                      <td>{budget.expirationDate}</td>
                       <td className="text-right">
                         <UncontrolledDropdown>
                           <DropdownToggle
@@ -243,16 +253,16 @@ const Contratos = () => {
             setOpen(!open);
           }}
         >
-          {contract.name}
+          {budget.name}
         </ModalHeader>
         <ModalBody>
           <>
-            <p className="mb-0">{contract.description}</p>
-            <p className="h6 mb-3">Criado em: {contract.createdIn}</p>
+            <p className="mb-0">{budget.description}</p>
+            <p className="h6 mb-3">Criado em: {budget.createdIn}</p>
           </>
           <>
-            {contract.comments &&
-              contract.comments.map((comment, index) => (
+            {budget.comments &&
+              budget.comments.map((comment, index) => (
                 <div
                   key={index}
                   className={
@@ -298,4 +308,4 @@ const Contratos = () => {
   );
 };
 
-export default Contratos;
+export default Orcamentos;

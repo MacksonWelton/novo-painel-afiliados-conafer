@@ -11,15 +11,12 @@ import {
   DropdownItem,
   UncontrolledDropdown,
   DropdownToggle,
-  Media,
   Pagination,
   PaginationItem,
   PaginationLink,
-  Progress,
   Table,
   Container,
   Row,
-  UncontrolledTooltip,
   Modal,
   Button,
   Input,
@@ -35,6 +32,7 @@ import { newSupports, newAnswers } from "../../redux/actions/Suporte";
 
 import SuporteData from "./SuporteData";
 import { Td } from "./styles";
+import ProgressCard from "components/ProgressCard/ProgressCard";
 
 const Suporte = () => {
   const dispatch = useDispatch();
@@ -62,21 +60,50 @@ const Suporte = () => {
   const getBadge = (status) => {
     switch (status) {
       case "Concluído":
-        return "bg-success";
-      case "Inactive":
-        return "bg-secondary";
+        return "bg-green";
       case "Aberto":
-        return "bg-warning";
+        return "bg-yellow";
       case "Fechado":
-        return "bg-danger";
+        return "bg-red";
       default:
         return "primary";
     }
   };
 
+  const CardData = [
+    {
+      title: "Abertos",
+      progress: 30,
+      max: 40,
+      icon: "fas fa-headset",
+      color: "yellow",
+    },
+    {
+      title: "Respondidos",
+      progress: 0,
+      max: 50,
+      icon: "fas fa-question",
+      color: "blue",
+    },
+    {
+      title: "Encerrados",
+      progress: 35,
+      max: 50,
+      icon: "fas fa-times",
+      color: "red",
+    },
+    {
+      title: "Concluídos",
+      progress: 35,
+      max: 40,
+      icon: "fas fa-check",
+      color: "green",
+    },
+  ];
+
   return (
     <>
-      <Header />
+      <Header children={<ProgressCard CardData={CardData} />} />
       <Container className="mt--7" fluid>
         <Row className="mt-5">
           <div className="col">
@@ -244,7 +271,9 @@ const Suporte = () => {
               name="secretary"
               onChange={handleChangeInput}
             >
-              <option value={undefined} hidden>Selecione a secretaria para responder</option>
+              <option value={undefined} hidden>
+                Selecione a secretaria para responder
+              </option>
               <option>Jurídica</option>
               <option>SECOM</option>
               <option>SETI</option>
@@ -277,7 +306,7 @@ const Suporte = () => {
             setOpen(!open);
           }}
         >
-          <h2 className="modal-title">{support.name}</h2>
+          {support.name}
         </ModalHeader>
         <ModalBody>
           <>

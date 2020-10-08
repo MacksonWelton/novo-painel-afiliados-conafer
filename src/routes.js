@@ -16,14 +16,16 @@
 
 */
 import Index from "views/Index.js";
-import Profile from "views/examples/Profile.js";
+import Perfil from "views/Perfil/Perfil.js";
 import Maps from "views/examples/Maps.js";
 import Register from "views/examples/Register.js";
-import Login from "views/examples/Login.js";
+import Login from "views/Login/Login.js";
 import Tables from "views/examples/Tables.js";
 import Icons from "views/examples/Icons.js";
 import Contratos from "views/Contratos/Contratos";
 import Suporte from "views/Suporte/Suporte";
+import Orcamentos from "views/Orcamentos/Orcamentos";
+import Propostas from "views/Propostas/Propostas";
 
 var routes = [
   {
@@ -38,6 +40,20 @@ var routes = [
     name: "Contratos",
     icon: "ni ni-single-copy-04 text-green",
     component: Contratos,
+    layout: "/admin"
+  },
+  {
+    path: "/orcamentos",
+    name: "Orçamentos",
+    icon: "fas fa-coins text-yellow",
+    component: Orcamentos,
+    layout: "/admin"
+  },
+  {
+    path: "/propostas",
+    name: "Propostas",
+    icon: "fas fa-coins text-yellow",
+    component: Propostas,
     layout: "/admin"
   },
   {
@@ -63,9 +79,9 @@ var routes = [
   },
   {
     path: "/user-profile",
-    name: "User Profile",
+    name: "Perfil",
     icon: "ni ni-single-02 text-yellow",
-    component: Profile,
+    component: Perfil,
     layout: "/admin"
   },
   {

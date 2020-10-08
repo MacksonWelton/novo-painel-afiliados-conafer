@@ -28,21 +28,21 @@ import {
 
 import Header from "components/Headers/Header.js";
 
-import { newComment, newContracts } from "../../redux/actions/Contratos";
+import { newProposals, newComment } from "../../redux/actions/Propostas";
 
-import ContratosData from "./ContratosData";
+import PropostasData from "./PropostasData";
 import { Td } from "./styles";
 import ProgressCard from "components/ProgressCard/ProgressCard";
 
-const Contratos = () => {
+const Propostas = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(newContracts(ContratosData));
+    dispatch(newProposals(PropostasData));
   }, [dispatch]);
 
   const [open, setOpen] = useState(false);
-  const [contract, setContract] = useState({});
+  const [proposal, setProposal] = useState({});
   const [input, setInput] = useState();
 
   const handleChangeInput = (event) => {
@@ -54,18 +54,18 @@ const Contratos = () => {
     dispatch(newComment(input));
   };
 
-  const contracts = useSelector((state) => state.ContractsReducer.contracts);
+  const proposals = useSelector((state) => state.ProposalsReducer.proposals);
 
   const getBadge = (status) => {
     switch (status) {
-      case "Assinado":
-        return "bg-success";
-      case "Inactive":
-        return "bg-secondary";
-      case "Pendente":
+      case "Enviado":
+        return "bg-blue";
+      case "Expirado":
         return "bg-yellow";
-      case "Encerrado":
-        return "bg-cancelados";
+      case "Declinado":
+        return "bg-red";
+      case "Aceito":
+        return "bg-green";
       default:
         return "primary";
     }
@@ -73,23 +73,30 @@ const Contratos = () => {
 
   const CardData = [
     {
-      title: "Pendentes",
-      progress: contracts.filter(contract => contract.status === "Pendente").length,
-      max: contracts.length,
-      icon: "fas fa-stopwatch",
+      title: "Enviados",
+      progress: proposals.filter(contract => contract.status === "Enviado").length,
+      max: proposals.length,
+      icon: "fas fa-paper-plane",
+      color: "blue",
+    },
+    {
+      title: "Expirados",
+      progress: proposals.filter(contract => contract.status === "Expirado").length,
+      max: proposals.length,
+      icon: "fas fa-exclamation-triangle",
       color: "yellow",
     },
     {
-      title: "Cancelados",
-      progress: contracts.filter(contract => contract.status === "Cancelados").length,
-      max: contracts.length,
+      title: "Declinados",
+      progress: proposals.filter(contract => contract.status === "Declinado").length,
+      max: proposals.length,
       icon: "fas fa-times",
       color: "red",
     },
     {
-      title: "Assinados",
-      progress: contracts.filter(contract => contract.status === "Assinado").length,
-      max: contracts.length,
+      title: "Aceitos",
+      progress: proposals.filter(contract => contract.status === "Aceito").length,
+      max: proposals.length,
       icon: "fas fa-check",
       color: "green",
     },
@@ -103,7 +110,7 @@ const Contratos = () => {
           <div className="col">
             <Card className="bg-default shadow">
               <CardHeader className="bg-transparent border-0">
-                <h3 className="text-white mb-0">Lista de Contratos</h3>
+                <h3 className="text-white mb-0">Lista de Orçamentos</h3>
               </CardHeader>
               <Table
                 className="align-items-center table-dark table-flush"
@@ -111,32 +118,35 @@ const Contratos = () => {
               >
                 <thead className="thead-dark">
                   <tr>
-                    <th scope="col">Contrato</th>
+                    <th scope="col">Orçamento</th>
                     <th scope="col">Valor</th>
                     <th scope="col">Status</th>
-                    <th scope="col">Criado em</th>
+                    <th scope="col">Data</th>
+                    <th scope="col">Data de Expiração</th>
                     <th scope="col" />
                   </tr>
                 </thead>
                 <tbody>
-                  {contracts.map((contract, index) => (
+                  {proposals.map((proposal, index) => (
                     <tr key={index}>
                       <Td
-                        onClick={() => {
+                        onClick={(event) => {
+                          event.stopPropagation();
                           setOpen(!open);
-                          setContract(contract);
+                          setProposal(proposal);
                         }}
                       >
-                        {contract.name}
+                        {proposal.name}
                       </Td>
-                      <td>{contract.value}</td>
+                      <td>{proposal.value}</td>
                       <td>
                         <Badge color="" className="badge-dot">
-                          <i className={getBadge(contract.status)} />
-                          {contract.status}
+                          <i className={getBadge(proposal.status)} />
+                          {proposal.status}
                         </Badge>
                       </td>
-                      <td>{contract.createdIn}</td>
+                      <td>{proposal.createdIn}</td>
+                      <td>{proposal.expirationDate}</td>
                       <td className="text-right">
                         <UncontrolledDropdown>
                           <DropdownToggle
@@ -243,16 +253,16 @@ const Contratos = () => {
             setOpen(!open);
           }}
         >
-          {contract.name}
+          {proposal.name}
         </ModalHeader>
         <ModalBody>
           <>
-            <p className="mb-0">{contract.description}</p>
-            <p className="h6 mb-3">Criado em: {contract.createdIn}</p>
+            <p className="mb-0">{proposal.description}</p>
+            <p className="h6 mb-3">Criado em: {proposal.createdIn}</p>
           </>
           <>
-            {contract.comments &&
-              contract.comments.map((comment, index) => (
+            {proposal.comments &&
+              proposal.comments.map((comment, index) => (
                 <div
                   key={index}
                   className={
@@ -298,4 +308,4 @@ const Contratos = () => {
   );
 };
 
-export default Contratos;
+export default Propostas;
