@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-
 import { useDispatch, useSelector } from "react-redux";
 
 // reactstrap components
@@ -8,21 +7,19 @@ import {
   Card,
   CardHeader,
   CardBody,
-  FormGroup,
-  Form,
-  Input,
   Container,
   Row,
   Col,
 } from "reactstrap";
 // core components
 import UserHeader from "components/Headers/UserHeader.js";
+import ProfileEditForm from "../../components/EditProfile/ProfileEditForm";
+import ModalPhotoChange from "../../components/EditProfile/ModalPhotoChange";
 
 import PerfilData from "./PerfilData";
 import { newProfile } from "redux/actions/Perfil";
 
 const Perfil = () => {
-
   const dispatch = useDispatch();
 
   const [input, setInput] = useState({
@@ -51,6 +48,10 @@ const Perfil = () => {
     agree: false,
   });
 
+  const [fileName, setFileName] = useState("");
+
+  const [open, setOpen] = useState(false);
+
   useEffect(() => {
     dispatch(newProfile(PerfilData));
   }, [dispatch]);
@@ -61,25 +62,31 @@ const Perfil = () => {
     if (Object.keys(profile).length) {
       setInput(profile);
     }
-  }, [setInput, profile])
-
+  }, [setInput, profile]);
 
   const submitForm = (event) => {
     event.preventDefault();
 
     dispatch(newProfile(input));
-  }
+  };
 
   const handleChangeInput = (event) => {
-    const {name, value} = event.target;
-    setInput({...input, [name]: value});
-  }
+    const { name, value } = event.target;
+    setInput({ ...input, [name]: value });
+  };
 
+  const handleChangeFile = (event) => {
+    const name = event.target.name;
+    const value = event.target.files[0];
+    setInput({ ...input, [name]: value });
+    setFileName(value ? value.name : "");
+  };
+
+  console.log(fileName ? URL.createObjectURL(input.photo) : "img");
 
   return (
     <>
-      <UserHeader />
-      {/* Page content */}
+      <UserHeader userData={profile} />
       <Container className="mt--7" fluid>
         <Row>
           <Col className="order-xl-2 mb-5 mb-xl-0" xl="4">
@@ -87,13 +94,20 @@ const Perfil = () => {
               <Row className="justify-content-center">
                 <Col className="order-lg-2" lg="3">
                   <div className="card-profile-image">
-                    <a href="#pablo" onClick={(e) => e.preventDefault()}>
+                    <div
+                      style={{ cursor: "pointer" }}
+                      onClick={() => setOpen(!open)}
+                    >
                       <img
                         alt="..."
-                        className="rounded-circle"
-                        src={require("assets/img/theme/team-4-800x800.jpg")}
+                        style={{ maxHeight: "180px" }}
+                        src={
+                          fileName
+                            ? URL.createObjectURL(input.photo)
+                            : input.photo
+                        }
                       />
-                    </a>
+                    </div>
                   </div>
                 </Col>
               </Row>
@@ -140,12 +154,14 @@ const Perfil = () => {
                 </Row>
                 <div className="text-center">
                   <h3>
-                    Jessica Jones
-                    <span className="font-weight-light">, 27</span>
+                    {profile.name}
+                    <span className="font-weight-light">
+                      , {profile.birthDate}
+                    </span>
                   </h3>
                   <div className="h5 font-weight-300">
                     <i className="ni location_pin mr-2" />
-                    Bucharest, Romania
+                    {profile.city}, {profile.state}
                   </div>
                   <div className="h5 mt-4">
                     <i className="ni business_briefcase-24 mr-2" />
@@ -168,207 +184,33 @@ const Perfil = () => {
               </CardBody>
             </Card>
           </Col>
-          <Col className="order-xl-1" xl="8">
+          <Col id="edit-profile" className="order-xl-1" xl="8">
             <Card className="bg-secondary shadow">
               <CardHeader className="bg-white border-0">
                 <Row className="align-items-center">
                   <Col xs="8">
                     <h3 className="mb-0">Minha Conta</h3>
                   </Col>
-                  <Col className="text-right" xs="4">
-                    <Button
-                      color="primary"
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}
-                      size="sm"
-                    >
-                      Settings
-                    </Button>
-                  </Col>
                 </Row>
               </CardHeader>
               <CardBody>
-                <Form onSubmit={submitForm}>
-                  <h6 className="heading-small text-muted mb-4">
-                    User information
-                  </h6>
-                  <div className="pl-lg-4">
-                    <Row>
-                      <Col lg="6">
-                        <FormGroup>
-                          <label
-                            className="form-control-label"
-                            htmlFor="input-username"
-                          >
-                            Nome
-                          </label>
-                          <Input
-                            className="form-control-alternative"
-                            id="input-username"
-                            placeholder="Digite seu nome"
-                            name="name"
-                            value={input.name}
-                            onChange={handleChangeInput}
-                            type="text"
-                          />
-                        </FormGroup>
-                      </Col>
-                      <Col lg="6">
-                        <FormGroup>
-                          <label
-                            className="form-control-label"
-                            htmlFor="input-email"
-                          >
-                            Email address
-                          </label>
-                          <Input
-                            className="form-control-alternative"
-                            id="input-email"
-                            placeholder="jesse@example.com"
-                            onChange={handleChangeInput}
-                            type="email"
-                          />
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col lg="6">
-                        <FormGroup>
-                          <label
-                            className="form-control-label"
-                            htmlFor="input-first-name"
-                          >
-                            First name
-                          </label>
-                          <Input
-                            className="form-control-alternative"
-                            defaultValue="Lucky"
-                            id="input-first-name"
-                            placeholder="First name"
-                            onChange={handleChangeInput}
-                            type="text"
-                          />
-                        </FormGroup>
-                      </Col>
-                      <Col lg="6">
-                        <FormGroup>
-                          <label
-                            className="form-control-label"
-                            htmlFor="input-last-name"
-                          >
-                            Last name
-                          </label>
-                          <Input
-                            className="form-control-alternative"
-                            defaultValue="Jesse"
-                            id="input-last-name"
-                            placeholder="Last name"
-                            type="text"
-                          />
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                  </div>
-                  <hr className="my-4" />
-                  {/* Address */}
-                  <h6 className="heading-small text-muted mb-4">
-                    Contact information
-                  </h6>
-                  <div className="pl-lg-4">
-                    <Row>
-                      <Col md="12">
-                        <FormGroup>
-                          <label
-                            className="form-control-label"
-                            htmlFor="input-address"
-                          >
-                            Address
-                          </label>
-                          <Input
-                            className="form-control-alternative"
-                            defaultValue="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
-                            id="input-address"
-                            placeholder="Home Address"
-                            type="text"
-                          />
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col lg="4">
-                        <FormGroup>
-                          <label
-                            className="form-control-label"
-                            htmlFor="input-city"
-                          >
-                            City
-                          </label>
-                          <Input
-                            className="form-control-alternative"
-                            defaultValue="New York"
-                            id="input-city"
-                            placeholder="City"
-                            type="text"
-                          />
-                        </FormGroup>
-                      </Col>
-                      <Col lg="4">
-                        <FormGroup>
-                          <label
-                            className="form-control-label"
-                            htmlFor="input-country"
-                          >
-                            Country
-                          </label>
-                          <Input
-                            className="form-control-alternative"
-                            defaultValue="United States"
-                            id="input-country"
-                            placeholder="Country"
-                            type="text"
-                          />
-                        </FormGroup>
-                      </Col>
-                      <Col lg="4">
-                        <FormGroup>
-                          <label
-                            className="form-control-label"
-                            htmlFor="input-country"
-                          >
-                            Postal code
-                          </label>
-                          <Input
-                            className="form-control-alternative"
-                            id="input-postal-code"
-                            placeholder="Postal code"
-                            type="number"
-                          />
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                  </div>
-                  <hr className="my-4" />
-                  {/* Description */}
-                  <h6 className="heading-small text-muted mb-4">About me</h6>
-                  <div className="pl-lg-4">
-                    <FormGroup>
-                      <label>About Me</label>
-                      <Input
-                        className="form-control-alternative"
-                        placeholder="A few words about you ..."
-                        rows="4"
-                        defaultValue="A beautiful Dashboard for Bootstrap 4. It is Free and
-                          Open Source."
-                        type="textarea"
-                      />
-                    </FormGroup>
-                  </div>
-                </Form>
+                <ProfileEditForm
+                  submitForm={submitForm}
+                  input={input}
+                  handleChangeInput={handleChangeInput}
+                />
               </CardBody>
             </Card>
           </Col>
         </Row>
       </Container>
+      <ModalPhotoChange
+        fileName={fileName}
+        handleChangeFile={handleChangeFile}
+        input={input}
+        open={open}
+        setOpen={setOpen}
+      />
     </>
   );
 };

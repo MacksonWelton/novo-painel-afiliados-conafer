@@ -28,21 +28,22 @@ import {
 
 import Header from "components/Headers/Header.js";
 
-import { newComment, newContracts } from "../../redux/actions/Contratos";
+import { newMembers } from "../../../redux/actions/Membros";
 
-import ContratosData from "./ContratosData";
+import MembrosData from "./MembrosData";
 import { Td } from "./styles";
 import ProgressCard from "components/ProgressCard/ProgressCard";
 
-const Contratos = () => {
+const Membros = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(newContracts(ContratosData));
+    dispatch(newMembers(MembrosData));
   }, [dispatch]);
 
   const [open, setOpen] = useState(false);
-  const [contract, setContract] = useState({});
+  const [openSupport, setOpenSupport] = useState(false);
+  const [member, setMember] = useState({});
   const [input, setInput] = useState();
 
   const handleChangeInput = (event) => {
@@ -51,21 +52,18 @@ const Contratos = () => {
 
   const submitForm = (event) => {
     event.preventDefault();
-    dispatch(newComment(input));
   };
 
-  const contracts = useSelector((state) => state.ContractsReducer.contracts);
+  const members = useSelector((state) => state.MembersReducer.members);
 
   const getBadge = (status) => {
     switch (status) {
-      case "Assinado":
-        return "bg-success";
-      case "Inactive":
-        return "bg-secondary";
-      case "Pendente":
-        return "bg-blue";
-      case "Encerrado":
-        return "bg-cancelados";
+      case "Concluído":
+        return "bg-green";
+      case "Aberto":
+        return "bg-yellow";
+      case "Fechado":
+        return "bg-red";
       default:
         return "primary";
     }
@@ -73,23 +71,30 @@ const Contratos = () => {
 
   const CardData = [
     {
-      title: "Pendentes",
-      progress: contracts.filter(contract => contract.status === "Pendente").length,
-      max: contracts.length,
-      icon: "fas fa-stopwatch",
+      title: "Abertos",
+      progress: 30,
+      max: 40,
+      icon: "fas fa-headset",
+      color: "yellow",
+    },
+    {
+      title: "Respondidos",
+      progress: 0,
+      max: 50,
+      icon: "fas fa-question",
       color: "blue",
     },
     {
-      title: "Cancelados",
-      progress: contracts.filter(contract => contract.status === "Cancelados").length,
-      max: contracts.length,
+      title: "Encerrados",
+      progress: 35,
+      max: 50,
       icon: "fas fa-times",
       color: "red",
     },
     {
-      title: "Assinados",
-      progress: contracts.filter(contract => contract.status === "Assinado").length,
-      max: contracts.length,
+      title: "Concluídos",
+      progress: 35,
+      max: 40,
       icon: "fas fa-check",
       color: "green",
     },
@@ -97,13 +102,20 @@ const Contratos = () => {
 
   return (
     <>
-      <Header children={<ProgressCard CardData={CardData} />}/>
+      <Header children={<ProgressCard CardData={CardData} />} />
       <Container className="mt--7" fluid>
         <Row className="mt-5">
           <div className="col">
             <Card className="bg-default shadow">
-              <CardHeader className="bg-transparent border-0">
-                <h3 className="text-white mb-0">Lista de Contratos</h3>
+              <CardHeader className="bg-transparent border-0 d-flex align-items-center">
+                <h3 className="text-white mb-0">Lista de Chamados</h3>
+                <Button
+                  onClick={() => setOpenSupport(!openSupport)}
+                  className="m-auto"
+                  color="primary"
+                >
+                  ABRIR CHAMADO
+                </Button>
               </CardHeader>
               <Table
                 className="align-items-center table-dark table-flush"
@@ -111,32 +123,32 @@ const Contratos = () => {
               >
                 <thead className="thead-dark">
                   <tr>
-                    <th scope="col">Contrato</th>
-                    <th scope="col">Valor</th>
+                    <th scope="col">Chamado</th>
                     <th scope="col">Status</th>
                     <th scope="col">Criado em</th>
+                    <th scope="col">última Resposta</th>
                     <th scope="col" />
                   </tr>
                 </thead>
                 <tbody>
-                  {contracts.map((contract, index) => (
+                  {members.map((member, index) => (
                     <tr key={index}>
                       <Td
                         onClick={() => {
                           setOpen(!open);
-                          setContract(contract);
+                          setMember(member);
                         }}
                       >
-                        {contract.name}
+                        {member.id}
                       </Td>
-                      <td>{contract.value}</td>
                       <td>
                         <Badge color="" className="badge-dot">
-                          <i className={getBadge(contract.status)} />
-                          {contract.status}
+                          <i className={getBadge(member.status)} />
+                          {member.status}
                         </Badge>
                       </td>
-                      <td>{contract.createdIn}</td>
+                      <td>{member.createdIn}</td>
+                      <td>{member.lastAnswer}</td>
                       <td className="text-right">
                         <UncontrolledDropdown>
                           <DropdownToggle
@@ -231,6 +243,56 @@ const Contratos = () => {
           </div>
         </Row>
       </Container>
+
+      <Modal
+        isOpen={openSupport}
+        toggle={() => {
+          setOpenSupport(!openSupport);
+        }}
+        size="lg"
+      >
+        <ModalHeader>
+          <h2>Adicionar Membro</h2>
+        </ModalHeader>
+        <Form>
+          <ModalBody>
+            <Input
+              className="mb-3"
+              name="ticket"
+              placeholder="Digite uma nova dúvida, problema e etc..."
+              onChange={handleChangeInput}
+              rows="6"
+              type="textarea"
+            />
+            <Input
+              className="mb-3"
+              type="select"
+              name="secretary"
+              onChange={handleChangeInput}
+            >
+              <option value={undefined} hidden>
+                Selecione a secretaria para responder
+              </option>
+              <option>Jurídica</option>
+              <option>SECOM</option>
+              <option>SETI</option>
+            </Input>
+            <Input className="mb-3" type="file" name="file" />
+          </ModalBody>
+          <ModalFooter className="d-flex justify-content-end">
+            <Button color="primary" type="button">
+              Abrir
+            </Button>
+            <Button
+              color="secondary"
+              onClick={() => setOpenSupport(!openSupport)}
+            >
+              Sair
+            </Button>
+          </ModalFooter>
+        </Form>
+      </Modal>
+
       <Modal
         isOpen={open}
         toggle={() => {
@@ -243,49 +305,9 @@ const Contratos = () => {
             setOpen(!open);
           }}
         >
-          {contract.name}
         </ModalHeader>
         <ModalBody>
           <>
-            <p className="mb-0">{contract.description}</p>
-            <p className="h6 mb-3">Criado em: {contract.createdIn}</p>
-          </>
-          <>
-            {contract.comments &&
-              contract.comments.map((comment, index) => (
-                <div
-                  key={index}
-                  className={
-                    comment.mainComment !== null
-                      ? "p-3 rounded bg-default text-white"
-                      : "p-3 mb-3 rounded bg-light"
-                  }
-                >
-                  <p>
-                    <b>{comment.createdBy}</b>
-                  </p>
-                  <p>{comment.comment}</p>
-                  <p
-                    className={
-                      comment.mainComment !== null ? "h6 text-white" : "h6"
-                    }
-                  >
-                    Criado em: {comment.createdIn}
-                  </p>
-                </div>
-              ))}
-            <Form onSubmit={submitForm}>
-              <Input
-                className="mb-3 mt-5"
-                placeholder="Digite uma nova resposta..."
-                onChange={handleChangeInput}
-                rows="4"
-                type="textarea"
-              />
-              <div className="d-flex justify-content-end">
-                <Button type="submit" color="primary">Comentar</Button>
-              </div>
-            </Form>
           </>
         </ModalBody>
         <ModalFooter className="d-flex justify-content-end">
@@ -298,4 +320,4 @@ const Contratos = () => {
   );
 };
 
-export default Contratos;
+export default Membros;

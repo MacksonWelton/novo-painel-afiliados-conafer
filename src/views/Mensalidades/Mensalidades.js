@@ -19,8 +19,6 @@ import {
   Row,
   Modal,
   Button,
-  Input,
-  Form,
   ModalHeader,
   ModalBody,
   ModalFooter,
@@ -28,44 +26,35 @@ import {
 
 import Header from "components/Headers/Header.js";
 
-import { newComment, newContracts } from "../../redux/actions/Contratos";
+import { newPayments } from "../../redux/actions/Mensalidades";
 
-import ContratosData from "./ContratosData";
+import MensalidadesData from "./MensalidadesData";
 import { Td } from "./styles";
 import ProgressCard from "components/ProgressCard/ProgressCard";
 
-const Contratos = () => {
+const Mensalidades = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(newContracts(ContratosData));
+    dispatch(newPayments(MensalidadesData));
   }, [dispatch]);
 
   const [open, setOpen] = useState(false);
-  const [contract, setContract] = useState({});
-  const [input, setInput] = useState();
+  const [payment, setPayment] = useState({});
 
-  const handleChangeInput = (event) => {
-    setInput(event.target.value);
-  };
 
-  const submitForm = (event) => {
-    event.preventDefault();
-    dispatch(newComment(input));
-  };
-
-  const contracts = useSelector((state) => state.ContractsReducer.contracts);
+  const payments = useSelector((state) => state.PaymentsReducer.payments);
 
   const getBadge = (status) => {
     switch (status) {
-      case "Assinado":
-        return "bg-success";
-      case "Inactive":
-        return "bg-secondary";
-      case "Pendente":
+      case "Pago":
+        return "bg-green";
+      case "Aberto":
         return "bg-blue";
-      case "Encerrado":
-        return "bg-cancelados";
+      case "Atrasado":
+        return "bg-yellow";
+      case "Cancelado":
+        return "bg-red";
       default:
         return "primary";
     }
@@ -73,23 +62,34 @@ const Contratos = () => {
 
   const CardData = [
     {
-      title: "Pendentes",
-      progress: contracts.filter(contract => contract.status === "Pendente").length,
-      max: contracts.length,
-      icon: "fas fa-stopwatch",
+      title: "Abertas",
+      progress: payments.filter((contract) => contract.status === "Aberto")
+        .length,
+      max: payments.length,
+      icon: "fas fa-headset",
       color: "blue",
     },
     {
-      title: "Cancelados",
-      progress: contracts.filter(contract => contract.status === "Cancelados").length,
-      max: contracts.length,
+      title: "Atrasadas",
+      progress: payments.filter((contract) => contract.status === "Atrasado")
+        .length,
+      max: payments.length,
+      icon: "far fa-clock",
+      color: "yellow",
+    },
+    {
+      title: "Canceladas",
+      progress: payments.filter((contract) => contract.status === "Cancelado")
+        .length,
+      max: payments.length,
       icon: "fas fa-times",
       color: "red",
     },
     {
-      title: "Assinados",
-      progress: contracts.filter(contract => contract.status === "Assinado").length,
-      max: contracts.length,
+      title: "Pagos",
+      progress: payments.filter((contract) => contract.status === "Pago")
+      .length,
+      max: payments.length,
       icon: "fas fa-check",
       color: "green",
     },
@@ -97,13 +97,13 @@ const Contratos = () => {
 
   return (
     <>
-      <Header children={<ProgressCard CardData={CardData} />}/>
+      <Header children={<ProgressCard CardData={CardData} />} />
       <Container className="mt--7" fluid>
         <Row className="mt-5">
           <div className="col">
             <Card className="bg-default shadow">
-              <CardHeader className="bg-transparent border-0">
-                <h3 className="text-white mb-0">Lista de Contratos</h3>
+              <CardHeader className="bg-transparent border-0 d-flex align-items-center">
+                <h3 className="text-white mb-0">Lista de Mensalidades</h3>
               </CardHeader>
               <Table
                 className="align-items-center table-dark table-flush"
@@ -111,32 +111,34 @@ const Contratos = () => {
               >
                 <thead className="thead-dark">
                   <tr>
-                    <th scope="col">Contrato</th>
-                    <th scope="col">Valor</th>
+                    <th scope="col">Número</th>
                     <th scope="col">Status</th>
-                    <th scope="col">Criado em</th>
+                    <th scope="col">Emitido em</th>
+                    <th scope="col">Vencimento</th>
+                    <th scope="col">Data de Pagamento</th>
                     <th scope="col" />
                   </tr>
                 </thead>
                 <tbody>
-                  {contracts.map((contract, index) => (
+                  {payments.map((payment, index) => (
                     <tr key={index}>
                       <Td
                         onClick={() => {
                           setOpen(!open);
-                          setContract(contract);
+                          setPayment(payment);
                         }}
                       >
-                        {contract.name}
+                        {payment.id}
                       </Td>
-                      <td>{contract.value}</td>
                       <td>
                         <Badge color="" className="badge-dot">
-                          <i className={getBadge(contract.status)} />
-                          {contract.status}
+                          <i className={getBadge(payment.status)} />
+                          {payment.status}
                         </Badge>
                       </td>
-                      <td>{contract.createdIn}</td>
+                      <td>{payment.emissionDate}</td>
+                      <td>{payment.winningData}</td>
+                      <td>{payment.dateOfPayment}</td>
                       <td className="text-right">
                         <UncontrolledDropdown>
                           <DropdownToggle
@@ -231,6 +233,7 @@ const Contratos = () => {
           </div>
         </Row>
       </Container>
+
       <Modal
         isOpen={open}
         toggle={() => {
@@ -243,52 +246,12 @@ const Contratos = () => {
             setOpen(!open);
           }}
         >
-          {contract.name}
+          {payment.number}
         </ModalHeader>
-        <ModalBody>
-          <>
-            <p className="mb-0">{contract.description}</p>
-            <p className="h6 mb-3">Criado em: {contract.createdIn}</p>
-          </>
-          <>
-            {contract.comments &&
-              contract.comments.map((comment, index) => (
-                <div
-                  key={index}
-                  className={
-                    comment.mainComment !== null
-                      ? "p-3 rounded bg-default text-white"
-                      : "p-3 mb-3 rounded bg-light"
-                  }
-                >
-                  <p>
-                    <b>{comment.createdBy}</b>
-                  </p>
-                  <p>{comment.comment}</p>
-                  <p
-                    className={
-                      comment.mainComment !== null ? "h6 text-white" : "h6"
-                    }
-                  >
-                    Criado em: {comment.createdIn}
-                  </p>
-                </div>
-              ))}
-            <Form onSubmit={submitForm}>
-              <Input
-                className="mb-3 mt-5"
-                placeholder="Digite uma nova resposta..."
-                onChange={handleChangeInput}
-                rows="4"
-                type="textarea"
-              />
-              <div className="d-flex justify-content-end">
-                <Button type="submit" color="primary">Comentar</Button>
-              </div>
-            </Form>
-          </>
-        </ModalBody>
+        <ModalBody></ModalBody>
         <ModalFooter className="d-flex justify-content-end">
+          <Button color="primary">Pagar</Button>
+          <Button color="success">Imprimir</Button>
           <Button color="secondary" onClick={() => setOpen(!open)}>
             Sair
           </Button>
@@ -298,4 +261,4 @@ const Contratos = () => {
   );
 };
 
-export default Contratos;
+export default Mensalidades;
