@@ -15,17 +15,19 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import Index from "views/Index.js";
-import Perfil from "views/Perfil/Perfil.js";
-import Maps from "views/examples/Maps.js";
-import Register from "views/examples/Register.js";
-import Login from "views/Login/Login.js";
-import Tables from "views/examples/Tables.js";
-import Icons from "views/examples/Icons.js";
-import Contratos from "views/Contratos/Contratos";
-import Suporte from "views/Suporte/Suporte";
-import Orcamentos from "views/Orcamentos/Orcamentos";
-import Propostas from "views/Propostas/Propostas";
+import Index from "./views/Index.js";
+import Perfil from "./views/Perfil/Perfil.js";
+import Maps from "./views/examples/Maps.js";
+import Register from "./views/examples/Register.js";
+import Login from "./views/Login/Login.js";
+import Tables from "./views/examples/Tables.js";
+import Icons from "./views/examples/Icons.js";
+import Contratos from "./views/Contratos/Contratos";
+import Suporte from "./views/Suporte/Suporte";
+import Orcamentos from "./views/Orcamentos/Orcamentos";
+import Propostas from "./views/Propostas/Propostas";
+import Mensalidades from "./views/Mensalidades/Mensalidades";
+import Membros from "./views/Sindicato/Membros/Membros";
 
 var routes = [
   {
@@ -52,8 +54,22 @@ var routes = [
   {
     path: "/propostas",
     name: "Propostas",
-    icon: "fas fa-coins text-yellow",
+    icon: "far fa-file-alt text-blue",
     component: Propostas,
+    layout: "/admin"
+  },
+  {
+    path: "/mensalidades",
+    name: "Mensalidades",
+    icon: "far fa-calendar-alt text-black",
+    component: Mensalidades,
+    layout: "/admin"
+  },
+  {
+    path: "/membros",
+    name: "Membros",
+    icon: "fas fa-users text-info",
+    component: Membros,
     layout: "/admin"
   },
   {
@@ -106,4 +122,5 @@ var routes = [
     layout: "/auth"
   }
 ];
+
 export default routes;

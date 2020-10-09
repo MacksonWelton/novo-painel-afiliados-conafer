@@ -2,7 +2,7 @@ import profile from "../../assets/img/theme/team-4-800x800.jpg";
 
 const PerfilData = {
   photo: profile,
-  name: "José Ribeiro",
+  name: "José Ribeiro da Silva",
   birthDate: "21/02/1990",
   maritalStatus: "Casado",
   sex: "Masculino",
@@ -18,7 +18,7 @@ const PerfilData = {
   cep: "561600000",
   city: "São Paulo",
   state: "São Paulo",
-  phone: "82 6664 5555",
+  phone: "(11) 96664-5555",
   email: "jose@gmail.com",
   entityGroup: "Coletivo",
   profession: "Agricultor",
