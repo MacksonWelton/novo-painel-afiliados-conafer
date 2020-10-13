@@ -19,7 +19,6 @@ import {
   Row,
   Modal,
   Button,
-  Input,
   Form,
   ModalHeader,
   ModalBody,
@@ -33,6 +32,7 @@ import { newMembers } from "../../../redux/actions/Membros";
 import MembrosData from "./MembrosData";
 import { Td } from "./styles";
 import ProgressCard from "components/ProgressCard/ProgressCard";
+import RegistroSubAfiliados from "components/RegistroSubAfiliados/RegistroSubAfiliados";
 
 const Membros = () => {
   const dispatch = useDispatch();
@@ -42,7 +42,7 @@ const Membros = () => {
   }, [dispatch]);
 
   const [open, setOpen] = useState(false);
-  const [openSupport, setOpenSupport] = useState(false);
+  const [openAddMember, setOpenAddMember] = useState(false);
   const [member, setMember] = useState({});
   const [input, setInput] = useState();
 
@@ -110,11 +110,11 @@ const Membros = () => {
               <CardHeader className="bg-transparent border-0 d-flex align-items-center">
                 <h3 className="text-white mb-0">Lista de Chamados</h3>
                 <Button
-                  onClick={() => setOpenSupport(!openSupport)}
+                  onClick={() => setOpenAddMember(!openAddMember)}
                   className="m-auto"
                   color="primary"
                 >
-                  ABRIR CHAMADO
+                  ADICIONAR MEMBRO
                 </Button>
               </CardHeader>
               <Table
@@ -245,39 +245,22 @@ const Membros = () => {
       </Container>
 
       <Modal
-        isOpen={openSupport}
+        isOpen={openAddMember}
         toggle={() => {
-          setOpenSupport(!openSupport);
+          setOpenAddMember(!openAddMember);
         }}
         size="lg"
       >
-        <ModalHeader>
+        <ModalHeader
+          toggle={() => {
+            setOpenAddMember(!openAddMember);
+          }}
+        >
           <h2>Adicionar Membro</h2>
         </ModalHeader>
         <Form>
           <ModalBody>
-            <Input
-              className="mb-3"
-              name="ticket"
-              placeholder="Digite uma nova dúvida, problema e etc..."
-              onChange={handleChangeInput}
-              rows="6"
-              type="textarea"
-            />
-            <Input
-              className="mb-3"
-              type="select"
-              name="secretary"
-              onChange={handleChangeInput}
-            >
-              <option value={undefined} hidden>
-                Selecione a secretaria para responder
-              </option>
-              <option>Jurídica</option>
-              <option>SECOM</option>
-              <option>SETI</option>
-            </Input>
-            <Input className="mb-3" type="file" name="file" />
+            <RegistroSubAfiliados />
           </ModalBody>
           <ModalFooter className="d-flex justify-content-end">
             <Button color="primary" type="button">
@@ -285,7 +268,7 @@ const Membros = () => {
             </Button>
             <Button
               color="secondary"
-              onClick={() => setOpenSupport(!openSupport)}
+              onClick={() => setOpenAddMember(!openAddMember)}
             >
               Sair
             </Button>
@@ -304,11 +287,9 @@ const Membros = () => {
           toggle={() => {
             setOpen(!open);
           }}
-        >
-        </ModalHeader>
+        ></ModalHeader>
         <ModalBody>
-          <>
-          </>
+          <></>
         </ModalBody>
         <ModalFooter className="d-flex justify-content-end">
           <Button color="secondary" onClick={() => setOpen(!open)}>

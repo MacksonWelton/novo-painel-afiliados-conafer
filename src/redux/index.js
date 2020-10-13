@@ -7,6 +7,8 @@ import ProposalsReducer from "./reducers/Propostas";
 import ProfileReducer from "./reducers/Perfil";
 import PaymentsReducer from "./reducers/Mensalidades";
 import MembersReducer from "./reducers/Membros";
+import RegistroReducer from "./reducers/Registro";
+import GoogleMaps from "./reducers/GoogleMaps";
 
 const Reducers = combineReducers({
   ContractsReducer,
@@ -15,7 +17,9 @@ const Reducers = combineReducers({
   ProposalsReducer,
   ProfileReducer,
   PaymentsReducer,
-  MembersReducer
+  MembersReducer,
+  RegistroReducer,
+  GoogleMaps
 });
 
 export default Reducers;

@@ -3,7 +3,7 @@ import { mask } from "remask";
 
 import { Col, Form, FormGroup, Input, Row, Button } from "reactstrap";
 
-const ProfileEditForm = ({submitForm, input, handleChangeInput}) => {
+const ProfileEditForm = ({ submitForm, input, handleChangeInput }) => {
   return (
     <Form onSubmit={submitForm}>
       <h6 className="heading-small text-muted mb-4">Dados Pessoais</h6>
@@ -209,6 +209,22 @@ const ProfileEditForm = ({submitForm, input, handleChangeInput}) => {
               />
             </FormGroup>
           </Col>
+          <Col lg="6">
+            <FormGroup>
+              <label className="form-control-label" htmlFor="profession">
+                Profissão
+              </label>
+              <Input
+                className="form-control-alternative"
+                id="profession"
+                name="profession"
+                placeholder="Ex: Agricultor"
+                value={input.profession}
+                onChange={handleChangeInput}
+                type="text"
+              />
+            </FormGroup>
+          </Col>
         </Row>
       </div>
       <hr className="my-4" />
@@ -386,7 +402,9 @@ const ProfileEditForm = ({submitForm, input, handleChangeInput}) => {
       </div>
       <hr className="my-4" />
       <div className="d-flex justify-content-center">
-        <Button color="primary" type="submit">Salvar Alterações</Button>
+        <Button color="primary" type="submit">
+          Salvar Alterações
+        </Button>
       </div>
     </Form>
   );

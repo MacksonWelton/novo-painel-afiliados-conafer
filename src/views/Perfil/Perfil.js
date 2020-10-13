@@ -24,6 +24,7 @@ const Perfil = () => {
 
   const [input, setInput] = useState({
     photo: undefined,
+    cover: undefined,
     name: "",
     birthDate: "",
     maritalStatus: "",
@@ -48,7 +49,10 @@ const Perfil = () => {
     agree: false,
   });
 
-  const [fileName, setFileName] = useState("");
+  const [fileName, setFileName] = useState({
+    photo: "",
+    cover: "",
+  });
 
   const [open, setOpen] = useState(false);
 
@@ -79,14 +83,19 @@ const Perfil = () => {
     const name = event.target.name;
     const value = event.target.files[0];
     setInput({ ...input, [name]: value });
-    setFileName(value ? value.name : "");
+    setFileName(
+      value ? { ...fileName, [name]: value.name } : { ...fileName, [name]: "" }
+    );
   };
-
-  console.log(fileName ? URL.createObjectURL(input.photo) : "img");
 
   return (
     <>
-      <UserHeader userData={profile} />
+      <UserHeader
+        userData={profile}
+        input={input}
+        fileName={fileName}
+        handleChangeFile={handleChangeFile}
+      />
       <Container className="mt--7" fluid>
         <Row>
           <Col className="order-xl-2 mb-5 mb-xl-0" xl="4">
@@ -94,20 +103,15 @@ const Perfil = () => {
               <Row className="justify-content-center">
                 <Col className="order-lg-2" lg="3">
                   <div className="card-profile-image">
-                    <div
-                      style={{ cursor: "pointer" }}
-                      onClick={() => setOpen(!open)}
-                    >
-                      <img
-                        alt="..."
-                        style={{ maxHeight: "180px" }}
-                        src={
-                          fileName
-                            ? URL.createObjectURL(input.photo)
-                            : input.photo
-                        }
-                      />
-                    </div>
+                    <img
+                      alt="..."
+                      style={{ maxHeight: "180px" }}
+                      src={
+                        fileName.photo
+                          ? URL.createObjectURL(input.photo)
+                          : input.photo
+                      }
+                    />
                   </div>
                 </Col>
               </Row>
@@ -117,10 +121,10 @@ const Perfil = () => {
                     className="mr-4"
                     color="info"
                     href="#pablo"
-                    onClick={(e) => e.preventDefault()}
+                    onClick={() => setOpen(!open)}
                     size="sm"
                   >
-                    Connect
+                    Alterar
                   </Button>
                   <Button
                     className="float-right"
@@ -163,23 +167,7 @@ const Perfil = () => {
                     <i className="ni location_pin mr-2" />
                     {profile.city}, {profile.state}
                   </div>
-                  <div className="h5 mt-4">
-                    <i className="ni business_briefcase-24 mr-2" />
-                    Solution Manager - Creative Tim Officer
-                  </div>
-                  <div>
-                    <i className="ni education_hat mr-2" />
-                    University of Computer Science
-                  </div>
                   <hr className="my-4" />
-                  <p>
-                    Ryan — the name taken by Melbourne-raised, Brooklyn-based
-                    Nick Murphy — writes, performs and records all of his own
-                    music.
-                  </p>
-                  <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                    Show more
-                  </a>
                 </div>
               </CardBody>
             </Card>

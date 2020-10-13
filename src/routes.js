@@ -68,7 +68,7 @@ var routes = [
   {
     path: "/membros",
     name: "Membros",
-    icon: "fas fa-users text-info",
+    icon: "fas fa-users text-infon",
     component: Membros,
     layout: "/admin"
   },

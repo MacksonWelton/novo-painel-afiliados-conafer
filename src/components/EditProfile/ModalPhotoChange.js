@@ -1,5 +1,5 @@
 import React from "react";
-import { Input, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
+import { Button, Input, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 
 const ModalPhotoChange = ({
   open,
@@ -10,19 +10,25 @@ const ModalPhotoChange = ({
 }) => {
   return (
     <Modal isOpen={open} toggle={() => setOpen(!open)} centered>
-      <ModalHeader>Editar Foto de Perfil</ModalHeader>
+      <ModalHeader
+        toggle={() => {
+          setOpen(!open);
+        }}
+      >
+        Editar Foto de Perfil
+      </ModalHeader>
       <ModalBody>
-        {fileName && (
+        {fileName.photo && (
           <div className="mb-3 col-xl-12 col-sm-12 col-lg-12">
             <img
-              src={fileName ? URL.createObjectURL(input.photo) : ""}
+              src={fileName.photo ? URL.createObjectURL(input.photo) : ""}
               alt=""
               style={{ height: "250px" }}
             />
           </div>
         )}
         <label className="btn bg-light ml-1 mb-0">
-          {fileName ? fileName : "Escolha uma foto de perfil"}
+          {fileName.photo ? fileName.photo : "Escolha uma foto de perfil"}
           <Input
             style={{ display: "none" }}
             type="file"
@@ -31,7 +37,10 @@ const ModalPhotoChange = ({
           />
         </label>
       </ModalBody>
-      <ModalFooter></ModalFooter>
+      <ModalFooter>
+        <Button onClick={() => setOpen(!open)} color="primary">Salvar</Button>
+        <Button onClick={() => setOpen(!open)} color="secondary">Cancelar</Button>
+      </ModalFooter>
     </Modal>
   );
 };
