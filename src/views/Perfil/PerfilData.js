@@ -1,7 +1,9 @@
 import profile from "../../assets/img/theme/team-4-800x800.jpg";
+import cover from "../../assets/img/theme/profile-cover.jpg";
 
 const PerfilData = {
   photo: profile,
+  cover: cover,
   name: "José Ribeiro da Silva",
   birthDate: "21/02/1990",
   maritalStatus: "Casado",

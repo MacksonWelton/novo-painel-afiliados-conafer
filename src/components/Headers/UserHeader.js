@@ -1,17 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 
 // reactstrap components
-import { Button, Container, Row, Col } from "reactstrap";
+import {
+  Button,
+  Container,
+  Row,
+  Col,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Input,
+} from "reactstrap";
 
-const UserHeader = ({ userData }) => {
+const UserHeader = ({ userData, fileName, input, handleChangeFile}) => {
+  const [open, setOpen] = useState(false);
+
   return (
     <>
       <div
         className="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
         style={{
           minHeight: "600px",
-          backgroundImage:
-            "url(" + require("assets/img/theme/profile-cover.jpg") + ")",
+          backgroundImage: `url(${fileName.cover ? URL.createObjectURL(input.cover) : input.cover})`,
           backgroundSize: "cover",
           backgroundPosition: "center top",
         }}
@@ -28,13 +39,40 @@ const UserHeader = ({ userData }) => {
                 você fez com seu trabalho e gerenciar seus projetos ou tarefas
                 atribuídas.
               </p>
-              <Button color="info" href="#edit-profile">
-                Editar perfil
+              <Button onClick={() => setOpen(!open)} color="info">
+                Editar fundo
               </Button>
             </Col>
           </Row>
         </Container>
       </div>
+      <Modal isOpen={open} toggle={() => setOpen(!open)}>
+        <ModalHeader toggle={() => setOpen(!open)}></ModalHeader>
+        <ModalBody>
+          {fileName.cover && (
+            <div className="mb-3 col-xl-12 col-sm-12 col-lg-12">
+              <img
+                src={fileName.cover ? URL.createObjectURL(input.cover) : ""}
+                alt=""
+                style={{ height: "250px" }}
+              />
+            </div>
+          )}
+          <label className="btn bg-light ml-1 mb-0">
+            {fileName.cover ? fileName.cover : "Escolha uma foto de fundo"}
+            <Input
+              style={{ display: "none" }}
+              type="file"
+              name="cover"
+              onChange={handleChangeFile}
+            />
+          </label>
+        </ModalBody>
+        <ModalFooter>
+          <Button color="primary" onClick={() => setOpen(!open)}>Salvar</Button>
+          <Button color="secondary" onClick={() => setOpen(!open)}>Cancelar</Button>
+        </ModalFooter>
+      </Modal>
     </>
   );
 };
