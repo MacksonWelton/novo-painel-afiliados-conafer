@@ -8,7 +8,7 @@ import ProfileReducer from "./reducers/Perfil";
 import PaymentsReducer from "./reducers/Mensalidades";
 import MembersReducer from "./reducers/Membros";
 import RegistroReducer from "./reducers/Registro";
-import GoogleMaps from "./reducers/GoogleMaps";
+import GoogleMapsReducer from "./reducers/GoogleMaps";
 
 const Reducers = combineReducers({
   ContractsReducer,
@@ -19,7 +19,7 @@ const Reducers = combineReducers({
   PaymentsReducer,
   MembersReducer,
   RegistroReducer,
-  GoogleMaps
+  GoogleMapsReducer
 });
 
 export default Reducers;

@@ -58,11 +58,9 @@ const Membros = () => {
 
   const getBadge = (status) => {
     switch (status) {
-      case "Concluído":
+      case "Ativo/a":
         return "bg-green";
-      case "Aberto":
-        return "bg-yellow";
-      case "Fechado":
+      case "Inativo/a":
         return "bg-red";
       default:
         return "primary";
@@ -108,7 +106,7 @@ const Membros = () => {
           <div className="col">
             <Card className="bg-default shadow">
               <CardHeader className="bg-transparent border-0 d-flex align-items-center">
-                <h3 className="text-white mb-0">Lista de Chamados</h3>
+                <h3 className="text-white mb-0">Membros do Sindicato</h3>
                 <Button
                   onClick={() => setOpenAddMember(!openAddMember)}
                   className="m-auto"
@@ -123,10 +121,11 @@ const Membros = () => {
               >
                 <thead className="thead-dark">
                   <tr>
-                    <th scope="col">Chamado</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Nascimento</th>
+                    <th scope="col">Fonte de Renda</th>
+                    <th scope="col">Endereço</th>
                     <th scope="col">Status</th>
-                    <th scope="col">Criado em</th>
-                    <th scope="col">última Resposta</th>
                     <th scope="col" />
                   </tr>
                 </thead>
@@ -139,16 +138,17 @@ const Membros = () => {
                           setMember(member);
                         }}
                       >
-                        {member.id}
+                        {member.name}
                       </Td>
+                      <td>{member.birthDate}</td>
+                      <td>{member.sourceOfIncome}</td>
+                      <td>{member.address}</td>
                       <td>
                         <Badge color="" className="badge-dot">
                           <i className={getBadge(member.status)} />
                           {member.status}
                         </Badge>
                       </td>
-                      <td>{member.createdIn}</td>
-                      <td>{member.lastAnswer}</td>
                       <td className="text-right">
                         <UncontrolledDropdown>
                           <DropdownToggle
@@ -256,24 +256,22 @@ const Membros = () => {
             setOpenAddMember(!openAddMember);
           }}
         >
-          <h2>Adicionar Membro</h2>
+          Adicionar Membro
         </ModalHeader>
-        <Form>
-          <ModalBody>
-            <RegistroSubAfiliados />
-          </ModalBody>
-          <ModalFooter className="d-flex justify-content-end">
-            <Button color="primary" type="button">
-              Abrir
-            </Button>
-            <Button
-              color="secondary"
-              onClick={() => setOpenAddMember(!openAddMember)}
-            >
-              Sair
-            </Button>
-          </ModalFooter>
-        </Form>
+        <ModalBody>
+          <RegistroSubAfiliados />
+        </ModalBody>
+        <ModalFooter className="d-flex justify-content-end">
+          <Button color="primary" type="button">
+            Abrir
+          </Button>
+          <Button
+            color="secondary"
+            onClick={() => setOpenAddMember(!openAddMember)}
+          >
+            Sair
+          </Button>
+        </ModalFooter>
       </Modal>
 
       <Modal

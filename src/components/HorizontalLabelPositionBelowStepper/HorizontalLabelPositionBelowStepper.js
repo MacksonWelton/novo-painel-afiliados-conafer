@@ -10,7 +10,7 @@ import { Button } from "reactstrap";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
-    orientation: "vertical"
+    orientation: "vertical",
   },
   stepper: {
     display: "flex",
