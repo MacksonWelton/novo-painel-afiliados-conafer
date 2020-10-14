@@ -50,7 +50,7 @@ const Moradia = ({ houseNumber, setHouse, setResident }) => {
 
   return (
     <>
-      <h3>Moradia {houseNumber}</h3>
+      <h3>Moradia - {houseNumber}</h3>
       <hr/>
       {formResident.map((form, i) => (
         <Fragment key={i}>
@@ -58,11 +58,11 @@ const Moradia = ({ houseNumber, setHouse, setResident }) => {
         </Fragment>
       ))}
       <div style={{ display: "flex", justifyContent: "center" }}>
-        <Button variant="contained" style={{ width: '150px', marginRight: '10px' }} onClick={addResident} color="primary">
+        <Button style={{ width: '150px', marginRight: '10px' }} onClick={addResident} color="primary">
           <PersonOutlineOutlined style={{ marginRight: 10 }} />
           Adicionar
       </Button>
-      <Button variant="contained" style={{ width: '150px', }} disabled={formResident.length === 1} onClick={deleteResident} color="secondary">
+      <Button style={{ width: '150px', }} disabled={formResident.length === 1} onClick={deleteResident} color="secondary">
         <PersonOutlineOutlined style={{ marginRight: 10 }} />
           Remover
       </Button>

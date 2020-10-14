@@ -1,5 +1,5 @@
 import React from "react";
-import { Col, FormGroup, Input, InputGroup, Row } from "reactstrap";
+import { Col, FormGroup, Input, Row } from "reactstrap";
 import { mask } from "remask";
 
 const IdentificacaoDoBeneficiario = ({
