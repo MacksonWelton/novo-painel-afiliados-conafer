@@ -24,7 +24,7 @@ const IdentificacaoDoBeneficiario = ({
             name="name"
             id="name"
             title="Digite seu nome completo"
-            placeholder="Digite seu nome completo"
+            placeholder="Ex: João da Silva"
             value={inputBeneficiaryIdentity.name}
             onChange={handleChangeInput}
             required
@@ -41,7 +41,7 @@ const IdentificacaoDoBeneficiario = ({
             type="email"
             name="email"
             title="Email"
-            placeholder="Email"
+            placeholder="Ex: email@conafer.org.br"
             value={inputBeneficiaryIdentity.email}
             onChange={handleChangeInput}
             required
@@ -50,7 +50,7 @@ const IdentificacaoDoBeneficiario = ({
       </Col>
       <Col lg="6">
         <FormGroup>
-          <label className="form-control-label" htmlFor="name">
+          <label className="form-control-label" htmlFor="cpf">
             CPF
           </label>
           <Input
@@ -69,7 +69,7 @@ const IdentificacaoDoBeneficiario = ({
       </Col>
       <Col lg="6">
         <FormGroup>
-          <label className="form-control-label" htmlFor="name">
+          <label className="form-control-label" htmlFor="collectionCode">
             Código de Coleta
           </label>
           <Input
@@ -77,7 +77,7 @@ const IdentificacaoDoBeneficiario = ({
             type="text"
             name="collectionCode"
             title="Código de Coleta"
-            placeholder="Código de Coleta"
+            placeholder="Ex: 0000"
             value={inputBeneficiaryIdentity.collectionCode}
             onChange={handleChangeInput}
             required
@@ -86,7 +86,7 @@ const IdentificacaoDoBeneficiario = ({
       </Col>
       <Col lg="6">
         <FormGroup>
-          <label className="form-control-label" htmlFor="name">
+          <label className="form-control-label" htmlFor="settlement">
             Código de Assentamento
           </label>
           <Input
@@ -94,7 +94,7 @@ const IdentificacaoDoBeneficiario = ({
             type="text"
             name="settlement"
             title="Código de Assentamento"
-            placeholder="Código de Assentamento"
+            placeholder="Ex: AFG0000"
             value={inputBeneficiaryIdentity.settlement}
             onChange={handleChangeInput}
             required
@@ -103,7 +103,7 @@ const IdentificacaoDoBeneficiario = ({
       </Col>
       <Col lg="6">
         <FormGroup>
-          <label className="form-control-label" htmlFor="name">
+          <label className="form-control-label" htmlFor="placeOfBirth">
             Naturalidade
           </label>
           <Input
@@ -111,7 +111,7 @@ const IdentificacaoDoBeneficiario = ({
             type="text"
             name="placeOfBirth"
             title="Naturalidade"
-            placeholder="Naturalidade"
+            placeholder="Ex: Maceió - AL"
             value={inputBeneficiaryIdentity.placeOfBirth}
             onChange={handleChangeInput}
             required
@@ -120,7 +120,7 @@ const IdentificacaoDoBeneficiario = ({
       </Col>
       <Col lg="6">
         <FormGroup>
-          <label className="form-control-label" htmlFor="name">
+          <label className="form-control-label" htmlFor="rb">
             Status na RB
           </label>
           <Input
@@ -128,7 +128,7 @@ const IdentificacaoDoBeneficiario = ({
             type="text"
             name="rb"
             title="Status na RB"
-            placeholder="Status na RB"
+            placeholder="Ex: Titulado"
             value={inputBeneficiaryIdentity.rb}
             onChange={handleChangeInput}
             required
@@ -137,7 +137,7 @@ const IdentificacaoDoBeneficiario = ({
       </Col>
       <Col lg="6">
         <FormGroup>
-          <label className="form-control-label" htmlFor="name">
+          <label className="form-control-label" htmlFor="incraArea">
             Ocupa área destinada pelo Incra
           </label>
           <Input

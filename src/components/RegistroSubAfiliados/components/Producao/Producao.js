@@ -11,6 +11,19 @@ const Producao = ({ inputProduction, setInputProduction }) => {
     improvementAge: "",
   });
 
+  const [inputPlantation, setInputPlantation] = useState({
+    culture: "",
+    annual_production: "",
+    self_consumption: "",
+    annual_marketed_quantity: "",
+    kg_price: "",
+    seed_origin_seedling: "",
+    creole_seed: "",
+    pest_problems: "",
+    irrigations: "",
+    waste_generation: "",
+  });
+
   const handleChangeInput = (event) => {
     const { name, value } = event.target;
     setInputProduction({ ...inputProduction, [name]: value });
@@ -37,11 +50,35 @@ const Producao = ({ inputProduction, setInputProduction }) => {
     });
   };
 
+  const handleChangeInputPlantation = (event) => {
+    const { name, value } = event.target;
+    setInputPlantation({ ...inputPlantation, [name]: value });
+  };
+
+  const addPlantation = () => {
+    setInputProduction({
+      ...inputProduction,
+      plantations: [...inputProduction.plantations, inputPlantation],
+    });
+
+    setInputPlantation({
+      culture: "",
+      annual_production: "",
+      self_consumption: "",
+      annual_marketed_quantity: "",
+      kg_price: "",
+      seed_origin_seedling: "",
+      creole_seed: "",
+      pest_problems: "",
+      irrigations: "",
+      waste_generation: "",
+    });
+  };
+
   return (
     <Row>
       <div className="col-12">
         <h3>Áreas (ha)</h3>
-        <hr />
       </div>
       <Col lg="6">
         <FormGroup>
@@ -50,10 +87,10 @@ const Producao = ({ inputProduction, setInputProduction }) => {
           </label>
           <Input
             className="form-control-alternative"
-            type="text"
+            type="number"
             name="thirst"
             title="Sede"
-            placeholder="Sede"
+            placeholder="1,00"
             value={inputProduction.thirst}
             onChange={handleChangeInput}
             required
@@ -67,10 +104,10 @@ const Producao = ({ inputProduction, setInputProduction }) => {
           </label>
           <Input
             className="form-control-alternative"
-            type="text"
+            type="number"
             name="own_planting"
             title="Plantio Próprio"
-            placeholder="Plantio Próprio"
+            placeholder="1,00"
             value={inputProduction.own_planting}
             onChange={handleChangeInput}
             required
@@ -84,10 +121,10 @@ const Producao = ({ inputProduction, setInputProduction }) => {
           </label>
           <Input
             className="form-control-alternative"
-            type="text"
+            type="number"
             name="native_forest"
             title="Mata Nativa"
-            placeholder="Mata Nativa"
+            placeholder="1,00"
             value={inputProduction.native_forest}
             onChange={handleChangeInput}
             required
@@ -101,10 +138,10 @@ const Producao = ({ inputProduction, setInputProduction }) => {
           </label>
           <Input
             className="form-control-alternative"
-            type="text"
+            type="number"
             name="forest"
             value={inputProduction.forest}
-            placeholder="Floresta"
+            placeholder="1,00"
             onChange={handleChangeInput}
             title="Floresta"
             required
@@ -118,10 +155,10 @@ const Producao = ({ inputProduction, setInputProduction }) => {
           </label>
           <Input
             className="form-control-alternative"
-            type="text"
+            type="number"
             name="fallow_capoeira"
             title="Pousio/Capoeira"
-            placeholder="Pousio/Capoeira"
+            placeholder="1,00"
             value={inputProduction.fallow_capoeira}
             onChange={handleChangeInput}
             required
@@ -135,10 +172,10 @@ const Producao = ({ inputProduction, setInputProduction }) => {
           </label>
           <Input
             className="form-control-alternative"
-            type="text"
+            type="number"
             name="native_pasture"
             title="Pastagem Nativa"
-            placeholder="Pastagem Nativa"
+            placeholder="1,00"
             value={inputProduction.native_pasture}
             onChange={handleChangeInput}
             required
@@ -152,10 +189,10 @@ const Producao = ({ inputProduction, setInputProduction }) => {
           </label>
           <Input
             className="form-control-alternative"
-            type="text"
+            type="number"
             name="planted_pasture"
             title="Pastagem Plantada"
-            placeholder="Pastagem Plantada"
+            placeholder="1,00"
             value={inputProduction.planted_pasture}
             onChange={handleChangeInput}
             required
@@ -169,10 +206,10 @@ const Producao = ({ inputProduction, setInputProduction }) => {
           </label>
           <Input
             className="form-control-alternative"
-            type="text"
+            type="number"
             name="degraded_area"
             title="Degradada"
-            placeholder="Degradada"
+            placeholder="1,00"
             value={inputProduction.degraded_area}
             onChange={handleChangeInput}
             required
@@ -186,10 +223,10 @@ const Producao = ({ inputProduction, setInputProduction }) => {
           </label>
           <Input
             className="form-control-alternative"
-            type="text"
+            type="number"
             name="batch_partnership"
             title="Parceria no Lote"
-            placeholder="Parceria no Lote"
+            placeholder="1,00"
             value={inputProduction.batch_partnership}
             onChange={handleChangeInput}
             required
@@ -209,7 +246,7 @@ const Producao = ({ inputProduction, setInputProduction }) => {
             type="text"
             name="third_party_partnership"
             title="Parceria em área de terceiro"
-            placeholder="Parceria em área de terceiro"
+            placeholder="1,00"
             value={inputProduction.third_party_partnership}
             onChange={handleChangeInput}
             required
@@ -226,7 +263,7 @@ const Producao = ({ inputProduction, setInputProduction }) => {
             type="text"
             name="total"
             title="Total"
-            placeholder="Total"
+            placeholder="1,00"
             value={inputProduction.total}
             onChange={handleChangeInput}
             required
@@ -234,8 +271,8 @@ const Producao = ({ inputProduction, setInputProduction }) => {
         </FormGroup>
       </Col>
       <div className="col-12">
-        <h3>Área da Sede</h3>
         <hr />
+        <h3>Área da Sede</h3>
       </div>
       <Col lg="6">
         <FormGroup>
@@ -284,20 +321,20 @@ const Producao = ({ inputProduction, setInputProduction }) => {
         </FormGroup>
       </Col>
       <div className="col-12">
-        <h3>Plantio Próprio</h3>
         <hr />
+        <h3>Plantio Próprio</h3>
       </div>
       <Col lg="6">
         <FormGroup>
           <label className="form-control-label" htmlFor="has_own_planting">
-            Possuí Plantio Próprio?
+            Tem Plantio Próprio?
           </label>
           <Input
             className="form-control-alternative"
             type="select"
             onChange={handleChangeInput}
             value={inputProduction.has_own_planting}
-            title="Possuí Plantio Próprio?"
+            title="Tem Plantio Próprio?"
             name="has_own_planting"
             id="select"
             required
@@ -312,6 +349,9 @@ const Producao = ({ inputProduction, setInputProduction }) => {
       </Col>
       <Col lg="6">
         <FormGroup>
+          <label className="form-control-label" htmlFor="production_system">
+            Sistemas da Produção
+          </label>
           <Input
             className="form-control-alternative"
             type="text"
@@ -326,6 +366,9 @@ const Producao = ({ inputProduction, setInputProduction }) => {
       </Col>
       <Col lg="6">
         <FormGroup>
+          <label className="form-control-label" htmlFor="planting_type">
+            Tipo de Plantio
+          </label>
           <Input
             className="form-control-alternative"
             type="text"
@@ -340,6 +383,9 @@ const Producao = ({ inputProduction, setInputProduction }) => {
       </Col>
       <Col lg="6">
         <FormGroup>
+          <label className="form-control-label" htmlFor="management">
+            Manejo
+          </label>
           <Input
             className="form-control-alternative"
             type="text"
@@ -354,6 +400,9 @@ const Producao = ({ inputProduction, setInputProduction }) => {
       </Col>
       <Col lg="6">
         <FormGroup>
+          <label className="form-control-label" htmlFor="planted_area">
+            Área (ha)
+          </label>
           <Input
             className="form-control-alternative"
             type="text"
@@ -368,6 +417,9 @@ const Producao = ({ inputProduction, setInputProduction }) => {
       </Col>
       <Col lg="6">
         <FormGroup>
+          <label className="form-control-label" htmlFor="amount_crops">
+            Quantidade de Culturas Nesta Área
+          </label>
           <Input
             className="form-control-alternative"
             type="number"
@@ -381,91 +433,126 @@ const Producao = ({ inputProduction, setInputProduction }) => {
         </FormGroup>
       </Col>
       <div className="col-12">
-        <h3>Cultura de Cana-de-açúcar</h3>
         <hr />
+        <h3>Cultura</h3>
       </div>
       <Col lg="6">
         <FormGroup>
+          <label className="form-control-label" htmlFor="culture">
+            Cultura
+          </label>
           <Input
             className="form-control-alternative"
             type="text"
-            name="annualProduction"
+            name="culture"
+            title="Cultura"
+            placeholder="Cultura"
+            value={inputPlantation.culture}
+            onChange={handleChangeInputPlantation}
+            required
+          />
+        </FormGroup>
+      </Col>
+      <Col lg="6">
+        <FormGroup>
+          <label className="form-control-label" htmlFor="annual_production">
+            Produção Anual
+          </label>
+          <Input
+            className="form-control-alternative"
+            type="text"
+            name="annual_production"
             title="Produção Anual"
-            placeholder="Produção Anual"
-            value={inputProduction.annualProduction}
-            onChange={handleChangeInput}
+            placeholder="Ex: 10.000 Kg"
+            value={inputPlantation.annual_production}
+            onChange={handleChangeInputPlantation}
             required
           />
         </FormGroup>
       </Col>
       <Col lg="6">
         <FormGroup>
+          <label className="form-control-label" htmlFor="self_consumption">
+            Preço Por Kg do Autoconsumo (Se Fosse Comprar no Mercado Local)
+          </label>
           <Input
             className="form-control-alternative"
             type="text"
-            name="selfConsumption"
+            name="self_consumption"
             title="Preço Por Kg do Autoconsumo (Se Fosse Comprar no Mercado Local)"
-            placeholder="Preço Por Kg do Autoconsumo (Se Fosse Comprar no Mercado Local)"
-            value={inputProduction.selfConsumption}
-            onChange={handleChangeInput}
+            placeholder="Ex: 17,00"
+            value={inputPlantation.self_consumption}
+            onChange={handleChangeInputPlantation}
             required
           />
         </FormGroup>
       </Col>
       <Col lg="6">
         <FormGroup>
+          <label
+            className="form-control-label"
+            htmlFor="annual_marketed_quantity"
+          >
+            Quantidade Comercializada Anual
+          </label>
           <Input
             className="form-control-alternative"
             type="text"
-            name="annualProduction"
+            name="annual_marketed_quantity"
             title="Quantidade Comercializada Anual"
-            placeholder="Quantidade Comercializada Anual"
-            value={inputProduction.annualProduction}
-            onChange={handleChangeInput}
+            placeholder="Ex: 18.000 Kg"
+            value={inputPlantation.annual_marketed_quantity}
+            onChange={handleChangeInputPlantation}
             required
           />
         </FormGroup>
       </Col>
       <Col lg="6">
         <FormGroup>
+          <label className="form-control-label" htmlFor="kg_price">
+            Por Quanto Vende o Kg
+          </label>
           <Input
             className="form-control-alternative"
             type="text"
-            name="kgPrice"
+            name="kg_price"
             title="Por Quanto Vende o Kg"
-            placeholder="Por Quanto Vende o Kg"
-            value={inputProduction.kgPrice}
-            onChange={handleChangeInput}
+            placeholder="Ex: 10,00"
+            value={inputPlantation.kg_price}
+            onChange={handleChangeInputPlantation}
             required
           />
         </FormGroup>
       </Col>
       <Col lg="6">
         <FormGroup>
+          <label className="form-control-label" htmlFor="seed_origin_seedling">
+            Semente/Muda Origem
+          </label>
           <Input
             className="form-control-alternative"
             type="text"
-            name="seedOriginSeedling"
+            name="seed_origin_seedling"
             title="Semente/Muda Origem"
-            placeholder="Semente/Muda Origem"
-            value={inputProduction.seedOriginSeedling}
-            onChange={handleChangeInput}
+            placeholder="Ex: Doada"
+            value={inputPlantation.seed_origin_seedling}
+            onChange={handleChangeInputPlantation}
             required
           />
         </FormGroup>
       </Col>
       <Col lg="6">
         <FormGroup>
-          <label className="form-control-label" htmlFor="name">
-            Nome completo
+          <label className="form-control-label" htmlFor="creole_seed">
+            Semente Crioula
           </label>
           <Input
             className="form-control-alternative"
             type="select"
-            onChange={handleChangeInput}
-            value={inputProduction.creoleSeed}
+            onChange={handleChangeInputPlantation}
+            value={inputPlantation.creole_seed}
             title="Semente Crioula"
-            name="creoleSeed"
+            name="creole_seed"
             id="select"
             required
           >
@@ -479,18 +566,21 @@ const Producao = ({ inputProduction, setInputProduction }) => {
       </Col>
       <Col lg="6">
         <FormGroup>
+          <label className="form-control-label" htmlFor="pest_problems">
+            Tem problemas com ataques de pragas e doenças?
+          </label>
           <Input
             className="form-control-alternative"
             type="select"
-            onChange={handleChangeInput}
-            value={inputProduction.creoleSeed}
+            onChange={handleChangeInputPlantation}
+            value={inputPlantation.pest_problems}
             title="Tem problemas com ataques de pragas e doenças?"
-            name="creoleSeed"
+            name="pest_problems"
             id="select"
             required
           >
             <option value={undefined} hidden>
-              Tem problemas com ataques de pragas e doenças?
+              Escolha uma opção
             </option>
             <option value={true}>Sim</option>
             <option value={false}>Não</option>
@@ -507,22 +597,25 @@ const Producao = ({ inputProduction, setInputProduction }) => {
             type="text"
             name="irrigations"
             title="Área Irrigada"
-            placeholder="Área Irrigada"
-            value={inputProduction.irrigations}
-            onChange={handleChangeInput}
+            placeholder="100 ha"
+            value={inputPlantation.irrigations}
+            onChange={handleChangeInputPlantation}
             required
           />
         </FormGroup>
       </Col>
       <Col lg="6">
         <FormGroup>
+          <label className="form-control-label" htmlFor="waste_generation">
+            A Produção Gera Resíduo?
+          </label>
           <Input
             className="form-control-alternative"
             type="select"
-            onChange={handleChangeInput}
-            value={inputProduction.wasteGeneration}
+            onChange={handleChangeInputPlantation}
+            value={inputPlantation.waste_generation}
             title="A Produção Gera Resíduo?"
-            name="wasteGeneration"
+            name="waste_generation"
             id="select"
             required
           >
@@ -534,13 +627,40 @@ const Producao = ({ inputProduction, setInputProduction }) => {
           </Input>
         </FormGroup>
       </Col>
-      <div className="col-12">
-        <h3>Produção Animal</h3>
-        <hr />
+      <Col lg="6" className="mb-3">
+        <Button color="primary" onClick={addPlantation}>
+          Adicionar
+        </Button>
+      </Col>
+      <div className="d-flex justify-content-center">
+        <Table>
+          <thead>
+            <th>Cultura</th>
+            <th>Produção Anual</th>
+            <th>Preço Por Kg do Autoconsumo</th>
+            <th>Qtd. Comercializada Anual</th>
+            <th>...</th>
+          </thead>
+          <tbody>
+            {inputProduction.plantations.map((platation, index) => (
+              <tr key={index}>
+                <td>{platation.culture}</td>
+                <td>{platation.annual_production}</td>
+                <td>{platation.self_consumption}</td>
+                <td>{platation.annual_marketed_quantity}</td>
+                <td>...</td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
       </div>
       <div className="col-12">
-        <h4>Piscicultura</h4>
         <hr />
+        <h3>Produção Animal</h3>
+      </div>
+      <div className="col-12">
+        <hr />
+        <h4>Piscicultura</h4>
       </div>
       <Col lg="6">
         <FormGroup>
@@ -735,8 +855,8 @@ const Producao = ({ inputProduction, setInputProduction }) => {
         </FormGroup>
       </Col>
       <div className="col-12">
-        <h3>Custo de Transporte da Produção</h3>
         <hr />
+        <h3>Custo de Transporte da Produção</h3>
       </div>
       <Col lg="6">
         <FormGroup>
@@ -787,7 +907,7 @@ const Producao = ({ inputProduction, setInputProduction }) => {
             type="text"
             name="waterwayCharteredTransport"
             title="Custo do Transporte Fretado Hidroviário"
-            placeholder="Custo do Transporte Fretado Hidroviário"
+            placeholder="Ex: 300,00"
             value={inputProduction.waterwayCharteredTransport}
             onChange={handleChangeInput}
             required
@@ -795,8 +915,8 @@ const Producao = ({ inputProduction, setInputProduction }) => {
         </FormGroup>
       </Col>
       <div className="col-12">
-        <h3>Animais Silvestres</h3>
         <hr />
+        <h3>Animais Silvestres</h3>
       </div>
       <Col lg="6">
         <FormGroup>
@@ -805,7 +925,7 @@ const Producao = ({ inputProduction, setInputProduction }) => {
             type="text"
             name="waterwayCharteredTransport"
             title="Animais Silvestres Já Foram Avistados no Lote ou Assentamento"
-            placeholder="Animais Silvestres Já Foram Avistados no Lote ou Assentamento"
+            placeholder="Ex: Lobo guará, Capivara, Arara azul"
             value={inputProduction.waterwayCharteredTransport}
             onChange={handleChangeInput}
             required
@@ -833,8 +953,8 @@ const Producao = ({ inputProduction, setInputProduction }) => {
         </FormGroup>
       </Col>
       <div className="col-12">
-        <h3>Principais Benfeitorias (galpão, estufa, secador, silos, etc)</h3>
         <hr />
+        <h3>Principais Benfeitorias (galpão, estufa, secador, silos, etc)</h3>
       </div>
       <Col lg="6">
         <FormGroup>
@@ -938,34 +1058,10 @@ const Producao = ({ inputProduction, setInputProduction }) => {
             ))}
           </tbody>
         </Table>
-        {/* <DataTable
-          items={inputProduction.improvements}
-          noItemsViewSlot="Sem items"
-          fields={[
-            { key: "improvement", label: "Benfeitoria" },
-            { key: "typeImprovement", label: "Tipo" },
-            { key: "dimensionImprovement", label: "Dimensão (m² ou m)" },
-            { key: "improvementAge", label: "Faixa de Idade da Benfeitoria" },
-            { key: "delete", label: "" },
-          ]}
-          hover
-          striped
-          bordered
-          size="sm"
-          itemsPerPage={10}
-          pagination
-          scopedSlots={{
-            delete: (item, index) => (
-              <Button onClick={() => deleteImprovement(index)}>
-                <DeleteForeverOutlined>Delete</DeleteForeverOutlined>
-              </Button>
-            ),
-          }}
-        /> */}
       </div>
       <div className="col-12">
-        <h3>Animais de Serviço (Apenas os Utilizados para Serviço/Trabalho)</h3>
         <hr />
+        <h3>Animais de Serviço (Apenas os Utilizados para Serviço/Trabalho)</h3>
       </div>
       <Col lg="6">
         <FormGroup>

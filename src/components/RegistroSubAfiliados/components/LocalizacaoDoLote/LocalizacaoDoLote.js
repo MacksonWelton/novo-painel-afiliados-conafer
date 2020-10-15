@@ -42,7 +42,7 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             className="form-control-alternative"
             type="text"
             name="operationalCore"
-            placeholder="Núcleo Operacional"
+            placeholder="Ex: Seaprof"
             value={inputPlotLocation.operationalCore}
             onChange={handleChangeInput}
             required
@@ -101,7 +101,7 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             className="form-control-alternative"
             type="text"
             name="county"
-            placeholder="Município"
+            placeholder="Ex: Rio Branco"
             value={inputPlotLocation.county}
             onChange={handleChangeInput}
             required
@@ -117,7 +117,8 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             className="form-control-alternative"
             type="text"
             name="settlement"
-            placeholder="Assentamento"
+            title="Assentamento"
+            placeholder="Ex: AASS555444"
             value={inputPlotLocation.settlement}
             onChange={handleChangeInput}
             required
@@ -133,7 +134,8 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             className="form-control-alternative"
             type="text"
             name="lotNumber"
-            placeholder="Número do Lote Incra"
+            title="Número do Lote Incra"
+            placeholder="Ex: 30"
             value={inputPlotLocation.lotNumber}
             onChange={handleChangeInput}
             required
@@ -149,7 +151,8 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             className="form-control-alternative"
             type="text"
             name="accessRoad"
-            placeholder="Via de acesso ao imóvel"
+            title="Via de acesso ao imóvel"
+            placeholder="Ex: Estrada de terra"
             value={inputPlotLocation.accessRoad}
             onChange={handleChangeInput}
             required
@@ -165,7 +168,8 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             className="form-control-alternative"
             type="text"
             name="coordinatesth"
-            placeholder="Coordenadas (Lat, Lng)"
+            title="Coordenadas (Lat, Lng)"
+            placeholder="Ex: -15.7801, -47.9292"
             value={inputPlotLocation.coordinatesth}
             onChange={handleChangeInput}
             required

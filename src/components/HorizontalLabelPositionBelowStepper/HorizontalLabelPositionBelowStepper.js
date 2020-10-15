@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
   stepper: {
     display: "flex",
     flexWrap: "wrap",
+    color: "white",
   },
   backButton: {
     marginRight: theme.spacing(1),
@@ -30,7 +31,7 @@ function HorizontalLabelPositionBelowStepper({
   steps,
   activeStep,
   setActiveStep,
-  getStepContent
+  getStepContent,
 }) {
   const classes = useStyles();
 
@@ -43,51 +44,56 @@ function HorizontalLabelPositionBelowStepper({
   };
 
   return (
-      <div className={classes.root}>
-        <Stepper
-          activeStep={activeStep}
-          className={classes.stepper}
-          alternativeLabel
-        >
-          {steps.map((label) => (
+    <div className={classes.root}>
+      <Stepper
+        activeStep={activeStep}
+        className="d-flex flex-wrap p-5"
+        alternativeLabel
+      >
+        {steps.map((label) => (
             <Step key={label}>
               <StepLabel>{label}</StepLabel>
             </Step>
           ))}
-        </Stepper>
-        <div>
-          {activeStep === steps.length ? (
+      </Stepper>
+      <div>
+        {activeStep === steps.length ? (
+          <div>
+            <Typography className={classes.instructions}>
+              All steps completed
+            </Typography>
+            <Button onClick={handleReset}>Resetar</Button>
+          </div>
+        ) : (
+          <div>
+            {getStepContent(activeStep)}
             <div>
-              <Typography className={classes.instructions}>
-                All steps completed
-              </Typography>
-              <Button onClick={handleReset}>Resetar</Button>
-            </div>
-          ) : (
-            <div>
-              {getStepContent(activeStep)}
-              <div>
-                <Button
-                  disabled={activeStep === 0}
-                  onClick={handleBack}
-                  className={classes.backButton}
-                >
-                  Voltar
+              <Button
+                disabled={activeStep === 0}
+                onClick={handleBack}
+                className={classes.backButton}
+              >
+                Voltar
+              </Button>
+              {activeStep === steps.length - 1 ? (
+                <Button variant="contained" color="primary">
+                  Concluído
                 </Button>
-                {activeStep === steps.length - 1 ? (
-                  <Button variant="contained" color="primary">
-                    Concluído
-                  </Button>
-                ) : (
-                  <Button variant="contained" onClick={handleSubmitForm} color="primary" type="submit">
-                    Próximo
-                  </Button>
-                )}
-              </div>
+              ) : (
+                <Button
+                  variant="contained"
+                  onClick={handleSubmitForm}
+                  color="primary"
+                  type="submit"
+                >
+                  Próximo
+                </Button>
+              )}
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
+    </div>
   );
 }
 

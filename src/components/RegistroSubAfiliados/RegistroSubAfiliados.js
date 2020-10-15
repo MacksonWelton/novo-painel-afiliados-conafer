@@ -176,6 +176,7 @@ const RegistroSubAfiliados = ({ title }) => {
     has_garden: undefined,
     grow_medicinal_plants: undefined,
     has_own_planting: undefined,
+    plantations: [],
     production_system: "",
     planting_type: "",
     management: "",
@@ -186,12 +187,10 @@ const RegistroSubAfiliados = ({ title }) => {
     oxen: "",
     equine: "",
     mules: "",
-    improvements: [{
-      improvements: "",
-      type_improvement: "",
-      dimension_improvement: "",
-      improvement_age: "",
-    }]
+    improvements: [],
+    annual_production: "",
+    self_consumption: "",
+    annual_marketed_quantity: "",
   });
 
   const [inputDocumentation, setInputDocumentation] = useState({

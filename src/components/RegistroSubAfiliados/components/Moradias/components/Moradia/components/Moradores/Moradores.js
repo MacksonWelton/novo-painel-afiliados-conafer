@@ -57,7 +57,7 @@ const Moradores = ({ setInputResident, residentNumber }) => {
               type="text"
               name="resident"
               title="Residente"
-              placeholder="Residente"
+              placeholder="Ex: João da Silva"
               value={inputResidents.resident}
               onChange={handleChangeInput}
               required
@@ -74,7 +74,7 @@ const Moradores = ({ setInputResident, residentNumber }) => {
               type="text"
               name="kinship"
               title="Parentesco"
-              placeholder="Parentesco"
+              placeholder="Ex: Pai"
               value={inputResidents.kinship}
               onChange={handleChangeInput}
               required
@@ -105,16 +105,11 @@ const Moradores = ({ setInputResident, residentNumber }) => {
             </label>
             <Input
               className="form-control-alternative"
-              type="text"
+              type="date"
               name="bornDate"
               title="Data de Nascimento"
-              placeholder="Data de nascimento"
               value={inputResidents.bornDate}
               onChange={handleChangeInput}
-              onFocus={(e) => (e.currentTarget.type = "date")}
-              onBlur={(e) => {
-                !inputResidents.bornDate && (e.currentTarget.type = "text");
-              }}
               required
             />
           </FormGroup>
@@ -555,7 +550,10 @@ const Moradores = ({ setInputResident, residentNumber }) => {
         </Col>
         <Col lg="6">
           <FormGroup>
-            <label className="form-control-label" htmlFor="formOfAccessToTreatment">
+            <label
+              className="form-control-label"
+              htmlFor="formOfAccessToTreatment"
+            >
               Forma de acesso para tratamento
             </label>
             <Input
