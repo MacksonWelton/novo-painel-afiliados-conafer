@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/novo-painel-afiliados-conafer/precache-manifest.33a6671f460727ae74716323555dc8ac.js"
+  "/novo-painel-afiliados-conafer/precache-manifest.5790e4f4efdc930fe24cf55fac7536fa.js"
 );
 
 self.addEventListener('message', (event) => {
