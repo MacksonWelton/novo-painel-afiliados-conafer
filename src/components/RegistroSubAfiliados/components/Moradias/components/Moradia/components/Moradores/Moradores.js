@@ -6,32 +6,25 @@ const Moradores = ({ setInputResident, residentNumber }) => {
   const { setResident } = useContext(FormContext);
 
   const [inputResidents, setInputResidents] = useState({
-    resident: "",
+    resident_name: "",
     kinship: "",
     sex: "",
-    bornDate: "",
-    education: "",
-    mainSourceOfIncome: "",
-    generatesIncomeForFamily: undefined,
-    workingTimeonTheLandPlot: "",
-    issueTheInvoice: undefined,
-    exBeneficiary: undefined,
+    birthdate: "",
+    schooling: "",
+    main_source_income: "",
+    generates_income: undefined,
+    batch_work_time: "",
+    issues_invoice: undefined,
+    ex_beneficiary: undefined,
     activity: "",
-    demotivatingActivity: "",
+    demotivating_activity: "",
     retired: undefined,
-    paidWorkOffTheLandPlot: undefined,
-    initialAgeOffTheLandPlot: "",
-    handicapped: undefined,
-    typesOfDisabilities: "",
-    mentalDisorder: undefined,
-    needsCare: undefined,
-    haveCaregiver: undefined,
-    organizationCare: undefined,
-    whoCares: "",
-    deficientActivity: "",
-    previousDiseases: "",
-    typeOfTreatment: "",
-    formOfAccessToTreatment: "",
+    work_outside: undefined,
+    initial_age_work_outside: "",
+    deficiency: "",
+    last_diceases: "",
+    type_treatment: "",
+    access_treatment: "",
   });
 
   const handleChangeInput = (event) => {
@@ -49,16 +42,16 @@ const Moradores = ({ setInputResident, residentNumber }) => {
       <div className="row">
         <Col lg="6">
           <FormGroup>
-            <label className="form-control-label" htmlFor="name">
+            <label className="form-control-label" htmlFor="resident_name">
               Residente
             </label>
             <Input
               className="form-control-alternative"
               type="text"
-              name="resident"
+              name="resident_name"
               title="Residente"
               placeholder="Ex: João da Silva"
-              value={inputResidents.resident}
+              value={inputResidents.resident_name}
               onChange={handleChangeInput}
               required
             />
@@ -88,27 +81,34 @@ const Moradores = ({ setInputResident, residentNumber }) => {
             </label>
             <Input
               className="form-control-alternative"
-              type="text"
+              type="select"
               name="sex"
               title="Sexo"
               placeholder="Sexo"
               value={inputResidents.sex}
               onChange={handleChangeInput}
               required
-            />
+            >
+              <option value={undefined} hidden>
+                Escolha uma opção
+              </option>
+              <option value="Masculino">Masculino</option>
+              <option value="Feminino">Feminino</option>
+              <option value="Outro">Outro</option>
+            </Input>
           </FormGroup>
         </Col>
         <Col lg="6">
           <FormGroup>
-            <label className="form-control-label" htmlFor="bornDate">
+            <label className="form-control-label" htmlFor="birthdate">
               Data de nascimento
             </label>
             <Input
               className="form-control-alternative"
               type="date"
-              name="bornDate"
+              name="birthdate"
               title="Data de Nascimento"
-              value={inputResidents.bornDate}
+              value={inputResidents.birthdate}
               onChange={handleChangeInput}
               required
             />
@@ -116,16 +116,16 @@ const Moradores = ({ setInputResident, residentNumber }) => {
         </Col>
         <Col lg="6">
           <FormGroup>
-            <label className="form-control-label" htmlFor="education">
+            <label className="form-control-label" htmlFor="schooling">
               Escolaridade
             </label>
             <Input
               className="form-control-alternative"
               type="text"
-              name="education"
+              name="schooling"
               title="Escolaridade"
-              placeholder="Escolaridade"
-              value={inputResidents.education}
+              placeholder="Ex: Ensino Médio Completo"
+              value={inputResidents.schooling}
               onChange={handleChangeInput}
               required
             />
@@ -133,16 +133,16 @@ const Moradores = ({ setInputResident, residentNumber }) => {
         </Col>
         <Col lg="6">
           <FormGroup>
-            <label className="form-control-label" htmlFor="mainSourceOfIncome">
+            <label className="form-control-label" htmlFor="main_source_income">
               Principal fonte de renda
             </label>
             <Input
               className="form-control-alternative"
               type="text"
-              name="mainSourceOfIncome"
+              name="main_source_income"
               title="Principal fonte de renda"
-              placeholder="Principal fonte de renda"
-              value={inputResidents.mainSourceOfIncome}
+              placeholder="Ex: Agricultor"
+              value={inputResidents.main_source_income}
               onChange={handleChangeInput}
               required
             />
@@ -150,23 +150,20 @@ const Moradores = ({ setInputResident, residentNumber }) => {
         </Col>
         <Col lg="6">
           <FormGroup>
-            <label
-              className="form-control-label"
-              htmlFor="generatesIncomeForFamily"
-            >
+            <label className="form-control-label" htmlFor="generates_income">
               Principal fonte de renda
             </label>
             <Input
               className="form-control-alternative"
               type="select"
               onChange={handleChangeInput}
-              value={inputResidents.generatesIncomeForFamily}
+              value={inputResidents.generates_income}
               title="Gera renda para a família"
-              name="generatesIncomeForFamily"
-              id="generatesIncomeForFamily"
+              name="generates_income"
+              id="generates_income"
             >
               <option value={undefined} hidden>
-                Gera renda para a família
+                Escolha uma opção
               </option>
               <option value={true}>Sim</option>
               <option value={false}>Não</option>
@@ -175,19 +172,16 @@ const Moradores = ({ setInputResident, residentNumber }) => {
         </Col>
         <Col lg="6">
           <FormGroup>
-            <label
-              className="form-control-label"
-              htmlFor="workingTimeonTheLandPlot"
-            >
-              Principal fonte de renda
+            <label className="form-control-label" htmlFor="batch_work_time">
+              Tempo de trabalho no lote
             </label>
             <Input
               className="form-control-alternative"
               type="text"
               title="Tempo de trabalho no lote"
-              name="workingTimeonTheLandPlot"
-              placeholder="Tempo de trabalho no lote"
-              value={inputResidents.workingTimeonTheLandPlot}
+              name="batch_work_time"
+              placeholder="Ex: Tempo parcial"
+              value={inputResidents.batch_work_time}
               onChange={handleChangeInput}
               required
             />
@@ -195,20 +189,20 @@ const Moradores = ({ setInputResident, residentNumber }) => {
         </Col>
         <Col lg="6">
           <FormGroup>
-            <label className="form-control-label" htmlFor="issueTheInvoice">
+            <label className="form-control-label" htmlFor="issues_invoice">
               Principal fonte de renda
             </label>
             <Input
               className="form-control-alternative"
               type="select"
               onChange={handleChangeInput}
-              value={inputResidents.issueTheInvoice}
-              name="issueTheInvoice"
+              value={inputResidents.issues_invoice}
+              name="issues_invoice"
               title="Emitir NF"
-              id="issueTheInvoice"
+              id="issues_invoice"
             >
               <option value={undefined} hidden>
-                Emitir NF
+                Escolha uma opção
               </option>
               <option value={true}>Sim</option>
               <option value={false}>Não</option>
@@ -217,20 +211,20 @@ const Moradores = ({ setInputResident, residentNumber }) => {
         </Col>
         <Col lg="6">
           <FormGroup>
-            <label className="form-control-label" htmlFor="exBeneficiary">
+            <label className="form-control-label" htmlFor="ex_beneficiary">
               Ex-Beneficiário
             </label>
             <Input
               className="form-control-alternative"
               type="select"
               onChange={handleChangeInput}
-              value={inputResidents.exBeneficiary}
+              value={inputResidents.ex_beneficiary}
               title="Ex-Beneficiário"
-              name="exBeneficiary"
+              name="ex_beneficiary"
               id="select"
             >
               <option value={undefined} hidden>
-                Ex-Beneficiário
+                Escolha uma opção
               </option>
               <option value={true}>Sim</option>
               <option value={false}>Não</option>
@@ -247,7 +241,7 @@ const Moradores = ({ setInputResident, residentNumber }) => {
               type="text"
               name="activity"
               title="Atividade"
-              placeholder="Atividade"
+              placeholder="Ex: Grupo religioso"
               value={inputResidents.activity}
               onChange={handleChangeInput}
               required
@@ -258,17 +252,17 @@ const Moradores = ({ setInputResident, residentNumber }) => {
           <FormGroup>
             <label
               className="form-control-label"
-              htmlFor="demotivatingActivity"
+              htmlFor="demotivating_activity"
             >
               Atividade Desmotivador
             </label>
             <Input
               className="form-control-alternative"
               type="text"
-              name="demotivatingActivity"
+              name="demotivating_activity"
               title="Atividade Desmotivador"
               placeholder="Atividade Desmotivador"
-              value={inputResidents.demotivatingActivity}
+              value={inputResidents.demotivating_activity}
               onChange={handleChangeInput}
               required
             />
@@ -288,7 +282,7 @@ const Moradores = ({ setInputResident, residentNumber }) => {
               id="retired"
             >
               <option value={undefined} hidden>
-                Aposentado
+                Escolha uma opção
               </option>
               <option value={true}>Sim</option>
               <option value={false}>Não</option>
@@ -307,13 +301,13 @@ const Moradores = ({ setInputResident, residentNumber }) => {
               className="form-control-alternative"
               type="select"
               onChange={handleChangeInput}
-              value={inputResidents.paidWorkOffTheLandPlot}
+              value={inputResidents.work_outside}
               title="Trabalho remunerado fora do lote"
-              name="paidWorkOffTheLandPlot"
-              id="paidWorkOffTheLandPlot"
+              name="work_outside"
+              id="work_outside"
             >
               <option value={undefined} hidden>
-                Trabalho remunerado fora do lote
+                Escolha uma opção
               </option>
               <option value={true}>Sim</option>
               <option value={false}>Não</option>
@@ -324,17 +318,17 @@ const Moradores = ({ setInputResident, residentNumber }) => {
           <FormGroup>
             <label
               className="form-control-label"
-              htmlFor="initialAgeOffTheLandPlot"
+              htmlFor="initial_age_work_outside"
             >
               Trabalho fora do lote idade incial
             </label>
             <Input
               className="form-control-alternative"
               type="text"
-              name="initialAgeOffTheLandPlot"
+              name="initial_age_work_outside"
               title="Trab. fora do lote idade incial"
-              placeholder="Trab. fora do lote idade incial"
-              value={inputResidents.initialAgeOffTheLandPlot}
+              placeholder="Ex: 23 anos"
+              value={inputResidents.initial_age_work_outside}
               onChange={handleChangeInput}
               required
             />
@@ -356,7 +350,7 @@ const Moradores = ({ setInputResident, residentNumber }) => {
               required
             >
               <option value={undefined} hidden>
-                Deficiência
+                Escolha uma opção
               </option>
               <option value={true}>Sim</option>
               <option value={false}>Não</option>
@@ -378,7 +372,7 @@ const Moradores = ({ setInputResident, residentNumber }) => {
                   type="text"
                   name="typesOfDisabilities"
                   title="Deficiências"
-                  placeholder="Deficiências"
+                  placeholder="Ex: Deficiencia Auditiva"
                   value={inputResidents.typesOfDisabilities}
                   onChange={handleChangeInput}
                   required
@@ -400,7 +394,7 @@ const Moradores = ({ setInputResident, residentNumber }) => {
                   id="select"
                 >
                   <option value={undefined} hidden>
-                    Transtorno Mental
+                    Escolha uma opção
                   </option>
                   <option value={true}>Sim</option>
                   <option value={false}>Não</option>
@@ -422,7 +416,7 @@ const Moradores = ({ setInputResident, residentNumber }) => {
                   id="select"
                 >
                   <option value={undefined} hidden>
-                    Precisa de Cuidados
+                    Escolha uma opção
                   </option>
                   <option value={true}>Sim</option>
                   <option value={false}>Não</option>
@@ -444,7 +438,7 @@ const Moradores = ({ setInputResident, residentNumber }) => {
                   title="Tem cuidador"
                 >
                   <option value={undefined} hidden>
-                    Tem cuidador
+                    Escolha uma opção
                   </option>
                   <option value={true}>Sim</option>
                   <option value={false}>Não</option>
@@ -466,7 +460,7 @@ const Moradores = ({ setInputResident, residentNumber }) => {
                   title="Organização Cuidados"
                 >
                   <option value={undefined} hidden>
-                    Organização Cuidados
+                    Escolha uma opção
                   </option>
                   <option value={true}>Sim</option>
                   <option value={false}>Não</option>
@@ -482,7 +476,7 @@ const Moradores = ({ setInputResident, residentNumber }) => {
                   className="form-control-alternative"
                   type="text"
                   name="whoCares"
-                  placeholder="Quem cuida"
+                  placeholder="Ex: "
                   title="Quem cuida"
                   value={inputResidents.whoCares}
                   onChange={handleChangeInput}
@@ -516,16 +510,16 @@ const Moradores = ({ setInputResident, residentNumber }) => {
         )}
         <Col lg="6">
           <FormGroup>
-            <label className="form-control-label" htmlFor="previousDiseases">
+            <label className="form-control-label" htmlFor="last_diceases">
               Doenças que tem ou teve nos últimos 2 anos
             </label>
             <Input
               className="form-control-alternative"
               type="text"
-              name="previousDiseases"
+              name="last_diceases"
               title="Doenças que tem ou teve nos últimos 2 anos"
-              placeholder="Doenças que tem/teve nos últ. 2 anos"
-              value={inputResidents.previousDiseases}
+              placeholder="Ex: Urticária"
+              value={inputResidents.last_diceases}
               onChange={handleChangeInput}
               required
             />
@@ -533,16 +527,16 @@ const Moradores = ({ setInputResident, residentNumber }) => {
         </Col>
         <Col lg="6">
           <FormGroup>
-            <label className="form-control-label" htmlFor="typeOfTreatment">
+            <label className="form-control-label" htmlFor="type_treatment">
               Tipo de tratamento
             </label>
             <Input
               className="form-control-alternative"
               type="text"
-              name="typeOfTreatment"
+              name="type_treatment"
               title="Tipo de tratamento"
-              placeholder="Tipo de tratamento"
-              value={inputResidents.typeOfTreatment}
+              placeholder="Ex: Anti-histamínico"
+              value={inputResidents.type_treatment}
               onChange={handleChangeInput}
               required
             />
@@ -550,19 +544,16 @@ const Moradores = ({ setInputResident, residentNumber }) => {
         </Col>
         <Col lg="6">
           <FormGroup>
-            <label
-              className="form-control-label"
-              htmlFor="formOfAccessToTreatment"
-            >
+            <label className="form-control-label" htmlFor="access_treatment">
               Forma de acesso para tratamento
             </label>
             <Input
               className="form-control-alternative"
               type="text"
               title="Forma de acesso para tratamento"
-              name="formOfAccessToTreatment"
-              placeholder="Forma de acesso para tratamento"
-              value={inputResidents.formOfAccessToTreatment}
+              name="access_treatment"
+              placeholder="Ex: Posto de Saúde"
+              value={inputResidents.access_treatment}
               onChange={handleChangeInput}
               required
             />

@@ -1,6 +1,6 @@
 import React from "react";
 import { Input, FormGroup, Row, Col } from "reactstrap";
-import { mask, unMask } from "remask";
+import { mask } from "remask";
 
 const EnderecoCorrespondencia = ({ inputAddress, setInputAddress }) => {
   const handleChangeInput = (event) => {
@@ -9,7 +9,7 @@ const EnderecoCorrespondencia = ({ inputAddress, setInputAddress }) => {
     if (type === "tel") {
       setInputAddress({
         ...inputAddress,
-        [name]: mask(unMask(value), ["(99) 99999-9999"]),
+        [name]: mask(value, ["(99) 99999-9999"]),
       });
     } else {
       setInputAddress({ ...inputAddress, [name]: value });
@@ -28,7 +28,7 @@ const EnderecoCorrespondencia = ({ inputAddress, setInputAddress }) => {
             type="text"
             name="address"
             title="Endereço/Logradouro"
-            placeholder="Endereço/Logradouro"
+            placeholder="Av. São Pedro"
             value={inputAddress.address}
             onChange={handleChangeInput}
             required
@@ -45,7 +45,7 @@ const EnderecoCorrespondencia = ({ inputAddress, setInputAddress }) => {
             type="text"
             name="numero"
             title="Número"
-            placeholder="Número"
+            placeholder="Ex: 25"
             value={inputAddress.number}
             onChange={handleChangeInput}
             required
@@ -54,16 +54,16 @@ const EnderecoCorrespondencia = ({ inputAddress, setInputAddress }) => {
       </Col>
       <Col lg="6">
         <FormGroup>
-          <label className="form-control-label" htmlFor="county">
+          <label className="form-control-label" htmlFor="city">
             Município
           </label>
           <Input
             className="form-control-alternative"
             type="text"
-            name="county"
+            name="city"
             title="Município"
-            placeholder="Município"
-            value={inputAddress.county}
+            placeholder="Ex: Salvador"
+            value={inputAddress.city}
             onChange={handleChangeInput}
             required
           />
@@ -71,16 +71,16 @@ const EnderecoCorrespondencia = ({ inputAddress, setInputAddress }) => {
       </Col>
       <Col lg="6">
         <FormGroup>
-          <label className="form-control-label" htmlFor="neighborhood">
+          <label className="form-control-label" htmlFor="district">
             Bairro
           </label>
           <Input
             className="form-control-alternative"
             type="text"
-            name="neighborhood"
-            value={inputAddress.neighborhood}
+            name="district"
+            value={inputAddress.district}
             title="Bairro"
-            placeholder="Bairro"
+            placeholder="Ex: Centro"
             onChange={handleChangeInput}
             required
           />
@@ -96,7 +96,7 @@ const EnderecoCorrespondencia = ({ inputAddress, setInputAddress }) => {
             type="text"
             name="cep"
             title="CEP"
-            placeholder="CEP"
+            placeholder="Ex: 57000000"
             value={inputAddress.cep}
             onChange={handleChangeInput}
             required
@@ -149,16 +149,33 @@ const EnderecoCorrespondencia = ({ inputAddress, setInputAddress }) => {
       </Col>
       <Col lg="6">
         <FormGroup>
-          <label className="form-control-label" htmlFor="zone">
+          <label className="form-control-label" htmlFor="country">
+            País
+          </label>
+          <Input
+            className="form-control-alternative"
+            type="text"
+            name="country"
+            title="País"
+            placeholder="Ex: 57000000"
+            value={inputAddress.country}
+            onChange={handleChangeInput}
+            required
+          />
+        </FormGroup>
+      </Col>
+      <Col lg="6">
+        <FormGroup>
+          <label className="form-control-label" htmlFor="location_zone">
             Zona de Localização
           </label>
           <Input
             className="form-control-alternative"
             type="text"
-            name="zone"
+            name="location_zone"
             title="Zona de Localização"
-            placeholder="Zona de Localização"
-            value={inputAddress.zone}
+            placeholder="Ex: Zona rural"
+            value={inputAddress.location_zone}
             onChange={handleChangeInput}
             required
           />
@@ -174,7 +191,7 @@ const EnderecoCorrespondencia = ({ inputAddress, setInputAddress }) => {
             type="email"
             name="email"
             title="Email"
-            placeholder="Email"
+            placeholder="Ex: email@conafer.org.br"
             value={inputAddress.email}
             onChange={handleChangeInput}
             required
@@ -183,16 +200,16 @@ const EnderecoCorrespondencia = ({ inputAddress, setInputAddress }) => {
       </Col>
       <Col lg="6">
         <FormGroup>
-          <label className="form-control-label" htmlFor="tel1">
+          <label className="form-control-label" htmlFor="phone">
             Telefone 1
           </label>
           <Input
             className="form-control-alternative"
             type="tel"
-            name="tel1"
+            name="phone"
             title="Telefone 1"
-            placeholder="Telefone 1"
-            value={inputAddress.tel1}
+            placeholder="(11) 98888-8888"
+            value={inputAddress.phone}
             onChange={handleChangeInput}
             required
           />
@@ -200,16 +217,16 @@ const EnderecoCorrespondencia = ({ inputAddress, setInputAddress }) => {
       </Col>
       <Col lg="6">
         <FormGroup>
-          <label className="form-control-label" htmlFor="tel2">
+          <label className="form-control-label" htmlFor="alternative_phone">
             Telefone 2
           </label>
           <Input
             className="form-control-alternative"
             type="tel"
-            name="tel2"
+            name="alternative_phone"
             title="Telefone 2"
-            placeholder="Telefone 2"
-            value={inputAddress.tel2}
+            placeholder="(11) 98888-8888"
+            value={inputAddress.alternative_phone}
             onChange={handleChangeInput}
             required
           />

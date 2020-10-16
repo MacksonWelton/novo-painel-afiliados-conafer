@@ -69,16 +69,16 @@ const IdentificacaoDoBeneficiario = ({
       </Col>
       <Col lg="6">
         <FormGroup>
-          <label className="form-control-label" htmlFor="collectionCode">
+          <label className="form-control-label" htmlFor="collection_code">
             Código de Coleta
           </label>
           <Input
             className="form-control-alternative"
             type="text"
-            name="collectionCode"
+            name="collection_code"
             title="Código de Coleta"
             placeholder="Ex: 0000"
-            value={inputBeneficiaryIdentity.collectionCode}
+            value={inputBeneficiaryIdentity.collection_code}
             onChange={handleChangeInput}
             required
           />
@@ -86,16 +86,16 @@ const IdentificacaoDoBeneficiario = ({
       </Col>
       <Col lg="6">
         <FormGroup>
-          <label className="form-control-label" htmlFor="settlement">
+          <label className="form-control-label" htmlFor="settlement_code">
             Código de Assentamento
           </label>
           <Input
             className="form-control-alternative"
             type="text"
-            name="settlement"
+            name="settlement_code"
             title="Código de Assentamento"
             placeholder="Ex: AFG0000"
-            value={inputBeneficiaryIdentity.settlement}
+            value={inputBeneficiaryIdentity.settlement_code}
             onChange={handleChangeInput}
             required
           />
@@ -103,16 +103,16 @@ const IdentificacaoDoBeneficiario = ({
       </Col>
       <Col lg="6">
         <FormGroup>
-          <label className="form-control-label" htmlFor="placeOfBirth">
+          <label className="form-control-label" htmlFor="citizenship">
             Naturalidade
           </label>
           <Input
             className="form-control-alternative"
             type="text"
-            name="placeOfBirth"
+            name="citizenship"
             title="Naturalidade"
             placeholder="Ex: Maceió - AL"
-            value={inputBeneficiaryIdentity.placeOfBirth}
+            value={inputBeneficiaryIdentity.citizenship}
             onChange={handleChangeInput}
             required
           />
@@ -120,16 +120,16 @@ const IdentificacaoDoBeneficiario = ({
       </Col>
       <Col lg="6">
         <FormGroup>
-          <label className="form-control-label" htmlFor="rb">
-            Status na RB
+          <label className="form-control-label" htmlFor="rb_status">
+            Status na rb_status
           </label>
           <Input
             className="form-control-alternative"
             type="text"
-            name="rb"
+            name="rb_status"
             title="Status na RB"
             placeholder="Ex: Titulado"
-            value={inputBeneficiaryIdentity.rb}
+            value={inputBeneficiaryIdentity.rb_status}
             onChange={handleChangeInput}
             required
           />
@@ -137,16 +137,16 @@ const IdentificacaoDoBeneficiario = ({
       </Col>
       <Col lg="6">
         <FormGroup>
-          <label className="form-control-label" htmlFor="incraArea">
+          <label className="form-control-label" htmlFor="incra_area">
             Ocupa área destinada pelo Incra
           </label>
           <Input
             className="form-control-alternative"
             type="select"
-            name="incraArea"
+            name="incra_area"
             title="Ocupa área destinada pelo Incra"
             placeholder="Ocupa área destinada pelo Incra"
-            value={inputBeneficiaryIdentity.incraArea}
+            value={inputBeneficiaryIdentity.incra_area}
             onChange={handleChangeInput}
             required
           >
