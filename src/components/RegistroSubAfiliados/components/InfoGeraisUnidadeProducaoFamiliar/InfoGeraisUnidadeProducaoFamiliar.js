@@ -17,16 +17,16 @@ const InfoGeraisUnidadeProducaoFamiliar = ({
     <Row>
       <Col lg="6">
         <FormGroup>
-          <label className="form-control-label" htmlFor="name">
+          <label className="form-control-label" htmlFor="operational_core">
             Núcleo Operacional da ATER (Município)
           </label>
           <Input
             className="form-control-alternative"
             type="text"
-            name="operationalCore"
+            name="operational_core"
             title="Núcleo Operacional da ATER (Município)"
-            placeholder="Núcleo Operacional da ATER (Município)"
-            value={inputGeneralFamilyUnitInfo.operationalCore}
+            placeholder="Ex: Seaprof"
+            value={inputGeneralFamilyUnitInfo.operational_core}
             onChange={handleChangeInput}
             required
           />
@@ -78,16 +78,16 @@ const InfoGeraisUnidadeProducaoFamiliar = ({
       </Col>
       <Col lg="6">
         <FormGroup>
-          <label className="form-control-label" htmlFor="name">
+          <label className="form-control-label" htmlFor="citizenship_responsible">
             Muncípio de Origem do Responsável pelo Lote
           </label>
           <Input
             className="form-control-alternative"
             type="text"
-            name="county"
-            value={inputGeneralFamilyUnitInfo.county}
+            name="citizenship_responsible"
+            value={inputGeneralFamilyUnitInfo.citizenship_responsible}
             title="Muncípio de Origem do Responsável pelo Lote"
-            placeholder="Muncípio de Origem do Responsável"
+            placeholder="Ex: Aracaju"
             onChange={handleChangeInput}
             required
           />
@@ -95,16 +95,16 @@ const InfoGeraisUnidadeProducaoFamiliar = ({
       </Col>
       <Col lg="6">
         <FormGroup>
-          <label className="form-control-label" htmlFor="name">
+          <label className="form-control-label" htmlFor="year_residence">
             Anos que reside na região
           </label>
           <Input
             className="form-control-alternative"
             type="number"
-            name="yearsResidingInTheRegion"
+            name="year_residence"
             title="Anos que reside na região"
-            placeholder="Anos que reside na região"
-            value={inputGeneralFamilyUnitInfo.yearsResidingInTheRegion}
+            placeholder="Ex: 6"
+            value={inputGeneralFamilyUnitInfo.year_residence}
             onChange={handleChangeInput}
             required
           />
@@ -112,40 +112,37 @@ const InfoGeraisUnidadeProducaoFamiliar = ({
       </Col>
       <Col lg="6">
         <FormGroup>
-          <label className="form-control-label" htmlFor="name">
+          <label className="form-control-label" htmlFor="concession_validity">
             Validade da Concessão
           </label>
           <Input
             className="form-control-alternative"
-            type="text"
-            name="contractValidity"
+            type="date"
+            name="concession_validity"
             title="Validade da Concessão"
-            placeholder="Validade da Concessão"
-            value={inputGeneralFamilyUnitInfo.contractValidity}
+            value={inputGeneralFamilyUnitInfo.concession_validity}
             onChange={handleChangeInput}
-            onFocus={(e) => (e.currentTarget.type = "date")}
-            onBlur={(e) => (e.currentTarget.type = "text")}
             required
           />
         </FormGroup>
       </Col>
       <Col lg="6">
         <FormGroup>
-          <label className="form-control-label" htmlFor="name">
+          <label className="form-control-label" htmlFor="always_resided">
             Sempre residiu no meio rural?
           </label>
           <Input
             className="form-control-alternative"
             type="select"
             onChange={handleChangeInput}
-            value={inputGeneralFamilyUnitInfo.alwaysResidedInTheCountryside}
+            value={inputGeneralFamilyUnitInfo.always_resided}
             title="Sempre residiu no meio rural?"
-            name="alwaysResidedInTheCountryside"
+            name="always_resided"
             id="select"
             required
           >
             <option value={undefined} hidden>
-              Sempre residiu no meio rural?
+              Escolha uma opção
             </option>
             <option value={true}>Sim</option>
             <option value={false}>Não</option>
@@ -154,21 +151,21 @@ const InfoGeraisUnidadeProducaoFamiliar = ({
       </Col>
       <Col lg="6">
         <FormGroup>
-          <label className="form-control-label" htmlFor="name">
+          <label className="form-control-label" htmlFor="beneficiary_knows_limit">
             O beneficiário conhece o limite do lote?
           </label>
           <Input
             className="form-control-alternative"
             type="select"
             onChange={handleChangeInput}
-            value={inputGeneralFamilyUnitInfo.knowHheLimitsOfTheLandPlot}
+            value={inputGeneralFamilyUnitInfo.beneficiary_knows_limit}
             title="O beneficiário conhece o limite do lote?"
-            name="knowHheLimitsOfTheLandPlot"
+            name="beneficiary_knows_limit"
             id="select"
             required
           >
             <option value={undefined} hidden>
-              O benef. conhece o limite do lote?
+              Escolha uma opção
             </option>
             <option value={true}>Sim</option>
             <option value={false}>Não</option>
@@ -177,21 +174,21 @@ const InfoGeraisUnidadeProducaoFamiliar = ({
       </Col>
       <Col lg="6">
         <FormGroup>
-          <label className="form-control-label" htmlFor="name">
+          <label className="form-control-label" htmlFor="lot_has_marking">
             Lote tem marco que identifica os limites?
           </label>
           <Input
             className="form-control-alternative"
             type="select"
             onChange={handleChangeInput}
-            value={inputGeneralFamilyUnitInfo.landPlotBoundaries}
+            value={inputGeneralFamilyUnitInfo.lot_has_marking}
             title="Lote tem marco que identifica os limites?"
-            name="landPlotBoundaries"
+            name="lot_has_marking"
             id="select"
             required
           >
             <option value={undefined} hidden>
-              Lote tem marco que identifica os limites?
+              Escolha uma opção
             </option>
             <option value={true}>Sim</option>
             <option value={false}>Não</option>
@@ -200,21 +197,21 @@ const InfoGeraisUnidadeProducaoFamiliar = ({
       </Col>
       <Col lg="6">
         <FormGroup>
-          <label className="form-control-label" htmlFor="name">
+          <label className="form-control-label" htmlFor="has_contract">
             O beneficiário tem o contrato/termo de concessão de uso?
           </label>
           <Input
             className="form-control-alternative"
             type="select"
             onChange={handleChangeInput}
-            value={inputGeneralFamilyUnitInfo.contract}
+            value={inputGeneralFamilyUnitInfo.has_contract}
             title="O beneficiário tem o contrato/termo de concessão de uso?"
-            name="contract"
+            name="has_contract"
             id="select"
             required
           >
             <option value={undefined} hidden>
-              Contrato/termo de concessão de uso?
+              Escolha uma opção
             </option>
             <option value={true}>Sim</option>
             <option value={false}>Não</option>

@@ -18,11 +18,11 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
     if (
       lat !== 0 &&
       lng !== 0 &&
-      `${lat}, ${lng}` !== inputPlotLocation.coordinatesth
+      `${lat}, ${lng}` !== inputPlotLocation.coordinates
     ) {
       setInputPlotLocation({
         ...inputPlotLocation,
-        coordinatesth: `${lat}, ${lng}`,
+        coordinates: `${lat}, ${lng}`,
       });
     }
   }, [lat, lng, setInputPlotLocation, inputPlotLocation]);
@@ -35,15 +35,15 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
     <Row>
       <Col lg="6">
         <FormGroup>
-          <label className="form-control-label" htmlFor="operationalCore">
+          <label className="form-control-label" htmlFor="operational_core">
             Núcleo Operacional
           </label>
           <Input
             className="form-control-alternative"
             type="text"
-            name="operationalCore"
-            placeholder="Núcleo Operacional"
-            value={inputPlotLocation.operationalCore}
+            name="operational_core"
+            placeholder="Ex: Seaprof"
+            value={inputPlotLocation.operational_core}
             onChange={handleChangeInput}
             required
           />
@@ -51,15 +51,15 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
       </Col>
       <Col lg="6">
         <FormGroup>
-          <label className="form-control-label" htmlFor="state">
+          <label className="form-control-label" htmlFor="allotmenet_state">
             Estado
           </label>
           <Input
             className="form-control-alternative"
             type="select"
             onChange={handleChangeInput}
-            value={inputPlotLocation.state}
-            name="state"
+            value={inputPlotLocation.allotmenet_state}
+            name="allotmenet_state"
             id="select"
           >
             <option value="AC">Acre</option>
@@ -94,15 +94,15 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
       </Col>
       <Col lg="6">
         <FormGroup>
-          <label className="form-control-label" htmlFor="county">
+          <label className="form-control-label" htmlFor="allotment_city">
             Município
           </label>
           <Input
             className="form-control-alternative"
             type="text"
-            name="county"
-            placeholder="Município"
-            value={inputPlotLocation.county}
+            name="allotment_city"
+            placeholder="Ex: Rio Branco"
+            value={inputPlotLocation.allotment_city}
             onChange={handleChangeInput}
             required
           />
@@ -117,7 +117,8 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             className="form-control-alternative"
             type="text"
             name="settlement"
-            placeholder="Assentamento"
+            title="Assentamento"
+            placeholder="Ex: AASS555444"
             value={inputPlotLocation.settlement}
             onChange={handleChangeInput}
             required
@@ -126,15 +127,16 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
       </Col>
       <Col lg="6">
         <FormGroup>
-          <label className="form-control-label" htmlFor="settlement">
+          <label className="form-control-label" htmlFor="incra_allotment_number">
             Número do Lote Incra
           </label>
           <Input
             className="form-control-alternative"
             type="text"
-            name="lotNumber"
-            placeholder="Número do Lote Incra"
-            value={inputPlotLocation.lotNumber}
+            name="incra_allotment_number"
+            title="Número do Lote Incra"
+            placeholder="Ex: 30"
+            value={inputPlotLocation.incra_allotment_number}
             onChange={handleChangeInput}
             required
           />
@@ -142,15 +144,16 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
       </Col>
       <Col lg="6">
         <FormGroup>
-          <label className="form-control-label" htmlFor="settlement">
+          <label className="form-control-label" htmlFor="access_way">
             Via de acesso ao imóvel
           </label>
           <Input
             className="form-control-alternative"
             type="text"
-            name="accessRoad"
-            placeholder="Via de acesso ao imóvel"
-            value={inputPlotLocation.accessRoad}
+            name="access_way"
+            title="Via de acesso ao imóvel"
+            placeholder="Ex: Estrada de terra"
+            value={inputPlotLocation.access_way}
             onChange={handleChangeInput}
             required
           />
@@ -158,15 +161,16 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
       </Col>
       <Col lg="6">
         <FormGroup>
-          <label className="form-control-label" htmlFor="coordinatesth">
+          <label className="form-control-label" htmlFor="coordinates">
             Coordenadas (Lat, Lng)
           </label>
           <Input
             className="form-control-alternative"
             type="text"
-            name="coordinatesth"
-            placeholder="Coordenadas (Lat, Lng)"
-            value={inputPlotLocation.coordinatesth}
+            name="coordinates"
+            title="Coordenadas (Lat, Lng)"
+            placeholder="Ex: -15.7801, -47.9292"
+            value={inputPlotLocation.coordinates}
             onChange={handleChangeInput}
             required
           />
@@ -174,7 +178,7 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
       </Col>
       <Col lg="6">
         <FormGroup>
-          <label className="form-control-label" htmlFor="coordinatesth">
+          <label className="form-control-label" htmlFor="lot_geometry">
             Documento de geometria do lote
           </label>
           <label className="btn bg-light ml-1 mb-0 form-control-label">
@@ -183,7 +187,7 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
               className="form-control-alternative"
               type="file"
               style={{ display: "none" }}
-              name="batchGeometry"
+              name="lot_geometry"
               onChange={handleChangeInputFile}
             />
           </label>
@@ -192,7 +196,7 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
       <Col lg="12">
         <FormGroup>
           <GoogleMaps
-            coordinatesth={inputPlotLocation.coordinatesth.split(",")}
+            coordinatesth={inputPlotLocation.coordinates.split(",")}
           />
         </FormGroup>
       </Col>

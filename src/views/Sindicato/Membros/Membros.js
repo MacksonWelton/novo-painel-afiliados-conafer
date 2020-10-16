@@ -19,7 +19,6 @@ import {
   Row,
   Modal,
   Button,
-  Form,
   ModalHeader,
   ModalBody,
   ModalFooter,
@@ -44,15 +43,6 @@ const Membros = () => {
   const [open, setOpen] = useState(false);
   const [openAddMember, setOpenAddMember] = useState(false);
   const [member, setMember] = useState({});
-  const [input, setInput] = useState();
-
-  const handleChangeInput = (event) => {
-    setInput(event.target.value);
-  };
-
-  const submitForm = (event) => {
-    event.preventDefault();
-  };
 
   const members = useSelector((state) => state.MembersReducer.members);
 
@@ -105,15 +95,17 @@ const Membros = () => {
         <Row className="mt-5">
           <div className="col">
             <Card className="bg-default shadow">
-              <CardHeader className="bg-transparent border-0 d-flex align-items-center">
+              <CardHeader className="bg-transparent border-0 d-flex justify-content-between align-items-center">
                 <h3 className="text-white mb-0">Membros do Sindicato</h3>
-                <Button
-                  onClick={() => setOpenAddMember(!openAddMember)}
-                  className="m-auto"
-                  color="primary"
-                >
-                  ADICIONAR MEMBRO
-                </Button>
+                <div>
+                  <Button
+                    onClick={() => setOpenAddMember(!openAddMember)}
+                    className="m-auto"
+                    color="primary"
+                  >
+                    ADICIONAR MEMBRO
+                  </Button>
+                </div>
               </CardHeader>
               <Table
                 className="align-items-center table-dark table-flush"
@@ -262,14 +254,11 @@ const Membros = () => {
           <RegistroSubAfiliados />
         </ModalBody>
         <ModalFooter className="d-flex justify-content-end">
-          <Button color="primary" type="button">
-            Abrir
-          </Button>
           <Button
             color="secondary"
             onClick={() => setOpenAddMember(!openAddMember)}
           >
-            Sair
+            Cancelar
           </Button>
         </ModalFooter>
       </Modal>

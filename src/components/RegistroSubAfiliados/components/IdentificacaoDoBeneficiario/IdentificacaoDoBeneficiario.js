@@ -24,7 +24,7 @@ const IdentificacaoDoBeneficiario = ({
             name="name"
             id="name"
             title="Digite seu nome completo"
-            placeholder="Digite seu nome completo"
+            placeholder="Ex: João da Silva"
             value={inputBeneficiaryIdentity.name}
             onChange={handleChangeInput}
             required
@@ -41,7 +41,7 @@ const IdentificacaoDoBeneficiario = ({
             type="email"
             name="email"
             title="Email"
-            placeholder="Email"
+            placeholder="Ex: email@conafer.org.br"
             value={inputBeneficiaryIdentity.email}
             onChange={handleChangeInput}
             required
@@ -50,7 +50,7 @@ const IdentificacaoDoBeneficiario = ({
       </Col>
       <Col lg="6">
         <FormGroup>
-          <label className="form-control-label" htmlFor="name">
+          <label className="form-control-label" htmlFor="cpf">
             CPF
           </label>
           <Input
@@ -69,16 +69,16 @@ const IdentificacaoDoBeneficiario = ({
       </Col>
       <Col lg="6">
         <FormGroup>
-          <label className="form-control-label" htmlFor="name">
+          <label className="form-control-label" htmlFor="collection_code">
             Código de Coleta
           </label>
           <Input
             className="form-control-alternative"
             type="text"
-            name="collectionCode"
+            name="collection_code"
             title="Código de Coleta"
-            placeholder="Código de Coleta"
-            value={inputBeneficiaryIdentity.collectionCode}
+            placeholder="Ex: 0000"
+            value={inputBeneficiaryIdentity.collection_code}
             onChange={handleChangeInput}
             required
           />
@@ -86,16 +86,16 @@ const IdentificacaoDoBeneficiario = ({
       </Col>
       <Col lg="6">
         <FormGroup>
-          <label className="form-control-label" htmlFor="name">
+          <label className="form-control-label" htmlFor="settlement_code">
             Código de Assentamento
           </label>
           <Input
             className="form-control-alternative"
             type="text"
-            name="settlement"
+            name="settlement_code"
             title="Código de Assentamento"
-            placeholder="Código de Assentamento"
-            value={inputBeneficiaryIdentity.settlement}
+            placeholder="Ex: AFG0000"
+            value={inputBeneficiaryIdentity.settlement_code}
             onChange={handleChangeInput}
             required
           />
@@ -103,16 +103,16 @@ const IdentificacaoDoBeneficiario = ({
       </Col>
       <Col lg="6">
         <FormGroup>
-          <label className="form-control-label" htmlFor="name">
+          <label className="form-control-label" htmlFor="citizenship">
             Naturalidade
           </label>
           <Input
             className="form-control-alternative"
             type="text"
-            name="placeOfBirth"
+            name="citizenship"
             title="Naturalidade"
-            placeholder="Naturalidade"
-            value={inputBeneficiaryIdentity.placeOfBirth}
+            placeholder="Ex: Maceió - AL"
+            value={inputBeneficiaryIdentity.citizenship}
             onChange={handleChangeInput}
             required
           />
@@ -120,16 +120,16 @@ const IdentificacaoDoBeneficiario = ({
       </Col>
       <Col lg="6">
         <FormGroup>
-          <label className="form-control-label" htmlFor="name">
-            Status na RB
+          <label className="form-control-label" htmlFor="rb_status">
+            Status na rb_status
           </label>
           <Input
             className="form-control-alternative"
             type="text"
-            name="rb"
+            name="rb_status"
             title="Status na RB"
-            placeholder="Status na RB"
-            value={inputBeneficiaryIdentity.rb}
+            placeholder="Ex: Titulado"
+            value={inputBeneficiaryIdentity.rb_status}
             onChange={handleChangeInput}
             required
           />
@@ -137,16 +137,16 @@ const IdentificacaoDoBeneficiario = ({
       </Col>
       <Col lg="6">
         <FormGroup>
-          <label className="form-control-label" htmlFor="name">
+          <label className="form-control-label" htmlFor="incra_area">
             Ocupa área destinada pelo Incra
           </label>
           <Input
             className="form-control-alternative"
             type="select"
-            name="incraArea"
+            name="incra_area"
             title="Ocupa área destinada pelo Incra"
             placeholder="Ocupa área destinada pelo Incra"
-            value={inputBeneficiaryIdentity.incraArea}
+            value={inputBeneficiaryIdentity.incra_area}
             onChange={handleChangeInput}
             required
           >

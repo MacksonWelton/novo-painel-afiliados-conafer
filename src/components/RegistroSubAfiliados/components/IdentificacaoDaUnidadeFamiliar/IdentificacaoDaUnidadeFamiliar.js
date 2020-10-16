@@ -15,16 +15,16 @@ const IdentificacaoDaUnidadeFamiliar = ({
     <Row>
       <Col lg="6">
         <FormGroup>
-          <label className="form-control-label" htmlFor="name">
+          <label className="form-control-label" htmlFor="settlement_code">
             Código do Assentamento
           </label>
           <Input
             className="form-control-alternative"
             type="text"
-            name="settlementCode"
+            name="settlement_code"
             title="Código do Assentamento"
             placeholder="Código do Assentamento"
-            value={inputFamilyUnitId.settlementCode}
+            value={inputFamilyUnitId.settlement_code}
             onChange={handleChangeInput}
             required
           />
@@ -40,7 +40,7 @@ const IdentificacaoDaUnidadeFamiliar = ({
             type="status"
             name="status"
             title="Status"
-            placeholder="Status"
+            placeholder="Ex: Beneficiário"
             value={inputFamilyUnitId.status}
             onChange={handleChangeInput}
             required
@@ -57,7 +57,7 @@ const IdentificacaoDaUnidadeFamiliar = ({
             type="text"
             name="cpf"
             value={mask(unMask(inputFamilyUnitId.cpf), ["999.999.999-99"])}
-            placeholder="000.000.000-00"
+            placeholder="Ex: 000.000.000-00"
             onChange={handleChangeInput}
             title="CPF deve conter mais de 11 números."
             required
@@ -74,7 +74,7 @@ const IdentificacaoDaUnidadeFamiliar = ({
             type="text"
             name="rg"
             title="RG"
-            placeholder="RG"
+            placeholder="Ex: 0000000"
             value={inputFamilyUnitId.rg}
             onChange={handleChangeInput}
             required
@@ -91,7 +91,7 @@ const IdentificacaoDaUnidadeFamiliar = ({
             type="text"
             name="nis"
             title="NIS"
-            placeholder="NIS"
+            placeholder="Ex: 0000000"
             value={inputFamilyUnitId.nis}
             onChange={handleChangeInput}
             required
@@ -100,15 +100,15 @@ const IdentificacaoDaUnidadeFamiliar = ({
       </Col>
       <Col lg="6">
         <FormGroup>
-          <label className="form-control-label" htmlFor="nis">
-            NIS
+          <label className="form-control-label" htmlFor="marital_status">
+            Estado Civil
           </label>
           <Input
             className="form-control-alternative"
             type="text"
-            name="civilStatus"
+            name="marital_status"
             title="Estado Civil"
-            placeholder="Estado Civil"
+            placeholder="Ex: Solteiro"
             value={inputFamilyUnitId.civilStatus}
             onChange={handleChangeInput}
             required
@@ -117,15 +117,15 @@ const IdentificacaoDaUnidadeFamiliar = ({
       </Col>
       <Col lg="6">
         <FormGroup>
-          <label className="form-control-label" htmlFor="placeOfBirth">
+          <label className="form-control-label" htmlFor="mother_name">
             Nome da Mãe
           </label>
           <Input
             className="form-control-alternative"
             type="text"
-            name="placeOfBirth"
+            name="mother_name"
             title="Nome da Mãe"
-            placeholder="Nome da Mãe"
+            placeholder="Ex: Maria da Silva"
             value={inputFamilyUnitId.motherName}
             onChange={handleChangeInput}
             required
@@ -134,16 +134,16 @@ const IdentificacaoDaUnidadeFamiliar = ({
       </Col>
       <Col lg="6">
         <FormGroup>
-          <label className="form-control-label" htmlFor="spouseName">
+          <label className="form-control-label" htmlFor="spouse_name">
             Nome do Cônjuge
           </label>
           <Input
             className="form-control-alternative"
             type="text"
-            name="spouseName"
+            name="spouse_name"
             title="Nome do Cônjuge"
-            placeholder="Nome do Cônjuge"
-            value={inputFamilyUnitId.spouseName}
+            placeholder="Ex: Fernanda da Silva"
+            value={inputFamilyUnitId.spouse_name}
             onChange={handleChangeInput}
             required
           />
@@ -151,16 +151,16 @@ const IdentificacaoDaUnidadeFamiliar = ({
       </Col>
       <Col lg="6">
         <FormGroup>
-          <label className="form-control-label" htmlFor="spouseCPF">
+          <label className="form-control-label" htmlFor="spouse_cpf">
             CPF do Cônjuge
           </label>
           <Input
             className="form-control-alternative"
             type="text"
-            name="spouseCPF"
+            name="spouse_cpf"
             title="CPF do Cônjuge"
-            placeholder="CPF do Cônjuge"
-            value={mask(unMask(inputFamilyUnitId.spouseCPF), [
+            placeholder="Ex: 000.000.000-00"
+            value={mask(unMask(inputFamilyUnitId.spouse_cpf), [
               "999.999.999-99",
             ])}
             onChange={handleChangeInput}
@@ -170,16 +170,16 @@ const IdentificacaoDaUnidadeFamiliar = ({
       </Col>
       <Col lg="6">
         <FormGroup>
-          <label className="form-control-label" htmlFor="naturalness">
+          <label className="form-control-label" htmlFor="citizenship">
             Naturalidade
           </label>
           <Input
             className="form-control-alternative"
             type="text"
-            name="naturalness"
+            name="citizenship"
             title="Naturalidade"
-            placeholder="Naturalidade"
-            value={inputFamilyUnitId.naturalness}
+            placeholder="Ex: São Paulo - SP"
+            value={inputFamilyUnitId.citizenship}
             onChange={handleChangeInput}
             required
           />
@@ -195,7 +195,7 @@ const IdentificacaoDaUnidadeFamiliar = ({
             type="text"
             name="nationality"
             title="Nacionalidade"
-            placeholder="Nacionalidade"
+            placeholder="Ex: Brasileiro"
             value={inputFamilyUnitId.nationality}
             onChange={handleChangeInput}
             required
