@@ -208,7 +208,7 @@ const EnderecoCorrespondencia = ({ inputAddress, setInputAddress }) => {
             type="tel"
             name="phone"
             title="Telefone 1"
-            placeholder="(11) 98888-8888"
+            placeholder="Ex: (11) 98888-8888"
             value={inputAddress.phone}
             onChange={handleChangeInput}
             required
@@ -225,7 +225,7 @@ const EnderecoCorrespondencia = ({ inputAddress, setInputAddress }) => {
             type="tel"
             name="alternative_phone"
             title="Telefone 2"
-            placeholder="(11) 98888-8888"
+            placeholder="Ex: (11) 98888-8888"
             value={inputAddress.alternative_phone}
             onChange={handleChangeInput}
             required

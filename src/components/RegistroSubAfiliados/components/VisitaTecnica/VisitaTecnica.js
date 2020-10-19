@@ -1,38 +1,52 @@
 import React from "react";
-import { Input, InputGroup } from "reactstrap";
+import { Input, FormGroup, Row, Col } from "reactstrap";
 
 function VisitaTecnica({ inputTechnicalVisit, setInputTechnicalVisit }) {
-
   const handleChangeInput = (event) => {
     const { name, value } = event.target;
     setInputTechnicalVisit({ ...inputTechnicalVisit, [name]: value });
   };
 
   return (
-    <div className="row">
-      <InputGroup className="mb-3 col-xl-6 col-sm-12 col-lg-6">
-        <Input
-          type="text"
-          name="informant"
-          title="Nome do Informante"
-          placeholder="Nome do Informante"
-          value={inputTechnicalVisit.informant}
-          onChange={handleChangeInput}
-          required
-        />
-      </InputGroup>
-      <InputGroup className="mb-3 col-xl-6 col-sm-12 col-lg-6">
-        <Input
-          type="text"
-          name="participants"
-          title="Quem participou das conversas durante a visita?"
-          placeholder="Quem participou das conversas durante a visita?"
-          value={inputTechnicalVisit.participants}
-          onChange={handleChangeInput}
-          required
-        />
-      </InputGroup>
-    </div>
+    <Row>
+      <Col lg="12">
+        <FormGroup>
+          <label className="form-control-label" htmlFor="informant_name">
+            Nome do Informante
+          </label>
+          <Input
+            className="form-control-alternative"
+            type="text"
+            name="informant_name"
+            title="Nome do Informante"
+            placeholder="Ex: Fernando Garcia"
+            value={inputTechnicalVisit.informant_name}
+            onChange={handleChangeInput}
+            required
+          />
+        </FormGroup>
+      </Col>
+      <Col lg="12">
+        <FormGroup>
+          <label
+            className="form-control-label"
+            htmlFor="conversation_participants"
+          >
+            Nome do Informante
+          </label>
+          <Input
+            className="form-control-alternative"
+            type="text"
+            name="conversation_participants"
+            title="Quem participou das conversas durante a visita?"
+            placeholder="Ex: Pedro Melo Santos, Inácio dos Santos"
+            value={inputTechnicalVisit.conversation_participants}
+            onChange={handleChangeInput}
+            required
+          />
+        </FormGroup>
+      </Col>
+    </Row>
   );
 }
 

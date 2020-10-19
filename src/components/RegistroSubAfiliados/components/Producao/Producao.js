@@ -557,7 +557,7 @@ const Producao = ({ inputProduction, setInputProduction }) => {
             required
           >
             <option value={undefined} hidden>
-              Semente Crioula
+              Escolha uma opção
             </option>
             <option value={true}>Sim</option>
             <option value={false}>Não</option>
@@ -620,7 +620,7 @@ const Producao = ({ inputProduction, setInputProduction }) => {
             required
           >
             <option value={undefined} hidden>
-              A Produção Gera Resíduo?
+              Escolha uma opção
             </option>
             <option value={true}>Sim</option>
             <option value={false}>Não</option>
@@ -635,11 +635,13 @@ const Producao = ({ inputProduction, setInputProduction }) => {
       <div className="d-flex justify-content-center">
         <Table>
           <thead>
-            <th>Cultura</th>
-            <th>Produção Anual</th>
-            <th>Preço Por Kg do Autoconsumo</th>
-            <th>Qtd. Comercializada Anual</th>
-            <th>...</th>
+            <tr>
+              <th>Cultura</th>
+              <th>Produção Anual</th>
+              <th>Preço Por Kg do Autoconsumo</th>
+              <th>Qtd. Comercializada Anual</th>
+              <th>...</th>
+            </tr>
           </thead>
           <tbody>
             {inputProduction.plantations.map((platation, index) => (
@@ -672,7 +674,7 @@ const Producao = ({ inputProduction, setInputProduction }) => {
             type="text"
             name="piscicultureType"
             title="Tipo"
-            placeholder="Tipo"
+            placeholder="Ex: Tanque Escavado"
             value={inputProduction.piscicultureType}
             onChange={handleChangeInput}
             required
@@ -689,7 +691,7 @@ const Producao = ({ inputProduction, setInputProduction }) => {
             type="text"
             name="piscicultureHandling"
             title="Manejo"
-            placeholder="Manejo"
+            placeholder="Ex: Extensivo"
             value={inputProduction.piscicultureHandling}
             onChange={handleChangeInput}
             required
@@ -706,7 +708,7 @@ const Producao = ({ inputProduction, setInputProduction }) => {
             type="text"
             name="pisciculturePeeling"
             title="Sistema de Despesca"
-            placeholder="Sistema de Despesca"
+            placeholder="Ex: Redes"
             value={inputProduction.pisciculturePeeling}
             onChange={handleChangeInput}
             required
@@ -723,7 +725,7 @@ const Producao = ({ inputProduction, setInputProduction }) => {
             type="text"
             name="piscicultureFoodComplementation"
             title="Complementação Alimentar"
-            placeholder="Complementação Alimentar"
+            placeholder="Ex: Ração"
             value={inputProduction.piscicultureFoodComplementation}
             onChange={handleChangeInput}
             required
@@ -740,7 +742,7 @@ const Producao = ({ inputProduction, setInputProduction }) => {
             type="text"
             name="piscicultureFoodComplementationCost"
             title="Comp. Alim. - Custo Total Anual"
-            placeholder="Comp. Alim. - Custo Total Anual"
+            placeholder="Ex: 1.000,00"
             value={inputProduction.piscicultureFoodComplementationCost}
             onChange={handleChangeInput}
             required
@@ -757,7 +759,7 @@ const Producao = ({ inputProduction, setInputProduction }) => {
             type="text"
             name="piscicultureFinality"
             title="Finalidade"
-            placeholder="Finalidade"
+            placeholder="Ex: Autoconsumo"
             value={inputProduction.piscicultureFinality}
             onChange={handleChangeInput}
             required
@@ -780,7 +782,7 @@ const Producao = ({ inputProduction, setInputProduction }) => {
             required
           >
             <option value={undefined} hidden>
-              Existe Pesque-Pague
+              Escolha uma opção
             </option>
             <option value={true}>Sim</option>
             <option value={false}>Não</option>
@@ -797,7 +799,7 @@ const Producao = ({ inputProduction, setInputProduction }) => {
             type="text"
             name="piscicultureReservoir"
             title="Tamanho do Reservatório (m²)"
-            placeholder="Tamanho do Reservatório (m²)"
+            placeholder="Ex: 250"
             value={inputProduction.piscicultureReservoir}
             onChange={handleChangeInput}
             required
@@ -808,8 +810,8 @@ const Producao = ({ inputProduction, setInputProduction }) => {
         <h4>Piscicultura - Destino Anual da Produção</h4>
         <hr />
       </div>
-      <Col lg="6">
-        <FormGroup>
+      <Col lg="6" className="d-flex align-items-end">
+        <FormGroup className="w-100">
           <label className="form-control-label" htmlFor="waste_generation">
             Produção de Carne (Kg/ano)
           </label>
@@ -818,7 +820,7 @@ const Producao = ({ inputProduction, setInputProduction }) => {
             type="text"
             name="piscicultureProduction"
             title="Produção de Carne (Kg/ano)"
-            placeholder="Produção de Carne (Kg/ano)"
+            placeholder="Ex: 200,00"
             value={inputProduction.piscicultureProduction}
             onChange={handleChangeInput}
             required
@@ -835,7 +837,7 @@ const Producao = ({ inputProduction, setInputProduction }) => {
             type="text"
             name="pisciculturePriceKg"
             title="Preço de Compra do Kg no Mercado Local - Total Autoconsumo"
-            placeholder="Preço de Compra do Kg no Mercado Local - Total Autoconsumo"
+            placeholder="Ex: 2.000,00"
             value={inputProduction.pisciculturePriceKg}
             onChange={handleChangeInput}
             required
@@ -849,10 +851,10 @@ const Producao = ({ inputProduction, setInputProduction }) => {
           </label>
           <Input
             className="form-control-alternative"
-            type="text"
+            type="number"
             name="piscicultureCommercializedProduction"
             title="Produção Comercializada (Kg/ano)"
-            placeholder="Produção Comercializada (Kg/ano)"
+            placeholder="Ex: 200"
             value={inputProduction.piscicultureCommercializedProduction}
             onChange={handleChangeInput}
             required
@@ -869,7 +871,7 @@ const Producao = ({ inputProduction, setInputProduction }) => {
             type="text"
             name="piscicultureMarketedPrice"
             title="Preço Médio Por Kg Obitido na Comercialização"
-            placeholder="Preço Médio Por Kg Obitido na Comercialização"
+            placeholder="Ex: 5,00"
             value={inputProduction.piscicultureMarketedPrice}
             onChange={handleChangeInput}
             required
@@ -886,7 +888,7 @@ const Producao = ({ inputProduction, setInputProduction }) => {
             type="text"
             name="pisciculturemarketingChannels"
             title="Principais Canais de Comercialização"
-            placeholder="Principais Canais de Comercialização"
+            placeholder="Ex: Entrega a domicílio"
             value={inputProduction.pisciculturemarketingChannels}
             onChange={handleChangeInput}
             required
@@ -899,16 +901,16 @@ const Producao = ({ inputProduction, setInputProduction }) => {
       </div>
       <Col lg="6">
         <FormGroup>
-          <label className="form-control-label" htmlFor="waste_generation">
+          <label className="form-control-label" htmlFor="means_transport">
             Principal Meio de Transporte da Produção do Lote
           </label>
           <Input
             className="form-control-alternative"
             type="text"
-            name="mainModeTransport"
+            name="means_transport"
             title="Principal Meio de Transporte da Produção do Lote"
-            placeholder="Principal Meio de Transporte da Produção do Lote"
-            value={inputProduction.mainModeTransport}
+            placeholder="Ex: Caminhão"
+            value={inputProduction.means_transport}
             onChange={handleChangeInput}
             required
           />
@@ -916,16 +918,19 @@ const Producao = ({ inputProduction, setInputProduction }) => {
       </Col>
       <Col lg="6">
         <FormGroup>
-          <label className="form-control-label" htmlFor="waste_generation">
+          <label
+            className="form-control-label"
+            htmlFor="waterway_transportation_cost"
+          >
             Custo do Transporte Próprio Hidroviário
           </label>
           <Input
             className="form-control-alternative"
             type="text"
-            name="ownWaterwayTransport"
+            name="waterway_transportation_cost"
             title="Custo do Transporte Próprio Hidroviário"
-            placeholder="Custo do Transporte Próprio Hidroviário"
-            value={inputProduction.ownWaterwayTransport}
+            placeholder="Ex: 300,00"
+            value={inputProduction.waterway_transportation_cost}
             onChange={handleChangeInput}
             required
           />
@@ -933,16 +938,19 @@ const Producao = ({ inputProduction, setInputProduction }) => {
       </Col>
       <Col lg="6">
         <FormGroup>
-          <label className="form-control-label" htmlFor="waste_generation">
+          <label
+            className="form-control-label"
+            htmlFor="road_chartered_transport_cost"
+          >
             Custo do Transporte Fretado Rodoviário
           </label>
           <Input
             className="form-control-alternative"
             type="text"
-            name="roadCharteredTransport"
+            name="road_chartered_transport_cost"
             title="Custo do Transporte Fretado Rodoviário"
-            placeholder="Custo do Transporte Fretado Rodoviário"
-            value={inputProduction.roadCharteredTransport}
+            placeholder="Ex: 300,00"
+            value={inputProduction.road_chartered_transport_cost}
             onChange={handleChangeInput}
             required
           />
@@ -950,16 +958,19 @@ const Producao = ({ inputProduction, setInputProduction }) => {
       </Col>
       <Col lg="6">
         <FormGroup>
-          <label className="form-control-label" htmlFor="waste_generation">
-            Custo do Transporte Fretado Rodoviário
+          <label
+            className="form-control-label"
+            htmlFor="cost_chartered_waterway_transport"
+          >
+            Custo do Transporte Fretado Hidroviário
           </label>
           <Input
             className="form-control-alternative"
             type="text"
-            name="waterwayCharteredTransport"
+            name="cost_chartered_waterway_transport"
             title="Custo do Transporte Fretado Hidroviário"
             placeholder="Ex: 300,00"
-            value={inputProduction.waterwayCharteredTransport}
+            value={inputProduction.cost_chartered_waterway_transport}
             onChange={handleChangeInput}
             required
           />
@@ -971,38 +982,44 @@ const Producao = ({ inputProduction, setInputProduction }) => {
       </div>
       <Col lg="6">
         <FormGroup>
-          <label className="form-control-label" htmlFor="waste_generation">
+          <label
+            className="form-control-label"
+            htmlFor="wild_animals_sighted_lot"
+          >
             Animais Silvestres Já Foram Avistados no Lote ou Assentamento
           </label>
           <Input
             className="form-control-alternative"
             type="text"
-            name="waterwayCharteredTransport"
+            name="wild_animals_sighted_lot"
             title="Animais Silvestres Já Foram Avistados no Lote ou Assentamento"
             placeholder="Ex: Lobo guará, Capivara, Arara azul"
-            value={inputProduction.waterwayCharteredTransport}
+            value={inputProduction.wild_animals_sighted_lot}
             onChange={handleChangeInput}
             required
           />
         </FormGroup>
       </Col>
-      <Col lg="6">
-        <FormGroup>
-          <label className="form-control-label" htmlFor="waste_generation">
+      <Col lg="6" className="d-flex align-items-end">
+        <FormGroup className="w-100">
+          <label
+            className="form-control-label"
+            htmlFor="wild_nimals_cause_problems"
+          >
             Animais Silvestres Causam Problemas?
           </label>
           <Input
             className="form-control-alternative"
             type="select"
             onChange={handleChangeInput}
-            value={inputProduction.problemsWithWildAnimals}
+            value={inputProduction.wild_nimals_cause_problems}
             title="Animais Silvestres Causam Problemas?"
-            name="problemsWithWildAnimals"
+            name="wild_nimals_cause_problems"
             id="select"
             required
           >
             <option value={undefined} hidden>
-              Animais Silvestres Causam Problemas?
+              Escolha uma opção
             </option>
             <option value={true}>Sim</option>
             <option value={false}>Não</option>
@@ -1015,7 +1032,7 @@ const Producao = ({ inputProduction, setInputProduction }) => {
       </div>
       <Col lg="6">
         <FormGroup>
-          <label className="form-control-label" htmlFor="waste_generation">
+          <label className="form-control-label" htmlFor="improvement">
             Benfeitoria
           </label>
           <Input
@@ -1023,7 +1040,7 @@ const Producao = ({ inputProduction, setInputProduction }) => {
             type="text"
             name="improvement"
             title="Benfeitoria"
-            placeholder="Benfeitoria"
+            placeholder="Ex: Moradia"
             value={inputImprovements.improvement}
             onChange={handleChangeInputImprovements}
             required
@@ -1040,7 +1057,7 @@ const Producao = ({ inputProduction, setInputProduction }) => {
             type="text"
             name="otherImprovement"
             title="Outra Benfeitoria"
-            placeholder="Outra Benfeitoria"
+            placeholder="Ex: Moinho"
             value={inputImprovements.otherImprovement}
             onChange={handleChangeInputImprovements}
             required
@@ -1049,16 +1066,16 @@ const Producao = ({ inputProduction, setInputProduction }) => {
       </Col>
       <Col lg="6">
         <FormGroup>
-          <label className="form-control-label" htmlFor="waste_generation">
+          <label className="form-control-label" htmlFor="type_improvement">
             Tipo
           </label>
           <Input
             className="form-control-alternative"
             type="text"
-            name="typeImprovement"
+            name="type_improvement"
             title="Tipo"
-            placeholder="Tipo"
-            value={inputImprovements.typeImprovement}
+            placeholder="Ex: Alvenaria"
+            value={inputImprovements.type_improvement}
             onChange={handleChangeInputImprovements}
             required
           />
@@ -1066,16 +1083,16 @@ const Producao = ({ inputProduction, setInputProduction }) => {
       </Col>
       <Col lg="6">
         <FormGroup>
-          <label className="form-control-label" htmlFor="waste_generation">
+          <label className="form-control-label" htmlFor="footage">
             Dimensão (m² ou m)
           </label>
           <Input
             className="form-control-alternative"
-            type="text"
-            name="dimensionImprovement"
+            type="number"
+            name="footage"
             title="Dimensão (m² ou m)"
-            placeholder="Dimensão (m² ou m)"
-            value={inputImprovements.dimensionImprovement}
+            placeholder="Ex: 200"
+            value={inputImprovements.footage}
             onChange={handleChangeInputImprovements}
             required
           />
@@ -1083,16 +1100,16 @@ const Producao = ({ inputProduction, setInputProduction }) => {
       </Col>
       <Col lg="6">
         <FormGroup>
-          <label className="form-control-label" htmlFor="waste_generation">
+          <label className="form-control-label" htmlFor="age_improvement">
             Faixa de Idade da Benfeitoria
           </label>
           <Input
             className="form-control-alternative"
             type="text"
-            name="improvementAge"
+            name="age_improvement"
             title="Faixa de Idade da Benfeitoria"
-            placeholder="Faixa de Idade da Benfeitoria"
-            value={inputImprovements.improvementAge}
+            placeholder="Ex: 4 a 6 anos"
+            value={inputImprovements.age_improvement}
             onChange={handleChangeInputImprovements}
             required
           />
@@ -1137,32 +1154,32 @@ const Producao = ({ inputProduction, setInputProduction }) => {
       </div>
       <Col lg="6">
         <FormGroup>
-          <label className="form-control-label" htmlFor="waste_generation">
+          <label className="form-control-label" htmlFor="oxen">
             Bois
           </label>
           <Input
             className="form-control-alternative"
             type="number"
-            name="bulls"
+            name="oxen"
             title="Bois"
-            placeholder="Bois"
-            value={inputImprovements.bulls}
+            placeholder="Ex: 5"
+            value={inputImprovements.oxen}
             onChange={handleChangeInputImprovements}
             required
           />
         </FormGroup>
       </Col>
       <Col lg="6">
-        <label className="form-control-label" htmlFor="waste_generation">
-          Equinos
-        </label>
         <FormGroup>
+          <label className="form-control-label" htmlFor="equine">
+            Equinos
+          </label>
           <Input
             className="form-control-alternative"
             type="number"
             name="equine"
             title="Equinos"
-            placeholder="Equinos"
+            placeholder="Ex: 2"
             value={inputImprovements.equine}
             onChange={handleChangeInputImprovements}
             required
@@ -1171,16 +1188,16 @@ const Producao = ({ inputProduction, setInputProduction }) => {
       </Col>
       <Col lg="6">
         <FormGroup>
-          <label className="form-control-label" htmlFor="waste_generation">
+          <label className="form-control-label" htmlFor="mules">
             Muares
           </label>
           <Input
             className="form-control-alternative"
             type="number"
-            name="muares"
+            name="mules"
             title="Muares"
-            placeholder="Muares"
-            value={inputImprovements.muares}
+            placeholder="Ex: 5"
+            value={inputImprovements.mules}
             onChange={handleChangeInputImprovements}
             required
           />

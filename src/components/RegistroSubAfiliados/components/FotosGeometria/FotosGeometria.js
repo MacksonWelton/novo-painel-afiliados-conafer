@@ -1,12 +1,11 @@
 import { Input } from "@material-ui/icons";
 import React from "react";
-import { Button, InputGroup } from "reactstrap";
+import { Button, Col, FormGroup, Row } from "reactstrap";
 
 const FotosGeometria = ({
   inputPhotosAndGeometry,
   setInputPhotosAndGeometry,
 }) => {
-
   const handleChangeInputFile = (event) => {
     const name = event.target.name;
     const value = event.target.files[0];
@@ -47,7 +46,7 @@ const FotosGeometria = ({
       case "Certidão de Nascimento":
         setInputPhotosAndGeometry({
           ...inputPhotosAndGeometry,
-          birthCertificate: [...inputPhotosAndGeometry.birthCertificate, ""],
+          birth_certificate: [...inputPhotosAndGeometry.birth_certificate, ""],
         });
         break;
       case "CPF":
@@ -59,13 +58,16 @@ const FotosGeometria = ({
       case "Atividades Econômicas":
         setInputPhotosAndGeometry({
           ...inputPhotosAndGeometry,
-          economicActivities: [...inputPhotosAndGeometry.economicActivities, ""],
+          economic_activities_file: [
+            ...inputPhotosAndGeometry.economic_activities_file,
+            "",
+          ],
         });
         break;
       case "Benfeitorias":
         setInputPhotosAndGeometry({
           ...inputPhotosAndGeometry,
-          improvement: [...inputPhotosAndGeometry.improvement, ""],
+          improvements_file: [...inputPhotosAndGeometry.improvements_file, ""],
         });
         break;
       default:
@@ -85,329 +87,397 @@ const FotosGeometria = ({
   };
 
   return (
-    <div className="row">
+    <Row>
       <div className="col-12">
         <h3>Documentos</h3>
         <hr />
       </div>
-      <InputGroup className="mb-3 col-xl-12 col-sm-12 col-lg-12">
-        <label className="btn bg-light ml-1 mb-0">
-          {inputPhotosAndGeometry.domainTitleFront
-            ? inputPhotosAndGeometry.domainTitleFront.name
-            : "Título de Domínio (Frente)"}
-          <Input
-            type="file"
-            style={{ display: "none" }}
-            name="domainTitleFront"
-            onChange={handleChangeInputFile}
-          />
-          {inputPhotosAndGeometry.domainTitleFront && (
-            <Button
-              className="p-0 ml-2"
-              name="domainTitleFront"
-              onClick={(event) => deleteFile(event)}
-            >
-              X
-            </Button>
-          )}
-        </label>
-        <label className="btn bg-light ml-1 mb-0">
-          {inputPhotosAndGeometry.domainTitleBack
-            ? inputPhotosAndGeometry.domainTitleBack.name
-            : "Título de Domínio (Verso)"}
-          <Input
-            type="file"
-            name="domainTitleBack"
-            style={{ display: "none" }}
-            onChange={handleChangeInputFile}
-          />
-          {inputPhotosAndGeometry.domainTitleBack && (
-            <Button
-              className="p-0 ml-2"
-              name="domainTitleBack"
-              onClick={(event) => deleteFile(event)}
-            >
-              X
-            </Button>
-          )}
-        </label>
-      </InputGroup>
+      <Col lg="12">
+        <FormGroup>
+          <label className="form-control-label">Título de Domínio</label>
+        </FormGroup>
+        <FormGroup>
+          <label className="btn bg-light ml-1 mb-0">
+            {inputPhotosAndGeometry.front_domain_title
+              ? inputPhotosAndGeometry.front_domain_title.name
+              : "Selecione a Frente do Documento"}
+            <Input
+              className="form-control-alternative"
+              type="file"
+              style={{ display: "none" }}
+              name="front_domain_title"
+              onChange={handleChangeInputFile}
+            />
+            {inputPhotosAndGeometry.front_domain_title && (
+              <Button
+                className="p-0 ml-2"
+                name="front_domain_title"
+                onClick={(event) => deleteFile(event)}
+              >
+                X
+              </Button>
+            )}
+          </label>
+          <label className="btn bg-light ml-1 mb-0">
+            {inputPhotosAndGeometry.back_domain_title
+              ? inputPhotosAndGeometry.back_domain_title.name
+              : "Selecione Atrás do Documento"}
+            <Input
+              className="form-control-alternative"
+              type="file"
+              name="back_domain_title"
+              style={{ display: "none" }}
+              onChange={handleChangeInputFile}
+            />
+            {inputPhotosAndGeometry.back_domain_title && (
+              <Button
+                className="p-0 ml-2"
+                name="back_domain_title"
+                onClick={(event) => deleteFile(event)}
+              >
+                X
+              </Button>
+            )}
+          </label>
+        </FormGroup>
+      </Col>
 
-      <InputGroup className="mb-3 col-xl-12 col-sm-12 col-lg-12">
-        <label className="btn bg-light ml-1 mb-0">
-          {inputPhotosAndGeometry.frontSettlement
-            ? inputPhotosAndGeometry.frontSettlement.name
-            : "Cartão de Assentamento (Frente)"}
-          <Input
-            type="file"
-            style={{ display: "none" }}
-            name="frontSettlement"
-            onChange={handleChangeInputFile}
-          />
-          {inputPhotosAndGeometry.frontSettlement && (
+      <Col lg="12">
+        <FormGroup>
+          <label className="form-control-label">Cartão de Assentamento</label>
+        </FormGroup>
+        <FormGroup>
+          <label className="btn bg-light ml-1 mb-0">
+            {inputPhotosAndGeometry.front_nesting_card
+              ? inputPhotosAndGeometry.front_nesting_card.name
+              : "Selecione a Frente do Documento"}
+            <Input
+              className="form-control-alternative"
+              type="file"
+              style={{ display: "none" }}
+              name="front_nesting_card"
+              onChange={handleChangeInputFile}
+            />
+            {inputPhotosAndGeometry.front_nesting_card && (
+              <Button
+                className="p-0 ml-2"
+                name="front_nesting_card"
+                onClick={(event) => deleteFile(event)}
+              >
+                X
+              </Button>
+            )}
+          </label>
+          <label className="btn bg-light ml-1 mb-0">
+            {inputPhotosAndGeometry.back_nesting_card
+              ? inputPhotosAndGeometry.back_nesting_card.name
+              : "Selecione Atrás do Documento"}
+            <Input
+              className="form-control-alternative"
+              type="file"
+              name="back_nesting_card"
+              style={{ display: "none" }}
+              onChange={handleChangeInputFile}
+            />
+            {inputPhotosAndGeometry.back_nesting_card && (
+              <Button
+                className="p-0 ml-2"
+                name="back_nesting_card"
+                onClick={(event) => deleteFile(event)}
+              >
+                X
+              </Button>
+            )}
+          </label>
+        </FormGroup>
+      </Col>
+
+      <Col lg="12">
+        <FormGroup>
+          <label className="form-control-label" htmlFor="georeferencing">
+            Georreferenciamento
+          </label>
+        </FormGroup>
+
+        <FormGroup>
+          <label className="btn bg-light ml-1 mb-0">
+            {inputPhotosAndGeometry.georeferencing
+              ? inputPhotosAndGeometry.georeferencing.name
+              : "Selecione o Documento"}
+            <Input
+              className="form-control-alternative"
+              type="file"
+              style={{ display: "none" }}
+              name="georeferencing"
+              onChange={handleChangeInputFile}
+            />
+          </label>
+          {inputPhotosAndGeometry.georeferencing && (
             <Button
               className="p-0 ml-2"
-              name="frontSettlement"
+              name="georeferencing"
               onClick={(event) => deleteFile(event)}
             >
               X
             </Button>
           )}
-        </label>
-        <label className="btn bg-light ml-1 mb-0">
-          {inputPhotosAndGeometry.backSettlement
-            ? inputPhotosAndGeometry.backSettlement.name
-            : "Cartão de Assentamento (Verso)"}
-          <Input
-            type="file"
-            name="backSettlement"
-            style={{ display: "none" }}
-            onChange={handleChangeInputFile}
-          />
-          {inputPhotosAndGeometry.backSettlement && (
-            <Button
-              className="p-0 ml-2"
-              name="backSettlement"
-              onClick={(event) => deleteFile(event)}
-            >
-              X
-            </Button>
-          )}
-        </label>
-      </InputGroup>
-      <InputGroup className="mb-3 col-xl-12 col-sm-12 col-lg-12">
-        <label className="btn bg-light ml-1 mb-0">
-          {inputPhotosAndGeometry.georeferencing
-            ? inputPhotosAndGeometry.georeferencing.name
-            : "Georreferenciamento"}
-          <Input
-            type="file"
-            style={{ display: "none" }}
-            name="georeferencing"
-            onChange={handleChangeInputFile}
-          />
-        </label>
-        {inputPhotosAndGeometry.georeferencing && (
+        </FormGroup>
+      </Col>
+
+      <Col lg="12">
+        <FormGroup>
+          <label className="form-control-label" htmlFor="georeferencing">
+            RG do Beneficiário(a)
+          </label>
+        </FormGroup>
+
+        <FormGroup>
+          <label className="btn bg-light ml-1 mb-0">
+            {inputPhotosAndGeometry.front_beneficiary_rg
+              ? inputPhotosAndGeometry.front_beneficiary_rg.name
+              : "Selecione a Frente do Documento"}
+            <Input
+              className="form-control-alternative"
+              type="file"
+              style={{ display: "none" }}
+              name="front_beneficiary_rg"
+              onChange={handleChangeInputFile}
+            />
+            {inputPhotosAndGeometry.front_beneficiary_rg && (
+              <Button
+                className="p-0 ml-2"
+                name="front_beneficiary_rg"
+                onClick={(event) => deleteFile(event)}
+              >
+                X
+              </Button>
+            )}
+          </label>
+          <label className="btn bg-light ml-1 mb-0">
+            {inputPhotosAndGeometry.back_beneficiary_rg
+              ? inputPhotosAndGeometry.back_beneficiary_rg.name
+              : "Selecione Atrás do Documento"}
+            <Input
+              className="form-control-alternative"
+              type="file"
+              name="back_beneficiary_rg"
+              style={{ display: "none" }}
+              onChange={handleChangeInputFile}
+            />
+          </label>
+        </FormGroup>
+      </Col>
+
+      <Col lg="12">
+        <FormGroup>
+          <label className="form-control-label">RG do(a) Companheiro(a)</label>
+        </FormGroup>
+        <FormGroup>
+          <label className="btn bg-light ml-1 mb-0">
+            {inputPhotosAndGeometry.front_companion_rg
+              ? inputPhotosAndGeometry.front_companion_rg.name
+              : "Selecione a Frente do Documento"}
+            <Input
+              className="form-control-alternative"
+              type="file"
+              style={{ display: "none" }}
+              name="front_companion_rg"
+              onChange={handleChangeInputFile}
+            />
+            {inputPhotosAndGeometry.rg2 && (
+              <Button
+                className="p-0 ml-2"
+                name="front_companion_rg"
+                onClick={(event) => deleteFile(event)}
+              >
+                X
+              </Button>
+            )}
+          </label>
+          <label className="btn bg-light ml-1 mb-0">
+            {inputPhotosAndGeometry.back_companion_rg
+              ? inputPhotosAndGeometry.back_companion_rg.name
+              : "Selecione Atrás do Documento"}
+            <Input
+              className="form-control-alternative"
+              type="file"
+              name="back_companion_rg"
+              style={{ display: "none" }}
+              onChange={handleChangeInputFile}
+            />
+          </label>
+        </FormGroup>
+      </Col>
+
+      <Col lg="12">
+        <FormGroup>
+          <label className="form-control-label">Certidão de Nascimento</label>
+        </FormGroup>
+        <FormGroup>
+          {inputPhotosAndGeometry.birth_certificate.map((input, index) => {
+            return (
+              <label key={index} className="btn bg-light ml-1 mb-0">
+                {inputPhotosAndGeometry.birth_certificate[index]
+                  ? inputPhotosAndGeometry.birth_certificate[index]["name"]
+                  : "Certidão de Nascimento"}
+                <Input
+                  className="form-control-alternative"
+                  type="file"
+                  style={{ display: "none" }}
+                  name="birth_certificate"
+                  onChange={(event) => handleChangeInputFiles(event, index)}
+                />
+                {(inputPhotosAndGeometry.birth_certificate[index] ||
+                  index > 0) && (
+                  <Button
+                    className="p-0 ml-2"
+                    name="birth_certificate"
+                    onClick={(event) => deleteInputFile(event, index)}
+                  >
+                    X
+                  </Button>
+                )}
+              </label>
+            );
+          })}
           <Button
-            className="p-0 ml-2"
-            name="georeferencing"
-            onClick={(event) => deleteFile(event)}
+            className="ml-1"
+            color="primary"
+            onClick={() => addInputFile("Certidão de Nascimento")}
           >
-            X
+            Adicionar
           </Button>
-        )}
-      </InputGroup>
+        </FormGroup>
+      </Col>
 
-      <InputGroup className="mb-3 col-xl-12 col-sm-12 col-lg-12">
-        <label className="btn bg-light ml-1 mb-0">
-          {inputPhotosAndGeometry.rgFront
-            ? inputPhotosAndGeometry.rgFront.name
-            : "RG do Beneficiário(a) (Frente)"}
-          <Input
-            type="file"
-            style={{ display: "none" }}
-            name="rgFront"
-            onChange={handleChangeInputFile}
-          />
-          {inputPhotosAndGeometry.rgFront && (
-            <Button
-              className="p-0 ml-2"
-              name="rgFront"
-              onClick={(event) => deleteFile(event)}
-            >
-              X
-            </Button>
-          )}
-        </label>
-        <label className="btn bg-light ml-1 mb-0">
-          {inputPhotosAndGeometry.rgBack
-            ? inputPhotosAndGeometry.rgBack.name
-            : "RG do Beneficiário(a) (Verso)"}
-          <Input
-            type="file"
-            name="rgBack"
-            style={{ display: "none" }}
-            onChange={handleChangeInputFile}
-          />
-        </label>
-        <label className="btn bg-light ml-1 mb-0">
-          {inputPhotosAndGeometry.rg2Front
-            ? inputPhotosAndGeometry.rg2Front.name
-            : "RG do(a) Companheiro(a) (Frente)"}
-          <Input
-            type="file"
-            style={{ display: "none" }}
-            name="rg2Front"
-            onChange={handleChangeInputFile}
-          />
-          {inputPhotosAndGeometry.rg2 && (
-            <Button
-              className="p-0 ml-2"
-              name="rg2Front"
-              onClick={(event) => deleteFile(event)}
-            >
-              X
-            </Button>
-          )}
-        </label>
-        <label className="btn bg-light ml-1 mb-0">
-          {inputPhotosAndGeometry.rg2Back
-            ? inputPhotosAndGeometry.rg2Back.name
-            : "RG do(a) Companheiro(a) (Verso)"}
-          <Input
-            type="file"
-            name="rg2Back"
-            style={{ display: "none" }}
-            onChange={handleChangeInputFile}
-          />
-        </label>
-      </InputGroup>
-
-      <InputGroup className="mb-3 col-xl-12 col-sm-12 col-lg-12">
-        {inputPhotosAndGeometry.birthCertificate.map((input, index) => {
-          return (
-            <label key={index} className="btn bg-light ml-1 mb-0">
-              {inputPhotosAndGeometry.birthCertificate[index]
-                ? inputPhotosAndGeometry.birthCertificate[index]["name"]
-                : "Certidão de Nascimento"}
-              <Input
-                type="file"
-                style={{ display: "none" }}
-                name="birthCertificate"
-                onChange={(event) => handleChangeInputFiles(event, index)}
-              />
-              {(inputPhotosAndGeometry.birthCertificate[index] ||
-                index > 0) && (
-                <Button
-                  className="p-0 ml-2"
-                  name="birthCertificate"
-                  onClick={(event) => deleteInputFile(event, index)}
-                >
-                  X
-                </Button>
-              )}
-            </label>
-          );
-        })}
-        <Button
-          className="ml-1"
-          color="primary"
-          onClick={() => addInputFile("Certidão de Nascimento")}
-        >
-          Adicionar
-        </Button>
-      </InputGroup>
-
-      <InputGroup className="mb-3 col-xl-12 col-sm-12 col-lg-12">
-        {inputPhotosAndGeometry.cpf.map((input, index) => {
-          return (
-            <label key={index} className="btn bg-light ml-1 mb-0">
-              {inputPhotosAndGeometry.cpf[index]
-                ? inputPhotosAndGeometry.cpf[index]["name"]
-                : "CPF"}
-              <Input
-                type="file"
-                style={{ display: "none" }}
-                name="cpf"
-                onChange={(event) => handleChangeInputFiles(event, index)}
-              />
-              {(inputPhotosAndGeometry.cpf[index] || index > 0) && (
-                <Button
-                  className="p-0 ml-2"
+      <Col lg="12">
+        <FormGroup>
+          <FormGroup>
+            <label className="form-control-label">CPF</label>
+          </FormGroup>
+          {inputPhotosAndGeometry.cpf.map((input, index) => {
+            return (
+              <label key={index} className="btn bg-light ml-1 mb-0">
+                {inputPhotosAndGeometry.cpf[index]
+                  ? inputPhotosAndGeometry.cpf[index]["name"]
+                  : "CPF"}
+                <Input
+                  className="form-control-alternative"
+                  type="file"
+                  style={{ display: "none" }}
                   name="cpf"
-                  onClick={(event) => deleteInputFile(event, index)}
-                >
-                  X
-                </Button>
-              )}
-            </label>
-          );
-        })}
-
-        <Button
-          className="ml-1"
-          color="primary"
-          onClick={() => addInputFile("CPF")}
-        >
-          Adicionar
-        </Button>
-      </InputGroup>
+                  onChange={(event) => handleChangeInputFiles(event, index)}
+                />
+                {(inputPhotosAndGeometry.cpf[index] || index > 0) && (
+                  <Button
+                    className="p-0 ml-2"
+                    name="cpf"
+                    onClick={(event) => deleteInputFile(event, index)}
+                  >
+                    X
+                  </Button>
+                )}
+              </label>
+            );
+          })}
+          <Button
+            className="ml-1"
+            color="primary"
+            onClick={() => addInputFile("CPF")}
+          >
+            Adicionar
+          </Button>
+        </FormGroup>
+      </Col>
 
       <div className="col-12">
         <h3>Fotos</h3>
         <hr />
       </div>
 
-      <InputGroup className="mb-3 col-xl-12 col-sm-12 col-lg-12">
-        {inputPhotosAndGeometry.economicActivities.map((input, index) => {
-          return (
-            <label key={index} className="btn bg-light ml-1 mb-0">
-              {inputPhotosAndGeometry.economicActivities[index]
-                ? inputPhotosAndGeometry.economicActivities[index]["name"]
-                : "Atividades Econômicas"}
-              <Input
-                type="file"
-                style={{ display: "none" }}
-                name="economicActivities"
-                onChange={(event) => handleChangeInputFiles(event, index)}
-              />
-              {(inputPhotosAndGeometry.economicActivities[index] || index > 0) && (
-                <Button
-                  className="p-0 ml-2"
-                  name="economicActivities"
-                  onClick={(event) => deleteInputFile(event, index)}
-                >
-                  X
-                </Button>
-              )}
-            </label>
-          );
-        })}
+      <Col lg="12">
+        <FormGroup>
+          <label className="form-control-label">Atividades Econômicas</label>
+        </FormGroup>
+        <FormGroup>
+          {inputPhotosAndGeometry.economic_activities_file.map((input, index) => {
+            return (
+              <label key={index} className="btn bg-light ml-1 mb-0">
+                {inputPhotosAndGeometry.economic_activities_file[index]
+                  ? inputPhotosAndGeometry.economic_activities_file[index]["name"]
+                  : "Atividades Econômicas"}
+                <Input
+                  className="form-control-alternative"
+                  type="file"
+                  style={{ display: "none" }}
+                  name="economic_activities_file"
+                  onChange={(event) => handleChangeInputFiles(event, index)}
+                />
+                {(inputPhotosAndGeometry.economic_activities_file[index] ||
+                  index > 0) && (
+                  <Button
+                    className="p-0 ml-2"
+                    name="economic_activities_file"
+                    onClick={(event) => deleteInputFile(event, index)}
+                  >
+                    X
+                  </Button>
+                )}
+              </label>
+            );
+          })}
+          <Button
+            className="ml-1"
+            color="primary"
+            onClick={() => addInputFile("Atividades Econômicas")}
+          >
+            Adicionar
+          </Button>
+        </FormGroup>
+      </Col>
 
-        <Button
-          className="ml-1"
-          color="primary"
-          onClick={() => addInputFile("Atividades Econômicas")}
-        >
-          Adicionar
-        </Button>
-      </InputGroup>
-
-      <InputGroup className="mb-3 col-xl-12 col-sm-12 col-lg-12">
-        {inputPhotosAndGeometry.improvement.map((input, index) => {
-          return (
-            <label key={index} className="btn bg-light ml-1 mb-0">
-              {inputPhotosAndGeometry.improvement[index]
-                ? inputPhotosAndGeometry.improvement[index]["name"]
-                : "Benfeitorias"}
-              <Input
-                type="file"
-                style={{ display: "none" }}
-                name="improvement"
-                onChange={(event) => handleChangeInputFiles(event, index)}
-              />
-              {(inputPhotosAndGeometry.improvement[index] || index > 0) && (
-                <Button
-                  className="p-0 ml-2"
-                  name="improvement"
-                  onClick={(event) => deleteInputFile(event, index)}
-                >
-                  X
-                </Button>
-              )}
-            </label>
-          );
-        })}
-
-        <Button
-          className="ml-1"
-          color="primary"
-          onClick={() => addInputFile("Benfeitorias")}
-        >
-          Adicionar
-        </Button>
-      </InputGroup>
-    </div>
+      <Col lg="12">
+        <FormGroup>
+          <label className="form-control-label">
+            Benfeitorias
+          </label>
+        </FormGroup>
+        <FormGroup>
+          {inputPhotosAndGeometry.improvements_file.map((input, index) => {
+            return (
+              <label key={index} className="btn bg-light ml-1 mb-0">
+                {inputPhotosAndGeometry.improvements_file[index]
+                  ? inputPhotosAndGeometry.improvements_file[index]["name"]
+                  : "Selecione o Documento"}
+                <Input
+                  className="form-control-alternative"
+                  type="file"
+                  style={{ display: "none" }}
+                  name="improvements_file"
+                  onChange={(event) => handleChangeInputFiles(event, index)}
+                />
+                {(inputPhotosAndGeometry.improvements_file[index] || index > 0) && (
+                  <Button
+                    className="p-0 ml-2"
+                    name="improvements_file"
+                    onClick={(event) => deleteInputFile(event, index)}
+                  >
+                    X
+                  </Button>
+                )}
+              </label>
+            );
+          })}
+          <Button
+            className="ml-1"
+            color="primary"
+            onClick={() => addInputFile("Benfeitorias")}
+          >
+            Adicionar
+          </Button>
+        </FormGroup>
+      </Col>
+    </Row>
   );
 };
 
