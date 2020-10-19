@@ -121,7 +121,7 @@ const IdentificacaoDoBeneficiario = ({
       <Col lg="6">
         <FormGroup>
           <label className="form-control-label" htmlFor="rb_status">
-            Status na rb_status
+            Status na RB
           </label>
           <Input
             className="form-control-alternative"
