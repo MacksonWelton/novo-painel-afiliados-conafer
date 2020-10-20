@@ -1,3 +1,27 @@
+export const register = (userData) => (dispatch) => {
+  try {
+    
+    dispatch(setRegister(userData));
+  } catch(err) {
+
+  }
+}
+
+export const setRegister = (userData) => ({
+  type: "SET_REGISTER",
+  payload: {
+    userData
+  }
+})
+
+export const recoverPassword = (email) => () => {
+  try {
+
+  }catch (err) {
+    
+  }
+}
+
 export const setBeneficiaryIdentity = (beneficiaryIdentity) => ({
   type: "SET_BENEFICIARY_IDENTITY",
   payload: {

@@ -11,6 +11,21 @@ const MembrosData = [
     coleta: "2911",
     address: "H287+Q7 Agudos, São Paulo",
     status: "Ativo/a",
+    lot: {
+      cep: "00000-00",
+      state: "São Paulo",
+      city: "Agudos",
+      settlement: "MN1191111 - CA NOME ASSENTAMENTO",
+      incra_allotment_number: "13",
+      access_way: "Rua de terra",
+      coordinates: { lat: -22.500326, lng: -48.9864157 },
+    },
+    production: {
+      operational_core: "CODEAGRO",
+      limit: "Sim",
+      marking: "Sim",
+      legalized: "Sim",
+    },
   },
   {
     id: 1,
@@ -24,6 +39,15 @@ const MembrosData = [
     coleta: "2911",
     address: "H287+Q7 Agudos, São Paulo",
     status: "Ativo/a",
+    lot: {
+      cep: "00000-00",
+      state: "São Paulo",
+      city: "Agudos",
+      settlement: "MN1191111 - CA NOME ASSENTAMENTO",
+      incra_allotment_number: "13",
+      access_way: "Rua de terra",
+      coordinates: { lat: -22.500326, lng: -48.9864157 },
+    },
   },
   {
     id: 2,
@@ -37,6 +61,15 @@ const MembrosData = [
     coleta: "2911",
     address: "H287+Q7 Agudos, São Paulo",
     status: "Ativo/a",
+    lot: {
+      cep: "00000-00",
+      state: "São Paulo",
+      city: "Agudos",
+      settlement: "MN1191111 - CA NOME ASSENTAMENTO",
+      incra_allotment_number: "13",
+      access_way: "Rua de terra",
+      coordinates: { lat: -22.500326, lng: -48.9864157 },
+    },
   },
   {
     id: 3,
@@ -50,6 +83,16 @@ const MembrosData = [
     coleta: "2911",
     address: "H287+Q7 Agudos, São Paulo",
     status: "Inativo/a",
+    lot: {
+      cep: "00000-00",
+      state: "São Paulo",
+      city: "Agudos",
+      settlement: "MN1191111 - CA NOME ASSENTAMENTO",
+      incra_allotment_number: "13",
+      access_way: "Rua de terra",
+      coordinates: { lat: -22.500326, lng: -48.9864157 },
+    },
+
   },
 ];
 

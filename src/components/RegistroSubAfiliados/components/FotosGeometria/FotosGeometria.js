@@ -1,6 +1,5 @@
-import { Input } from "@material-ui/icons";
 import React from "react";
-import { Button, Col, FormGroup, Row } from "reactstrap";
+import { Button, Col, FormGroup, Row, Input } from "reactstrap";
 
 const FotosGeometria = ({
   inputPhotosAndGeometry,
@@ -93,9 +92,7 @@ const FotosGeometria = ({
         <hr />
       </div>
       <Col lg="12">
-        <FormGroup>
-          <label className="form-control-label">Título de Domínio</label>
-        </FormGroup>
+        <label className="form-control-label">Título de Domínio</label>
         <FormGroup>
           <label className="btn bg-light ml-1 mb-0">
             {inputPhotosAndGeometry.front_domain_title
@@ -143,9 +140,7 @@ const FotosGeometria = ({
       </Col>
 
       <Col lg="12">
-        <FormGroup>
-          <label className="form-control-label">Cartão de Assentamento</label>
-        </FormGroup>
+        <label className="form-control-label">Cartão de Assentamento</label>
         <FormGroup>
           <label className="btn bg-light ml-1 mb-0">
             {inputPhotosAndGeometry.front_nesting_card
@@ -193,14 +188,11 @@ const FotosGeometria = ({
       </Col>
 
       <Col lg="12">
+        <label className="form-control-label" htmlFor="georeferencing">
+          Georreferenciamento
+        </label>
         <FormGroup>
-          <label className="form-control-label" htmlFor="georeferencing">
-            Georreferenciamento
-          </label>
-        </FormGroup>
-
-        <FormGroup>
-          <label className="btn bg-light ml-1 mb-0">
+          <label className="btn bg-light ml-1 mb-0 form-control-label">
             {inputPhotosAndGeometry.georeferencing
               ? inputPhotosAndGeometry.georeferencing.name
               : "Selecione o Documento"}
@@ -225,12 +217,9 @@ const FotosGeometria = ({
       </Col>
 
       <Col lg="12">
-        <FormGroup>
-          <label className="form-control-label" htmlFor="georeferencing">
-            RG do Beneficiário(a)
-          </label>
-        </FormGroup>
-
+        <label className="form-control-label" htmlFor="georeferencing">
+          RG do Beneficiário(a)
+        </label>
         <FormGroup>
           <label className="btn bg-light ml-1 mb-0">
             {inputPhotosAndGeometry.front_beneficiary_rg
@@ -269,9 +258,7 @@ const FotosGeometria = ({
       </Col>
 
       <Col lg="12">
-        <FormGroup>
-          <label className="form-control-label">RG do(a) Companheiro(a)</label>
-        </FormGroup>
+        <label className="form-control-label">RG do(a) Companheiro(a)</label>
         <FormGroup>
           <label className="btn bg-light ml-1 mb-0">
             {inputPhotosAndGeometry.front_companion_rg
@@ -310,9 +297,7 @@ const FotosGeometria = ({
       </Col>
 
       <Col lg="12">
-        <FormGroup>
-          <label className="form-control-label">Certidão de Nascimento</label>
-        </FormGroup>
+        <label className="form-control-label">Certidão de Nascimento</label>
         <FormGroup>
           {inputPhotosAndGeometry.birth_certificate.map((input, index) => {
             return (
@@ -351,16 +336,14 @@ const FotosGeometria = ({
       </Col>
 
       <Col lg="12">
+        <label className="form-control-label">CPF</label>
         <FormGroup>
-          <FormGroup>
-            <label className="form-control-label">CPF</label>
-          </FormGroup>
           {inputPhotosAndGeometry.cpf.map((input, index) => {
             return (
               <label key={index} className="btn bg-light ml-1 mb-0">
                 {inputPhotosAndGeometry.cpf[index]
                   ? inputPhotosAndGeometry.cpf[index]["name"]
-                  : "CPF"}
+                  : "Selecione o Documento"}
                 <Input
                   className="form-control-alternative"
                   type="file"
@@ -396,36 +379,38 @@ const FotosGeometria = ({
       </div>
 
       <Col lg="12">
+        <label className="form-control-label">Atividades Econômicas</label>
         <FormGroup>
-          <label className="form-control-label">Atividades Econômicas</label>
-        </FormGroup>
-        <FormGroup>
-          {inputPhotosAndGeometry.economic_activities_file.map((input, index) => {
-            return (
-              <label key={index} className="btn bg-light ml-1 mb-0">
-                {inputPhotosAndGeometry.economic_activities_file[index]
-                  ? inputPhotosAndGeometry.economic_activities_file[index]["name"]
-                  : "Atividades Econômicas"}
-                <Input
-                  className="form-control-alternative"
-                  type="file"
-                  style={{ display: "none" }}
-                  name="economic_activities_file"
-                  onChange={(event) => handleChangeInputFiles(event, index)}
-                />
-                {(inputPhotosAndGeometry.economic_activities_file[index] ||
-                  index > 0) && (
-                  <Button
-                    className="p-0 ml-2"
+          {inputPhotosAndGeometry.economic_activities_file.map(
+            (input, index) => {
+              return (
+                <label key={index} className="btn bg-light ml-1 mb-0">
+                  {inputPhotosAndGeometry.economic_activities_file[index]
+                    ? inputPhotosAndGeometry.economic_activities_file[index][
+                        "name"
+                      ]
+                    : "Selecione o Documento"}
+                  <Input
+                    className="form-control-alternative"
+                    type="file"
+                    style={{ display: "none" }}
                     name="economic_activities_file"
-                    onClick={(event) => deleteInputFile(event, index)}
-                  >
-                    X
-                  </Button>
-                )}
-              </label>
-            );
-          })}
+                    onChange={(event) => handleChangeInputFiles(event, index)}
+                  />
+                  {(inputPhotosAndGeometry.economic_activities_file[index] ||
+                    index > 0) && (
+                    <Button
+                      className="p-0 ml-2"
+                      name="economic_activities_file"
+                      onClick={(event) => deleteInputFile(event, index)}
+                    >
+                      X
+                    </Button>
+                  )}
+                </label>
+              );
+            }
+          )}
           <Button
             className="ml-1"
             color="primary"
@@ -437,11 +422,7 @@ const FotosGeometria = ({
       </Col>
 
       <Col lg="12">
-        <FormGroup>
-          <label className="form-control-label">
-            Benfeitorias
-          </label>
-        </FormGroup>
+          <label className="form-control-label">Benfeitorias</label>
         <FormGroup>
           {inputPhotosAndGeometry.improvements_file.map((input, index) => {
             return (
@@ -456,7 +437,8 @@ const FotosGeometria = ({
                   name="improvements_file"
                   onChange={(event) => handleChangeInputFiles(event, index)}
                 />
-                {(inputPhotosAndGeometry.improvements_file[index] || index > 0) && (
+                {(inputPhotosAndGeometry.improvements_file[index] ||
+                  index > 0) && (
                   <Button
                     className="p-0 ml-2"
                     name="improvements_file"

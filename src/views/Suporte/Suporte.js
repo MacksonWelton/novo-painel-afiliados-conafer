@@ -31,7 +31,7 @@ import Header from "components/Headers/Header.js";
 import { newSupports, newAnswers } from "../../redux/actions/Suporte";
 
 import SuporteData from "./SuporteData";
-import { Td } from "./styles";
+import { Tr } from "./styles";
 import ProgressCard from "components/ProgressCard/ProgressCard";
 
 const Suporte = () => {
@@ -133,15 +133,14 @@ const Suporte = () => {
                 </thead>
                 <tbody>
                   {supports.map((support, index) => (
-                    <tr key={index}>
-                      <Td
-                        onClick={() => {
-                          setOpen(!open);
-                          setSupport(support);
-                        }}
-                      >
-                        {support.id}
-                      </Td>
+                    <Tr
+                      key={index}
+                      onClick={() => {
+                        setOpen(!open);
+                        setSupport(support);
+                      }}
+                    >
+                      <td>{support.id}</td>
                       <td>
                         <Badge color="" className="badge-dot">
                           <i className={getBadge(support.status)} />
@@ -158,7 +157,10 @@ const Suporte = () => {
                             role="button"
                             size="sm"
                             color=""
-                            onClick={(e) => e.preventDefault()}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              e.preventDefault();
+                            }}
                           >
                             <i className="fas fa-ellipsis-v" />
                           </DropdownToggle>
@@ -184,7 +186,7 @@ const Suporte = () => {
                           </DropdownMenu>
                         </UncontrolledDropdown>
                       </td>
-                    </tr>
+                    </Tr>
                   ))}
                 </tbody>
               </Table>

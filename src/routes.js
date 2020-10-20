@@ -15,13 +15,16 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import Index from "./views/Index.js";
-import Perfil from "./views/Perfil/Perfil.js";
-import Maps from "./views/examples/Maps.js";
-import Register from "./views/examples/Register.js";
-import Login from "./views/Login/Login.js";
-import Tables from "./views/examples/Tables.js";
-import Icons from "./views/examples/Icons.js";
+import Index from "./views/Index";
+import Perfil from "./views/Perfil/Perfil";
+import Maps from "./views/examples/Maps";
+import Register from "./views/Register/Register";
+import RecoverPassword from "./views/RecoverPassword/RecoverPassword";
+import AffiliateRegistration from "./views/Register/AffiliateRegistration";
+import RegistrationPJ from "./views/Register/RegistrationPJ";
+import Login from "./views/Login/Login";
+import Tables from "./views/examples/Tables";
+import Icons from "./views/examples/Icons";
 import Contratos from "./views/Contratos/Contratos";
 import Suporte from "./views/Suporte/Suporte";
 import Orcamentos from "./views/Orcamentos/Orcamentos";
@@ -120,7 +123,28 @@ var routes = [
     icon: "ni ni-circle-08 text-pink",
     component: Register,
     layout: "/auth"
-  }
+  },
+  {
+    path: "/recover-password",
+    name: "Recuperar Senha",
+    icon: "ni ni-circle-08 text-pink",
+    component: RecoverPassword,
+    layout: "/auth"
+  },
+  {
+    path: "/affiliate-registration",
+    name: "Cadastro de Afiliados",
+    icon: "ni ni-circle-08 text-pink",
+    component: AffiliateRegistration,
+    layout: "/auth"
+  },
+  {
+    path: "/registration-pj",
+    name: "Cadastro de Afiliado PJ",
+    icon: "ni ni-circle-08 text-pink",
+    component: RegistrationPJ,
+    layout: "/auth"
+  },
 ];
 
 export default routes;

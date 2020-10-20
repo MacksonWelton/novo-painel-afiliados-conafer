@@ -31,7 +31,7 @@ import Header from "components/Headers/Header.js";
 import { newComment, newContracts } from "../../redux/actions/Contratos";
 
 import ContratosData from "./ContratosData";
-import { Td } from "./styles";
+import { Tr } from "./styles";
 import ProgressCard from "components/ProgressCard/ProgressCard";
 
 const Contratos = () => {
@@ -74,21 +74,24 @@ const Contratos = () => {
   const CardData = [
     {
       title: "Pendentes",
-      progress: contracts.filter(contract => contract.status === "Pendente").length,
+      progress: contracts.filter((contract) => contract.status === "Pendente")
+        .length,
       max: contracts.length,
       icon: "fas fa-stopwatch",
       color: "blue",
     },
     {
       title: "Cancelados",
-      progress: contracts.filter(contract => contract.status === "Cancelados").length,
+      progress: contracts.filter((contract) => contract.status === "Cancelados")
+        .length,
       max: contracts.length,
       icon: "fas fa-times",
       color: "red",
     },
     {
       title: "Assinados",
-      progress: contracts.filter(contract => contract.status === "Assinado").length,
+      progress: contracts.filter((contract) => contract.status === "Assinado")
+        .length,
       max: contracts.length,
       icon: "fas fa-check",
       color: "green",
@@ -97,7 +100,7 @@ const Contratos = () => {
 
   return (
     <>
-      <Header children={<ProgressCard CardData={CardData} />}/>
+      <Header children={<ProgressCard CardData={CardData} />} />
       <Container className="mt--7" fluid>
         <Row className="mt-5">
           <div className="col">
@@ -120,15 +123,14 @@ const Contratos = () => {
                 </thead>
                 <tbody>
                   {contracts.map((contract, index) => (
-                    <tr key={index}>
-                      <Td
-                        onClick={() => {
-                          setOpen(!open);
-                          setContract(contract);
-                        }}
-                      >
-                        {contract.name}
-                      </Td>
+                    <Tr
+                      key={index}
+                      onClick={() => {
+                        setOpen(!open);
+                        setContract(contract);
+                      }}
+                    >
+                      <td>{contract.name}</td>
                       <td>{contract.value}</td>
                       <td>
                         <Badge color="" className="badge-dot">
@@ -145,7 +147,10 @@ const Contratos = () => {
                             role="button"
                             size="sm"
                             color=""
-                            onClick={(e) => e.preventDefault()}
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              e.preventDefault()
+                            }}
                           >
                             <i className="fas fa-ellipsis-v" />
                           </DropdownToggle>
@@ -171,7 +176,7 @@ const Contratos = () => {
                           </DropdownMenu>
                         </UncontrolledDropdown>
                       </td>
-                    </tr>
+                    </Tr>
                   ))}
                 </tbody>
               </Table>
@@ -283,7 +288,9 @@ const Contratos = () => {
                 type="textarea"
               />
               <div className="d-flex justify-content-end">
-                <Button type="submit" color="primary">Comentar</Button>
+                <Button type="submit" color="primary">
+                  Comentar
+                </Button>
               </div>
             </Form>
           </>

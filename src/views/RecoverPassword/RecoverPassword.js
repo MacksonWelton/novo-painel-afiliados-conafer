@@ -12,11 +12,11 @@ import {
   InputGroupAddon,
   InputGroupText,
   InputGroup,
-  Row,
   Col,
+  Row
 } from "reactstrap";
 
-const Login = () => {
+const RecoverPassword = () => {
   return (
     <>
       <Col lg="5" md="7">
@@ -58,7 +58,7 @@ const Login = () => {
           </CardHeader>
           <CardBody className="px-lg-5 py-lg-5">
             <div className="text-center text-muted mb-4">
-              <small>Ou faça login com email e senha</small>
+              <small>Ou recupere sua senha</small>
             </div>
             <Form role="form">
               <FormGroup className="mb-3">
@@ -75,37 +75,10 @@ const Login = () => {
                   />
                 </InputGroup>
               </FormGroup>
-              <FormGroup>
-                <InputGroup className="input-group-alternative">
-                  <InputGroupAddon addonType="prepend">
-                    <InputGroupText>
-                      <i className="ni ni-lock-circle-open" />
-                    </InputGroupText>
-                  </InputGroupAddon>
-                  <Input
-                    placeholder="Senha"
-                    type="password"
-                    autoComplete="new-password"
-                  />
-                </InputGroup>
-              </FormGroup>
-              <div className="custom-control custom-control-alternative custom-checkbox">
-                <input
-                  className="custom-control-input"
-                  id=" customCheckLogin"
-                  type="checkbox"
-                />
-                <label
-                  className="custom-control-label"
-                  htmlFor=" customCheckLogin"
-                >
-                  <span className="text-muted">Lembrar-se</span>
-                </label>
-              </div>
               <div className="text-center">
                 <Link to="/admin/index">
                   <Button className="my-4" color="primary" type="button">
-                    Entrar
+                    Recuperar
                   </Button>
                 </Link>
               </div>
@@ -114,9 +87,10 @@ const Login = () => {
         </Card>
         <Row className="mt-3">
           <Col xs="6">
-            <Link to="/auth/recover-password"
+            <Link to="/auth/login"
+            className="text-light"
             >
-              <small>Esqueceu a senha?</small>
+              <small>Fazer login</small>
             </Link>
           </Col>
           <Col className="text-right" xs="6">
@@ -133,4 +107,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default RecoverPassword;
