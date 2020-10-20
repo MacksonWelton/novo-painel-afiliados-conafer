@@ -22,6 +22,8 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
+  Col,
+  UncontrolledCollapse,
 } from "reactstrap";
 
 import Header from "components/Headers/Header.js";
@@ -29,9 +31,10 @@ import Header from "components/Headers/Header.js";
 import { newMembers } from "../../../redux/actions/Membros";
 
 import MembrosData from "./MembrosData";
-import { Td } from "./styles";
+import { Tr } from "./styles";
 import ProgressCard from "components/ProgressCard/ProgressCard";
 import RegistroSubAfiliados from "components/RegistroSubAfiliados/RegistroSubAfiliados";
+import GoogleMaps from "components/GoogleMaps/GoogleMaps";
 
 const Membros = () => {
   const dispatch = useDispatch();
@@ -43,6 +46,8 @@ const Membros = () => {
   const [open, setOpen] = useState(false);
   const [openAddMember, setOpenAddMember] = useState(false);
   const [member, setMember] = useState({});
+
+  console.log(member);
 
   const members = useSelector((state) => state.MembersReducer.members);
 
@@ -123,15 +128,14 @@ const Membros = () => {
                 </thead>
                 <tbody>
                   {members.map((member, index) => (
-                    <tr key={index}>
-                      <Td
-                        onClick={() => {
-                          setOpen(!open);
-                          setMember(member);
-                        }}
-                      >
-                        {member.name}
-                      </Td>
+                    <Tr
+                      onClick={() => {
+                        setOpen(!open);
+                        setMember(member);
+                      }}
+                      key={index}
+                    >
+                      <td>{member.name}</td>
                       <td>{member.birthDate}</td>
                       <td>{member.sourceOfIncome}</td>
                       <td>{member.address}</td>
@@ -149,7 +153,10 @@ const Membros = () => {
                             role="button"
                             size="sm"
                             color=""
-                            onClick={(e) => e.preventDefault()}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              e.preventDefault();
+                            }}
                           >
                             <i className="fas fa-ellipsis-v" />
                           </DropdownToggle>
@@ -158,24 +165,24 @@ const Membros = () => {
                               href="#pablo"
                               onClick={(e) => e.preventDefault()}
                             >
-                              Action
+                              Ativar
                             </DropdownItem>
                             <DropdownItem
                               href="#pablo"
                               onClick={(e) => e.preventDefault()}
                             >
-                              Another action
+                              Desativar
                             </DropdownItem>
                             <DropdownItem
                               href="#pablo"
                               onClick={(e) => e.preventDefault()}
                             >
-                              Something else here
+                              Deletar
                             </DropdownItem>
                           </DropdownMenu>
                         </UncontrolledDropdown>
                       </td>
-                    </tr>
+                    </Tr>
                   ))}
                 </tbody>
               </Table>
@@ -274,11 +281,138 @@ const Membros = () => {
           toggle={() => {
             setOpen(!open);
           }}
-        ></ModalHeader>
+        >
+          Informações de Membro
+        </ModalHeader>
         <ModalBody>
-          <></>
+          <h6
+            id="member"
+            className="heading-small border text-muted mb-4 btn w-100"
+          >
+            Dados de Membro
+          </h6>
+          <div className="pl-lg-4">
+            <UncontrolledCollapse toggler="member">
+              <Row>
+                <Col lg="12" className="mb-3">
+                  <div className="border rounded p-2">
+                    <b>Nome: </b> {member.name}
+                  </div>
+                </Col>
+                <Col lg="12" className="mb-3">
+                  <div className="border rounded p-2">
+                    <b>Escolaridade: </b> {member.school}
+                  </div>
+                </Col>
+                <Col lg="12" className="mb-3">
+                  <div className="border rounded p-2">
+                    <b>CPF: </b> {member.cpf}
+                  </div>
+                </Col>
+                <Col lg="12" className="mb-3">
+                  <div className="border rounded p-2">
+                    <b>Fonte de Renda: </b> {member.sourceOfIncome}
+                  </div>
+                </Col>
+                <Col lg="12" className="mb-3">
+                  <div className="border rounded p-2">
+                    <b>Ocupa área Destinada pelo INCRA: </b>
+                    {member.incra}
+                  </div>
+                </Col>
+                <Col lg="12" className="mb-3">
+                  <div className="border rounded p-2">
+                    <b>Naturalidade: </b>
+                    {member.nationality}
+                  </div>
+                </Col>
+                <Col lg="12" className="mb-3">
+                  <div className="border rounded p-2">
+                    <b>Nascimento: </b>
+                    {member.birthDate}
+                  </div>
+                </Col>
+              </Row>
+            </UncontrolledCollapse>
+          </div>
+          <h6
+            id="lot"
+            className="heading-small border text-muted mb-4 btn w-100"
+          >
+            Dados do Lot
+          </h6>
+          <div className="pl-lg-4">
+            <UncontrolledCollapse toggler="#lot">
+              <Row>
+                <GoogleMaps
+                  coordinatesth={
+                    member.lot
+                      ? [member.lot.coordinates.lat, member.lot.coordinates.lng]
+                      : []
+                  }
+                />
+                <Col lg="12" className="mb-3">
+                  <div className="border rounded p-2">
+                    <b>Endereço/Acesso: </b>
+                    {member.lot ? member.lot.access_way : ""}
+                  </div>
+                </Col>
+                <Col lg="12" className="mb-3">
+                  <div className="border rounded p-2">
+                    <b>CEP: </b>
+                    {member.lot ? member.lot.cep : ""}
+                  </div>
+                </Col>
+                <Col lg="12" className="mb-3">
+                  <div className="border rounded p-2">
+                    <b>Cidade: </b>
+                    {member.lot ? member.lot.city : ""}
+                  </div>
+                </Col>
+                <Col lg="12" className="mb-3">
+                  <div className="border rounded p-2">
+                    <b>Estado: </b>
+                    {member.lot ? member.lot.state : ""}
+                  </div>
+                </Col>
+                <Col lg="12" className="mb-3">
+                  <div className="border rounded p-2">
+                    <b>Assentamento: </b>
+                    {member.lot ? member.lot.settlement : ""}
+                  </div>
+                </Col>
+                <Col lg="12" className="mb-3">
+                  <div className="border rounded p-2">
+                    <b>Nº do Lote: </b>
+                    {member.lot ? member.lot.incra_allotment_number : ""}
+                  </div>
+                </Col>
+              </Row>
+            </UncontrolledCollapse>
+            <h6
+              id="production"
+              className="heading-small border text-muted mb-4 btn w-100"
+            >
+              Dados de Produção
+            </h6>
+            <div className="pl-lg-4">
+              <UncontrolledCollapse toggler="#production">
+                <Row>
+                  <Col lg="12" className="mb-3">
+                    <div className="border rounded p-2">
+                      <b>Núcleo Operacional: </b>
+                      {member.production ? member.production.operational_core : ""}
+                    </div>
+                  </Col>
+                </Row>
+              </UncontrolledCollapse>
+            </div>
+          </div>
         </ModalBody>
         <ModalFooter className="d-flex justify-content-end">
+        <Button color="primary" onClick={() => setOpen(!open)}>
+            Dowload PDF
+          </Button>
           <Button color="secondary" onClick={() => setOpen(!open)}>
             Sair
           </Button>

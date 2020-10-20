@@ -110,7 +110,7 @@ const Propostas = () => {
           <div className="col">
             <Card className="bg-default shadow">
               <CardHeader className="bg-transparent border-0">
-                <h3 className="text-white mb-0">Lista de Orçamentos</h3>
+                <h3 className="text-white mb-0">Lista de Propostas</h3>
               </CardHeader>
               <Table
                 className="align-items-center table-dark table-flush"
@@ -118,7 +118,7 @@ const Propostas = () => {
               >
                 <thead className="thead-dark">
                   <tr>
-                    <th scope="col">Orçamento</th>
+                    <th scope="col">Proposta</th>
                     <th scope="col">Valor</th>
                     <th scope="col">Status</th>
                     <th scope="col">Data</th>

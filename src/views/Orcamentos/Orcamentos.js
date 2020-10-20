@@ -31,8 +31,8 @@ import Header from "components/Headers/Header.js";
 import { newBudgets, newComment } from "../../redux/actions/Orcamentos";
 
 import OrcamentosData from "./OrcamentosData";
-import { Td } from "./styles";
 import ProgressCard from "components/ProgressCard/ProgressCard";
+import { Tr } from "./styles";
 
 const Orcamentos = () => {
   const dispatch = useDispatch();
@@ -74,28 +74,32 @@ const Orcamentos = () => {
   const CardData = [
     {
       title: "Enviados",
-      progress: budgets.filter(contract => contract.status === "Enviado").length,
+      progress: budgets.filter((contract) => contract.status === "Enviado")
+        .length,
       max: budgets.length,
       icon: "fas fa-stopwatch",
       color: "blue",
     },
     {
       title: "Expirados",
-      progress: budgets.filter(contract => contract.status === "Expirado").length,
+      progress: budgets.filter((contract) => contract.status === "Expirado")
+        .length,
       max: budgets.length,
       icon: "fas fa-exclamation-triangle",
       color: "yellow",
     },
     {
       title: "Declinados",
-      progress: budgets.filter(contract => contract.status === "Declinado").length,
+      progress: budgets.filter((contract) => contract.status === "Declinado")
+        .length,
       max: budgets.length,
       icon: "fas fa-times",
       color: "red",
     },
     {
       title: "Aceitos",
-      progress: budgets.filter(contract => contract.status === "Aceito").length,
+      progress: budgets.filter((contract) => contract.status === "Aceito")
+        .length,
       max: budgets.length,
       icon: "fas fa-check",
       color: "green",
@@ -104,7 +108,7 @@ const Orcamentos = () => {
 
   return (
     <>
-      <Header children={<ProgressCard CardData={CardData} />}/>
+      <Header children={<ProgressCard CardData={CardData} />} />
       <Container className="mt--7" fluid>
         <Row className="mt-5">
           <div className="col">
@@ -128,16 +132,14 @@ const Orcamentos = () => {
                 </thead>
                 <tbody>
                   {budgets.map((budget, index) => (
-                    <tr key={index}>
-                      <Td
-                        onClick={(event) => {
-                          event.stopPropagation();
-                          setOpen(!open);
-                          setBudget(budget);
-                        }}
-                      >
-                        {budget.name}
-                      </Td>
+                    <Tr
+                      key={index}
+                      onClick={() => {
+                        setOpen(!open);
+                        setBudget(budget);
+                      }}
+                    >
+                      <td>{budget.name}</td>
                       <td>{budget.value}</td>
                       <td>
                         <Badge color="" className="badge-dot">
@@ -155,7 +157,10 @@ const Orcamentos = () => {
                             role="button"
                             size="sm"
                             color=""
-                            onClick={(e) => e.preventDefault()}
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              e.preventDefault()
+                            }}
                           >
                             <i className="fas fa-ellipsis-v" />
                           </DropdownToggle>
@@ -181,7 +186,7 @@ const Orcamentos = () => {
                           </DropdownMenu>
                         </UncontrolledDropdown>
                       </td>
-                    </tr>
+                    </Tr>
                   ))}
                 </tbody>
               </Table>
@@ -293,7 +298,9 @@ const Orcamentos = () => {
                 type="textarea"
               />
               <div className="d-flex justify-content-end">
-                <Button type="submit" color="primary">Comentar</Button>
+                <Button type="submit" color="primary">
+                  Comentar
+                </Button>
               </div>
             </Form>
           </>

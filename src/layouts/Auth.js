@@ -59,9 +59,6 @@ class Auth extends React.Component {
                 <Row className="justify-content-center">
                   <Col lg="5" md="6">
                     <h1 className="text-white">Seja Bem-Vindo!</h1>
-                    <p className="text-lead text-light">
-                      Use o formulário abaixo para entrar ou criar uma nova conta.
-                    </p>
                   </Col>
                 </Row>
               </div>

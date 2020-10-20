@@ -29,8 +29,8 @@ import Header from "components/Headers/Header.js";
 import { newPayments } from "../../redux/actions/Mensalidades";
 
 import MensalidadesData from "./MensalidadesData";
-import { Td } from "./styles";
 import ProgressCard from "components/ProgressCard/ProgressCard";
+import { Tr } from "./styles";
 
 const Mensalidades = () => {
   const dispatch = useDispatch();
@@ -121,15 +121,13 @@ const Mensalidades = () => {
                 </thead>
                 <tbody>
                   {payments.map((payment, index) => (
-                    <tr key={index}>
-                      <Td
-                        onClick={() => {
-                          setOpen(!open);
-                          setPayment(payment);
-                        }}
-                      >
+                    <Tr key={index}                         onClick={() => {
+                      setOpen(!open);
+                      setPayment(payment);
+                    }}>
+                      <td>
                         {payment.id}
-                      </Td>
+                      </td>
                       <td>
                         <Badge color="" className="badge-dot">
                           <i className={getBadge(payment.status)} />
@@ -147,7 +145,10 @@ const Mensalidades = () => {
                             role="button"
                             size="sm"
                             color=""
-                            onClick={(e) => e.preventDefault()}
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              e.preventDefault()
+                            }}
                           >
                             <i className="fas fa-ellipsis-v" />
                           </DropdownToggle>
@@ -173,7 +174,7 @@ const Mensalidades = () => {
                           </DropdownMenu>
                         </UncontrolledDropdown>
                       </td>
-                    </tr>
+                    </Tr>
                   ))}
                 </tbody>
               </Table>
