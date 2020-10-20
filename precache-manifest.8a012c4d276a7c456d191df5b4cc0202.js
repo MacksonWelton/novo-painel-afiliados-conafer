@@ -1,31 +1,31 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "b2616ed41d5ce9c3e240868298a77a3c",
+    "revision": "2fc6d4c33e6c3fd00ee8ccfa80415190",
     "url": "/novo-painel-afiliados-conafer/index.html"
   },
   {
-    "revision": "a169646d706a384ffd75",
+    "revision": "2bc94c3b44849aded1de",
     "url": "/novo-painel-afiliados-conafer/static/css/2.926ce296.chunk.css"
   },
   {
-    "revision": "aa25f9aa988758af1b27",
+    "revision": "5c25cb866ae9a2dc7ddd",
     "url": "/novo-painel-afiliados-conafer/static/css/main.dbf62b07.chunk.css"
   },
   {
-    "revision": "a169646d706a384ffd75",
-    "url": "/novo-painel-afiliados-conafer/static/js/2.aa5faeaa.chunk.js"
+    "revision": "2bc94c3b44849aded1de",
+    "url": "/novo-painel-afiliados-conafer/static/js/2.804330ba.chunk.js"
   },
   {
     "revision": "c730adb19a4815481c72cb8d5801212f",
-    "url": "/novo-painel-afiliados-conafer/static/js/2.aa5faeaa.chunk.js.LICENSE.txt"
+    "url": "/novo-painel-afiliados-conafer/static/js/2.804330ba.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "aa25f9aa988758af1b27",
-    "url": "/novo-painel-afiliados-conafer/static/js/main.206c4917.chunk.js"
+    "revision": "5c25cb866ae9a2dc7ddd",
+    "url": "/novo-painel-afiliados-conafer/static/js/main.b22fac5c.chunk.js"
   },
   {
     "revision": "8d0d562f4ec3c131ac27d52de65ecd17",
-    "url": "/novo-painel-afiliados-conafer/static/js/main.206c4917.chunk.js.LICENSE.txt"
+    "url": "/novo-painel-afiliados-conafer/static/js/main.b22fac5c.chunk.js.LICENSE.txt"
   },
   {
     "revision": "d536cdcc9f43bfb698c4",
@@ -104,8 +104,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/novo-painel-afiliados-conafer/static/media/fa-solid-900.cdfec5cf.woff"
   },
   {
-    "revision": "4ffd4fe7945af123788bf5888296c696",
-    "url": "/novo-painel-afiliados-conafer/static/media/github.4ffd4fe7.svg"
+    "revision": "2fb66b88a043dbdcb51a351431f84d04",
+    "url": "/novo-painel-afiliados-conafer/static/media/facebook.2fb66b88.svg"
   },
   {
     "revision": "87be59a1f7061fc6021876aad6fee028",
