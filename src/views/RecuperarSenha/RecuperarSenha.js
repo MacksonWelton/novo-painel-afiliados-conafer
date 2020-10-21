@@ -16,7 +16,7 @@ import {
   Row
 } from "reactstrap";
 
-const RecoverPassword = () => {
+const RecuperarSenha = () => {
   return (
     <>
       <Col lg="5" md="7">
@@ -107,4 +107,4 @@ const RecoverPassword = () => {
   );
 };
 
-export default RecoverPassword;
+export default RecuperarSenha;

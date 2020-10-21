@@ -289,7 +289,7 @@ const Membros = () => {
             id="member"
             className="heading-small border text-muted mb-4 btn w-100"
           >
-            Dados de Membro
+            Dados do Membro
           </h6>
           <div className="pl-lg-4">
             <UncontrolledCollapse toggler="member">
@@ -339,7 +339,7 @@ const Membros = () => {
             id="lot"
             className="heading-small border text-muted mb-4 btn w-100"
           >
-            Dados do Lot
+            Dados do Lote
           </h6>
           <div className="pl-lg-4">
             <UncontrolledCollapse toggler="#lot">
@@ -351,7 +351,7 @@ const Membros = () => {
                       : []
                   }
                 />
-                <Col lg="12" className="mb-3">
+                <Col lg="12" className="mb-3 mt-3">
                   <div className="border rounded p-2">
                     <b>Endereço/Acesso: </b>
                     {member.lot ? member.lot.access_way : ""}
@@ -389,28 +389,30 @@ const Membros = () => {
                 </Col>
               </Row>
             </UncontrolledCollapse>
-            <h6
-              id="production"
-              className="heading-small border text-muted mb-4 btn w-100"
-            >
-              Dados de Produção
-            </h6>
-            <div className="pl-lg-4">
-              <UncontrolledCollapse toggler="#production">
-                <Row>
-                  <Col lg="12" className="mb-3">
-                    <div className="border rounded p-2">
-                      <b>Núcleo Operacional: </b>
-                      {member.production ? member.production.operational_core : ""}
-                    </div>
-                  </Col>
-                </Row>
-              </UncontrolledCollapse>
-            </div>
+          </div>
+          <h6
+            id="production"
+            className="heading-small border text-muted mb-4 btn w-100"
+          >
+            Dados de Produção
+          </h6>
+          <div className="pl-lg-4">
+            <UncontrolledCollapse toggler="#production">
+              <Row>
+                <Col lg="12" className="mb-3">
+                  <div className="border rounded p-2">
+                    <b>Núcleo Operacional: </b>
+                    {member.production
+                      ? member.production.operational_core
+                      : ""}
+                  </div>
+                </Col>
+              </Row>
+            </UncontrolledCollapse>
           </div>
         </ModalBody>
         <ModalFooter className="d-flex justify-content-end">
-        <Button color="primary" onClick={() => setOpen(!open)}>
+          <Button color="primary" onClick={() => setOpen(!open)}>
             Dowload PDF
           </Button>
           <Button color="secondary" onClick={() => setOpen(!open)}>

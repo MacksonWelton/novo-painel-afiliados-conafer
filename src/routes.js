@@ -17,14 +17,12 @@
 */
 import Index from "./views/Index";
 import Perfil from "./views/Perfil/Perfil";
-import Maps from "./views/examples/Maps";
-import Register from "./views/Register/Register";
-import RecoverPassword from "./views/RecoverPassword/RecoverPassword";
-import AffiliateRegistration from "./views/Register/AffiliateRegistration";
-import RegistrationPJ from "./views/Register/RegistrationPJ";
+import Registro from "./views/Registro/Registro";
+import RecuperarSenha from "./views/RecuperarSenha/RecuperarSenha";
+import RegistroDeAfiliados from "./views/Registro/RegistroDeAfiliados";
+import RegistroPJ from "./views/Registro/RegistroPJ";
+import RegistroPF from "./views/Registro/RegistroPF";
 import Login from "./views/Login/Login";
-import Tables from "./views/examples/Tables";
-import Icons from "./views/examples/Icons";
 import Contratos from "./views/Contratos/Contratos";
 import Suporte from "./views/Suporte/Suporte";
 import Orcamentos from "./views/Orcamentos/Orcamentos";
@@ -64,14 +62,14 @@ var routes = [
   {
     path: "/mensalidades",
     name: "Mensalidades",
-    icon: "far fa-calendar-alt text-black",
+    icon: "far fa-calendar-alt text-orange",
     component: Mensalidades,
     layout: "/admin"
   },
   {
     path: "/membros",
     name: "Membros",
-    icon: "fas fa-users text-infon",
+    icon: "fas fa-users text-black",
     component: Membros,
     layout: "/admin"
   },
@@ -83,31 +81,10 @@ var routes = [
     layout: "/admin"
   },
   {
-    path: "/icons",
-    name: "Icons",
-    icon: "ni ni-planet text-blue",
-    component: Icons,
-    layout: "/admin"
-  },
-  {
-    path: "/maps",
-    name: "Maps",
-    icon: "ni ni-pin-3 text-orange",
-    component: Maps,
-    layout: "/admin"
-  },
-  {
     path: "/user-profile",
     name: "Perfil",
-    icon: "ni ni-single-02 text-yellow",
+    icon: "ni ni-single-02 text-info",
     component: Perfil,
-    layout: "/admin"
-  },
-  {
-    path: "/tables",
-    name: "Tables",
-    icon: "ni ni-bullet-list-67 text-red",
-    component: Tables,
     layout: "/admin"
   },
   {
@@ -119,30 +96,37 @@ var routes = [
   },
   {
     path: "/register",
-    name: "Register",
+    name: "Registro",
     icon: "ni ni-circle-08 text-pink",
-    component: Register,
+    component: Registro,
     layout: "/auth"
   },
   {
     path: "/recover-password",
     name: "Recuperar Senha",
     icon: "ni ni-circle-08 text-pink",
-    component: RecoverPassword,
+    component: RecuperarSenha,
     layout: "/auth"
   },
   {
     path: "/affiliate-registration",
     name: "Cadastro de Afiliados",
     icon: "ni ni-circle-08 text-pink",
-    component: AffiliateRegistration,
+    component: RegistroDeAfiliados,
     layout: "/auth"
   },
   {
     path: "/registration-pj",
     name: "Cadastro de Afiliado PJ",
     icon: "ni ni-circle-08 text-pink",
-    component: RegistrationPJ,
+    component: RegistroPJ,
+    layout: "/auth"
+  },
+  {
+    path: "/registration-pf",
+    name: "Cadastro de Afiliado PF",
+    icon: "ni ni-circle-08 text-pink",
+    component: RegistroPF,
     layout: "/auth"
   },
 ];

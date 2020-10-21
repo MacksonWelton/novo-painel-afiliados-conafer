@@ -17,8 +17,24 @@ export const setRegister = (userData) => ({
 export const recoverPassword = (email) => () => {
   try {
 
-  }catch (err) {
+  } catch (err) {
     
+  }
+}
+
+export const registerPJ = (data) => () => {
+  try {
+
+  } catch (err) {
+
+  }
+}
+
+export const registerPF = (data) => () => {
+  try {
+
+  } catch (err) {
+
   }
 }
 
