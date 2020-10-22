@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
 // reactstrap components
 import {
@@ -15,11 +16,12 @@ import {
   InputGroupText,
   InputGroup,
   Col,
+  Row,
 } from "reactstrap";
 
 import { register } from "../../redux/actions/Registro";
 
-const Register = () => {
+const Registro = () => {
 
   const dispatch = useDispatch();
 
@@ -124,16 +126,33 @@ const Register = () => {
                 </InputGroup>
               </FormGroup>
               <div className="text-center">
+                <Link to="/auth/affiliate-registration">
                 <Button className="mt-4" color="primary" type="submit">
                   Criar conta
                 </Button>
+                </Link>
               </div>
             </Form>
           </CardBody>
         </Card>
+        <Row className="mt-3">
+          <Col xs="6">
+            <Link to="/auth/recover-password">
+              <small>Esqueceu a senha?</small>
+            </Link>
+          </Col>
+          <Col className="text-right" xs="6">
+            <Link
+              className="text-light"
+              to="/auth/login"
+            >
+              <small>Fazer login</small>
+            </Link>
+          </Col>
+        </Row>
       </Col>
     </>
   );
 };
 
-export default Register;
+export default Registro;

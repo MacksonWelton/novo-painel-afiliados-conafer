@@ -18,6 +18,7 @@ import ModalPhotoChange from "../../components/EditProfile/ModalPhotoChange";
 
 import PerfilData from "./PerfilData";
 import { newProfile } from "redux/actions/Perfil";
+import { Img } from "./Styles";
 
 const Perfil = () => {
   const dispatch = useDispatch();
@@ -103,9 +104,8 @@ const Perfil = () => {
               <Row className="justify-content-center">
                 <Col className="order-lg-2" lg="3">
                   <div className="card-profile-image">
-                    <img
+                    <Img
                       alt="..."
-                      style={{ maxHeight: "180px" }}
                       src={
                         fileName.photo
                           ? URL.createObjectURL(input.photo)
@@ -123,8 +123,9 @@ const Perfil = () => {
                     href="#pablo"
                     onClick={() => setOpen(!open)}
                     size="sm"
+                    title="Alterar"
                   >
-                    Alterar
+                    <i className="fas fa-user-edit"></i>
                   </Button>
                   <Button
                     className="float-right"
@@ -132,30 +133,13 @@ const Perfil = () => {
                     href="#pablo"
                     onClick={(e) => e.preventDefault()}
                     size="sm"
+                    title="Mensagens"
                   >
-                    Message
+                    <i className="fas fa-envelope-square"></i>
                   </Button>
                 </div>
               </CardHeader>
-              <CardBody className="pt-0 pt-md-4">
-                <Row>
-                  <div className="col">
-                    <div className="card-profile-stats d-flex justify-content-center mt-md-5">
-                      <div>
-                        <span className="heading">22</span>
-                        <span className="description">Friends</span>
-                      </div>
-                      <div>
-                        <span className="heading">10</span>
-                        <span className="description">Photos</span>
-                      </div>
-                      <div>
-                        <span className="heading">89</span>
-                        <span className="description">Comments</span>
-                      </div>
-                    </div>
-                  </div>
-                </Row>
+              <CardBody className="pt-0 pt-md-4 mt-5">
                 <div className="text-center">
                   <h3>
                     {profile.name}

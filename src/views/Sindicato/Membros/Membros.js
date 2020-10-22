@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   Badge,
   Card,
-  CardHeader,
   CardFooter,
   DropdownMenu,
   DropdownItem,
@@ -31,10 +30,11 @@ import Header from "components/Headers/Header.js";
 import { newMembers } from "../../../redux/actions/Membros";
 
 import MembrosData from "./MembrosData";
-import { Tr } from "./styles";
+import { InputStyled, Tr } from "./styles";
 import ProgressCard from "components/ProgressCard/ProgressCard";
 import RegistroSubAfiliados from "components/RegistroSubAfiliados/RegistroSubAfiliados";
 import GoogleMaps from "components/GoogleMaps/GoogleMaps";
+import { CardHeaderStyled } from "views/Contratos/styles";
 
 const Membros = () => {
   const dispatch = useDispatch();
@@ -100,18 +100,24 @@ const Membros = () => {
         <Row className="mt-5">
           <div className="col">
             <Card className="bg-default shadow">
-              <CardHeader className="bg-transparent border-0 d-flex justify-content-between align-items-center">
-                <h3 className="text-white mb-0">Membros do Sindicato</h3>
+              <CardHeaderStyled>
+                <h3 className="text-white mb-0">Lista de Membros</h3>
+                <div className="d-flex align-items-center">
+                  <InputStyled type="text" placeholder="Pesquisar..." />
+                  <Button className="bg-transparent border-0">
+                    <i className="fas fa-search text-white display-4"></i>
+                  </Button>
+                </div>
                 <div>
                   <Button
                     onClick={() => setOpenAddMember(!openAddMember)}
                     className="m-auto"
                     color="primary"
                   >
-                    ADICIONAR MEMBRO
+                    Adicionar
                   </Button>
                 </div>
-              </CardHeader>
+              </CardHeaderStyled>
               <Table
                 className="align-items-center table-dark table-flush"
                 responsive
@@ -289,7 +295,7 @@ const Membros = () => {
             id="member"
             className="heading-small border text-muted mb-4 btn w-100"
           >
-            Dados de Membro
+            Dados do Membro
           </h6>
           <div className="pl-lg-4">
             <UncontrolledCollapse toggler="member">
@@ -339,7 +345,7 @@ const Membros = () => {
             id="lot"
             className="heading-small border text-muted mb-4 btn w-100"
           >
-            Dados do Lot
+            Dados do Lote
           </h6>
           <div className="pl-lg-4">
             <UncontrolledCollapse toggler="#lot">
@@ -351,7 +357,7 @@ const Membros = () => {
                       : []
                   }
                 />
-                <Col lg="12" className="mb-3">
+                <Col lg="12" className="mb-3 mt-3">
                   <div className="border rounded p-2">
                     <b>Endereço/Acesso: </b>
                     {member.lot ? member.lot.access_way : ""}
@@ -389,28 +395,30 @@ const Membros = () => {
                 </Col>
               </Row>
             </UncontrolledCollapse>
-            <h6
-              id="production"
-              className="heading-small border text-muted mb-4 btn w-100"
-            >
-              Dados de Produção
-            </h6>
-            <div className="pl-lg-4">
-              <UncontrolledCollapse toggler="#production">
-                <Row>
-                  <Col lg="12" className="mb-3">
-                    <div className="border rounded p-2">
-                      <b>Núcleo Operacional: </b>
-                      {member.production ? member.production.operational_core : ""}
-                    </div>
-                  </Col>
-                </Row>
-              </UncontrolledCollapse>
-            </div>
+          </div>
+          <h6
+            id="production"
+            className="heading-small border text-muted mb-4 btn w-100"
+          >
+            Dados de Produção
+          </h6>
+          <div className="pl-lg-4">
+            <UncontrolledCollapse toggler="#production">
+              <Row>
+                <Col lg="12" className="mb-3">
+                  <div className="border rounded p-2">
+                    <b>Núcleo Operacional: </b>
+                    {member.production
+                      ? member.production.operational_core
+                      : ""}
+                  </div>
+                </Col>
+              </Row>
+            </UncontrolledCollapse>
           </div>
         </ModalBody>
         <ModalFooter className="d-flex justify-content-end">
-        <Button color="primary" onClick={() => setOpen(!open)}>
+          <Button color="primary" onClick={() => setOpen(!open)}>
             Dowload PDF
           </Button>
           <Button color="secondary" onClick={() => setOpen(!open)}>

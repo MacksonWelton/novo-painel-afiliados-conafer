@@ -13,7 +13,7 @@ import {
 } from "reactstrap";
 
 
-const AffiliateRegistration = () => {
+const RegistroDeAfiliados = () => {
 
 
   return (
@@ -28,7 +28,7 @@ const AffiliateRegistration = () => {
             <Link to="/auth/registration-pj" className="mb-3 p-2 bg-primary w-100 text-white text-center rounded">
               PESSOA JURÍDICA
             </Link>
-            <Link className="mb-3 p-2 bg-primary w-100 text-white text-center rounded">
+            <Link to="/auth/registration-pf" className="mb-3 p-2 bg-primary w-100 text-white text-center rounded">
               PESSOA FÍSICA
             </Link>
           </CardBody>
@@ -42,4 +42,4 @@ const AffiliateRegistration = () => {
   );
 };
 
-export default AffiliateRegistration;
+export default RegistroDeAfiliados;
