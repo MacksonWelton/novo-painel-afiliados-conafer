@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   Badge,
   Card,
-  CardHeader,
   CardFooter,
   DropdownMenu,
   DropdownItem,
@@ -24,6 +23,7 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
+  FormGroup,
 } from "reactstrap";
 
 import Header from "components/Headers/Header.js";
@@ -31,7 +31,7 @@ import Header from "components/Headers/Header.js";
 import { newComment, newContracts } from "../../redux/actions/Contratos";
 
 import ContratosData from "./ContratosData";
-import { Tr } from "./styles";
+import { CardHeaderStyled, InputStyled, Tr } from "./styles";
 import ProgressCard from "components/ProgressCard/ProgressCard";
 
 const Contratos = () => {
@@ -105,9 +105,18 @@ const Contratos = () => {
         <Row className="mt-5">
           <div className="col">
             <Card className="bg-default shadow">
-              <CardHeader className="bg-transparent border-0">
+              <CardHeaderStyled>
                 <h3 className="text-white mb-0">Lista de Contratos</h3>
-              </CardHeader>
+                <div className="d-flex align-items-center">
+                  <InputStyled type="text" placeholder="Pesquisar..." />
+                  <Button className="bg-transparent border-0">
+                    <i className="fas fa-search text-white display-4"></i>
+                  </Button>
+                </div>
+                <div>
+                  <Button color="primary">Adicionar</Button>
+                </div>
+              </CardHeaderStyled>
               <Table
                 className="align-items-center table-dark table-flush"
                 responsive
@@ -148,8 +157,8 @@ const Contratos = () => {
                             size="sm"
                             color=""
                             onClick={(e) => {
-                              e.stopPropagation()
-                              e.preventDefault()
+                              e.stopPropagation();
+                              e.preventDefault();
                             }}
                           >
                             <i className="fas fa-ellipsis-v" />
@@ -280,13 +289,15 @@ const Contratos = () => {
                 </div>
               ))}
             <Form onSubmit={submitForm}>
-              <Input
-                className="mb-3 mt-5"
-                placeholder="Digite uma nova resposta..."
-                onChange={handleChangeInput}
-                rows="4"
-                type="textarea"
-              />
+              <FormGroup>
+                <Input
+                  className="form-control-alternative"
+                  placeholder="Digite uma nova resposta..."
+                  onChange={handleChangeInput}
+                  rows="4"
+                  type="textarea"
+                />
+              </FormGroup>
               <div className="d-flex justify-content-end">
                 <Button type="submit" color="primary">
                   Comentar

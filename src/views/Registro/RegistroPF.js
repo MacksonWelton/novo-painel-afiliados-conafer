@@ -10,6 +10,7 @@ import {
   FormGroup,
   Row,
   Input,
+  Button,
 } from "reactstrap";
 import { mask } from "remask";
 
@@ -44,6 +45,7 @@ const RegistroPF = () => {
     email: "",
     entity_group: "",
     profession: undefined,
+    agree: false,
   });
 
   const handleChangeInput = (event) => {
@@ -51,7 +53,9 @@ const RegistroPF = () => {
     setInput({ ...input, [name]: value });
   };
 
-  console.log("renderizou")
+  const handleChecked = () => {
+    setInput({ ...input, agree: !input.agree });
+  };
 
   return (
     <>
@@ -426,7 +430,10 @@ const RegistroPF = () => {
                 </Col>
                 <Col lg="6">
                   <FormGroup>
-                    <label className="form-control-label" htmlFor="entity_group">
+                    <label
+                      className="form-control-label"
+                      htmlFor="entity_group"
+                    >
                       Grupo da sua Entidade (se houver)
                     </label>
                     <Input
@@ -441,8 +448,12 @@ const RegistroPF = () => {
                       <option value={undefined} hidden>
                         Escolha uma opção
                       </option>
-                      <option value="Associação Indígena">Associação Indígena</option>
-                      <option value="Associação de Moradores">Associação de Moradores</option>
+                      <option value="Associação Indígena">
+                        Associação Indígena
+                      </option>
+                      <option value="Associação de Moradores">
+                        Associação de Moradores
+                      </option>
                       <option value="Coletivo">Coletivo</option>
                       <option value="Outros">Outros</option>
                     </Input>
@@ -470,11 +481,14 @@ const RegistroPF = () => {
                     </Input>
                   </FormGroup>
                 </Col>
-                {input.profession !== undefined && input.profession !== "Agricultor(a)" ?
-                  (
-                    <Col lg="6">
+                {input.profession !== undefined &&
+                input.profession !== "Agricultor(a)" ? (
+                  <Col lg="6">
                     <FormGroup>
-                      <label className="form-control-label" htmlFor="profession">
+                      <label
+                        className="form-control-label"
+                        htmlFor="profession"
+                      >
                         Outra Profissão
                       </label>
                       <Input
@@ -488,11 +502,60 @@ const RegistroPF = () => {
                       />
                     </FormGroup>
                   </Col>
-                  ) : null
-                }
+                ) : null}
+                <Col lg="12">
+                  <p>
+                    Eu, DECLARO, para fins de direito, sob as penas da lei, que
+                    as informações acima prestadas e documentos que apresento
+                    para, relacionados acima, são verdadeiros e autênticos
+                    (fieis á verdade e condizentes com a realidade dos fatos á
+                    época).
+                  </p>
+                  <p>
+                    Fico ciente através desse documento que a falsidade dessa
+                    declaração configura crime previsto no Código Penal
+                    Brasileiro*, passível de apuração na forma da Lei bem como
+                    pode ser enquadrada como Litigância de Má Fé. Por meio deste
+                    termo, declaro ainda que me comprometo em atualizar as
+                    informações prestadas, tão logo eu tome conhecimento.
+                  </p>
+                  <p>
+                    *CÓDIGO PENAL Art. 171. Obter, para si ou para outrem,
+                    vantagem ilícita, em prejuízo alheio, induzindo ou manter
+                    alguém em erro, mediante artifício, ardil ou qualquer outro,
+                    meio fraudulento.
+                  </p>
+                  <p>
+                    Art. 299. Omitir, em documento público ou particular,
+                    declaração que dele devia constar, ou nele inserir ou fazer
+                    inserir declaração falsa ou diversa da que devia ser
+                    escrita, com o fim de prejudicar direito, criar obrigação ou
+                    alterar a verdade sobre fato juridicamente relevante.
+                  </p>
+                </Col>
+                <Col lg="12" className="d-flex justify-content-center mt-3">
+                  <FormGroup>
+                    <Input
+                      className="form-control-alternative"
+                      type="checkbox"
+                      checked={input.agree}
+                      onChange={handleChecked}
+                    />
+                    <label
+                      className="form-control-label"
+                      htmlFor="file_partners"
+                    >
+                      Concordo com os Termos e Condições
+                    </label>
+                  </FormGroup>
+                </Col>
               </Row>
             </CardBody>
-            <CardFooter></CardFooter>
+            <CardFooter className="text-center">
+              <Button color="primary" type="submit">
+                Enviar Informações
+              </Button>
+            </CardFooter>
           </Form>
         </Card>
       </Col>

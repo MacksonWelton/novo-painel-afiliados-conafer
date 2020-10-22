@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   Badge,
   Card,
-  CardHeader,
   CardFooter,
   DropdownMenu,
   DropdownItem,
@@ -31,10 +30,11 @@ import Header from "components/Headers/Header.js";
 import { newMembers } from "../../../redux/actions/Membros";
 
 import MembrosData from "./MembrosData";
-import { Tr } from "./styles";
+import { InputStyled, Tr } from "./styles";
 import ProgressCard from "components/ProgressCard/ProgressCard";
 import RegistroSubAfiliados from "components/RegistroSubAfiliados/RegistroSubAfiliados";
 import GoogleMaps from "components/GoogleMaps/GoogleMaps";
+import { CardHeaderStyled } from "views/Contratos/styles";
 
 const Membros = () => {
   const dispatch = useDispatch();
@@ -100,18 +100,24 @@ const Membros = () => {
         <Row className="mt-5">
           <div className="col">
             <Card className="bg-default shadow">
-              <CardHeader className="bg-transparent border-0 d-flex justify-content-between align-items-center">
-                <h3 className="text-white mb-0">Membros do Sindicato</h3>
+              <CardHeaderStyled>
+                <h3 className="text-white mb-0">Lista de Membros</h3>
+                <div className="d-flex align-items-center">
+                  <InputStyled type="text" placeholder="Pesquisar..." />
+                  <Button className="bg-transparent border-0">
+                    <i className="fas fa-search text-white display-4"></i>
+                  </Button>
+                </div>
                 <div>
                   <Button
                     onClick={() => setOpenAddMember(!openAddMember)}
                     className="m-auto"
                     color="primary"
                   >
-                    ADICIONAR MEMBRO
+                    Adicionar
                   </Button>
                 </div>
-              </CardHeader>
+              </CardHeaderStyled>
               <Table
                 className="align-items-center table-dark table-flush"
                 responsive

@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   Badge,
   Card,
-  CardHeader,
   CardFooter,
   DropdownMenu,
   DropdownItem,
@@ -33,6 +32,8 @@ import { newProposals, newComment } from "../../redux/actions/Propostas";
 import PropostasData from "./PropostasData";
 import { Td } from "./styles";
 import ProgressCard from "components/ProgressCard/ProgressCard";
+import { InputStyled } from "views/Contratos/styles";
+import { CardHeaderStyled } from "views/Contratos/styles";
 
 const Propostas = () => {
   const dispatch = useDispatch();
@@ -73,28 +74,28 @@ const Propostas = () => {
 
   const CardData = [
     {
-      title: "Enviados",
+      title: "Enviadas",
       progress: proposals.filter(contract => contract.status === "Enviado").length,
       max: proposals.length,
       icon: "fas fa-paper-plane",
       color: "blue",
     },
     {
-      title: "Expirados",
+      title: "Expiradas",
       progress: proposals.filter(contract => contract.status === "Expirado").length,
       max: proposals.length,
       icon: "fas fa-exclamation-triangle",
       color: "yellow",
     },
     {
-      title: "Declinados",
+      title: "Declinadas",
       progress: proposals.filter(contract => contract.status === "Declinado").length,
       max: proposals.length,
       icon: "fas fa-times",
       color: "red",
     },
     {
-      title: "Aceitos",
+      title: "Aceitas",
       progress: proposals.filter(contract => contract.status === "Aceito").length,
       max: proposals.length,
       icon: "fas fa-check",
@@ -109,9 +110,19 @@ const Propostas = () => {
         <Row className="mt-5">
           <div className="col">
             <Card className="bg-default shadow">
-              <CardHeader className="bg-transparent border-0">
+              <CardHeaderStyled 
+                className="bg-transparent border-0 d-flex justify-content-between align-items-center">
                 <h3 className="text-white mb-0">Lista de Propostas</h3>
-              </CardHeader>
+                <div className="d-flex align-items-center">
+                  <InputStyled type="text" placeholder="Pesquisar..." />
+                  <Button className="bg-transparent border-0">
+                    <i className="fas fa-search text-white display-4"></i>
+                  </Button>
+                </div>
+                <div>
+                  <Button color="primary">Adicionar</Button>
+                </div>
+              </CardHeaderStyled>
               <Table
                 className="align-items-center table-dark table-flush"
                 responsive

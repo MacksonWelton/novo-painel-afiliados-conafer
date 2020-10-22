@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   Badge,
   Card,
-  CardHeader,
   CardFooter,
   DropdownMenu,
   DropdownItem,
@@ -24,6 +23,7 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
+  FormGroup,
 } from "reactstrap";
 
 import Header from "components/Headers/Header.js";
@@ -33,6 +33,8 @@ import { newSupports, newAnswers } from "../../redux/actions/Suporte";
 import SuporteData from "./SuporteData";
 import { Tr } from "./styles";
 import ProgressCard from "components/ProgressCard/ProgressCard";
+import { InputStyled } from "views/Contratos/styles";
+import { CardHeaderStyled } from "views/Contratos/styles";
 
 const Suporte = () => {
   const dispatch = useDispatch();
@@ -44,15 +46,33 @@ const Suporte = () => {
   const [open, setOpen] = useState(false);
   const [openSupport, setOpenSupport] = useState(false);
   const [support, setSupport] = useState({});
-  const [input, setInput] = useState();
+  const [input, setInput] = useState({
+    ticket: "",
+    secretary: "",
+    file: "",
+    files: [],
+  });
 
   const handleChangeInput = (event) => {
-    setInput(event.target.value);
+    const { name, value } = event.target;
+    setInput({ ...input, [name]: value });
+  };
+
+  const handleChangeInputFile = (event) => {
+    setInput({ ...input, file: event.target.files });
+  };
+
+  const addFiles = () => {
+    setInput({ ...input, files: [...input.files, input.file] });
   };
 
   const submitForm = (event) => {
     event.preventDefault();
     dispatch(newAnswers(input));
+  };
+
+  const deleteFiles = (index) => {
+    setInput({ ...input, files: input.files.filter((file, i) => i !== index) });
   };
 
   const supports = useSelector((state) => state.SupportsReducer.supports);
@@ -108,16 +128,24 @@ const Suporte = () => {
         <Row className="mt-5">
           <div className="col">
             <Card className="bg-default shadow">
-              <CardHeader className="bg-transparent border-0 d-flex align-items-center">
+              <CardHeaderStyled>
                 <h3 className="text-white mb-0">Lista de Chamados</h3>
-                <Button
-                  onClick={() => setOpenSupport(!openSupport)}
-                  className="m-auto"
-                  color="primary"
-                >
-                  ABRIR CHAMADO
-                </Button>
-              </CardHeader>
+                <div className="d-flex align-items-center">
+                  <InputStyled type="text" placeholder="Pesquisar..." />
+                  <Button className="bg-transparent border-0">
+                    <i className="fas fa-search text-white display-4"></i>
+                  </Button>
+                </div>
+                <div>
+                  <Button
+                    onClick={() => setOpenSupport(!openSupport)}
+                    className="m-auto"
+                    color="primary"
+                  >
+                    Abrir Chamado
+                  </Button>
+                </div>
+              </CardHeaderStyled>
               <Table
                 className="align-items-center table-dark table-flush"
                 responsive
@@ -246,7 +274,6 @@ const Suporte = () => {
           </div>
         </Row>
       </Container>
-
       <Modal
         isOpen={openSupport}
         toggle={() => {
@@ -254,36 +281,74 @@ const Suporte = () => {
         }}
         size="lg"
       >
-        <ModalHeader>
-          <h2>Abrir Chamado</h2>
-        </ModalHeader>
+        <ModalHeader>Abrir Chamado</ModalHeader>
         <Form>
           <ModalBody>
-            <Input
-              className="mb-3"
-              name="ticket"
-              placeholder="Digite uma nova dúvida, problema e etc..."
-              onChange={handleChangeInput}
-              rows="6"
-              type="textarea"
-            />
-            <Input
-              className="mb-3"
-              type="select"
-              name="secretary"
-              onChange={handleChangeInput}
-            >
-              <option value={undefined} hidden>
+            <FormGroup>
+              <label className="form-control-label" htmlFor="ticket">
+                Digite uma nova dúvida, problema e etc...
+              </label>
+              <Input
+                className="form-control-alternative"
+                name="ticket"
+                onChange={handleChangeInput}
+                rows="6"
+                type="textarea"
+              />
+            </FormGroup>
+            <FormGroup>
+              <label className="form-control-label" htmlFor="secretary">
                 Selecione a secretaria para responder
-              </option>
-              <option>Jurídica</option>
-              <option>SECOM</option>
-              <option>SETI</option>
-            </Input>
-            <Input className="mb-3" type="file" name="file" />
+              </label>
+              <Input
+                className="form-control-alternative"
+                type="select"
+                name="secretary"
+                onChange={handleChangeInput}
+              >
+                <option value={undefined} hidden>
+                  Escolha uma opção
+                </option>
+                <option>Jurídica</option>
+                <option>SECOM</option>
+                <option>SETI</option>
+              </Input>
+            </FormGroup>
+            <FormGroup>
+              <label className="btn bg-light ml-1 mb-0">
+                Selecione Arquivos (se houver)
+                <Input
+                  className="d-none"
+                  type="file"
+                  name="files"
+                  onChange={handleChangeInputFile}
+                />
+              </label>
+              <Button onClick={addFiles}>Adicionar</Button>
+            </FormGroup>
+            <Table>
+              <thead>
+                <tr>
+                  <th>Arquivo</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {input.files.map((file, index) => (
+                  <tr key={index}>
+                    <td>{file[0].name}</td>
+                    <td>
+                      <Button onClick={() => deleteFiles(index)}>
+                        <i className="fas fa-trash"></i>
+                      </Button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
           </ModalBody>
           <ModalFooter className="d-flex justify-content-end">
-            <Button color="primary" type="button">
+            <Button color="primary" type="submit">
               Abrir
             </Button>
             <Button

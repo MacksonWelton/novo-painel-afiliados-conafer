@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   Badge,
   Card,
-  CardHeader,
   CardFooter,
   DropdownMenu,
   DropdownItem,
@@ -33,6 +32,8 @@ import { newBudgets, newComment } from "../../redux/actions/Orcamentos";
 import OrcamentosData from "./OrcamentosData";
 import ProgressCard from "components/ProgressCard/ProgressCard";
 import { Tr } from "./styles";
+import { InputStyled } from "views/Contratos/styles";
+import { CardHeaderStyled } from "views/Contratos/styles";
 
 const Orcamentos = () => {
   const dispatch = useDispatch();
@@ -113,9 +114,18 @@ const Orcamentos = () => {
         <Row className="mt-5">
           <div className="col">
             <Card className="bg-default shadow">
-              <CardHeader className="bg-transparent border-0">
+              <CardHeaderStyled>
                 <h3 className="text-white mb-0">Lista de Orçamentos</h3>
-              </CardHeader>
+                <div className="d-flex align-items-center">
+                  <InputStyled type="text" placeholder="Pesquisar..." />
+                  <Button className="bg-transparent border-0">
+                    <i className="fas fa-search text-white display-4"></i>
+                  </Button>
+                </div>
+                <div>
+                  <Button color="primary">Adicionar</Button>
+                </div>
+              </CardHeaderStyled>
               <Table
                 className="align-items-center table-dark table-flush"
                 responsive
@@ -158,8 +168,8 @@ const Orcamentos = () => {
                             size="sm"
                             color=""
                             onClick={(e) => {
-                              e.stopPropagation()
-                              e.preventDefault()
+                              e.stopPropagation();
+                              e.preventDefault();
                             }}
                           >
                             <i className="fas fa-ellipsis-v" />
