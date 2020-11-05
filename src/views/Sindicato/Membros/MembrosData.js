@@ -1,6 +1,6 @@
 const MembrosData = [
   {
-    id: 0,
+    id: "0",
     name: "Safira",
     birthDate: "21/11/1984",
     school: "Ens. Fund. Completo",
@@ -28,7 +28,7 @@ const MembrosData = [
     },
   },
   {
-    id: 1,
+    id: "1",
     name: "José",
     birthDate: "01/01/1990",
     school: "Ens. Fund. Completo",
@@ -50,7 +50,7 @@ const MembrosData = [
     },
   },
   {
-    id: 2,
+    id: "2",
     name: "Agusto",
     birthDate: "10/04/1963",
     school: "Ens. Fund. Completo",
@@ -72,7 +72,7 @@ const MembrosData = [
     },
   },
   {
-    id: 3,
+    id: "3",
     name: "Carmem",
     birthDate: "13/08/1971",
     school: "Ens. Fund. Completo",

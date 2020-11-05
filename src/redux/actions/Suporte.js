@@ -19,3 +19,28 @@ export const setAnswers = (answers) => ({
     answers,
   },
 });
+
+
+export const downloadSupports  = (data) => () => {
+  try {
+    
+  } catch (err) {
+    console.error(err.message);
+  }
+}
+
+export const deleteSupports  = (data) => (dispatch) => {
+  try {
+    
+    dispatch(removeSupports )
+  } catch (err) {
+    console.error(err.message);
+  }
+}
+
+const removeSupports  = (supports) => ({
+  type: "DELETE_SUPPORTS",
+  payload: {
+    supports
+  }
+})

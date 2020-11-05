@@ -30,3 +30,27 @@ export const setComment = (comment) => ({
     comment,
   },
 });
+
+export const downloadContracts = (data) => () => {
+  try {
+    
+  } catch (err) {
+    console.error(err.message);
+  }
+}
+
+export const deleteContracts = (data) => (dispatch) => {
+  try {
+    
+    dispatch(removeContracts(data))
+  } catch (err) {
+    console.error(err.message);
+  }
+}
+
+const removeContracts = (contracts) => ({
+  type: "DELETE_CONTRACTS",
+  payload: {
+    contracts
+  }
+})

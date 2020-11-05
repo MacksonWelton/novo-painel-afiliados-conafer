@@ -13,7 +13,7 @@ import {
   Input,
 } from "reactstrap";
 
-const UserHeader = ({ userData, fileName, input, handleChangeFile}) => {
+const UserHeader = ({ userData, fileName, input, handleChangeFile }) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -22,7 +22,9 @@ const UserHeader = ({ userData, fileName, input, handleChangeFile}) => {
         className="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
         style={{
           minHeight: "600px",
-          backgroundImage: `url(${fileName.cover ? URL.createObjectURL(input.cover) : input.cover})`,
+          backgroundImage: `url(${
+            fileName.cover ? URL.createObjectURL(input.cover) : input.cover
+          })`,
           backgroundSize: "cover",
           backgroundPosition: "center top",
         }}
@@ -69,8 +71,12 @@ const UserHeader = ({ userData, fileName, input, handleChangeFile}) => {
           </label>
         </ModalBody>
         <ModalFooter>
-          <Button color="primary" onClick={() => setOpen(!open)}>Salvar</Button>
-          <Button color="secondary" onClick={() => setOpen(!open)}>Cancelar</Button>
+          <Button color="primary" onClick={() => setOpen(!open)}>
+            Salvar
+          </Button>
+          <Button color="secondary" onClick={() => setOpen(!open)}>
+            Cancelar
+          </Button>
         </ModalFooter>
       </Modal>
     </>

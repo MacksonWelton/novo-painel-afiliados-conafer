@@ -14,6 +14,6 @@ export const InputStyled = styled(Input)`
   width: 250px;
 `;
 
-export const Td = styled.td`
+export const Tr = styled.tr`
   cursor: pointer;
 `;

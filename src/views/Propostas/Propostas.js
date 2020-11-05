@@ -27,13 +27,19 @@ import {
 
 import Header from "components/Headers/Header.js";
 
-import { newProposals, newComment } from "../../redux/actions/Propostas";
+import {
+  newProposals,
+  newComment,
+  downloadProposals,
+  deleteProposals,
+} from "../../redux/actions/Propostas";
 
 import PropostasData from "./PropostasData";
-import { Td } from "./styles";
+import { Tr } from "./styles";
 import ProgressCard from "components/ProgressCard/ProgressCard";
 import { InputStyled } from "views/Contratos/styles";
 import { CardHeaderStyled } from "views/Contratos/styles";
+import BotoesDeAcao from "components/BotoesDeAcao/BotoesDeAcao";
 
 const Propostas = () => {
   const dispatch = useDispatch();
@@ -45,6 +51,38 @@ const Propostas = () => {
   const [open, setOpen] = useState(false);
   const [proposal, setProposal] = useState({});
   const [input, setInput] = useState();
+  const [checkbox, setCheckbox] = useState([]);
+
+  const handleChangeCheckbox = (event) => {
+    const { value, checked } = event.target;
+    if (checked) {
+      setCheckbox([...checkbox, { id: value, checked }]);
+    } else {
+      setCheckbox(checkbox.filter((check) => check.id !== value));
+    }
+  };
+
+  const handleSelectAllCheckbox = (event) => {
+    const checked = event.target.checked;
+
+    if (checked) {
+      setCheckbox(
+        proposals.map((proposal) => {
+          return { id: proposal.id, checked: true };
+        })
+      );
+    } else {
+      setCheckbox([]);
+    }
+  };
+
+  const handleDownloadsProposals = () => {
+    dispatch(downloadProposals(checkbox));
+  };
+
+  const handleDeleteProposals = () => {
+    dispatch(deleteProposals(checkbox));
+  };
 
   const handleChangeInput = (event) => {
     setInput(event.target.value);
@@ -75,28 +113,32 @@ const Propostas = () => {
   const CardData = [
     {
       title: "Enviadas",
-      progress: proposals.filter(contract => contract.status === "Enviado").length,
+      progress: proposals.filter((contract) => contract.status === "Enviado")
+        .length,
       max: proposals.length,
       icon: "fas fa-paper-plane",
       color: "blue",
     },
     {
       title: "Expiradas",
-      progress: proposals.filter(contract => contract.status === "Expirado").length,
+      progress: proposals.filter((contract) => contract.status === "Expirado")
+        .length,
       max: proposals.length,
       icon: "fas fa-exclamation-triangle",
       color: "yellow",
     },
     {
       title: "Declinadas",
-      progress: proposals.filter(contract => contract.status === "Declinado").length,
+      progress: proposals.filter((contract) => contract.status === "Declinado")
+        .length,
       max: proposals.length,
       icon: "fas fa-times",
       color: "red",
     },
     {
       title: "Aceitas",
-      progress: proposals.filter(contract => contract.status === "Aceito").length,
+      progress: proposals.filter((contract) => contract.status === "Aceito")
+        .length,
       max: proposals.length,
       icon: "fas fa-check",
       color: "green",
@@ -105,13 +147,12 @@ const Propostas = () => {
 
   return (
     <>
-      <Header children={<ProgressCard CardData={CardData} />}/>
+      <Header children={<ProgressCard CardData={CardData} />} />
       <Container className="mt--7" fluid>
         <Row className="mt-5">
           <div className="col">
             <Card className="bg-default shadow">
-              <CardHeaderStyled 
-                className="bg-transparent border-0 d-flex justify-content-between align-items-center">
+              <CardHeaderStyled className="bg-transparent border-0 d-flex justify-content-between align-items-center">
                 <h3 className="text-white mb-0">Lista de Propostas</h3>
                 <div className="d-flex align-items-center">
                   <InputStyled type="text" placeholder="Pesquisar..." />
@@ -128,7 +169,26 @@ const Propostas = () => {
                 responsive
               >
                 <thead className="thead-dark">
+                  {checkbox.length > 0 && (
+                    <tr>
+                      <th></th>
+                      <th>
+                        <BotoesDeAcao
+                          handleDownloadsItems={handleDownloadsProposals}
+                          handleDeleteItems={handleDeleteProposals}
+                        />
+                      </th>
+                    </tr>
+                  )}
                   <tr>
+                    <th scope="col">
+                      <div className="d-flex justify-content-end align-items-center">
+                        <Input
+                          type="checkbox"
+                          onChange={handleSelectAllCheckbox}
+                        />
+                      </div>
+                    </th>
                     <th scope="col">Proposta</th>
                     <th scope="col">Valor</th>
                     <th scope="col">Status</th>
@@ -139,16 +199,28 @@ const Propostas = () => {
                 </thead>
                 <tbody>
                   {proposals.map((proposal, index) => (
-                    <tr key={index}>
-                      <Td
-                        onClick={(event) => {
-                          event.stopPropagation();
-                          setOpen(!open);
-                          setProposal(proposal);
-                        }}
+                    <Tr
+                      key={index}
+                      onClick={() => {
+                        setOpen(!open);
+                        setProposal(proposal);
+                      }}
+                    >
+                      <td
+                        className="d-flex justify-content-end"
+                        onClick={(e) => e.stopPropagation()}
                       >
-                        {proposal.name}
-                      </Td>
+                        <Input
+                          checked={
+                            checkbox.filter((check) => check.id === proposal.id)
+                              .length
+                          }
+                          value={proposal.id}
+                          type="checkbox"
+                          onChange={handleChangeCheckbox}
+                        />
+                      </td>
+                      <td>{proposal.name}</td>
                       <td>{proposal.value}</td>
                       <td>
                         <Badge color="" className="badge-dot">
@@ -166,7 +238,10 @@ const Propostas = () => {
                             role="button"
                             size="sm"
                             color=""
-                            onClick={(e) => e.preventDefault()}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              e.preventDefault();
+                            }}
                           >
                             <i className="fas fa-ellipsis-v" />
                           </DropdownToggle>
@@ -192,7 +267,7 @@ const Propostas = () => {
                           </DropdownMenu>
                         </UncontrolledDropdown>
                       </td>
-                    </tr>
+                    </Tr>
                   ))}
                 </tbody>
               </Table>
@@ -304,7 +379,9 @@ const Propostas = () => {
                 type="textarea"
               />
               <div className="d-flex justify-content-end">
-                <Button type="submit" color="primary">Comentar</Button>
+                <Button type="submit" color="primary">
+                  Comentar
+                </Button>
               </div>
             </Form>
           </>
