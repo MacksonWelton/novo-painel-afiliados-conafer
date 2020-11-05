@@ -21,20 +21,27 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
+  Input,
 } from "reactstrap";
 
 import Header from "components/Headers/Header.js";
 
-import { newPayments } from "../../redux/actions/Mensalidades";
+import {
+  deletePayments,
+  downloadPayments,
+  newPayments,
+} from "../../redux/actions/Mensalidades";
 
 import MensalidadesData from "./MensalidadesData";
 import ProgressCard from "components/ProgressCard/ProgressCard";
 import { Tr } from "./styles";
 import { CardHeaderStyled } from "views/Contratos/styles";
 import { InputStyled } from "views/Contratos/styles";
+import BotoesDeAcao from "components/BotoesDeAcao/BotoesDeAcao";
 
 const Mensalidades = () => {
   const dispatch = useDispatch();
+  const payments = useSelector((state) => state.PaymentsReducer.payments);
 
   useEffect(() => {
     dispatch(newPayments(MensalidadesData));
@@ -43,8 +50,38 @@ const Mensalidades = () => {
   const [open, setOpen] = useState(false);
   const [payment, setPayment] = useState({});
 
+  const [checkbox, setCheckbox] = useState([]);
 
-  const payments = useSelector((state) => state.PaymentsReducer.payments);
+  const handleChangeCheckbox = (event) => {
+    const { value, checked } = event.target;
+    if (checked) {
+      setCheckbox([...checkbox, { id: value, checked }]);
+    } else {
+      setCheckbox(checkbox.filter((check) => check.id !== value));
+    }
+  };
+
+  const handleSelectAllCheckbox = (event) => {
+    const checked = event.target.checked;
+
+    if (checked) {
+      setCheckbox(
+        payments.map((payment) => {
+          return { id: payment.id, checked: true };
+        })
+      );
+    } else {
+      setCheckbox([]);
+    }
+  };
+
+  const handleDownloadsPayments = () => {
+    dispatch(downloadPayments(checkbox));
+  };
+
+  const handleDeletePayments = () => {
+    dispatch(deletePayments(checkbox));
+  };
 
   const getBadge = (status) => {
     switch (status) {
@@ -89,7 +126,7 @@ const Mensalidades = () => {
     {
       title: "Pagos",
       progress: payments.filter((contract) => contract.status === "Pago")
-      .length,
+        .length,
       max: payments.length,
       icon: "fas fa-check",
       color: "green",
@@ -103,8 +140,7 @@ const Mensalidades = () => {
         <Row className="mt-5">
           <div className="col">
             <Card className="bg-default shadow">
-              <CardHeaderStyled 
-                className="bg-transparent border-0 d-flex justify-content-between align-items-center">
+              <CardHeaderStyled className="bg-transparent border-0 d-flex justify-content-between align-items-center">
                 <h3 className="text-white mb-0">Lista de Mensalidades</h3>
                 <div className="d-flex align-items-center">
                   <InputStyled type="text" placeholder="Pesquisar..." />
@@ -121,7 +157,26 @@ const Mensalidades = () => {
                 responsive
               >
                 <thead className="thead-dark">
+                  {checkbox.length > 0 && (
+                    <tr>
+                      <th></th>
+                      <th>
+                        <BotoesDeAcao
+                          handleDownloadsItems={handleDownloadsPayments}
+                          handleDeleteItems={handleDeletePayments}
+                        />
+                      </th>
+                    </tr>
+                  )}
                   <tr>
+                    <th scope="col">
+                      <div className="d-flex justify-content-end align-items-center">
+                        <Input
+                          type="checkbox"
+                          onChange={handleSelectAllCheckbox}
+                        />
+                      </div>
+                    </th>
                     <th scope="col">Número</th>
                     <th scope="col">Status</th>
                     <th scope="col">Emitido em</th>
@@ -132,13 +187,28 @@ const Mensalidades = () => {
                 </thead>
                 <tbody>
                   {payments.map((payment, index) => (
-                    <Tr key={index}                         onClick={() => {
-                      setOpen(!open);
-                      setPayment(payment);
-                    }}>
-                      <td>
-                        {payment.id}
+                    <Tr
+                      key={index}
+                      onClick={() => {
+                        setOpen(!open);
+                        setPayment(payment);
+                      }}
+                    >
+                      <td
+                        className="d-flex justify-content-end"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <Input
+                          checked={
+                            checkbox.filter((check) => check.id === payment.id)
+                              .length
+                          }
+                          value={payment.id}
+                          type="checkbox"
+                          onChange={handleChangeCheckbox}
+                        />
                       </td>
+                      <td>{payment.id}</td>
                       <td>
                         <Badge color="" className="badge-dot">
                           <i className={getBadge(payment.status)} />
@@ -157,8 +227,8 @@ const Mensalidades = () => {
                             size="sm"
                             color=""
                             onClick={(e) => {
-                              e.stopPropagation()
-                              e.preventDefault()
+                              e.stopPropagation();
+                              e.preventDefault();
                             }}
                           >
                             <i className="fas fa-ellipsis-v" />

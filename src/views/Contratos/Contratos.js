@@ -28,14 +28,21 @@ import {
 
 import Header from "components/Headers/Header.js";
 
-import { newComment, newContracts } from "../../redux/actions/Contratos";
+import {
+  newComment,
+  newContracts,
+  downloadContracts,
+  deleteContracts,
+} from "../../redux/actions/Contratos";
 
 import ContratosData from "./ContratosData";
 import { CardHeaderStyled, InputStyled, Tr } from "./styles";
 import ProgressCard from "components/ProgressCard/ProgressCard";
+import BotoesDeAcao from "components/BotoesDeAcao/BotoesDeAcao";
 
 const Contratos = () => {
   const dispatch = useDispatch();
+  const contracts = useSelector((state) => state.ContractsReducer.contracts);
 
   useEffect(() => {
     dispatch(newContracts(ContratosData));
@@ -44,17 +51,47 @@ const Contratos = () => {
   const [open, setOpen] = useState(false);
   const [contract, setContract] = useState({});
   const [input, setInput] = useState();
+  const [checkbox, setCheckbox] = useState([]);
 
   const handleChangeInput = (event) => {
     setInput(event.target.value);
+  };
+
+  const handleChangeCheckbox = (event) => {
+    const { value, checked } = event.target;
+    if (checked) {
+      setCheckbox([...checkbox, { id: value, checked }]);
+    } else {
+      setCheckbox(checkbox.filter((check) => check.id !== value));
+    }
+  };
+
+  const handleSelectAllCheckbox = (event) => {
+    const checked = event.target.checked;
+
+    if (checked) {
+      setCheckbox(
+        contracts.map((contract) => {
+          return { id: contract.id, checked: true };
+        })
+      );
+    } else {
+      setCheckbox([]);
+    }
+  };
+
+  const handleDownloadsContracts = () => {
+    dispatch(downloadContracts(checkbox));
+  };
+
+  const handleDeleteContracts = () => {
+    dispatch(deleteContracts(checkbox));
   };
 
   const submitForm = (event) => {
     event.preventDefault();
     dispatch(newComment(input));
   };
-
-  const contracts = useSelector((state) => state.ContractsReducer.contracts);
 
   const getBadge = (status) => {
     switch (status) {
@@ -122,7 +159,26 @@ const Contratos = () => {
                 responsive
               >
                 <thead className="thead-dark">
+                  {checkbox.length > 0 && (
+                    <tr>
+                      <th></th>
+                      <th>
+                        <BotoesDeAcao
+                          handleDownloadsItems={handleDownloadsContracts}
+                          handleDeleteItems={handleDeleteContracts}
+                        />
+                      </th>
+                    </tr>
+                  )}
                   <tr>
+                    <th scope="col">
+                      <div className="d-flex justify-content-end align-items-center">
+                        <Input
+                          type="checkbox"
+                          onChange={handleSelectAllCheckbox}
+                        />
+                      </div>
+                    </th>
                     <th scope="col">Contrato</th>
                     <th scope="col">Valor</th>
                     <th scope="col">Status</th>
@@ -139,6 +195,20 @@ const Contratos = () => {
                         setContract(contract);
                       }}
                     >
+                      <td
+                        className="d-flex justify-content-end"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <Input
+                          checked={
+                            checkbox.filter((check) => check.id === contract.id)
+                              .length
+                          }
+                          value={contract.id}
+                          type="checkbox"
+                          onChange={handleChangeCheckbox}
+                        />
+                      </td>
                       <td>{contract.name}</td>
                       <td>{contract.value}</td>
                       <td>

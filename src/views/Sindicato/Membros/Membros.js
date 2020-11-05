@@ -23,11 +23,16 @@ import {
   ModalFooter,
   Col,
   UncontrolledCollapse,
+  Input,
 } from "reactstrap";
 
 import Header from "components/Headers/Header.js";
 
-import { newMembers } from "../../../redux/actions/Membros";
+import {
+  newMembers,
+  downloadMembers,
+  deleteMembers,
+} from "../../../redux/actions/Membros";
 
 import MembrosData from "./MembrosData";
 import { InputStyled, Tr } from "./styles";
@@ -35,9 +40,11 @@ import ProgressCard from "components/ProgressCard/ProgressCard";
 import RegistroSubAfiliados from "components/RegistroSubAfiliados/RegistroSubAfiliados";
 import GoogleMaps from "components/GoogleMaps/GoogleMaps";
 import { CardHeaderStyled } from "views/Contratos/styles";
+import BotoesDeAcao from "components/BotoesDeAcao/BotoesDeAcao";
 
 const Membros = () => {
   const dispatch = useDispatch();
+  const members = useSelector((state) => state.MembersReducer.members);
 
   useEffect(() => {
     dispatch(newMembers(MembrosData));
@@ -46,10 +53,38 @@ const Membros = () => {
   const [open, setOpen] = useState(false);
   const [openAddMember, setOpenAddMember] = useState(false);
   const [member, setMember] = useState({});
+  const [checkbox, setCheckbox] = useState([]);
 
-  console.log(member);
+  const handleChangeCheckbox = (event) => {
+    const { value, checked } = event.target;
+    if (checked) {
+      setCheckbox([...checkbox, { id: value, checked }]);
+    } else {
+      setCheckbox(checkbox.filter((check) => check.id !== value));
+    }
+  };
 
-  const members = useSelector((state) => state.MembersReducer.members);
+  const handleSelectAllCheckbox = (event) => {
+    const checked = event.target.checked;
+
+    if (checked) {
+      setCheckbox(
+        members.map((member) => {
+          return { id: member.id, checked: true };
+        })
+      );
+    } else {
+      setCheckbox([]);
+    }
+  };
+
+  const handleDownloadsMembers = () => {
+    dispatch(downloadMembers(checkbox));
+  };
+
+  const handleDeleteMembers = () => {
+    dispatch(deleteMembers(checkbox));
+  };
 
   const getBadge = (status) => {
     switch (status) {
@@ -123,7 +158,26 @@ const Membros = () => {
                 responsive
               >
                 <thead className="thead-dark">
+                  {checkbox.length > 0 && (
+                    <tr>
+                      <th></th>
+                      <th>
+                        <BotoesDeAcao
+                          handleDownloadsItems={handleDownloadsMembers}
+                          handleDeleteItems={handleDeleteMembers}
+                        />
+                      </th>
+                    </tr>
+                  )}
                   <tr>
+                    <th scope="col">
+                      <div className="d-flex justify-content-end align-items-center">
+                        <Input
+                          type="checkbox"
+                          onChange={handleSelectAllCheckbox}
+                        />
+                      </div>
+                    </th>
                     <th scope="col">Nome</th>
                     <th scope="col">Nascimento</th>
                     <th scope="col">Fonte de Renda</th>
@@ -141,6 +195,20 @@ const Membros = () => {
                       }}
                       key={index}
                     >
+                      <td
+                        className="d-flex justify-content-end"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <Input
+                          checked={
+                            checkbox.filter((check) => check.id === member.id)
+                              .length
+                          }
+                          value={member.id}
+                          type="checkbox"
+                          onChange={handleChangeCheckbox}
+                        />
+                      </td>
                       <td>{member.name}</td>
                       <td>{member.birthDate}</td>
                       <td>{member.sourceOfIncome}</td>
@@ -248,7 +316,6 @@ const Membros = () => {
           </div>
         </Row>
       </Container>
-
       <Modal
         isOpen={openAddMember}
         toggle={() => {
@@ -275,7 +342,6 @@ const Membros = () => {
           </Button>
         </ModalFooter>
       </Modal>
-
       <Modal
         isOpen={open}
         toggle={() => {

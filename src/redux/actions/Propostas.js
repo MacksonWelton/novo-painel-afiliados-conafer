@@ -7,16 +7,40 @@ export const newComment = (comment) => (dispatch) => {
   dispatch(setComment(comment));
 }
 
-export const setProposals = (proposals) => ({
+const setProposals = (proposals) => ({
   type: "SET_PROPOSALS",
   payload: {
     proposals
   }
 });
 
-export const setComment = (comment) => ({
+const setComment = (comment) => ({
   type: "SET_COMMENT",
   payload: {
     comment
   }
 });
+
+export const downloadProposals  = (data) => () => {
+  try {
+    
+  } catch (err) {
+    console.error(err.message);
+  }
+}
+
+export const deleteProposals  = (data) => (dispatch) => {
+  try {
+    
+    dispatch(removeProposals )
+  } catch (err) {
+    console.error(err.message);
+  }
+}
+
+const removeProposals  = (proposals) => ({
+  type: "DELETE_PROPOSALS",
+  payload: {
+    proposals
+  }
+})

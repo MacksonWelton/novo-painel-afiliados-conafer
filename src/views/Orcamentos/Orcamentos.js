@@ -1,43 +1,73 @@
+import BotoesDeAcao from "components/BotoesDeAcao/BotoesDeAcao";
+import Header from "components/Headers/Header.js";
+import ProgressCard from "components/ProgressCard/ProgressCard";
 import React, { useEffect, useState } from "react";
-
 import { useDispatch, useSelector } from "react-redux";
-
 import {
   Badge,
-  Card,
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Button, Card,
   CardFooter,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
+
+
+
+
+
+
+
+
+  Container, DropdownItem, DropdownMenu,
+
+
   DropdownToggle,
-  Pagination,
+
+
+
+
+
+
+
+
+
+  Form, Input, Modal,
+
+
+
+
+  ModalBody,
+  ModalFooter, ModalHeader, Pagination,
   PaginationItem,
   PaginationLink,
-  Table,
-  Container,
-  Row,
-  Modal,
-  Button,
-  Input,
-  Form,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
+
+
+  Row, Table, UncontrolledDropdown
 } from "reactstrap";
-
-import Header from "components/Headers/Header.js";
-
-import { newBudgets, newComment } from "../../redux/actions/Orcamentos";
-
+import { CardHeaderStyled, InputStyled } from "views/Contratos/styles";
+import { deleteBudgets, downloadBudgets, newBudgets, newComment } from "../../redux/actions/Orcamentos";
 import OrcamentosData from "./OrcamentosData";
-import ProgressCard from "components/ProgressCard/ProgressCard";
 import { Tr } from "./styles";
-import { InputStyled } from "views/Contratos/styles";
-import { CardHeaderStyled } from "views/Contratos/styles";
+
+
+
+
+
 
 const Orcamentos = () => {
   const dispatch = useDispatch();
-
+  const budgets = useSelector((state) => state.BudgetsReducer.budgets);
+  
   useEffect(() => {
     dispatch(newBudgets(OrcamentosData));
   }, [dispatch]);
@@ -45,9 +75,41 @@ const Orcamentos = () => {
   const [open, setOpen] = useState(false);
   const [budget, setBudget] = useState({});
   const [input, setInput] = useState();
+  const [checkbox, setCheckbox] = useState([]);
 
   const handleChangeInput = (event) => {
     setInput(event.target.value);
+  };
+
+  const handleChangeCheckbox = (event) => {
+    const { value, checked } = event.target;
+    if (checked) {
+      setCheckbox([...checkbox, { id: value, checked }]);
+    } else {
+      setCheckbox(checkbox.filter((check) => check.id !== value));
+    }
+  };
+
+  const handleSelectAllCheckbox = (event) => {
+    const checked = event.target.checked;
+
+    if (checked) {
+      setCheckbox(
+        budgets.map((budget) => {
+          return { id: budget.id, checked: true };
+        })
+      );
+    } else {
+      setCheckbox([]);
+    }
+  };
+
+  const handleDownloadsBudgets = () => {
+    dispatch(downloadBudgets(checkbox));
+  };
+
+  const handleDeleteBudgets = () => {
+    dispatch(deleteBudgets(checkbox));
   };
 
   const submitForm = (event) => {
@@ -55,7 +117,6 @@ const Orcamentos = () => {
     dispatch(newComment(input));
   };
 
-  const budgets = useSelector((state) => state.BudgetsReducer.budgets);
 
   const getBadge = (status) => {
     switch (status) {
@@ -131,7 +192,26 @@ const Orcamentos = () => {
                 responsive
               >
                 <thead className="thead-dark">
+                  {checkbox.length > 0 && (
+                    <tr>
+                      <th></th>
+                      <th>
+                        <BotoesDeAcao
+                          handleDownloadsItems={handleDownloadsBudgets}
+                          handleDeleteItems={handleDeleteBudgets}
+                        />
+                      </th>
+                    </tr>
+                  )}
                   <tr>
+                    <th scope="col">
+                      <div className="d-flex justify-content-end align-items-center">
+                        <Input
+                          type="checkbox"
+                          onChange={handleSelectAllCheckbox}
+                        />
+                      </div>
+                    </th>
                     <th scope="col">Orçamento</th>
                     <th scope="col">Valor</th>
                     <th scope="col">Status</th>
@@ -149,6 +229,20 @@ const Orcamentos = () => {
                         setBudget(budget);
                       }}
                     >
+                      <td
+                        className="d-flex justify-content-end"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <Input
+                          checked={
+                            checkbox.filter((check) => check.id === budget.id)
+                              .length
+                          }
+                          value={budget.id}
+                          type="checkbox"
+                          onChange={handleChangeCheckbox}
+                        />
+                      </td>
                       <td>{budget.name}</td>
                       <td>{budget.value}</td>
                       <td>
