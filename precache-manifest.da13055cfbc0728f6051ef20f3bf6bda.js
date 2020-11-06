@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "c09166bf45baa3728b78c3969ca7cbd5",
+    "revision": "6d2237510111441c1dca9a0041de8c00",
     "url": "/novo-painel-afiliados-conafer/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/novo-painel-afiliados-conafer/static/css/2.926ce296.chunk.css"
   },
   {
-    "revision": "ed4e6b2fc1b747723f81",
+    "revision": "3d81e4c3ab007616e811",
     "url": "/novo-painel-afiliados-conafer/static/css/main.dbf62b07.chunk.css"
   },
   {
@@ -20,12 +20,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/novo-painel-afiliados-conafer/static/js/2.0fd450af.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "ed4e6b2fc1b747723f81",
-    "url": "/novo-painel-afiliados-conafer/static/js/main.d1256ecf.chunk.js"
+    "revision": "3d81e4c3ab007616e811",
+    "url": "/novo-painel-afiliados-conafer/static/js/main.40c47574.chunk.js"
   },
   {
     "revision": "8d0d562f4ec3c131ac27d52de65ecd17",
-    "url": "/novo-painel-afiliados-conafer/static/js/main.d1256ecf.chunk.js.LICENSE.txt"
+    "url": "/novo-painel-afiliados-conafer/static/js/main.40c47574.chunk.js.LICENSE.txt"
   },
   {
     "revision": "d536cdcc9f43bfb698c4",
