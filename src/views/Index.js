@@ -46,7 +46,7 @@ import {
   chartExample2,
 } from "variables/charts.js";
 
-import Header from "components/Headers/Header.js";
+import Header from "components/Headers/Header";
 import StatsCard from "components/StatsCard/StatsCard";
 
 class Index extends React.Component {
@@ -57,15 +57,7 @@ class Index extends React.Component {
       chartExample1Data: "data1",
       CardData: [
         {
-          title: "Novos Afiliados PJ",
-          progress: 30,
-          comparison: 10.5,
-          comparisonDate: "Desde do último mês",
-          icon: "fas fa-landmark",
-          color: "bg-danger"
-        },
-        {
-          title: "Novos Afiliados PF",
+          title: "Novos Afiliados",
           progress: 40,
           comparison: 5,
           comparisonDate: "Desde do último mês",
@@ -74,9 +66,11 @@ class Index extends React.Component {
         },
       ],
     };
+
     if (window.Chart) {
       parseOptions(Chart, chartOptions());
     }
+
   }
   toggleNavs = (e, index) => {
     e.preventDefault();
@@ -99,7 +93,7 @@ class Index extends React.Component {
                   <Row className="align-items-center">
                     <div className="col">
                       <h6 className="text-uppercase text-light ls-1 mb-1">
-                        Overview
+                        Estatística
                       </h6>
                       <h2 className="text-white mb-0">Sales value</h2>
                     </div>
@@ -113,7 +107,7 @@ class Index extends React.Component {
                             href="#pablo"
                             onClick={(e) => this.toggleNavs(e, 1)}
                           >
-                            <span className="d-none d-md-block">Month</span>
+                            <span className="d-none d-md-block">Mês</span>
                             <span className="d-md-none">M</span>
                           </NavLink>
                         </NavItem>
@@ -126,8 +120,8 @@ class Index extends React.Component {
                             href="#pablo"
                             onClick={(e) => this.toggleNavs(e, 2)}
                           >
-                            <span className="d-none d-md-block">Week</span>
-                            <span className="d-md-none">W</span>
+                            <span className="d-none d-md-block">Semana</span>
+                            <span className="d-md-none">S</span>
                           </NavLink>
                         </NavItem>
                       </Nav>

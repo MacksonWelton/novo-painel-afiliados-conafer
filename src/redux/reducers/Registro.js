@@ -5,7 +5,9 @@ const initialState = {
   houses: [[]],
   familyUnitIdentification: {},
   diagnosisOfAgriculturalSystems: {},
-  producao: {}
+  producao: {},
+  production: [],
+  typeProduction: [],
 };
 
 const RegistroReducer = (state = initialState, action) => {
@@ -45,6 +47,16 @@ const RegistroReducer = (state = initialState, action) => {
         ...state,
         producao: action.payload.producao,
       };
+    case "SET_PRODUCTIONS":
+      return {
+        ...state,
+        production: action.payload.production
+      }
+    case "SET_TYPE_PRODUCTION":
+      return {
+        ...state,
+        typeProduction: action.payload.typeProduction
+      }
     default:
       return state;
   }

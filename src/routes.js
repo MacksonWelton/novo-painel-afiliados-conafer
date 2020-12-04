@@ -29,6 +29,7 @@ import Orcamentos from "./views/Orcamentos/Orcamentos";
 import Propostas from "./views/Propostas/Propostas";
 import Mensalidades from "./views/Mensalidades/Mensalidades";
 import Membros from "./views/Sindicato/Membros/Membros";
+import UserAffiliation from "./views/Sindicato/UsuariosAfiliacao/UsuariosAfiliacao";
 
 var routes = [
   {
@@ -36,98 +37,120 @@ var routes = [
     name: "Dashboard",
     icon: "ni ni-tv-2 text-primary",
     component: Index,
-    layout: "/admin"
+    layout: "/admin",
+    show: true
   },
   {
     path: "/contratos",
     name: "Contratos",
     icon: "ni ni-single-copy-04 text-green",
     component: Contratos,
-    layout: "/admin"
+    layout: "/admin",
+    show: true
   },
   {
     path: "/orcamentos",
     name: "Orçamentos",
     icon: "fas fa-coins text-yellow",
     component: Orcamentos,
-    layout: "/admin"
+    layout: "/admin",
+    show: true
   },
   {
     path: "/propostas",
     name: "Propostas",
     icon: "far fa-file-alt text-blue",
     component: Propostas,
-    layout: "/admin"
+    layout: "/admin",
+    show: true
   },
   {
     path: "/mensalidades",
     name: "Mensalidades",
     icon: "far fa-calendar-alt text-orange",
     component: Mensalidades,
-    layout: "/admin"
+    layout: "/admin",
+    show: true
+  },
+  {
+    path: "/usuario-de-afiliacao",
+    name: "Usuário de Afiliação",
+    icon: "fas fa-users text-black",
+    component: UserAffiliation,
+    layout: "/admin",
+    show: false
   },
   {
     path: "/membros",
     name: "Membros",
     icon: "fas fa-users text-black",
     component: Membros,
-    layout: "/admin"
+    layout: "/admin",
+    show: true
   },
   {
     path: "/suporte",
     name: "Ajuda",
     icon: "ni ni-support-16 text-red",
     component: Suporte,
-    layout: "/admin"
+    layout: "/admin",
+    show: false
   },
   {
     path: "/user-profile",
     name: "Perfil",
     icon: "ni ni-single-02 text-info",
     component: Perfil,
-    layout: "/admin"
+    layout: "/admin",
+    show: false
   },
   {
     path: "/login",
     name: "Login",
     icon: "ni ni-key-25 text-info",
     component: Login,
-    layout: "/auth"
+    layout: "/auth",
+    show: true
   },
   {
     path: "/register",
     name: "Registro",
     icon: "ni ni-circle-08 text-pink",
     component: Registro,
-    layout: "/auth"
+    layout: "/auth",
+    show: true
   },
   {
     path: "/recover-password",
     name: "Recuperar Senha",
     icon: "ni ni-circle-08 text-pink",
     component: RecuperarSenha,
-    layout: "/auth"
+    layout: "/auth",
+    show: true
   },
   {
     path: "/affiliate-registration",
     name: "Cadastro de Afiliados",
     icon: "ni ni-circle-08 text-pink",
     component: RegistroDeAfiliados,
-    layout: "/auth"
+    layout: "/auth",
+    show: true
   },
   {
     path: "/registration-pj",
     name: "Cadastro de Afiliado PJ",
     icon: "ni ni-circle-08 text-pink",
     component: RegistroPJ,
-    layout: "/auth"
+    layout: "/adim",
+    show: true
   },
   {
     path: "/registration-pf",
     name: "Cadastro de Afiliado PF",
     icon: "ni ni-circle-08 text-pink",
     component: RegistroPF,
-    layout: "/auth"
+    layout: "/auth",
+    show: true
   },
 ];
 

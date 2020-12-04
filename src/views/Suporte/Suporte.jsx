@@ -1,0 +1,490 @@
+import React, { useEffect, useState } from "react";
+
+import { useDispatch, useSelector } from "react-redux";
+
+import {
+  Badge,
+  Card,
+  CardFooter,
+  DropdownMenu,
+  DropdownItem,
+  UncontrolledDropdown,
+  DropdownToggle,
+  Pagination,
+  PaginationItem,
+  PaginationLink,
+  Table,
+  Container,
+  Row,
+  Modal,
+  Button,
+  Input,
+  Form,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  FormGroup,
+} from "reactstrap";
+
+import Header from "components/Headers/Header";
+
+import {
+  newSupports,
+  newAnswers,
+  downloadSupports,
+  deleteSupports,
+} from "../../redux/actions/Suporte";
+
+import SuporteData from "./SuporteData";
+import { Tr } from "./styles";
+import ProgressCard from "components/ProgressCard/ProgressCard";
+import { InputStyled } from "views/Contratos/styles";
+import { CardHeaderStyled } from "views/Contratos/styles";
+import BotoesDeAcao from "components/BotoesDeAcao/BotoesDeAcao";
+
+const Suporte = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(newSupports(SuporteData));
+  }, [dispatch]);
+
+  const [open, setOpen] = useState(false);
+  const [openSupport, setOpenSupport] = useState(false);
+  const [support, setSupport] = useState({});
+  const [input, setInput] = useState({
+    ticket: "",
+    secretary: "",
+    file: "",
+    files: [],
+  });
+  const [checkbox, setCheckbox] = useState([]);
+
+  const handleChangeCheckbox = (event) => {
+    const { value, checked } = event.target;
+    if (checked) {
+      setCheckbox([...checkbox, { id: value, checked }]);
+    } else {
+      setCheckbox(checkbox.filter((check) => check.id !== value));
+    }
+  };
+
+  const handleSelectAllCheckbox = (event) => {
+    const checked = event.target.checked;
+
+    if (checked) {
+      setCheckbox(
+        supports.map((support) => {
+          return { id: support.id, checked: true };
+        })
+      );
+    } else {
+      setCheckbox([]);
+    }
+  };
+
+  const handleDownloadsSupports = () => {
+    dispatch(downloadSupports(checkbox));
+  };
+
+  const handleDeleteSupports = () => {
+    dispatch(deleteSupports(checkbox));
+  };
+
+  const handleChangeInput = (event) => {
+    const { name, value } = event.target;
+    setInput({ ...input, [name]: value });
+  };
+
+  const handleChangeInputFile = (event) => {
+    setInput({ ...input, file: event.target.files });
+  };
+
+  const addFiles = () => {
+    setInput({ ...input, files: [...input.files, input.file] });
+  };
+
+  const submitForm = (event) => {
+    event.preventDefault();
+    dispatch(newAnswers(input));
+  };
+
+  const deleteFiles = (index) => {
+    setInput({ ...input, files: input.files.filter((file, i) => i !== index) });
+  };
+
+  const supports = useSelector((state) => state.SupportsReducer.supports);
+
+  const getBadge = (status) => {
+    switch (status) {
+      case "Concluído":
+        return "bg-green";
+      case "Aberto":
+        return "bg-yellow";
+      case "Fechado":
+        return "bg-red";
+      default:
+        return "primary";
+    }
+  };
+
+  const CardData = [
+    {
+      title: "Abertos",
+      progress: 30,
+      max: 40,
+      icon: "fas fa-headset",
+      color: "yellow",
+    },
+    {
+      title: "Respondidos",
+      progress: 0,
+      max: 50,
+      icon: "fas fa-question",
+      color: "blue",
+    },
+    {
+      title: "Encerrados",
+      progress: 35,
+      max: 50,
+      icon: "fas fa-times",
+      color: "red",
+    },
+    {
+      title: "Concluídos",
+      progress: 35,
+      max: 40,
+      icon: "fas fa-check",
+      color: "green",
+    },
+  ];
+
+  return (
+    <>
+      <Header children={<ProgressCard CardData={CardData} />} />
+      <Container className="mt--7" fluid>
+        <Row className="mt-5">
+          <div className="col">
+            <Card className="bg-default shadow">
+              <CardHeaderStyled>
+                <h3 className="text-white mb-0">Lista de Chamados</h3>
+                <div className="d-flex align-items-center">
+                  <InputStyled type="text" placeholder="Pesquisar..." />
+                  <Button className="bg-transparent border-0">
+                    <i className="fas fa-search text-white display-4"></i>
+                  </Button>
+                </div>
+                <div>
+                  <Button
+                    onClick={() => setOpenSupport(!openSupport)}
+                    className="m-auto"
+                    color="primary"
+                  >
+                    Abrir Chamado
+                  </Button>
+                </div>
+              </CardHeaderStyled>
+              <Table
+                className="align-items-center table-dark table-flush"
+                responsive
+              >
+                <thead className="thead-dark">
+                  {checkbox.length > 0 && (
+                    <tr>
+                      <th></th>
+                      <th>
+                        <BotoesDeAcao
+                          handleDownloadsItems={handleDownloadsSupports}
+                          handleDeleteItems={handleDeleteSupports}
+                        />
+                      </th>
+                    </tr>
+                  )}
+                  <tr>
+                    <th scope="col">
+                      <div className="d-flex justify-content-end align-items-center">
+                        <Input
+                          type="checkbox"
+                          onChange={handleSelectAllCheckbox}
+                        />
+                      </div>
+                    </th>
+                    <th scope="col">Chamado</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Criado em</th>
+                    <th scope="col">última Resposta</th>
+                    <th scope="col" />
+                  </tr>
+                </thead>
+                <tbody>
+                  {supports.map((support, index) => (
+                    <Tr
+                      key={index}
+                      onClick={() => {
+                        setOpen(!open);
+                        setSupport(support);
+                      }}
+                    >
+                      <td
+                        className="d-flex justify-content-end"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <Input
+                          checked={
+                            checkbox.filter((check) => check.id === support.id)
+                              .length
+                          }
+                          value={support.id}
+                          type="checkbox"
+                          onChange={handleChangeCheckbox}
+                        />
+                      </td>
+                      <td>{support.id}</td>
+                      <td>
+                        <Badge color="" className="badge-dot">
+                          <i className={getBadge(support.status)} />
+                          {support.status}
+                        </Badge>
+                      </td>
+                      <td>{support.createdIn}</td>
+                      <td>{support.lastAnswer}</td>
+                      <td className="text-right">
+                        <UncontrolledDropdown>
+                          <DropdownToggle
+                            className="btn-icon-only text-light"
+                            href="#pablo"
+                            role="button"
+                            size="sm"
+                            color=""
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              e.preventDefault();
+                            }}
+                          >
+                            <i className="fas fa-ellipsis-v" />
+                          </DropdownToggle>
+                          <DropdownMenu className="dropdown-menu-arrow" right>
+                            <DropdownItem
+                              href="#pablo"
+                              onClick={(e) => e.preventDefault()}
+                            >
+                              Action
+                            </DropdownItem>
+                            <DropdownItem
+                              href="#pablo"
+                              onClick={(e) => e.preventDefault()}
+                            >
+                              Another action
+                            </DropdownItem>
+                            <DropdownItem
+                              href="#pablo"
+                              onClick={(e) => e.preventDefault()}
+                            >
+                              Something else here
+                            </DropdownItem>
+                          </DropdownMenu>
+                        </UncontrolledDropdown>
+                      </td>
+                    </Tr>
+                  ))}
+                </tbody>
+              </Table>
+              <CardFooter className="py-4 bg-transparent border-0">
+                <nav aria-label="...">
+                  <Pagination
+                    className="pagination justify-content-end mb-0"
+                    listClassName="justify-content-end mb-0"
+                  >
+                    <PaginationItem className="disabled">
+                      <PaginationLink
+                        href="#pablo"
+                        onClick={(e) => e.preventDefault()}
+                        tabIndex="-1"
+                      >
+                        <i className="fas fa-angle-left" />
+                        <span className="sr-only">Previous</span>
+                      </PaginationLink>
+                    </PaginationItem>
+                    <PaginationItem className="active">
+                      <PaginationLink
+                        href="#pablo"
+                        onClick={(e) => e.preventDefault()}
+                      >
+                        1
+                      </PaginationLink>
+                    </PaginationItem>
+                    <PaginationItem>
+                      <PaginationLink
+                        href="#pablo"
+                        onClick={(e) => e.preventDefault()}
+                      >
+                        2 <span className="sr-only">(current)</span>
+                      </PaginationLink>
+                    </PaginationItem>
+                    <PaginationItem>
+                      <PaginationLink
+                        href="#pablo"
+                        onClick={(e) => e.preventDefault()}
+                      >
+                        3
+                      </PaginationLink>
+                    </PaginationItem>
+                    <PaginationItem>
+                      <PaginationLink
+                        href="#pablo"
+                        onClick={(e) => e.preventDefault()}
+                      >
+                        <i className="fas fa-angle-right" />
+                        <span className="sr-only">Next</span>
+                      </PaginationLink>
+                    </PaginationItem>
+                  </Pagination>
+                </nav>
+              </CardFooter>
+            </Card>
+          </div>
+        </Row>
+      </Container>
+      <Modal
+        isOpen={openSupport}
+        toggle={() => {
+          setOpenSupport(!openSupport);
+        }}
+        size="lg"
+      >
+        <ModalHeader>Abrir Chamado</ModalHeader>
+        <Form>
+          <ModalBody>
+            <FormGroup>
+              <label className="form-control-label" htmlFor="ticket">
+                Digite uma nova dúvida, problema e etc...
+              </label>
+              <Input
+                className="form-control-alternative"
+                name="ticket"
+                onChange={handleChangeInput}
+                rows="6"
+                type="textarea"
+              />
+            </FormGroup>
+            <FormGroup>
+              <label className="form-control-label" htmlFor="secretary">
+                Selecione a secretaria para responder
+              </label>
+              <Input
+                className="form-control-alternative"
+                type="select"
+                name="secretary"
+                onChange={handleChangeInput}
+              >
+                <option value={undefined} hidden>
+                  Escolha uma opção
+                </option>
+                <option>Jurídica</option>
+                <option>SECOM</option>
+                <option>SETI</option>
+              </Input>
+            </FormGroup>
+            <FormGroup>
+              <label className="btn bg-light ml-1 mb-0">
+                Selecione Arquivos (se houver)
+                <Input
+                  className="d-none"
+                  type="file"
+                  name="files"
+                  onChange={handleChangeInputFile}
+                />
+              </label>
+              <Button onClick={addFiles}>Adicionar</Button>
+            </FormGroup>
+            <Table>
+              <thead>
+                <tr>
+                  <th>Arquivo</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {input.files.map((file, index) => (
+                  <tr key={index}>
+                    <td>{file[0].name}</td>
+                    <td>
+                      <Button onClick={() => deleteFiles(index)}>
+                        <i className="fas fa-trash"></i>
+                      </Button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          </ModalBody>
+          <ModalFooter className="d-flex justify-content-end">
+            <Button color="primary" type="submit">
+              Abrir
+            </Button>
+            <Button
+              color="secondary"
+              onClick={() => setOpenSupport(!openSupport)}
+            >
+              Sair
+            </Button>
+          </ModalFooter>
+        </Form>
+      </Modal>
+
+      <Modal
+        isOpen={open}
+        toggle={() => {
+          setOpen(!open);
+        }}
+        size="lg"
+      >
+        <ModalHeader
+          toggle={() => {
+            setOpen(!open);
+          }}
+        >
+          {support.name}
+        </ModalHeader>
+        <ModalBody>
+          <>
+            <p className="mb-0">{support.description}</p>
+            <p className="h6 mb-3">Criado em: {support.createdIn}</p>
+          </>
+          <>
+            {support.answers &&
+              support.answers.map((answer, index) => (
+                <div key={index} className="p-3 rounded bg-default text-white">
+                  <p>
+                    <b>{answer.createdBy}</b>
+                  </p>
+                  <p>{answer.answer}</p>
+                  <p className="h6 mb-3">Criado em: {answer.createdIn}</p>
+                </div>
+              ))}
+            <Form onSubmit={submitForm}>
+              <Input
+                className="mb-3 mt-5"
+                name="answer"
+                placeholder="Digite uma nova resposta..."
+                onChange={handleChangeInput}
+                rows="4"
+                type="textarea"
+              />
+              <div className="d-flex justify-content-end">
+                <Button color="primary">Comentar</Button>
+              </div>
+            </Form>
+          </>
+        </ModalBody>
+        <ModalFooter className="d-flex justify-content-end">
+          <Button color="secondary" onClick={() => setOpen(!open)}>
+            Sair
+          </Button>
+        </ModalFooter>
+      </Modal>
+    </>
+  );
+};
+
+export default Suporte;
