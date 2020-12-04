@@ -6,8 +6,6 @@ export const login = (data) => async (dispatch) => {
   const userData = 
     {
       grant_type: "password",
-      client_id: "CXPJ3Wfi8bmabuHbj9BWl1mqgE15HW20RxRVw1Aj",
-      client_secret: "NnWl37fjkQ7Qcj2EnfU5xng8XsyOlj4ct6MihB4TWxjr143QMxQqX5bjyZWz04ys4HZIjugeSyDhe48k4EZFPJpyvSzRuD2gh2Zs5myivnCOIYD1i7Pd17YwU2AstuMD",
       username: email,
       password: password,
     }
@@ -31,9 +29,8 @@ export const login = (data) => async (dispatch) => {
 
     dispatch(setAuthentication(auth));
   } catch (err) {
-    alert(err.message)
-    console.error("erro", err.message)
-    // dispatch(setAlert(err.response.status, err.response.data.error_description, true));
+    console.error("erro", err.message);
+    dispatch(setAlert(err.response.status, err.response.data.error_description, true));
   }
 }
 
