@@ -9,11 +9,6 @@ const initialState = {
 const AlertsReducer = (state = initialState, action) => {
   switch (action.type) {
     case "ALERT":
-
-    if (!action.payload.status) {
-      alert("Conexão perdida")
-    }
-
       return {
         ...state,
         alerts: {
@@ -24,10 +19,13 @@ const AlertsReducer = (state = initialState, action) => {
         },
       };
     case "UPDATE_VISIBLE_ALERT":
-      return {...state, alerts: {
-        ...state.alerts,
-        show: action.payload.show
-      }}
+      return {
+        ...state,
+        alerts: {
+          ...state.alerts,
+          show: action.payload.show,
+        },
+      };
     default:
       return state;
   }

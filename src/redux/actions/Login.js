@@ -19,8 +19,6 @@ export const login = (data) => async (dispatch) => {
       }
     });
 
-    console.log("deu certo")
-
     dispatch(setAlert(response.status, "Login realizado com sucesso!", true));
 
     localStorage.setItem("access_token", response.data.access_token);
@@ -33,6 +31,7 @@ export const login = (data) => async (dispatch) => {
 
     dispatch(setAuthentication(auth));
   } catch (err) {
+    alert(err.message)
     console.error("erro", err.message)
     // dispatch(setAlert(err.response.status, err.response.data.error_description, true));
   }

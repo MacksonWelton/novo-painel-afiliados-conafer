@@ -149,7 +149,7 @@ var routes = [
     name: "Cadastro de Afiliado PF",
     icon: "ni ni-circle-08 text-pink",
     component: RegistroPF,
-    layout: "/auth",
+    layout: "/admin",
     show: true
   },
 ];
