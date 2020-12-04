@@ -1,42 +1,121 @@
-export const register = (userData) => (dispatch) => {
-  try {
-    
-    dispatch(setRegister(userData));
-  } catch(err) {
+import api from "services/api";
+import converterDataToFormData from "utils/converterDataToFormData";
+import { setAlert } from "./Alertas";
 
+export const signUp = (userData) => async (dispatch) => {
+  try {
+    const response = await api.post("/api/v1/user/user_affiliation/", userData, {
+      header: {
+        "content-type": "application/json"
+      }
+    })
+
+    dispatch(setAlert(response.status, "Cadastro realizado com sucesso!", true));
+
+  } catch(err) {
+    console.error(err.message)
+    dispatch(setAlert(err.response.status, err.response.data.error_description, true));
   }
 }
 
-export const setRegister = (userData) => ({
-  type: "SET_REGISTER",
+export const recoverPassword = (email) => (dispatch) => {
+  try {
+
+  } catch (err) {
+    console.error(err.message)
+    dispatch(setAlert("error", err.response.data.error_description, true));
+  }
+}
+
+export const AgriculturalProduction = () => async (dispatch) => {
+  try {
+    const response = await api.get("/api/v1/production/name_production/");
+    dispatch(setAgriculturalProduction(response.data))
+  } catch(err) {
+    console.error(err.message);
+  }
+}
+
+export const TypeAgriculturalProduction = () => async (dispatch) => {
+  try {
+    const response = await api.get("/api/v1/production/type_production/");
+  
+    dispatch(setTypeAgriculturalProduction(response.data))
+  } catch (err) {
+    dispatch(setAlert("error", err.response.data.error_description, true));
+    console.error(err.message)
+  }
+}
+
+export const pjAffiliateRegister = (input, files, agriculturalProduction) =>  async (dispatch) => {
+
+  const formData = converterDataToFormData(input, files);
+
+  try {
+    const response = await api.post("/api/v1/affiliation/affiliation_pj/", formData, {
+      headers: {
+        "Content-Type": `multipart/form-data; boundary=${formData._boundary}`
+      }
+    });
+    
+    if (agriculturalProduction.length > 0 && response.data.id) {
+      dispatch(newAgriculturalProduction(response.data.id, agriculturalProduction));
+    }
+    
+    dispatch(setAlert(response.status, "Cadastro realizado com sucesso!", true));
+
+  } catch (err) {
+    console.error(err.message)
+    dispatch(setAlert("error", err.response.data.error_description, true));
+  }
+}
+
+const newAgriculturalProduction = (id, agriculturalProduction) => async (dispatch) => {
+  try {
+    let response;
+
+    agriculturalProduction.forEach(async (production) => {
+      production.affiliation = id;
+      response = await api.post("/api/v1/production/production/", production);
+    })
+
+    dispatch(setAlert(response.status, "Cadastro realizado com sucesso!", true));
+
+  } catch(err) {
+    dispatch(setAlert(err.response.status, err.response.data.error_description, true));
+    console.error(err.message)
+  }
+}
+
+export const pfAffiliateRegister = (userData, agriculturalProduction) => async (dispatch) => {
+  try {
+    const response = await api.post("/api/v1/affiliation/affiliation_pf/", userData);
+
+    if (agriculturalProduction.length > 0 && response.data.id) {
+      dispatch(newAgriculturalProduction(response.data.id, agriculturalProduction));
+    }
+
+    dispatch(setAlert(response.status, "Cadastro realizado com sucesso!", true));
+
+  } catch (err) {
+    console.error(err.message)
+    dispatch(setAlert(err.response.status, err.response.data.error_description, true));
+  }
+}
+
+const setAgriculturalProduction = (production) => ({
+  type: "SET_PRODUCTIONS",
   payload: {
-    userData
+    production
   }
 })
 
-export const recoverPassword = (email) => () => {
-  try {
-
-  } catch (err) {
-    
+const setTypeAgriculturalProduction = (typeProduction) => ({
+  type: "SET_TYPE_PRODUCTION",
+  payload: {
+    typeProduction
   }
-}
-
-export const registerPJ = (data) => () => {
-  try {
-
-  } catch (err) {
-
-  }
-}
-
-export const registerPF = (data) => () => {
-  try {
-
-  } catch (err) {
-
-  }
-}
+})
 
 export const setBeneficiaryIdentity = (beneficiaryIdentity) => ({
   type: "SET_BENEFICIARY_IDENTITY",

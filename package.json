@@ -50,12 +50,17 @@
     "@material-ui/icons": "^4.9.1",
     "@react-google-maps/api": "^1.13.0",
     "axios": "^0.20.0",
+    "cep-promise": "^4.0.2",
     "chart.js": "2.9.3",
     "classnames": "2.2.6",
+    "dotenv": "^8.2.0",
+    "history": "^5.0.0",
+    "js-brasil": "^2.3.8",
     "material-ui": "^0.20.2",
     "moment": "2.24.0",
-    "node-sass": "4.13.1",
+    "node-sass": "^4.14.1",
     "nouislider": "14.1.1",
+    "npm-force-resolutions": "0.0.3",
     "prop-types": "^15.7.2",
     "react": "16.12.0",
     "react-chartjs-2": "2.9.0",
@@ -63,9 +68,10 @@
     "react-datetime": "2.16.3",
     "react-dom": "16.12.0",
     "react-google-maps": "9.4.5",
+    "react-google-recaptcha": "^2.1.0",
     "react-redux": "^7.2.1",
     "react-router-dom": "5.1.2",
-    "react-scripts": "^3.4.3",
+    "react-scripts": "^4.0.0",
     "reactstrap": "8.4.1",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
@@ -81,5 +87,8 @@
     "gulp": "4.0.2",
     "gulp-append-prepend": "1.0.8",
     "typescript": "3.7.5"
+  },
+  "resolutions": {
+    "node-fetch": "3.0.0-beta.9"
   }
 }
