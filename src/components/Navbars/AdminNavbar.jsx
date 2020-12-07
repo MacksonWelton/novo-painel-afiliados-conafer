@@ -32,7 +32,10 @@ const AdminNavbar = (props) => {
   const dispatch = useDispatch();
 
   const [confirmAuth, setConfirmAuth] = useState(false);
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState({
+    modal: false,
+    active: true
+  });
 
   const profile = useSelector((state) => state.ProfileReducer.profile);
   const auth = useSelector((state) => state.LoginReducer.auth);
@@ -54,8 +57,8 @@ const AdminNavbar = (props) => {
     history.push("/auth/affiliate-registration");
   }
 
-  if ((usersPFAffiliation || usersPJAffiliation) && open) {
-    setOpen(!open);
+  if (usersPFAffiliation && usersPJAffiliation && open) {
+    setOpen({...open, modal: !open.modal, active: !open.active});
   }
 
   const exit = () => {

@@ -15,10 +15,10 @@ import logo from "../../assets/img/brand/sistemalogo.png";
 
 const ModalRegistroAfiliados = ({ open, setOpen }) => {
   return (
-    <Modal size="md" isOpen={open} toggle={() => setOpen(!open)} centered>
+    <Modal size="md" isOpen={open} toggle={() => setOpen({...open, modal: !open.modal})} centered>
       <ModalHeader
         toggle={() => {
-          setOpen(!open);
+          setOpen({...open, modal: !open.modal});
         }}
       ></ModalHeader>
       <Row>
@@ -34,13 +34,13 @@ const ModalRegistroAfiliados = ({ open, setOpen }) => {
             </CardHeader>
             <CardBody className="px-lg-5 py-lg-5 d-flex flex-column align-items-center">
               <Link
-                to="/auth/registration-pj"
+                to="/admin/registration-pj"
                 className="mb-3 p-2 bg-primary w-100 text-white text-center rounded"
               >
                 PESSOA JURÍDICA
               </Link>
               <Link
-                to="/auth/registration-pf"
+                to="/admin/registration-pf"
                 className="mb-3 p-2 bg-primary w-100 text-white text-center rounded"
               >
                 PESSOA FÍSICA
