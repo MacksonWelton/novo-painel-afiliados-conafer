@@ -142,7 +142,7 @@ var routes = [
     icon: "ni ni-circle-08 text-pink",
     component: RegistroPJ,
     layout: "/adim",
-    show: true
+    show: false
   },
   {
     path: "/registration-pf",
@@ -150,7 +150,7 @@ var routes = [
     icon: "ni ni-circle-08 text-pink",
     component: RegistroPF,
     layout: "/admin",
-    show: true
+    show: false
   },
 ];
 
