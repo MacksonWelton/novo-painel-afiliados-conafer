@@ -482,7 +482,9 @@ const FormRegistroPF = ({
                       onChange={handleChangeInput}
                       onBlur={async (e) => {
                         const response = await findZipCode(e);
-                        handleChangeInputZipCode(response);
+                        if (response) {
+                          handleChangeInputZipCode(response);
+                        }
                       }}
                       maxLength="10"
                       minLength="1"

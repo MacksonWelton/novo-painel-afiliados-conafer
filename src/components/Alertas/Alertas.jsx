@@ -12,29 +12,30 @@ const Alertas = ({ alerts }) => {
 
   setTimeout(() => {
     dispatch(setVisibleAlert(false));
-  }, 9000)
+  }, 50000)
 
   useEffect(() => {
     const onDismiss = () => dispatch(setVisibleAlert(false));
+
     switch (alerts.status) {
       case 200:
         setData(
           <AlertSyled color="success" isOpen={visible} toggle={onDismiss}>
-            {alerts.message}
+            <h3 className="text-white">{alerts.message}</h3>
           </AlertSyled>
         );
         break;
       case 201:
         setData(
           <AlertSyled color="success" isOpen={visible} toggle={onDismiss}>
-            {alerts.message}
+            <h3 className="text-white">{alerts.message}</h3>
           </AlertSyled>
         );
         break;
       case 400:
         setData(
           <AlertSyled color="danger" isOpen={visible} toggle={onDismiss}>
-            {alerts.message}
+            <h3 className="text-white">{alerts.message}</h3>
           </AlertSyled>
         );
         break;

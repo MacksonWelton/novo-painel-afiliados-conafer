@@ -141,7 +141,7 @@ var routes = [
     name: "Cadastro de Afiliado PJ",
     icon: "ni ni-circle-08 text-pink",
     component: RegistroPJ,
-    layout: "/adim",
+    layout: "/admin",
     show: false
   },
   {

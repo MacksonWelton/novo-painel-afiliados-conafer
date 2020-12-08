@@ -5,9 +5,11 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   pjAffiliateRegister,
   AgriculturalProduction,
-  TypeAgriculturalProduction
+  TypeAgriculturalProduction,
 } from "../../redux/actions/Registro";
 import FormRegistroPJ from "components/FormRegistroPJ/FormRegistroPJ";
+import { Container } from "reactstrap";
+import Header from "components/Headers/Header";
 
 const RegistroPJ = () => {
   const dispatch = useDispatch();
@@ -54,9 +56,12 @@ const RegistroPJ = () => {
       value: "",
     },
   });
-  
+
   const [agriculturalProduction, setAgriculturalProduction] = useState([]);
-  const [tableAgriculturalProduction, setTableAgriculturalProduction] = useState([]);
+  const [
+    tableAgriculturalProduction,
+    setTableAgriculturalProduction,
+  ] = useState([]);
 
   const [
     inputAgriculturalProduction,
@@ -73,11 +78,11 @@ const RegistroPJ = () => {
     how_produces: 0,
     type_production: "",
     issues_invoice: undefined,
-  })
+  });
 
   const handleChangeInputAgriculturalProduction = (event) => {
     const { name, value, type } = event.target;
-    
+
     if (name === "production" || name === "type_production") {
       setInputAgriculturalProduction({
         ...inputAgriculturalProduction,
@@ -95,16 +100,20 @@ const RegistroPJ = () => {
       });
     }
 
-    if (name === "production" || name === "type_production" || name === "issues_invoice") {
+    if (
+      name === "production" ||
+      name === "type_production" ||
+      name === "issues_invoice"
+    ) {
       setListAgriculturalProduction({
         ...listAgriculturalProduction,
-        [name]: event.target[event.target.selectedIndex].text
-      })
+        [name]: event.target[event.target.selectedIndex].text,
+      });
     } else {
       setListAgriculturalProduction({
         ...listAgriculturalProduction,
-        [name]: value
-      })
+        [name]: value,
+      });
     }
   };
 
@@ -115,7 +124,7 @@ const RegistroPJ = () => {
 
     setTableAgriculturalProduction(
       tableAgriculturalProduction.filter((item, i) => i !== id)
-    )
+    );
   };
 
   const handleChangeInput = (event) => {
@@ -134,8 +143,7 @@ const RegistroPJ = () => {
   };
 
   const addAgriculturalProduction = () => {
-
-    addListAgriculturalProduction()
+    addListAgriculturalProduction();
 
     setAgriculturalProduction([
       ...agriculturalProduction,
@@ -145,7 +153,7 @@ const RegistroPJ = () => {
         type_production: inputAgriculturalProduction.type_production,
         issues_invoice: inputAgriculturalProduction.issues_invoice,
       },
-    ])
+    ]);
   };
 
   const addListAgriculturalProduction = () => {
@@ -166,26 +174,30 @@ const RegistroPJ = () => {
 
   const submitForm = (event) => {
     event.preventDefault();
-
     dispatch(pjAffiliateRegister(input, files, agriculturalProduction));
   };
 
   return (
     <>
-    <FormRegistroPJ 
-      production={production}
-      typeProduction={typeProduction}
-      input={input}
-      handleChangeInputAgriculturalProduction={handleChangeInputAgriculturalProduction}
-      inputAgriculturalProduction={inputAgriculturalProduction}
-      tableAgriculturalProduction={tableAgriculturalProduction}
-      deleteAgriculturalProduction={deleteAgriculturalProduction}
-      handleChangeInput={handleChangeInput}
-      handleChangeInputFile={handleChangeInputFile}
-      addAgriculturalProduction={addAgriculturalProduction}
-      handleChecked={handleChecked}
-      submitForm={submitForm}
-    />
+      <Header />
+      <Container className="mt--7" fluid>
+        <FormRegistroPJ
+          production={production}
+          typeProduction={typeProduction}
+          input={input}
+          handleChangeInputAgriculturalProduction={
+            handleChangeInputAgriculturalProduction
+          }
+          inputAgriculturalProduction={inputAgriculturalProduction}
+          tableAgriculturalProduction={tableAgriculturalProduction}
+          deleteAgriculturalProduction={deleteAgriculturalProduction}
+          handleChangeInput={handleChangeInput}
+          handleChangeInputFile={handleChangeInputFile}
+          addAgriculturalProduction={addAgriculturalProduction}
+          handleChecked={handleChecked}
+          submitForm={submitForm}
+        />
+      </Container>
     </>
   );
 };

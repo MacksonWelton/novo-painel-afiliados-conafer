@@ -20,10 +20,14 @@ api.interceptors.response.use(
   },
   async (error) => {
     const access_token = localStorage.getItem("access_token");
-    if (error.response.status === 401 && access_token) {
-      const response = await refreshToken(error);
-      return response;
+
+    if (error.response) {
+      if (error.response.status === 401 && access_token) {
+        const response = await refreshToken(error);
+        return response;
+      }
     }
+
     return Promise.reject(error);
   }
 );

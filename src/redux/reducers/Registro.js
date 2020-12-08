@@ -1,4 +1,5 @@
 const initialState = {
+  signUp: 0,
   userData: {},
   beneficiaryIdentity: {},
   plotLocation: {},
@@ -12,6 +13,8 @@ const initialState = {
 
 const RegistroReducer = (state = initialState, action) => {
   switch (action.type) {
+    case "SET_SIGN_UP":
+      return {...state, signUp: action.payload.status}
     case "SET_REGISTER": 
       return {...state, userData: action.payload.userData}
     case "SET_BENEFICIARY_IDENTITY":

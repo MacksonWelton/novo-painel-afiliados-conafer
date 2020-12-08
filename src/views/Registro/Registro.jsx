@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
 
 // reactstrap components
 import {
@@ -18,13 +18,23 @@ import {
   Row,
 } from "reactstrap";
 
-import { signUp } from "../../redux/actions/Registro";
+import { signUp, setSignUp } from "../../redux/actions/Registro";
 
 import FacebookIcon from "../../assets/img/icons/common/facebook.svg";
 import GoogleIcon from "../../assets/img/icons/common/google.svg";
 
 const Registro = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
+
+  const signUpSuccess = useSelector(state => state.RegistroReducer.signUp);
+
+  useEffect(() => {
+    if (signUpSuccess) {
+      history.push("/");
+      dispatch(setSignUp(0))
+    }
+  }, [signUpSuccess, history, dispatch]);
 
   const [input, setInput] = useState({
     name: "",
