@@ -34,7 +34,6 @@ const FormRegistroPJ = ({
   handleChecked,
   submitForm,
 }) => {
-
   const [zipCodeData, setZipCodeData] = useState({
     city: "",
     state: "",
@@ -117,7 +116,9 @@ const FormRegistroPJ = ({
                       value={mask(input.cep, ["99999-999"])}
                       onBlur={async (e) => {
                         const response = await findZipCode(e);
-                        setZipCodeData(response);
+                        if (response) {
+                          setZipCodeData(response);
+                        }
                       }}
                       placeholder="Ex: 57160-000"
                       onChange={handleChangeInput}
