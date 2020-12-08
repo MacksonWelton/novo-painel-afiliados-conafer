@@ -3,8 +3,8 @@ const initialState = {
   userAffiliation: {
     affiliation: ""
   },
-  usersPFAffiliation: true,
-  usersPJAffiliation: true,
+  usersPFAffiliation: false,
+  usersPJAffiliation: false,
 };
 
 const UsersAffiliationReducer = (state = initialState, action) => {

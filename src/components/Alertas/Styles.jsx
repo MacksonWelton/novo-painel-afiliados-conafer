@@ -3,7 +3,7 @@ import { Alert } from "reactstrap";
 
 export const AlertSyled = styled(Alert)`
   position: fixed;
-  right: 30px;
-  top: 600px;
+  width: 70%;
+  top: 140px;
   z-index: 2000;
 `

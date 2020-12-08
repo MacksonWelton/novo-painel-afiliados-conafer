@@ -71,7 +71,7 @@ const UsuariosAfiliacao = () => {
     password2: "",
   });
 
-  if (input.affiliation === "" && userAffiliation.affiliation !== "") {
+  if (input.affiliation === "" && userAffiliation.affiliation) {
     setInput({ ...input, affiliation: userAffiliation.affiliation });
   }
 
@@ -164,8 +164,6 @@ const UsuariosAfiliacao = () => {
       return "Desativado";
     }
   };
-
-  console.log(usersAffiliation.filter(user => user.is_active === false).length)
 
   const CardData = [
     {

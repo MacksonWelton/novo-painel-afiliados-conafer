@@ -57,7 +57,7 @@ const AdminNavbar = (props) => {
     history.push("/auth/affiliate-registration");
   }
 
-  if (usersPFAffiliation && usersPJAffiliation && open) {
+  if (usersPFAffiliation && usersPJAffiliation && open.active) {
     setOpen({...open, modal: !open.modal, active: !open.active});
   }
 

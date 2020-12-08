@@ -8,6 +8,8 @@ import {
 } from "../../redux/actions/Registro";
 
 import FormRegistroPF from "../../components/FormRegistroPF/FormRegistroPF";
+import Header from "components/Headers/Header";
+import { Container } from "reactstrap";
 
 const RegistroPF = () => {
   const dispatch = useDispatch();
@@ -51,7 +53,7 @@ const RegistroPF = () => {
     incra_ocupation: "",
     collect_code: "",
     ater_core: "",
-    year_residence: "",
+    year_residence: 0,
     country: "",
     address: "",
     cep: "",
@@ -180,23 +182,26 @@ const RegistroPF = () => {
 
   return (
     <>
-      <FormRegistroPF
-        input={input}
-        setInput={setInput}
-        handleChangeInput={handleChangeInput}
-        handleChecked={handleChecked}
-        submitForm={submitForm}
-        alerts={alerts}
-        handleChangeInputAgriculturalProduction={
-          handleChangeInputAgriculturalProduction
-        }
-        deleteAgriculturalProduction={deleteAgriculturalProduction}
-        addAgriculturalProduction={addAgriculturalProduction}
-        inputAgriculturalProduction={inputAgriculturalProduction}
-        production={production}
-        typeProduction={typeProduction}
-        tableAgriculturalProduction={tableAgriculturalProduction}
-      />
+      <Header/>
+      <Container className="mt--7" fluid>
+        <FormRegistroPF
+          input={input}
+          setInput={setInput}
+          handleChangeInput={handleChangeInput}
+          handleChecked={handleChecked}
+          submitForm={submitForm}
+          alerts={alerts}
+          handleChangeInputAgriculturalProduction={
+            handleChangeInputAgriculturalProduction
+          }
+          deleteAgriculturalProduction={deleteAgriculturalProduction}
+          addAgriculturalProduction={addAgriculturalProduction}
+          inputAgriculturalProduction={inputAgriculturalProduction}
+          production={production}
+          typeProduction={typeProduction}
+          tableAgriculturalProduction={tableAgriculturalProduction}
+        />
+      </Container>
     </>
   );
 };

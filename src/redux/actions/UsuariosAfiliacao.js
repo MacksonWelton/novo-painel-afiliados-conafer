@@ -4,6 +4,7 @@ import { setAlert } from "./Alertas";
 
 export const newUserAffiliation = (input, files) => async (dispatch) => {
   const formData = converterDataToFormData(input, files);
+
   try {
     const response = await api.post("/api/v1/user/user_affiliation/", formData, {
       headers: {
@@ -71,7 +72,6 @@ const setUsersPFAFFiliation = (usersPFAffiliation) => ({
 
 export const updateAffiliatesActivation = (user) => async (dispatch) => {
   try {
-    console.log(user)
     const response = await api.patch(`/api/v1/user/user_affiliation/${user.id}/`, user);
     dispatch(setAlert(response.status, "Ativação realizada com sucesso!", true));
   } catch (err) {
