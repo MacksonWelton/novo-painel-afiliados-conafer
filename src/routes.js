@@ -59,7 +59,7 @@ var routes = [
   {
     path: "/propostas",
     name: "Propostas",
-    icon: "far fa-file-alt text-blue",
+    icon: "fas fa-handshake text-blue",
     component: Propostas,
     layout: "/admin",
     show: true
@@ -83,7 +83,7 @@ var routes = [
   {
     path: "/membros",
     name: "Membros",
-    icon: "fas fa-users text-black",
+    icon: "fas fa-users text-dark",
     component: Membros,
     layout: "/admin",
     show: true

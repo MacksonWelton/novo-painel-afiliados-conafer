@@ -15,7 +15,7 @@ const googleMapsCoordinates = (data) => {
         newAddress = address;
       },
       (error) => {
-        console.error("Ocorreu um erro", error);
+        console.error("Não foi possível encontrar a lat e long do endereço.", error);
       }
     );
   };
@@ -28,7 +28,7 @@ const googleMapsCoordinates = (data) => {
         latLng(lat, lng);
       },
       (error) => {
-        console.error("Ocorreu um erro", error);
+        console.error("Não foi possível encontrar o endereço.", error);
       }
     );
   }

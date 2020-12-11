@@ -40,7 +40,7 @@ export const updateProfile = (input, files) => async (dispatch) => {
 
     dispatch(setAlert(response.status, "Dados atualizados com sucesso!", true));
   } catch (err) {
-    console.error(err.message);
+    console.error(err.response);
     if (!err.response) {
       dispatch(setAlert(400, "Ocorreu um erro de conexão com o servidor.", true));
     } else {

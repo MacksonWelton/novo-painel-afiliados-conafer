@@ -7,7 +7,7 @@ const converterDataToFormData = (input, files) => {
     formData.append(data, input[data]);
   })
 
-  if (files.profilepic.value) {
+  if (files) {
     Object.keys(files).forEach(file => {
       formData.append(file, files[file].value, files[file].fileName);
     })
