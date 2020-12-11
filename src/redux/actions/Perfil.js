@@ -10,7 +10,16 @@ export const getProfile = () => async (dispatch) => {
     dispatch(
       setAlert(err.response.status, err.response.data.error_description, true)
     );
-    console.error(err.response.status);
+    console.error(err.message);
+    if (!err.response) {
+      dispatch(
+        setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
+      );
+    } else {
+      dispatch(
+        setAlert(err.response.status, err.response.data.error_description, true)
+      );
+    }
   }
 };
 
@@ -31,10 +40,12 @@ export const updateProfile = (input, files) => async (dispatch) => {
 
     dispatch(setAlert(response.status, "Dados atualizados com sucesso!", true));
   } catch (err) {
-    dispatch(
-      setAlert(err.response.status, err.response.data.error_description, true)
-    );
     console.error(err.message);
+    if (!err.response) {
+      dispatch(setAlert(400, "Ocorreu um erro de conexão com o servidor.", true));
+    } else {
+      dispatch(setAlert(err.response.status, err.response.data.error_description, true));
+    }
   }
 };
 
@@ -59,10 +70,12 @@ export const updatePassword = (input, profile) => async (dispatch) => {
 
     dispatch(setAlert(response.status, "Dados atualizados com sucesso!", true));
   } catch (err) {
-    dispatch(
-      setAlert(err.response.status, err.response.data.error_description, true)
-    );
     console.error(err.message);
+    if (!err.response) {
+      dispatch(setAlert(400, "Ocorreu um erro de conexão com o servidor.", true));
+    } else {
+      dispatch(setAlert(err.response.status, err.response.data.error_description, true));
+    }
   }
 };
 

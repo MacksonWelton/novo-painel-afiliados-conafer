@@ -4,6 +4,7 @@ import { Alert } from "reactstrap";
 export const AlertSyled = styled(Alert)`
   position: fixed;
   width: 70%;
-  top: 140px;
+  right: 30px;
+  top: 250px;
   z-index: 2000;
 `

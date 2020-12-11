@@ -15,7 +15,11 @@ export const newUserAffiliation = (input, files) => async (dispatch) => {
     dispatch(setAlert(response.status, "Cadastro realizado com sucesso!", true));
   } catch(err) {
     console.error(err.message)
-    dispatch(setAlert(err.response.status, err.response.data.error_description, true));
+    if (!err.response) {
+      dispatch(setAlert(400, "Ocorreu um erro de conexão com o servidor.", true));
+    } else {
+      dispatch(setAlert(err.response.status, err.response.data.error_description, true));
+    }
   }
 }
 
@@ -25,7 +29,11 @@ export const getUsersAffiliation = () => async (dispatch) => {
     dispatch(setUersAffiliation(response.data))
   } catch(err) {
     console.error(err.message);
-    dispatch(setAlert(err.response.status, err.response.data.error_description, true));
+    if (!err.response) {
+      dispatch(setAlert(400, "Ocorreu um erro de conexão com o servidor.", true));
+    } else {
+      dispatch(setAlert(err.response.status, err.response.data.error_description, true));
+    }
   }
 }
 
@@ -42,7 +50,11 @@ export const getUsersPJAffiliation = () => async (dispatch) => {
     dispatch(setUsersPJAFFiliation(response.data));
   } catch(err) {
     console.error(err.message);
-    dispatch(setAlert(err.response.status, err.response.data.error_description, true));
+    if (!err.response) {
+      dispatch(setAlert(400, "Ocorreu um erro de conexão com o servidor.", true));
+    } else {
+      dispatch(setAlert(err.response.status, err.response.data.error_description, true));
+    }
   }
 }
 
@@ -59,7 +71,11 @@ export const getUsersPFAffiliation = () => async (dispatch) => {
     dispatch(setUsersPFAFFiliation(response.data));
   } catch(err) {
     console.error(err.message);
-    dispatch(setAlert(err.response.status, err.response.data.error_description, true));
+    if (!err.response) {
+      dispatch(setAlert(400, "Ocorreu um erro de conexão com o servidor.", true));
+    } else {
+      dispatch(setAlert(err.response.status, err.response.data.error_description, true));
+    }
   }
 }
 
@@ -76,7 +92,11 @@ export const updateAffiliatesActivation = (user) => async (dispatch) => {
     dispatch(setAlert(response.status, "Ativação realizada com sucesso!", true));
   } catch (err) {
     console.error(err.message)
-    dispatch(setAlert(err.response.status, err.response.data.error_description, true));
+    if (!err.response) {
+      dispatch(setAlert(400, "Ocorreu um erro de conexão com o servidor.", true));
+    } else {
+      dispatch(setAlert(err.response.status, err.response.data.error_description, true));
+    }
   }
 }
 
@@ -93,8 +113,12 @@ export const getUserAffiliation = () => async (dispatch) => {
     const response = await api.get("/api/v1/user/detail/user_affiliation/");
     dispatch(setUserAffiliation(response.data))
   } catch (err) {
-    // dispatch(setAlert(err.response.status, err.response.data.error_description, true));
     console.error(err.message)
+    if (!err.response) {
+      dispatch(setAlert(400, "Ocorreu um erro de conexão com o servidor.", true));
+    } else {
+      dispatch(setAlert(err.response.status, err.response.data.error_description, true));
+    }
   }
 }
 

@@ -1,11 +1,12 @@
 import axios from 'axios';
+import { setAlert } from 'redux/actions/Alertas';
 
 const api = axios.create({
   baseURL: "https://cra.conafer.org.br:7999"
 });
 
 api.interceptors.request.use(async (config) => {
-    const accessToken = await localStorage.getItem("access_token")
+    const accessToken = await localStorage.getItem("access_token");
 
     if (accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`
@@ -26,6 +27,9 @@ api.interceptors.response.use(
         const response = await refreshToken(error);
         return response;
       }
+    } else {
+      console.error(error.message)
+      setAlert(400, "Ocorreu um erro de conexão com o servidor.", true);
     }
 
     return Promise.reject(error);
@@ -59,6 +63,9 @@ const refreshToken = async (error) => {
         .then(async (res) => {
           localStorage.setItem("access_token", res.data.access_token);
           localStorage.setItem("refresh_token", res.data.refresh_token);
+          localStorage.setItem("expires_in", res.data.expires_in);
+          localStorage.setItem("token_type", res.data.token_type);
+          localStorage.setItem("scope", res.data.scope);
           // Fazer algo caso seja feito o refresh token
           originalRequest.headers.Authorization = 'Bearer ' + res.data.access_token;
           return resolve(axios(originalRequest));
@@ -69,6 +76,7 @@ const refreshToken = async (error) => {
           return reject(err);
         });
     } catch (err) {
+      alert("Ocorreu um erro de conexão.");
       return reject(err);
     }
   });

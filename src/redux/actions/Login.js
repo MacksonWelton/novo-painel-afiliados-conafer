@@ -38,7 +38,6 @@ export const login = (data) => async (dispatch) => {
     } else {
       dispatch(setAlert(err.response.status, err.response.data.error_description, true));
     }
-
   }
 }
 
