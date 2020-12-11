@@ -26,6 +26,11 @@ const RecuperarSenha = () => {
     password: "",
   });
 
+  const handleChangeInput = (event) => {
+    const {name, value} = event.target;
+    setInput({...input, [name]: value})
+  }
+
   const submitForm = (event) => {
     event.preventDefault();
   };
@@ -85,6 +90,7 @@ const RecuperarSenha = () => {
                     placeholder="Email"
                     type="email"
                     autoComplete="new-email"
+                    onChange={handleChangeInput}
                   />
                 </InputGroup>
               </FormGroup>

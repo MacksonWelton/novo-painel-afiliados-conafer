@@ -3,8 +3,8 @@ const initialState = {
   userAffiliation: {
     affiliation: ""
   },
-  usersPFAffiliation: false,
-  usersPJAffiliation: false,
+  usersPFAffiliation: [0],
+  usersPJAffiliation: [0],
 };
 
 const UsersAffiliationReducer = (state = initialState, action) => {
@@ -22,12 +22,12 @@ const UsersAffiliationReducer = (state = initialState, action) => {
     case "SET_USERS_PJ_AFFILIATION":
       return {
         ...state,
-        usersPJAffiliation: action.payload.usersPJAffiliation.length === 0
+        usersPJAffiliation: action.payload.usersPJAffiliation
       }
     case "SET_USERS_PF_AFFILIATION":
       return {
         ...state,
-        usersPFAffiliation: action.payload.usersPFAffiliation.length === 0
+        usersPFAffiliation: action.payload.usersPFAffiliation
       }
     default:
       return state;

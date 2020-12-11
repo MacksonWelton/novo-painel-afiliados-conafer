@@ -826,7 +826,7 @@ const FormRegistroPF = ({
                     </Input>
                   </FormGroup>
                 </Col>
-                {input.profession !== undefined &&
+                {input.profession !== "" &&
                 input.profession !== "Agricultor" ? (
                   <Col lg="6">
                     <FormGroup>

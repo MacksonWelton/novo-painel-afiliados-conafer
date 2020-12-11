@@ -57,7 +57,7 @@ const AdminNavbar = (props) => {
     history.push("/auth/affiliate-registration");
   }
 
-  if (usersPFAffiliation && usersPJAffiliation && open.active) {
+  if (!usersPFAffiliation.length && !usersPJAffiliation.length && open.active) {
     setOpen({...open, modal: !open.modal, active: !open.active});
   }
 
@@ -65,6 +65,7 @@ const AdminNavbar = (props) => {
     dispatch(setAuthentication());
     localStorage.clear();
     history.push("/");
+    window.location.reload();
   };
 
   return (
@@ -106,7 +107,8 @@ const AdminNavbar = (props) => {
                   </span>
                   <Media className="ml-2 d-none d-lg-block">
                     <span className="mb-0 text-sm font-weight-bold">
-                      {profile.name}
+                      {profile.name}{" "}
+                      <i className="fas fa-caret-down"></i>
                     </span>
                   </Media>
                 </Media>

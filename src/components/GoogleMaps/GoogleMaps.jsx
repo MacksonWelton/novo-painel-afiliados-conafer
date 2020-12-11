@@ -22,7 +22,7 @@ const center = {
   lng: -48.0774459,
 };
 
-const GoogleMaps = ({ coordinatesth }) => {
+const GoogleMaps = ({ coordinatesth, iconColor }) => {
   const dispatch = useDispatch();
 
   const [map, setMap] = useState({

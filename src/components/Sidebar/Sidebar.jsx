@@ -62,6 +62,7 @@ class Sidebar extends React.Component {
     const auth = localStorage.getItem("access_token") ? true : false;
     this.props.setAuthentication(auth);
     this.props.history.push("/")
+    window.location.reload();
   };
 
   // creates the links that appear in the left menu / Sidebar

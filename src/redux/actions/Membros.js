@@ -1,16 +1,24 @@
 import api from "services/api";
+import MembrosData from "views/Sindicato/Membros/MembrosData";
+import { setAlert } from "./Alertas";
 
 export const getMembers = () => async (dispatch) => {
   try {
-    const response = await api.get("/api/v1/affiliation/affiliation_pj/", {
-      headers: {
-        "Authorization": "Bearer " + localStorage.getItem("access_token")
-      }
-    })
+    // const response = await api.get("/api/v1/improvement/improvement/", {
+    //   headers: {
+    //     "Authorization": "Bearer " + localStorage.getItem("access_token")
+    //   }
+    // })
 
-    dispatch(setMembers(response.data));
+
+    dispatch(setMembers(MembrosData));
   } catch (err) {
-    console.error(err.message)
+    console.error(err.message);
+    if (!err.response) {
+      dispatch(setAlert(400, "Ocorreu um erro de conexão com o servidor.", true));
+    } else {
+      dispatch(setAlert(err.response.status, err.response.data.error_description, true));
+    }
   }
 }
 
