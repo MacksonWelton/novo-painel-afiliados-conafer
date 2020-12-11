@@ -185,6 +185,7 @@ const RegistroPJ = () => {
           production={production}
           typeProduction={typeProduction}
           input={input}
+          setInput={setInput}
           handleChangeInputAgriculturalProduction={
             handleChangeInputAgriculturalProduction
           }

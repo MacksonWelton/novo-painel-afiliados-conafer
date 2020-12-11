@@ -70,8 +70,11 @@ const Perfil = () => {
 
   const submitForm = (event) => {
     event.preventDefault();
-
-    dispatch(updateProfile(input, files));
+    if (files.profilepic.value) {
+      dispatch(updateProfile(input, files));
+    } else {
+      dispatch(updateProfile(input, null));
+    }
   };
 
   const handleChangeInput = (event) => {

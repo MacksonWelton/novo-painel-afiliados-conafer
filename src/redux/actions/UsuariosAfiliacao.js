@@ -14,7 +14,8 @@ export const newUserAffiliation = (input, files) => async (dispatch) => {
     dispatch(getUsersAffiliation());
     dispatch(setAlert(response.status, "Cadastro realizado com sucesso!", true));
   } catch(err) {
-    console.error(err.message)
+    console.error(err.message);
+    console.error(err.response);
     if (!err.response) {
       dispatch(setAlert(400, "Ocorreu um erro de conexão com o servidor.", true));
     } else {
@@ -29,6 +30,7 @@ export const getUsersAffiliation = () => async (dispatch) => {
     dispatch(setUersAffiliation(response.data))
   } catch(err) {
     console.error(err.message);
+    console.error(err.response);
     if (!err.response) {
       dispatch(setAlert(400, "Ocorreu um erro de conexão com o servidor.", true));
     } else {
@@ -91,7 +93,8 @@ export const updateAffiliatesActivation = (user) => async (dispatch) => {
     const response = await api.patch(`/api/v1/user/user_affiliation/${user.id}/`, user);
     dispatch(setAlert(response.status, "Ativação realizada com sucesso!", true));
   } catch (err) {
-    console.error(err.message)
+    console.error(err.message);
+    console.error(err.response);
     if (!err.response) {
       dispatch(setAlert(400, "Ocorreu um erro de conexão com o servidor.", true));
     } else {

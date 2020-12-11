@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { mask } from "remask";
 
@@ -24,6 +24,7 @@ const FormRegistroPJ = ({
   production,
   typeProduction,
   input,
+  setInput,
   tableAgriculturalProduction,
   handleChangeInputAgriculturalProduction,
   inputAgriculturalProduction,
@@ -34,12 +35,15 @@ const FormRegistroPJ = ({
   handleChecked,
   submitForm,
 }) => {
-  const [zipCodeData, setZipCodeData] = useState({
-    city: "",
-    state: "",
-    neighborhood: "",
-    street: "",
-  });
+  const handleChangeZip = (res) => {
+    setInput({
+      ...input,
+      address: res.street,
+      city: res.city,
+      state: res.state,
+      neighborhood: res.neighborhood,
+    });
+  };
 
   return (
     <>
@@ -117,7 +121,7 @@ const FormRegistroPJ = ({
                       onBlur={async (e) => {
                         const response = await findZipCode(e);
                         if (response) {
-                          setZipCodeData(response);
+                          handleChangeZip(response);
                         }
                       }}
                       placeholder="Ex: 57160-000"
@@ -141,9 +145,7 @@ const FormRegistroPJ = ({
                       title="Endereço"
                       placeholder="Ex: Rua Pedro Álvares Cabral"
                       onChange={handleChangeInput}
-                      value={
-                        zipCodeData.street ? zipCodeData.street : input.address
-                      }
+                      value={input.address}
                       maxLength="255"
                       minLength="1"
                       required
@@ -163,7 +165,7 @@ const FormRegistroPJ = ({
                       title="Cidade"
                       placeholder="Ex: Curitiba"
                       onChange={handleChangeInput}
-                      value={zipCodeData.city ? zipCodeData.city : input.city}
+                      value={input.city}
                       maxLength="60"
                       minLength="1"
                       required
@@ -178,9 +180,7 @@ const FormRegistroPJ = ({
                     <Input
                       type="select"
                       onChange={handleChangeInput}
-                      value={
-                        zipCodeData.state ? zipCodeData.state : input.state
-                      }
+                      value={input.state}
                       name="state"
                       id="state"
                       maxLength="50"
@@ -500,7 +500,7 @@ const FormRegistroPJ = ({
                       id="wait_conafer"
                       name="wait_conafer"
                       onChange={handleChangeInput}
-                      maxLength="1"
+                      minLength="1"
                       required
                     />
                   </FormGroup>
@@ -643,9 +643,9 @@ FormRegistroPJ.propTypes = {
     website: PropTypes.string.isRequired,
     social_networks: PropTypes.string.isRequired,
     foundation_date: PropTypes.string.isRequired,
-    active_partners: PropTypes.number.isRequired,
-    inactive_partners: PropTypes.number.isRequired,
-    traditional_communities: PropTypes.bool,
+    active_partners: PropTypes.any.isRequired,
+    inactive_partners: PropTypes.any.isRequired,
+    traditional_communities: PropTypes.any,
     entity_group: PropTypes.string.isRequired,
     objective: PropTypes.string.isRequired,
     services: PropTypes.string.isRequired,
