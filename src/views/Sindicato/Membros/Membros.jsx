@@ -37,9 +37,9 @@ import {
 import { InputStyled, Tr } from "./styles";
 import ProgressCard from "components/ProgressCard/ProgressCard";
 import RegistroSubAfiliados from "components/RegistroSubAfiliados/RegistroSubAfiliados";
-import GoogleMaps from "components/GoogleMaps/GoogleMaps";
 import { CardHeaderStyled } from "views/Contratos/styles";
 import BotoesDeAcao from "components/BotoesDeAcao/BotoesDeAcao";
+import MapaAfiliados from "components/MapaAfiliados/MapaAfiliados";
 
 const Membros = () => {
   const dispatch = useDispatch();
@@ -86,21 +86,20 @@ const Membros = () => {
   };
 
   const getBadge = (is_active) => {
-
     if (is_active) {
-      return "bg-primary"
+      return "bg-primary";
     } else {
-      return "bg-red"
+      return "bg-red";
     }
   };
 
   const getStatus = (is_active) => {
     if (is_active) {
-      return "Ativado"
+      return "Ativado";
     } else {
-      return "Desativado"
+      return "Desativado";
     }
-  }
+  };
 
   const CardData = [
     {
@@ -413,15 +412,9 @@ const Membros = () => {
           <div className="pl-lg-4">
             <UncontrolledCollapse toggler="#lot">
               <Row>
-                <GoogleMaps
-                  coordinatesth={
-                    member.lot
-                      ? [member.lot.coordinates.lat, member.lot.coordinates.lng]
-                      : []
-                  }
-                />
                 <Col lg="12" className="mb-3 mt-3">
-                  <div className="border rounded p-2">
+                <MapaAfiliados members={[member]} />
+                  <div className="border rounded mt-3 p-2">
                     <b>Endereço/Acesso: </b>
                     {member.lot ? member.lot.access_way : ""}
                   </div>

@@ -1,14 +1,12 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, { useState, useRef, useCallback } from "react";
+import PropTypes from "prop-types";
 import {
   GoogleMap,
   useLoadScript,
   Marker,
   InfoWindow,
 } from "@react-google-maps/api";
-import { Button, Card, CardBody } from "reactstrap";
-import { useDispatch, useSelector } from "react-redux";
-import { getUsersAffiliation } from "redux/actions/UsuariosAfiliacao";
-import { getMembers } from "redux/actions/Membros";
+import { Button } from "reactstrap";
 import googleMapsCoordinates from "../../utils/googleMapsCoordinates";
 
 import fafer from "../../assets/img/icons/fafer.svg";
@@ -28,19 +26,8 @@ const center = {
   lng: -48.0774459,
 };
 
-const MapaAfiliados = () => {
-  const dispatch = useDispatch();
+const MapaAfiliados = ({members, usersPFAffiliation, usersPJAffiliation}) => {
 
-  useEffect(() => {
-    dispatch(getUsersAffiliation());
-    dispatch(getMembers());
-  }, [dispatch]);
-
-  const { usersPFAffiliation, usersPJAffiliation } = useSelector(
-    (state) => state.UsersAffiliationReducer
-  );
-
-  const members = useSelector((state) => state.MembersReducer.members);
 
   const [users, setUsers] = useState({
     usersPFAffiliation: "",
@@ -125,8 +112,6 @@ const MapaAfiliados = () => {
   }
 
   return (
-    <Card className="bg-gradient-default shadow">
-      <CardBody>
         <GoogleMap
           mapContainerStyle={mapContainerStyle}
           center={center}
@@ -227,9 +212,18 @@ const MapaAfiliados = () => {
             </InfoWindow>
           )}
         </GoogleMap>
-      </CardBody>
-    </Card>
   );
+};
+
+MapaAfiliados.protoTypes = {
+  members: PropTypes.array,
+  usersPFAffiliation: PropTypes.array,
+  usersPJAffiliation: PropTypes.array
+}
+
+MapaAfiliados.defaultProps = {
+  usersPFAffiliation: [],
+  usersPJAffiliation: [],
 };
 
 export default MapaAfiliados;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // node.js library that concatenates classes (strings)
 import classnames from "classnames";
 // javascipt plugin for creating charts
@@ -29,8 +29,12 @@ import {
 import Header from "components/Headers/Header";
 import StatsCard from "components/StatsCard/StatsCard";
 import MapaAfiliados from "components/MapaAfiliados/MapaAfiliados";
+import { useSelector, useDispatch } from "react-redux";
+import { getUsersAffiliation } from "redux/actions/UsuariosAfiliacao";
+import { getMembers } from "redux/actions/Membros";
 
 const Index = () => {
+  const dispatch = useDispatch();
   const [activeNav, setActiveNav] = useState(1);
   const [chartExample1Data, setChartExample1Data] = useState("data1");
   const cardData = [
@@ -65,8 +69,13 @@ const Index = () => {
       comparisonDate: "Desde do último mês",
       icon: "fas fa-coins text-white",
       color: "bg-yellow",
-    }
+    },
   ];
+
+  useEffect(() => {
+    dispatch(getUsersAffiliation());
+    dispatch(getMembers());
+  }, [dispatch]);
 
   if (window.Chart) {
     parseOptions(Chart, chartOptions());
@@ -78,6 +87,11 @@ const Index = () => {
     setChartExample1Data(chartExample1Data === "data1" ? "data2" : "data1");
   };
 
+  const members = useSelector((state) => state.MembersReducer.members);
+
+  const { usersPFAffiliation, usersPJAffiliation } = useSelector(
+    (state) => state.UsersAffiliationReducer
+  );
 
   return (
     <>
@@ -86,7 +100,15 @@ const Index = () => {
       <Container className="mt--7" fluid>
         <Row>
           <Col className="mb-5 mb-xl-0" xl="8">
-            <MapaAfiliados/>
+            <Card className="bg-gradient-default shadow">
+              <CardBody>
+                <MapaAfiliados
+                  usersPFAffiliation={usersPFAffiliation}
+                  usersPJAffiliation={usersPJAffiliation}
+                  members={members}
+                />
+              </CardBody>
+            </Card>
           </Col>
           <Col xl="4">
             <Card className="shadow">
@@ -94,9 +116,14 @@ const Index = () => {
                 <Row className="align-items-center">
                   <div className="col">
                     <h6 className="text-uppercase text-muted ls-1 mb-1">
-                      Performance no mês {`${new Date().getMonth() + 1} de ${new Date().getFullYear()}`}
+                      Performance no mês{" "}
+                      {`${
+                        new Date().getMonth() + 1
+                      } de ${new Date().getFullYear()}`}
                     </h6>
-                    <h3 className="mb-0 text-uppercase text-default">Afiliações por Estado</h3>
+                    <h3 className="mb-0 text-uppercase text-default">
+                      Afiliações por Estado
+                    </h3>
                   </div>
                 </Row>
               </CardHeader>
@@ -114,7 +141,7 @@ const Index = () => {
         </Row>
         <Row className="mt-5">
           <Col className="mb-5 mb-xl-0" xl="12">
-          <Card className="shadow">
+            <Card className="shadow">
               <CardHeader className="bg-transparent">
                 <Row className="align-items-center">
                   <div className="col">
