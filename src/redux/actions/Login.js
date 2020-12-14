@@ -32,6 +32,7 @@ export const login = (data) => async (dispatch) => {
 
     dispatch(setAuthentication(auth));
   } catch (err) {
+    console.error(err.response)
     console.error(err.message);
     if (!err.response) {
       dispatch(setAlert(400, "Ocorreu um erro de conexão com o servidor.", true));

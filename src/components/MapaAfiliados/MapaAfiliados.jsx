@@ -208,8 +208,21 @@ const MapaAfiliados = () => {
                 <p className="mb-3">
                   <strong>Email:</strong> {map.info.email}
                 </p>
-                <Button color="primary" onClick={() => setOpenModal(!openModal)}>Mais Informações</Button>
-                <ModalInfo map={map} openModal={openModal} setOpenModal={setOpenModal}/>
+                {map.info.lot && (
+                  <>
+                    <Button
+                      color="primary"
+                      onClick={() => setOpenModal(!openModal)}
+                    >
+                      Mais Informações
+                    </Button>
+                    <ModalInfo
+                      map={map}
+                      openModal={openModal}
+                      setOpenModal={setOpenModal}
+                    />
+                  </>
+                )}
               </div>
             </InfoWindow>
           )}
