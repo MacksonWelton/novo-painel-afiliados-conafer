@@ -80,9 +80,9 @@ const ModalInfo = ({ openModal, setOpenModal, map }) => {
             {({ zoomIn, zoomOut, resetTransform, ...rest }) => (
               <>
                 <Row>
-                  <Col lg="9" className="d-flex align-items-end">
+                  <Col lg="9" className="d-flex align-items-end visible-xs">
                     <small className="ml-2">
-                      Faça movimento de pinça para dar zoom na imagem ou utilize os controles a direita.
+                      Para dar zoom na imagem role com o mouse, faça movimento de pinça ou utilize os controles a direita.
                     </small>
                   </Col>
                   <Col lg="3">
