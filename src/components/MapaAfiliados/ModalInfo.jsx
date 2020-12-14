@@ -13,9 +13,10 @@ const ModalInfo = ({ openModal, setOpenModal, map }) => {
         isOpen={openModal}
         toggle={() => setOpenModal(!openModal)}
         size="lg"
+        centered
       >
         <ModalHeader toggle={() => setOpenModal(!openModal)}>
-          Geometria do Lote
+          <><h3>Geometria do Lote</h3></>
         </ModalHeader>
         <ModalBody>
           <Row>
@@ -27,6 +28,7 @@ const ModalInfo = ({ openModal, setOpenModal, map }) => {
                     picture: map.info.lot.lot_geometry.before,
                   })
                 }
+                color="default"
               >
                 <img
                   className="w-100"
@@ -34,7 +36,7 @@ const ModalInfo = ({ openModal, setOpenModal, map }) => {
                   alt=""
                 />
               </Button>
-              <label>2008</label>
+              <label className="d-flex justify-content-center mt-2"><small>2008</small></label>
             </Col>
             <Col lg="6">
               <Button
@@ -44,6 +46,7 @@ const ModalInfo = ({ openModal, setOpenModal, map }) => {
                     picture: map.info.lot.lot_geometry.after,
                   })
                 }
+                color="default"
               >
                 <img
                   className="w-100"
@@ -51,7 +54,7 @@ const ModalInfo = ({ openModal, setOpenModal, map }) => {
                   alt=""
                 />
               </Button>
-              <label>2018</label>
+              <label className="d-flex justify-content-center mt-2"><small>2018</small></label>
             </Col>
           </Row>
         </ModalBody>
@@ -60,6 +63,7 @@ const ModalInfo = ({ openModal, setOpenModal, map }) => {
         isOpen={zoom.modal}
         toggle={() => setZoom({ modal: !zoom.modal })}
         size="lg"
+        centered
       >
         <ModalHeader toggle={() => setZoom({ modal: !zoom.modal })}>
           Lote: {map.info.lot.incra_allotment_number}
