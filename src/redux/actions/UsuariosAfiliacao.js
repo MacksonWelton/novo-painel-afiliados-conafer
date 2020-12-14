@@ -33,6 +33,8 @@ export const getUsersAffiliation = () => async (dispatch) => {
     console.error(err.response);
     if (!err.response) {
       dispatch(setAlert(400, "Ocorreu um erro de conexão com o servidor.", true));
+    } else if (err.response.status === 401) {
+      dispatch(setAlert(err.response.status, err.response.data.detail, true));
     } else {
       dispatch(setAlert(err.response.status, err.response.data.error_description, true));
     }

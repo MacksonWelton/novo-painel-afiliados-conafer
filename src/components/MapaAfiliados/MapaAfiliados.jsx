@@ -5,7 +5,7 @@ import {
   Marker,
   InfoWindow,
 } from "@react-google-maps/api";
-import { Card, CardBody, CardHeader } from "reactstrap";
+import { Button, Card, CardBody } from "reactstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsersAffiliation } from "redux/actions/UsuariosAfiliacao";
 import { getMembers } from "redux/actions/Membros";
@@ -14,6 +14,7 @@ import googleMapsCoordinates from "../../utils/googleMapsCoordinates";
 import fafer from "../../assets/img/icons/fafer.svg";
 import mapMarkerGreen from "../../assets/img/icons/map-marker-green.svg";
 import mapMarkerBlue from "../../assets/img/icons/map-marker-blue.svg";
+import ModalInfo from "./ModalInfo";
 
 const libraries = ["places"];
 
@@ -47,6 +48,8 @@ const MapaAfiliados = () => {
   });
 
   const [map, setMap] = useState(null);
+
+  const [openModal, setOpenModal] = useState(false);
 
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: "AIzaSyDwNWt6P3SzQwf4qlUenPgLpD0JPI6XCZc",
@@ -205,25 +208,8 @@ const MapaAfiliados = () => {
                 <p className="mb-3">
                   <strong>Email:</strong> {map.info.email}
                 </p>
-                {map.info.name ? (
-                  <Card>
-                    <CardHeader className="bg-gray">
-                      <h3>Geomtria do Lote</h3>
-                    </CardHeader>
-                    <CardBody>
-                      <img
-                        className="w-50"
-                        src={map.info.lot.lot_geometry.before}
-                        alt=""
-                      />
-                      <img
-                        className="w-50"
-                        src={map.info.lot.lot_geometry.after}
-                        alt=""
-                      />
-                    </CardBody>
-                  </Card>
-                ) : null}
+                <Button color="primary" onClick={() => setOpenModal(!openModal)}>Mais Informações</Button>
+                <ModalInfo map={map} openModal={openModal} setOpenModal={setOpenModal}/>
               </div>
             </InfoWindow>
           )}
