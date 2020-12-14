@@ -86,7 +86,7 @@ const ModalInfo = ({ openModal, setOpenModal, map }) => {
                     </small>
                   </Col>
                   <Col lg="3">
-                    <div className="d-flex align-items-center justify-content-end mr-2">
+                    <div className="d-flex align-items-center justify-content-end m-2">
                       <span className="mr-2">Zoom</span>
                       <Button size="sm" color="primary" onClick={zoomIn}>
                         +
