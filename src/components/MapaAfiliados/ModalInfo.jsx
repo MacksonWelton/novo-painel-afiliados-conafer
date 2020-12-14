@@ -79,12 +79,27 @@ const ModalInfo = ({ openModal, setOpenModal, map }) => {
           <TransformWrapper>
             {({ zoomIn, zoomOut, resetTransform, ...rest }) => (
               <>
-                <div className="d-flex align-items-center justify-content-end m-2">
-                  <span className="mr-2">Zoom</span>
-                  <Button size="sm" color="primary" onClick={zoomIn}>+</Button>
-                  <Button size="sm" color="primary" onClick={zoomOut}>-</Button>
-                  <Button size="sm" color="danger" onClick={resetTransform}>x</Button>
-                </div>
+                <Row>
+                  <Col lg="9" className="d-flex align-items-end">
+                    <small className="ml-2">
+                      Faça movimento de pinça para dar zoom na imagem ou utilize os controles a direita.
+                    </small>
+                  </Col>
+                  <Col lg="3">
+                    <div className="d-flex align-items-center justify-content-end mr-2">
+                      <span className="mr-2">Zoom</span>
+                      <Button size="sm" color="primary" onClick={zoomIn}>
+                        +
+                      </Button>
+                      <Button size="sm" color="primary" onClick={zoomOut}>
+                        -
+                      </Button>
+                      <Button size="sm" color="danger" onClick={resetTransform}>
+                        x
+                      </Button>
+                    </div>
+                  </Col>
+                </Row>
                 <TransformComponent>
                   <img className="w-100" src={zoom.picture} alt="" />
                 </TransformComponent>
