@@ -16,7 +16,7 @@ const ModalInfo = ({ openModal, setOpenModal, map }) => {
         centered
       >
         <ModalHeader toggle={() => setOpenModal(!openModal)}>
-          <><h3>Geometria do Lote</h3></>
+          <div><h3>Geometria do Lote</h3></div>
         </ModalHeader>
         <ModalBody>
           <Row>
