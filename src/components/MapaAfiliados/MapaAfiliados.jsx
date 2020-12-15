@@ -109,8 +109,6 @@ const MapaAfiliados = ({ members, usersPFAffiliation, usersPJAffiliation }) => {
     });
   }
 
-  console.log(map)
-
   return (
     <GoogleMap
       mapContainerStyle={mapContainerStyle}
