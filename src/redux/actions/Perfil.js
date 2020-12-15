@@ -10,7 +10,8 @@ export const getProfile = () => async (dispatch) => {
     dispatch(
       setAlert(err.response.status, err.response.data.error_description, true)
     );
-    console.error(err.message);
+    console.error(err.response);
+    // console.error(err.message);
     if (!err.response) {
       dispatch(
         setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
@@ -72,7 +73,8 @@ export const updatePassword = (input, profile) => async (dispatch) => {
 
     dispatch(setAlert(response.status, "Dados atualizados com sucesso!", true));
   } catch (err) {
-    console.error(err.message);
+    console.error(err.response);
+    // console.error(err.message);
     if (!err.response) {
       dispatch(setAlert(400, "Ocorreu um erro de conexão com o servidor.", true));
     } else if (err.response.status === 400 || err.response.status === 401) {

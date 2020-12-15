@@ -21,8 +21,6 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-  Col,
-  UncontrolledCollapse,
   Input,
 } from "reactstrap";
 
@@ -39,7 +37,7 @@ import ProgressCard from "components/ProgressCard/ProgressCard";
 import RegistroSubAfiliados from "components/RegistroSubAfiliados/RegistroSubAfiliados";
 import { CardHeaderStyled } from "views/Contratos/styles";
 import BotoesDeAcao from "components/BotoesDeAcao/BotoesDeAcao";
-import MapaAfiliados from "components/MapaAfiliados/MapaAfiliados";
+import ModalMembro from "components/ModalMembro/ModalMembro";
 
 const Membros = () => {
   const dispatch = useDispatch();
@@ -338,150 +336,7 @@ const Membros = () => {
           </Button>
         </ModalFooter>
       </Modal>
-      <Modal
-        isOpen={open}
-        toggle={() => {
-          setOpen(!open);
-        }}
-        size="lg"
-      >
-        <ModalHeader
-          toggle={() => {
-            setOpen(!open);
-          }}
-        >
-          Informações de Membro
-        </ModalHeader>
-        <ModalBody>
-          <h6
-            id="member"
-            className="heading-small border text-muted mb-4 btn w-100"
-          >
-            Dados do Membro
-          </h6>
-          <div className="pl-lg-4">
-            <UncontrolledCollapse toggler="member">
-              <Row>
-                <Col lg="12" className="mb-3">
-                  <div className="border rounded p-2">
-                    <b>Nome: </b> {member.name}
-                  </div>
-                </Col>
-                <Col lg="12" className="mb-3">
-                  <div className="border rounded p-2">
-                    <b>Escolaridade: </b> {member.school}
-                  </div>
-                </Col>
-                <Col lg="12" className="mb-3">
-                  <div className="border rounded p-2">
-                    <b>CPF: </b> {member.cpf}
-                  </div>
-                </Col>
-                <Col lg="12" className="mb-3">
-                  <div className="border rounded p-2">
-                    <b>Fonte de Renda: </b> {member.sourceOfIncome}
-                  </div>
-                </Col>
-                <Col lg="12" className="mb-3">
-                  <div className="border rounded p-2">
-                    <b>Ocupa área Destinada pelo INCRA: </b>
-                    {member.incra}
-                  </div>
-                </Col>
-                <Col lg="12" className="mb-3">
-                  <div className="border rounded p-2">
-                    <b>Naturalidade: </b>
-                    {member.nationality}
-                  </div>
-                </Col>
-                <Col lg="12" className="mb-3">
-                  <div className="border rounded p-2">
-                    <b>Nascimento: </b>
-                    {member.birthDate}
-                  </div>
-                </Col>
-              </Row>
-            </UncontrolledCollapse>
-          </div>
-          <h6
-            id="lot"
-            className="heading-small border text-muted mb-4 btn w-100"
-          >
-            Dados do Lote
-          </h6>
-          <div className="pl-lg-4">
-            <UncontrolledCollapse toggler="#lot">
-              <Row>
-                <Col lg="12" className="mb-3 mt-3">
-                <MapaAfiliados members={[member]} />
-                  <div className="border rounded mt-3 p-2">
-                    <b>Endereço/Acesso: </b>
-                    {member.lot ? member.lot.access_way : ""}
-                  </div>
-                </Col>
-                <Col lg="12" className="mb-3">
-                  <div className="border rounded p-2">
-                    <b>CEP: </b>
-                    {member.lot ? member.lot.cep : ""}
-                  </div>
-                </Col>
-                <Col lg="12" className="mb-3">
-                  <div className="border rounded p-2">
-                    <b>Cidade: </b>
-                    {member.lot ? member.lot.city : ""}
-                  </div>
-                </Col>
-                <Col lg="12" className="mb-3">
-                  <div className="border rounded p-2">
-                    <b>Estado: </b>
-                    {member.lot ? member.lot.state : ""}
-                  </div>
-                </Col>
-                <Col lg="12" className="mb-3">
-                  <div className="border rounded p-2">
-                    <b>Assentamento: </b>
-                    {member.lot ? member.lot.settlement : ""}
-                  </div>
-                </Col>
-                <Col lg="12" className="mb-3">
-                  <div className="border rounded p-2">
-                    <b>Nº do Lote: </b>
-                    {member.lot ? member.lot.incra_allotment_number : ""}
-                  </div>
-                </Col>
-              </Row>
-            </UncontrolledCollapse>
-          </div>
-          <h6
-            id="production"
-            className="heading-small border text-muted mb-4 btn w-100"
-          >
-            Dados de Produção
-          </h6>
-          <div className="pl-lg-4">
-            <UncontrolledCollapse toggler="#production">
-              <Row>
-                <Col lg="12" className="mb-3">
-                  <div className="border rounded p-2">
-                    <b>Núcleo Operacional: </b>
-                    {member.production
-                      ? member.production.operational_core
-                      : ""}
-                  </div>
-                </Col>
-              </Row>
-            </UncontrolledCollapse>
-          </div>
-        </ModalBody>
-        <ModalFooter className="d-flex justify-content-end">
-          <Button color="primary" onClick={() => setOpen(!open)}>
-            Dowload PDF
-          </Button>
-          <Button color="secondary" onClick={() => setOpen(!open)}>
-            Sair
-          </Button>
-        </ModalFooter>
-      </Modal>
+      <ModalMembro open={open} setOpen={setOpen} member={member}/>
     </>
   );
 };
