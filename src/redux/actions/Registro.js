@@ -23,7 +23,8 @@ export const signUp = (userData) => async (dispatch) => {
     );
     dispatch(setSignUp(response.status));
   } catch (err) {
-    console.error(err.message);
+    console.error(err.response);
+    // console.error(err.message);
 
     if (!err.response) {
       dispatch(
@@ -56,7 +57,8 @@ export const setSignUp = (status) => ({
 export const recoverPassword = (email) => (dispatch) => {
   try {
   } catch (err) {
-    console.error(err.message);
+    console.error(err.response);
+    // console.error(err.message);
     dispatch(setAlert("error", err.response.data.error_description, true));
   }
 };
@@ -66,7 +68,8 @@ export const AgriculturalProduction = () => async (dispatch) => {
     const response = await api.get("/api/v1/production/name_production/");
     dispatch(setAgriculturalProduction(response.data));
   } catch (err) {
-    console.error(err.message);
+    console.error(err.response);
+    // console.error(err.message);
   }
 };
 
@@ -76,8 +79,9 @@ export const TypeAgriculturalProduction = () => async (dispatch) => {
 
     dispatch(setTypeAgriculturalProduction(response.data));
   } catch (err) {
+    console.error(err.response);
+    // console.error(err.message);
     dispatch(setAlert("error", err.response.data.error_description, true));
-    console.error(err.message);
   }
 };
 
@@ -109,7 +113,8 @@ export const pjAffiliateRegister = (
       setAlert(response.status, "Cadastro realizado com sucesso!", true)
     );
   } catch (err) {
-    console.error(err.message);
+    console.error(err.response);
+    // console.error(err.message);
     if (!err.response) {
       dispatch(setAlert(400, "Ocorreu um erro de conexão com o servidor.", true));
     } else if (err.response.status === 400 || err.response.status === 401) {
@@ -138,7 +143,8 @@ const newAgriculturalProduction = (id, agriculturalProduction) => async (
     dispatch(
       setAlert(err.response.status, err.response.data.error_description, true)
     );
-    console.error(err.message);
+    console.error(err.response);
+    // console.error(err.message);
     if (!err.response) {
       dispatch(setAlert(400, "Ocorreu um erro de conexão com o servidor.", true));
     } else if (err.response.status === 400 || err.response.status === 401) {
@@ -168,7 +174,8 @@ export const pfAffiliateRegister = (userData, agriculturalProduction) => async (
       setAlert(response.status, "Cadastro realizado com sucesso!", true)
     );
   } catch (err) {
-    console.error(err.message);
+    console.error(err.response);
+    // console.error(err.message);
     if (!err.response) {
       dispatch(setAlert(400, "Ocorreu um erro de conexão com o servidor.", true));
     } else if (err.response.status === 400 || err.response.status === 401) {
