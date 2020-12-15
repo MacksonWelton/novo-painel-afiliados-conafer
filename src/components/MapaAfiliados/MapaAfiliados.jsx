@@ -10,7 +10,7 @@ import { Button } from "reactstrap";
 import googleMapsCoordinates from "../../utils/googleMapsCoordinates";
 
 import fafer from "../../assets/img/icons/fafer.svg";
-import mapMarkerGreen from "../../assets/img/icons/map-marker-green.svg";
+import mapMarkerYellow from "../../assets/img/icons/map-marker-yellow.svg";
 import mapMarkerBlue from "../../assets/img/icons/map-marker-blue.svg";
 import ModalInfo from "./ModalInfo";
 import ModalMembro from "components/ModalMembro/ModalMembro";
@@ -144,7 +144,7 @@ const MapaAfiliados = ({ members, usersPFAffiliation, usersPJAffiliation }) => {
               lng: Number(user.coordinates[1]),
             }}
             icon={{
-              url: mapMarkerGreen,
+              url: mapMarkerYellow,
               origin: new window.google.maps.Point(0, 0),
               anchor: new window.google.maps.Point(15, 15),
               scaledSize: new window.google.maps.Size(26, 35),
