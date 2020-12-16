@@ -13,6 +13,7 @@ import {
 import PropTypes from "prop-types";
 
 const ModalMembro = ({ open, setOpen, member }) => {
+
   return (
     <Modal
       isOpen={open}
@@ -142,7 +143,7 @@ const ModalMembro = ({ open, setOpen, member }) => {
                 <h3 className="text-white my-2">Moradias</h3>
               </Col>
               <Col>
-                {member.houses.map((house, i) => (
+                {member.houses && member.houses.map((house, i) => (
                   <Row key={i} className="border border-default text-dark rounded py-3 mb-2">
                     <Col lg="6" className="mb-3">
                       <div className="border border-default rounded p-2">
@@ -204,7 +205,7 @@ const ModalMembro = ({ open, setOpen, member }) => {
                 <h3 className="text-white my-2">Moradores</h3>
               </Col>
               <Col lg="12">
-                {member.residents.map((resident, i) => (
+                {member.residents && member.residents.map((resident, i) => (
                   <Row key={i} className="border border-default text-dark rounded py-3 mb-2">
                     <Col lg="6" className="mb-3">
                       <div className="border border-default rounded p-2">
@@ -338,67 +339,67 @@ const ModalMembro = ({ open, setOpen, member }) => {
               <Col lg="6" className="mb-3">
                 <div className="border border-default rounded p-2">
                   <b>Código do Assentado: </b>
-                  {member.familyUnitIdentification.settlement_code}
+                  {member.familyUnitIdentification && member.familyUnitIdentification.settlement_code}
                 </div>
               </Col>
               <Col lg="6" className="mb-3">
                 <div className="border border-default rounded p-2">
                   <b>Status: </b>
-                  {member.familyUnitIdentification.status}
+                  {member.familyUnitIdentification && member.familyUnitIdentification.status}
                 </div>
               </Col>
               <Col lg="6" className="mb-3">
                 <div className="border border-default rounded p-2">
                   <b>CPF: </b>
-                  {member.familyUnitIdentification.cpf}
+                  {member.familyUnitIdentification && member.familyUnitIdentification.cpf}
                 </div>
               </Col>
               <Col lg="6" className="mb-3">
                 <div className="border border-default rounded p-2">
                   <b>RG: </b>
-                  {member.familyUnitIdentification.rg}
+                  {member.familyUnitIdentification && member.familyUnitIdentification.rg}
                 </div>
               </Col>
               <Col lg="6" className="mb-3">
                 <div className="border border-default rounded p-2">
                   <b>NIS: </b>
-                  {member.familyUnitIdentification.nis}
+                  {member.familyUnitIdentification && member.familyUnitIdentification.nis}
                 </div>
               </Col>
               <Col lg="6" className="mb-3">
                 <div className="border border-default rounded p-2">
                   <b>Estado civil: </b>
-                  {member.familyUnitIdentification.marital_status}
+                  {member.familyUnitIdentification && member.familyUnitIdentification.marital_status}
                 </div>
               </Col>
               <Col lg="6" className="mb-3">
                 <div className="border border-default rounded p-2">
                   <b>Nome da Mãe: </b>
-                  {member.familyUnitIdentification.mother_name}
+                  {member.familyUnitIdentification && member.familyUnitIdentification.mother_name}
                 </div>
               </Col>
               <Col lg="6" className="mb-3">
                 <div className="border border-default rounded p-2">
                   <b>Nome do Cônjunge: </b>
-                  {member.familyUnitIdentification.spouse_name}
+                  {member.familyUnitIdentification && member.familyUnitIdentification.spouse_name}
                 </div>
               </Col>
               <Col lg="6" className="mb-3">
                 <div className="border border-default rounded p-2">
                   <b>CPF do Cônjunge: </b>
-                  {member.familyUnitIdentification.spouse_cpf}
+                  {member.familyUnitIdentification && member.familyUnitIdentification.spouse_cpf}
                 </div>
               </Col>
               <Col lg="6" className="mb-3">
                 <div className="border border-default rounded p-2">
                   <b>Naturalidade: </b>
-                  {member.familyUnitIdentification.citizenship}
+                  {member.familyUnitIdentification && member.familyUnitIdentification.citizenship}
                 </div>
               </Col>
               <Col lg="6" className="mb-3">
                 <div className="border border-default rounded p-2">
                   <b>Nacionalidade: </b>
-                  {member.familyUnitIdentification.nationality}
+                  {member.familyUnitIdentification && member.familyUnitIdentification.nationality}
                 </div>
               </Col>
             </Row>
