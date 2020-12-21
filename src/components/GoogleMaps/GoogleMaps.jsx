@@ -31,7 +31,7 @@ const GoogleMaps = ({ coordinatesth, iconColor }) => {
   });
 
   const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: "AIzaSyDwNWt6P3SzQwf4qlUenPgLpD0JPI6XCZc",
+    googleMapsApiKey: "AIzaSyBchWYtE1JHWWXsHOxoSgWsBg26z7j3amA",
     libraries,
   });
 

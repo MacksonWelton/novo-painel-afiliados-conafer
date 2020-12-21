@@ -1,10 +1,8 @@
 import HorizontalLabelPositionBelowStepper from "components/HorizontalLabelPositionBelowStepper/HorizontalLabelPositionBelowStepper";
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Form } from "reactstrap";
 import EnderecoCorrespondencia from "./components/EnderecoCorrespondencia/EnderecoCorrespondencia";
-import IdentificacaoDaUnidadeFamiliar from "./components/IdentificacaoDaUnidadeFamiliar/IdentificacaoDaUnidadeFamiliar";
-import InfoGeraisUnidadeProducaoFamiliar from "./components/InfoGeraisUnidadeProducaoFamiliar/InfoGeraisUnidadeProducaoFamiliar";
 import IdentificacaoDoBeneficiario from "./components/IdentificacaoDoBeneficiario/IdentificacaoDoBeneficiario";
 import LocalizacaoDoLote from "./components/LocalizacaoDoLote/LocalizacaoDoLote";
 import Moradias from "./components/Moradias/Moradias";
@@ -15,18 +13,51 @@ import InfoDoImovel from "./components/InfoDoImovel/InfoDoImovel";
 import QualidadeAmbiental from "./components/QualidadeAmbiental/QualidadeAmbiental";
 import VisitaTecnica from "./components/VisitaTecnica/VisitaTecnica";
 import FotosGeometria from "./components/FotosGeometria/FotosGeometria";
-import { setBeneficiaryIdentity } from "../../redux/actions/Registro";
+import { newBeneficiaryIdentity } from "../../redux/actions/Membros";
 import { setPlotLocation } from "../../redux/actions/Registro";
 import { setResidents } from "../../redux/actions/Registro";
-import { setFamilyUnitIdentification } from "../../redux/actions/Registro";
-import { setGeneralFamilyUnitInfo } from "../../redux/actions/Registro";
 import { setDiagnosisOfAgriculturalSystems } from "../../redux/actions/Registro";
 import { setProduction } from "../../redux/actions/Registro";
 
 import FormContext from "./context";
+import { getUsersAffiliation } from "redux/actions/UsuariosAfiliacao";
 
 const RegistroSubAfiliados = ({ title }) => {
   const dispatch = useDispatch();
+  const [usersAffiliation, setUsersAffiliation] = useState([]);
+
+  useEffect(() => {
+    dispatch(getUsersAffiliation());
+  }, [dispatch])
+
+  const {usersPFAffiliation, usersPJAffiliation} = useSelector(state => state.UsersAffiliationReducer)
+
+  if (!usersAffiliation.length) {
+    if (usersPFAffiliation && usersPJAffiliation) {
+      usersPFAffiliation.forEach(affiliate => {
+        setUsersAffiliation([{
+          affiliation: affiliate.id,
+          name: affiliate.name
+        }])});
+        usersPJAffiliation.forEach(affiliate => {
+          setUsersAffiliation([{
+            affiliation: affiliate.id,
+            name: affiliate.name
+          }])});
+      } else if (usersPFAffiliation) {
+        usersPFAffiliation.forEach(affiliate => {
+          setUsersAffiliation([{
+            affiliation: affiliate.id,
+            name: affiliate.name
+          }])});
+      } else {
+        usersPJAffiliation.forEach(affiliate => {
+          setUsersAffiliation([{
+            affiliation: affiliate.id,
+            name: affiliate.name
+          }])});
+      }
+    }
 
   const [activeStep, setActiveStep] = React.useState(0);
 
@@ -35,11 +66,36 @@ const RegistroSubAfiliados = ({ title }) => {
   };
 
   const [inputBeneficiaryIdentity, setInputBeneficiaryIdentity] = useState({
+    affiliation: "",
     name: "",
     email: "",
     cpf: "",
+    rg: "",
+    nis: "",
+    marital_status: "",
+    mother_name: "",
+    spouse_name: "",
+    spouse_cpf: "",
+    nationality: "",
+    year_residence: 0,
+    always_resided: "",
+    phone: "",
+    alternative_phone: "",
+    state: "",
+    country: "",
+    city: "",
+    district: "",
+    address: "",
+    number: 0,
+    cep: "",
+    location_zone: "",
     collection_code: "",
-    settlement_code: "",
+    status: "",
+    operational_core: "",
+    has_contract: "",
+    concession_validity: "",
+    lot_has_marking: "",
+    beneficiary_knows_limit: "",
     citizenship: "",
     rb_status: "",
     incra_area: "",
@@ -76,32 +132,6 @@ const RegistroSubAfiliados = ({ title }) => {
     last_diceases: "",
     type_treatment: "",
     access_treatment: "",
-  });
-
-  const [inputFamilyUnitId, setInputFamilyUnitId] = useState({
-    settlement_code: "",
-    status: "",
-    cpf: "",
-    rg: "",
-    nis: "",
-    marital_status: "",
-    mother_name: "",
-    spouse_name: "",
-    spouse_cpf: "",
-    citizenship: "",
-    nationality: "",
-  });
-
-  const [inputGeneralFamilyUnitInfo, setInputGeneralFamilyUnitInfo] = useState({
-    operational_core: "",
-    state: "",
-    citizenship_responsible: "",
-    year_residence: "",
-    concession_validity: "",
-    always_resided: "",
-    beneficiary_knows_limit: "",
-    contraclot_has_markingt: "",
-    has_contract: "",
   });
 
   const [resident, setResident] = useState();
@@ -260,7 +290,6 @@ const RegistroSubAfiliados = ({ title }) => {
     "Local do Lote",
     "Moradias",
     "Id. da Unid. Familiar",
-    "Info. Gerais da Unid. Familiar",
     "Endereço",
     "Diagnóstico de Sis. Agrários",
     "Produção",
@@ -282,6 +311,7 @@ const RegistroSubAfiliados = ({ title }) => {
       case 0:
         return (
           <IdentificacaoDoBeneficiario
+            usersAffiliation={usersAffiliation}
             inputBeneficiaryIdentity={inputBeneficiaryIdentity}
             setInputBeneficiaryIdentity={setInputBeneficiaryIdentity}
           />
@@ -302,26 +332,12 @@ const RegistroSubAfiliados = ({ title }) => {
         );
       case 3:
         return (
-          <IdentificacaoDaUnidadeFamiliar
-            inputFamilyUnitId={inputFamilyUnitId}
-            setInputFamilyUnitId={setInputFamilyUnitId}
-          />
-        );
-      case 4:
-        return (
-          <InfoGeraisUnidadeProducaoFamiliar
-            inputGeneralFamilyUnitInfo={inputGeneralFamilyUnitInfo}
-            setInputGeneralFamilyUnitInfo={setInputGeneralFamilyUnitInfo}
-          />
-        );
-      case 5:
-        return (
           <EnderecoCorrespondencia
             inputAddress={inputAddress}
             setInputAddress={setInputAddress}
           />
         );
-      case 6:
+      case 4:
         return (
           <DiagnosticoDeSistemasAgrarios
             inputDiagnosisOfAgriculturalSystems={
@@ -332,42 +348,42 @@ const RegistroSubAfiliados = ({ title }) => {
             }
           />
         );
-      case 7:
+      case 5:
         return (
           <Producao
             inputProduction={inputProduction}
             setInputProduction={setInputProduction}
           />
         );
-      case 8:
+      case 6:
         return (
           <Documentacao
             inputDocumentation={inputDocumentation}
             setInputDocumentation={setInputDocumentation}
           />
         );
-      case 9:
+      case 7:
         return (
           <InfoDoImovel
             inputPropertyInformation={inputPropertyInformation}
             setInputPropertyInformation={setInputPropertyInformation}
           />
         );
-      case 10:
+      case 8:
         return (
           <QualidadeAmbiental
             inputEnvironmentalQuality={inputEnvironmentalQuality}
             setInputEnvironmentQuality={setInputEnvironmentQuality}
           />
         );
-      case 11:
+      case 9:
         return (
           <VisitaTecnica
             inputTechnicalVisit={inputTechnicalVisit}
             setInputTechnicalVisit={setInputTechnicalVisit}
           />
         );
-      case 12:
+      case 10:
         return (
           <FotosGeometria
             inputPhotosAndGeometry={inputPhotosAndGeometry}
@@ -381,12 +397,11 @@ const RegistroSubAfiliados = ({ title }) => {
 
   const handleSubmitForm = (event) => {
     event.preventDefault();
-
     handleNext();
 
     switch (activeStep) {
       case 0:
-        dispatch(setBeneficiaryIdentity(inputBeneficiaryIdentity));
+        dispatch(newBeneficiaryIdentity(inputBeneficiaryIdentity));
         break;
       case 1:
         dispatch(setPlotLocation(inputPlotLocation));
@@ -395,17 +410,11 @@ const RegistroSubAfiliados = ({ title }) => {
         dispatch(setResidents(resident, house));
         break;
       case 3:
-        dispatch(setFamilyUnitIdentification(inputFamilyUnitId));
-        break;
-      case 4:
-        dispatch(setGeneralFamilyUnitInfo(inputGeneralFamilyUnitInfo));
-        break;
-      case 5:
         dispatch(
           setDiagnosisOfAgriculturalSystems(inputDiagnosisOfAgriculturalSystems)
         );
         break;
-      case 6:
+      case 4:
         dispatch(setProduction(inputProduction));
         break;
       default:
@@ -415,9 +424,8 @@ const RegistroSubAfiliados = ({ title }) => {
 
   return (
     <FormContext.Provider value={{ setResident, setHouseNumber }}>
-      <Form>
+      <Form onSubmit={handleSubmitForm}>
         <HorizontalLabelPositionBelowStepper
-          handleSubmitForm={handleSubmitForm}
           steps={steps}
           activeStep={activeStep}
           setActiveStep={setActiveStep}

@@ -19,9 +19,8 @@ import {
 
 import { mask } from "remask";
 import FormProduction from "../FormProduction/FormProduction";
-import { cpfValidator } from "../../utils/validators";
+import { cpfValidator, clearInput } from "../../utils/validators";
 import { findZipCode } from "../../utils/findZipCode";
-import { clearInput } from "../../utils/validators";
 
 import countries from "../../utils/listaDePaises.json";
 import states from "../../utils/listaDeEstadosBrasileiros.json";
