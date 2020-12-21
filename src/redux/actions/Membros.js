@@ -1,4 +1,5 @@
 // import api from "services/api";
+import api from "services/api";
 import MembrosData from "views/Sindicato/Membros/MembrosData";
 import { setAlert } from "./Alertas";
 
@@ -28,6 +29,29 @@ export const setMembers = (members) => ({
     members
   }
 });
+
+export const newBeneficiaryIdentity = (input) => async (dispatch) => {
+  try {
+    console.log(input)
+    await api.post("/api/v1/member/member/", input);
+  } catch(err) {
+    if (!err.response) {
+      dispatch(setAlert(400, "Ocorreu um erro de conexão com o servidor.", true));
+    } else if (err.response.status === 400 || err.response.status === 401) {
+      dispatch(setAlert(err.response.status, err.response.data.detail, true));
+    } else {
+      dispatch(setAlert(err.response.status, err.response.data.error_description, true));
+    }
+  }
+}
+
+export const setBeneficiaryIdentity = (beneficiaryIdentity) => ({
+  type: "SET_BENEFICIARY_IDENTITY",
+  payload: {
+    beneficiaryIdentity,
+  },
+});
+
 
 export const downloadMembers = (data) => () => {
   try {

@@ -10,12 +10,10 @@ import { Button } from "reactstrap";
 import googleMapsCoordinates from "../../utils/googleMapsCoordinates";
 
 import fafer from "../../assets/img/icons/fafer.svg";
-import mapMarkerYellow from "../../assets/img/icons/map-marker-yellow.svg";
+import mapMarkerOrange from "../../assets/img/icons/map-marker-orange.svg";
 import mapMarkerBlue from "../../assets/img/icons/map-marker-blue.svg";
 import ModalInfo from "./ModalInfo";
 import ModalMembro from "components/ModalMembro/ModalMembro";
-
-const libraries = ["places"];
 
 const mapContainerStyle = {
   width: "100%",
@@ -37,8 +35,7 @@ const MapaAfiliados = ({ members, usersPFAffiliation, usersPJAffiliation }) => {
   const [openModal, setOpenModal] = useState(false);
   const [openProfile, setOpenProfile] = useState(false);
   const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: "AIzaSyDwNWt6P3SzQwf4qlUenPgLpD0JPI6XCZc",
-    libraries,
+    googleMapsApiKey: "AIzaSyBchWYtE1JHWWXsHOxoSgWsBg26z7j3amA",
   });
 
   const mapRef = useRef();
@@ -144,7 +141,7 @@ const MapaAfiliados = ({ members, usersPFAffiliation, usersPJAffiliation }) => {
               lng: Number(user.coordinates[1]),
             }}
             icon={{
-              url: mapMarkerYellow,
+              url: mapMarkerOrange,
               origin: new window.google.maps.Point(0, 0),
               anchor: new window.google.maps.Point(15, 15),
               scaledSize: new window.google.maps.Size(26, 35),
@@ -176,7 +173,7 @@ const MapaAfiliados = ({ members, usersPFAffiliation, usersPJAffiliation }) => {
             setMap(null);
           }}
         >
-          <div className="bg-gradient-default rounded shadow p-3 text-white">
+          <div className="bg-gradient-default rounded shadow p-3 text-white" style={{minWidth: "250px"}}>
             <h3 className="text-white">
               Informações
             </h3>
@@ -194,12 +191,14 @@ const MapaAfiliados = ({ members, usersPFAffiliation, usersPJAffiliation }) => {
             {map.info.lot && (
               <>
                 <Button
+                  className="my-2"
                   color="primary"
                   onClick={() => setOpenModal(!openModal)}
                 >
                   Mais Informações
                 </Button>
                 <Button
+                  className="my-2"
                   color="primary"
                   onClick={() => setOpenProfile(!openProfile)}
                 >
