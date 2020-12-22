@@ -32,8 +32,7 @@ export const setMembers = (members) => ({
 
 export const newBeneficiaryIdentity = (input) => async (dispatch) => {
   try {
-    console.log(input)
-    await api.post("/api/v1/member/member/", input);
+    const response = await api.post("/api/v1/member/member/", input);
   } catch(err) {
     if (!err.response) {
       dispatch(setAlert(400, "Ocorreu um erro de conexão com o servidor.", true));
@@ -51,6 +50,29 @@ export const setBeneficiaryIdentity = (beneficiaryIdentity) => ({
     beneficiaryIdentity,
   },
 });
+
+export const getBiomes = () => async (dispatch) => {
+  try {
+    const response = await api.get("/api/v1/allotment/bioma/");
+
+    dispatch(setBiomes(response.data));
+  } catch(err) {
+    if (!err.response) {
+      dispatch(setAlert(400, "Ocorreu um erro de conexão com o servidor.", true));
+    } else if (err.response.status === 400 || err.response.status === 401) {
+      dispatch(setAlert(err.response.status, err.response.data.detail, true));
+    } else {
+      dispatch(setAlert(err.response.status, err.response.data.error_description, true));
+    }
+  }
+}
+
+const setBiomes = (biomes) => ({
+  type: "BIOMES",
+   payload: {
+     biomes
+   }
+})
 
 
 export const downloadMembers = (data) => () => {

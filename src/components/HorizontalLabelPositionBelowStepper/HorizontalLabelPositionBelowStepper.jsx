@@ -31,6 +31,7 @@ function HorizontalLabelPositionBelowStepper({
   activeStep,
   setActiveStep,
   getStepContent,
+  handleSubmitForm
 }) {
   const classes = useStyles();
 
@@ -82,6 +83,7 @@ function HorizontalLabelPositionBelowStepper({
                 <Button
                   variant="contained"
                   color="primary"
+                  onClick={handleSubmitForm}
                   type="submit"
                 >
                   Próximo

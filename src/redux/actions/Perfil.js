@@ -7,9 +7,6 @@ export const getProfile = () => async (dispatch) => {
     const response = await api.get("/api/v1/user/detail/user_affiliation/");
     dispatch(setProfile(response.data));
   } catch (err) {
-    dispatch(
-      setAlert(err.response.status, err.response.data.error_description, true)
-    );
     console.error(err.response);
     // console.error(err.message);
     if (!err.response) {

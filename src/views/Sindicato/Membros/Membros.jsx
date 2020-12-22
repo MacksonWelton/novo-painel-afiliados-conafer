@@ -173,7 +173,7 @@ const Membros = () => {
                   )}
                   <tr>
                     <th scope="col">
-                      <div className="d-flex justify-content-end align-items-center">
+                      <div className="d-flex justify-content-end ml-lg-2 align-items-center">
                         <Input
                           type="checkbox"
                           onChange={handleSelectAllCheckbox}

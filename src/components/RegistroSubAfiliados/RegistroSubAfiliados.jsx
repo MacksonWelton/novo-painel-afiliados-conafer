@@ -102,6 +102,8 @@ const RegistroSubAfiliados = ({ title }) => {
   });
 
   const [inputPlotLocation, setInputPlotLocation] = useState({
+    member: "",
+    bioma: "",
     operational_core: "",
     allotmenet_state: "",
     allotment_city: "",
@@ -110,6 +112,67 @@ const RegistroSubAfiliados = ({ title }) => {
     access_way: "",
     coordinates: "",
     lot_geometry: "",
+    thirst: "",
+    own_planting: 0,
+    native_forest: 0,
+    forest: 0,
+    fallow_capoeira: 0,
+    native_pasture: 0,
+    planted_pasture: 0,
+    degraded_area: 0,
+    batch_partnership: 0,
+    third_party_partnership: 0,
+    total: 0,
+    has_garden: "",
+    grow_medicinal_plants: "",
+    production_system: "",
+    planting_type: "",
+    management: "",
+    planted_area: "",
+    amount_crops: 0,
+    wild_animals_sighted_lot: "",
+    wild_animals_cause_problems: "",
+    oxen: 0,
+    equine: 0,
+    mules: 0,
+    documentation_area: "",
+    property_name: "",
+    georeferenced: "",
+    property_ownership: "",
+    domain_title: "",
+    ccu:"",
+    ccru: "",
+    regularization: "",
+    sncr: "",
+    incra_certificate: "",
+    join_pra: "",
+    alternatives_regularize_deficit: "",
+    how_want_make_up_deficit_area: "",
+    has_tac_with_app: "",
+    has_infractions_committed: "",
+    property_has_arvn: "",
+    what_want_to_with_surplus_area: "",
+    has_rppn: "",
+    has_crf: "",
+    rli_period: "",
+    size_changes_after: "",
+    qa_meets_family: "",
+    water: 0,
+    climate: 0,
+    ground: 0,
+    vegetation: "",
+    develops_activity_qa: "",
+    what_activity_qa: "",
+    everyday_actions_interfere: "",
+    what_shape: "",
+    exchange_experience: "",
+    which_organization: "",
+    activities_interest: "",
+    positive_in_settlement: "",
+    negative_in_settlement: "",
+    main_ownership_restrictions: "",
+    future_expectations_property: "",
+    rural_tourism: "",
   });
 
   const [inputResidents, setInputResidents] = useState({
@@ -401,7 +464,7 @@ const RegistroSubAfiliados = ({ title }) => {
 
     switch (activeStep) {
       case 0:
-        dispatch(newBeneficiaryIdentity(inputBeneficiaryIdentity));
+        // dispatch(newBeneficiaryIdentity(inputBeneficiaryIdentity));
         break;
       case 1:
         dispatch(setPlotLocation(inputPlotLocation));
@@ -430,6 +493,7 @@ const RegistroSubAfiliados = ({ title }) => {
           activeStep={activeStep}
           setActiveStep={setActiveStep}
           getStepContent={getStepContent}
+          handleSubmitForm={handleSubmitForm}
         />
       </Form>
     </FormContext.Provider>
