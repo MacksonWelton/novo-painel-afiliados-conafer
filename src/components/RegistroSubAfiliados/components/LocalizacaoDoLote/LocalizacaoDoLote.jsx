@@ -1,48 +1,68 @@
 import GoogleMaps from "components/GoogleMaps/GoogleMaps";
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FormGroup, Col, Input, Row } from "reactstrap";
 import { getBiomes } from "redux/actions/Membros";
 
-const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
+const LocalizacaoDoLote = ({
+  inputAllotment,
+  setInputAllotment,
+  fileAllotment,
+  setFileAllotment,
+}) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getBiomes());
   }, [dispatch]);
 
+  const member = useSelector(
+    (state) => state.MembersReducer.beneficiaryIdentity
+  );
+
   const biomes = useSelector((state) => state.MembersReducer.biomes);
   const lat = useSelector((state) => state.GoogleMapsReducer.lat);
   const lng = useSelector((state) => state.GoogleMapsReducer.lng);
 
-  const [file, setFile] = useState();
+  if (!inputAllotment.member && member) {
+    setInputAllotment({ ...inputAllotment, member: member.id });
+  }
 
   const handleChangeInput = (event) => {
     const { name, value } = event.target;
-    setInputPlotLocation({ ...inputPlotLocation, [name]: value });
+    setInputAllotment({ ...inputAllotment, [name]: value });
   };
 
   useEffect(() => {
     if (
       lat !== 0 &&
       lng !== 0 &&
-      `${lat}, ${lng}` !== inputPlotLocation.coordinates
+      `${lat}, ${lng}` !== inputAllotment.coordinates
     ) {
-      setInputPlotLocation({
-        ...inputPlotLocation,
+      setInputAllotment({
+        ...inputAllotment,
         coordinates: `${lat}, ${lng}`,
       });
     }
-  }, [lat, lng, setInputPlotLocation, inputPlotLocation]);
+  }, [lat, lng, setInputAllotment, inputAllotment]);
 
   const handleChangeInputFile = (event) => {
-    setFile(event.target.value);
+    const name = event.target.name;
+    const value = event.target.files[0];
+    let fileName = "";
+
+    if (value) {
+      fileName = event.target.files[0].name;
+    }
+    setFileAllotment({
+      ...fileAllotment,
+      [name]: { ...fileAllotment[name], fileName: fileName, value: value },
+    });
   };
 
   return (
     <Row>
       <Col lg="12">
-        <hr />
         <h3 className="text-center mb-3">Local do lote</h3>
       </Col>
       <Col lg="6">
@@ -55,7 +75,7 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             type="select"
             name="bioma"
             id="bioma"
-            value={inputPlotLocation.bioma}
+            value={inputAllotment.bioma}
             onChange={handleChangeInput}
             required
           >
@@ -80,7 +100,7 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             type="text"
             name="operational_core"
             placeholder="Ex: Seaprof"
-            value={inputPlotLocation.operational_core}
+            value={inputAllotment.operational_core}
             onChange={handleChangeInput}
             maxLength="60"
             minLength="1"
@@ -90,20 +110,21 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
       </Col>
       <Col lg="6">
         <FormGroup>
-          <label className="form-control-label" htmlFor="allotmenet_state">
+          <label className="form-control-label" htmlFor="allotment_state">
             Estado <small className="text-red">(obrigatório)</small>
           </label>
           <Input
             className="form-control-alternative"
             type="select"
             onChange={handleChangeInput}
-            value={inputPlotLocation.allotmenet_state}
-            name="allotmenet_state"
-            id="select"
+            value={inputAllotment.allotment_state}
+            name="allotment_state"
+            id="allotment_state"
             maxLength="60"
             minLength="1"
             required
           >
+            <option value="" hidden>Escolha uma opção</option>
             <option value="AC">Acre</option>
             <option value="AL">Alagoas</option>
             <option value="AP">Amapá</option>
@@ -144,7 +165,7 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             type="text"
             name="allotment_city"
             placeholder="Ex: Rio Branco"
-            value={inputPlotLocation.allotment_city}
+            value={inputAllotment.allotment_city}
             onChange={handleChangeInput}
             maxLength="60"
             minLength="1"
@@ -163,7 +184,7 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             name="settlement"
             title="Assentamento"
             placeholder="Ex: AASS555444"
-            value={inputPlotLocation.settlement}
+            value={inputAllotment.settlement}
             onChange={handleChangeInput}
             maxLength="60"
             minLength="1"
@@ -185,7 +206,7 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             name="incra_allotment_number"
             title="Número do Lote Incra"
             placeholder="Ex: 30"
-            value={inputPlotLocation.incra_allotment_number}
+            value={inputAllotment.incra_allotment_number}
             onChange={handleChangeInput}
             max="2147483647"
             min="0"
@@ -205,7 +226,7 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             name="access_way"
             title="Via de acesso ao imóvel"
             placeholder="Ex: Estrada de terra"
-            value={inputPlotLocation.access_way}
+            value={inputAllotment.access_way}
             onChange={handleChangeInput}
             maxLength="100"
             minLength="1"
@@ -225,7 +246,7 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             name="coordinates"
             title="Coordenadas (Lat, Lng)"
             placeholder="Ex: -15.7801, -47.9292"
-            value={inputPlotLocation.coordinates}
+            value={inputAllotment.coordinates}
             onChange={handleChangeInput}
             maxLength="100"
             minLength="1"
@@ -239,7 +260,9 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             Documento de geometria do lote
           </label>
           <label className="btn bg-light ml-1 mb-0 form-control-label">
-            {file ? `Arquivo Selecionado` : "Escolha o arquivo"}
+            {fileAllotment.lot_geometry.fileName
+              ? fileAllotment.lot_geometry.fileName
+              : "Escolha o arquivo"}
             <Input
               className="form-control-alternative"
               type="file"
@@ -248,18 +271,14 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
               name="lot_geometry"
               id="lot_geometry"
               onChange={handleChangeInputFile}
+              accept="image/png, image/jpeg, .pdf"
             />
           </label>
-          <p className="ml-2">
-            <small>{file ? file : null}</small>
-          </p>
         </FormGroup>
       </Col>
       <Col lg="12">
         <FormGroup>
-          <GoogleMaps
-            coordinatesth={inputPlotLocation.coordinates.split(",")}
-          />
+          <GoogleMaps coordinatesth={inputAllotment.coordinates.split(",")} />
         </FormGroup>
       </Col>
       <Col lg="12">
@@ -277,8 +296,9 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             name="thirst"
             title="Sede"
             placeholder="Ex: 10.00"
-            value={inputPlotLocation.thirst}
+            value={inputAllotment.thirst}
             onChange={handleChangeInput}
+            min="0"
             required
           />
         </FormGroup>
@@ -294,8 +314,9 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             name="own_planting"
             title="Plantio próprio"
             placeholder="Ex: 10.00"
-            value={inputPlotLocation.own_planting}
+            value={inputAllotment.own_planting}
             onChange={handleChangeInput}
+            min="0"
           />
         </FormGroup>
       </Col>
@@ -310,8 +331,9 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             name="native_forest"
             title="Mata nativa"
             placeholder="Ex: 10.00"
-            value={inputPlotLocation.native_forest}
+            value={inputAllotment.native_forest}
             onChange={handleChangeInput}
+            min="0"
           />
         </FormGroup>
       </Col>
@@ -326,8 +348,9 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             name="forest"
             title="Floresta"
             placeholder="Ex: 10.00"
-            value={inputPlotLocation.forest}
+            value={inputAllotment.forest}
             onChange={handleChangeInput}
+            min="0"
           />
         </FormGroup>
       </Col>
@@ -342,8 +365,9 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             name="fallow_capoeira"
             title="Pousio capoeira"
             placeholder="Ex: 10.00"
-            value={inputPlotLocation.fallow_capoeira}
+            value={inputAllotment.fallow_capoeira}
             onChange={handleChangeInput}
+            min="0"
           />
         </FormGroup>
       </Col>
@@ -358,8 +382,9 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             name="native_pasture"
             title="Pastagem nativa"
             placeholder="Ex: 10.00"
-            value={inputPlotLocation.native_pasture}
+            value={inputAllotment.native_pasture}
             onChange={handleChangeInput}
+            min="0"
           />
         </FormGroup>
       </Col>
@@ -374,8 +399,9 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             name="planted_pasture"
             title="Pastagem plantada"
             placeholder="Ex: 10.00"
-            value={inputPlotLocation.planted_pasture}
+            value={inputAllotment.planted_pasture}
             onChange={handleChangeInput}
+            min="0"
           />
         </FormGroup>
       </Col>
@@ -390,8 +416,9 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             name="degraded_area"
             title="Área degradada"
             placeholder="Ex: 10.00"
-            value={inputPlotLocation.degraded_area}
+            value={inputAllotment.degraded_area}
             onChange={handleChangeInput}
+            min="0"
           />
         </FormGroup>
       </Col>
@@ -406,8 +433,9 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             name="batch_partnership"
             title="Parceria lote"
             placeholder="Ex: 10.00"
-            value={inputPlotLocation.batch_partnership}
+            value={inputAllotment.batch_partnership}
             onChange={handleChangeInput}
+            min="0"
           />
         </FormGroup>
       </Col>
@@ -425,8 +453,9 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             name="third_party_partnership"
             title="Parceria lote terceiros"
             placeholder="Ex: 10.00"
-            value={inputPlotLocation.third_party_partnership}
+            value={inputAllotment.third_party_partnership}
             onChange={handleChangeInput}
+            min="0"
           />
         </FormGroup>
       </Col>
@@ -441,8 +470,9 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             name="total"
             title="Total"
             placeholder="Ex: 10.00"
-            value={inputPlotLocation.total}
+            value={inputAllotment.total}
             onChange={handleChangeInput}
+            min="0"
             required
           />
         </FormGroup>
@@ -460,14 +490,14 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             type="select"
             id="has_garden"
             name="has_garden"
-            value={inputPlotLocation.has_garden}
+            value={inputAllotment.has_garden}
             onChange={handleChangeInput}
           >
             <option value="" hidden>
               Escolha uma opção
             </option>
             <option value={true}>Sim</option>
-            <option value={false}>Sim</option>
+            <option value={false}>Não</option>
           </Input>
         </FormGroup>
       </Col>
@@ -480,7 +510,7 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             type="select"
             id="grow_medicinal_plants"
             name="grow_medicinal_plants"
-            value={inputPlotLocation.grow_medicinal_plants}
+            value={inputAllotment.grow_medicinal_plants}
             onChange={handleChangeInput}
             required
           >
@@ -488,7 +518,7 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
               Escolha uma opção
             </option>
             <option value={true}>Sim</option>
-            <option value={false}>Sim</option>
+            <option value={false}>Não</option>
           </Input>
         </FormGroup>
       </Col>
@@ -507,7 +537,7 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             name="production_system"
             title="Sistema de produção"
             placeholder="Ex: Monocultivo"
-            value={inputPlotLocation.production_system}
+            value={inputAllotment.production_system}
             onChange={handleChangeInput}
             required
           />
@@ -524,7 +554,7 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             name="planting_type"
             title="Tipo de plantio"
             placeholder="Ex: Convencional"
-            value={inputPlotLocation.planting_type}
+            value={inputAllotment.planting_type}
             onChange={handleChangeInput}
             required
           />
@@ -541,7 +571,7 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             name="management"
             title="Manejo"
             placeholder="Ex: Sequencial"
-            value={inputPlotLocation.management}
+            value={inputAllotment.management}
             onChange={handleChangeInput}
             required
           />
@@ -550,16 +580,17 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
       <Col lg="6">
         <FormGroup>
           <label className="form-control-label" htmlFor="planted_area">
-            Área plantada (ha)
+            Área (ha)
           </label>
           <Input
-            type="text"
+            type="number"
             id="planted_area"
             name="planted_area"
             title="Área plantada"
             placeholder="Ex: 3,00"
-            value={inputPlotLocation.planted_area}
+            value={inputAllotment.planted_area}
             onChange={handleChangeInput}
+            min="0"
             required
           />
         </FormGroup>
@@ -575,7 +606,7 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             name="amount_crops"
             title="Quantidade de culturas"
             placeholder="Ex: 10.00"
-            value={inputPlotLocation.amount_crops}
+            value={inputAllotment.amount_crops}
             onChange={handleChangeInput}
             max="2147483647"
             min="0"
@@ -599,7 +630,7 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             id="wild_animals_sighted_lot"
             name="wild_animals_sighted_lot"
             title="Animais silvestres causam problemas"
-            value={inputPlotLocation.wild_animals_sighted_lot}
+            value={inputAllotment.wild_animals_sighted_lot}
             onChange={handleChangeInput}
             required
           >
@@ -625,7 +656,7 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             id="wild_animals_cause_problems"
             name="wild_animals_cause_problems"
             title="Animais silvestres avistados no lote"
-            value={inputPlotLocation.wild_animals_cause_problems}
+            value={inputAllotment.wild_animals_cause_problems}
             onChange={handleChangeInput}
             required
           >
@@ -652,7 +683,7 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             name="oxen"
             title="Bois"
             placeholder="Ex: 10"
-            value={inputPlotLocation.oxen}
+            value={inputAllotment.oxen}
             onChange={handleChangeInput}
             required
           />
@@ -669,7 +700,7 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             name="equine"
             title="Equinos"
             placeholder="Ex: 6"
-            value={inputPlotLocation.equine}
+            value={inputAllotment.equine}
             onChange={handleChangeInput}
             required
           />
@@ -686,7 +717,7 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             name="mules"
             title="Muares"
             placeholder="Ex: 5"
-            value={inputPlotLocation.mules}
+            value={inputAllotment.mules}
             onChange={handleChangeInput}
             required
           />
@@ -708,7 +739,7 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             name="documentation_area"
             title="Área da documentação"
             placeholder="Ex: 5"
-            value={inputPlotLocation.documentation_area}
+            value={inputAllotment.documentation_area}
             onChange={handleChangeInput}
             maxLength="60"
             minLength="1"
@@ -727,8 +758,8 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             id="property_name"
             name="property_name"
             title="Nome da propriedade"
-            placeholder="Ex: Chacará São José"
-            value={inputPlotLocation.property_name}
+            placeholder="Ex: Chácara São José"
+            value={inputAllotment.property_name}
             onChange={handleChangeInput}
             required
           />
@@ -744,7 +775,7 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             id="georeferenced"
             name="georeferenced"
             title="Georreferenciada"
-            value={inputPlotLocation.georeferenced}
+            value={inputAllotment.georeferenced}
             onChange={handleChangeInput}
             required
           >
@@ -768,7 +799,7 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             name="property_ownership"
             title="Concessão da propriedade posse"
             placeholder="Ex: Concessão"
-            value={inputPlotLocation.property_ownership}
+            value={inputAllotment.property_ownership}
             onChange={handleChangeInput}
             maxLength="60"
             minLength="1"
@@ -790,7 +821,7 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             id="domain_title"
             name="domain_title"
             title="Título domínio"
-            value={inputPlotLocation.domain_title}
+            value={inputAllotment.domain_title}
             onChange={handleChangeInput}
             required
           >
@@ -812,7 +843,7 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             id="ccu"
             name="ccu"
             title="CCU"
-            value={inputPlotLocation.ccu}
+            value={inputAllotment.ccu}
             onChange={handleChangeInput}
             required
           >
@@ -834,7 +865,7 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             id="ccru"
             name="ccru"
             title="CCDRU"
-            value={inputPlotLocation.ccru}
+            value={inputAllotment.ccru}
             onChange={handleChangeInput}
             required
           >
@@ -856,7 +887,7 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             id="regularization"
             name="regularization"
             title="Regularização"
-            value={inputPlotLocation.regularization}
+            value={inputAllotment.regularization}
             onChange={handleChangeInput}
             required
           >
@@ -885,7 +916,7 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             name="sncr"
             title="SNCR"
             placeholder="Ex: 54527"
-            value={inputPlotLocation.sncr}
+            value={inputAllotment.sncr}
             onChange={handleChangeInput}
             maxLength="60"
           />
@@ -902,7 +933,7 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             name="incra_certificate"
             title="Certidão INCRA"
             placeholder="Ex: 4785"
-            value={inputPlotLocation.incra_certificate}
+            value={inputAllotment.incra_certificate}
             onChange={handleChangeInput}
             maxLength="60"
           />
@@ -922,7 +953,7 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             id="join_pra"
             name="join_pra"
             title="Aderir PRA"
-            value={inputPlotLocation.join_pra}
+            value={inputAllotment.join_pra}
             onChange={handleChangeInput}
             required
           >
@@ -948,7 +979,7 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             name="alternatives_regularize_deficit"
             title="Alternativas regularizar déficit"
             placeholder="Ex: Reflorestamento"
-            value={inputPlotLocation.alternatives_regularize_deficit}
+            value={inputAllotment.alternatives_regularize_deficit}
             onChange={handleChangeInput}
             maxLength="300"
           />
@@ -968,7 +999,7 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             name="how_want_make_up_deficit_area"
             title="Como deseja compensar área déficit"
             placeholder="Ex: Plantando novas àrvores"
-            value={inputPlotLocation.how_want_make_up_deficit_area}
+            value={inputAllotment.how_want_make_up_deficit_area}
             onChange={handleChangeInput}
             maxLength="300"
           />
@@ -984,7 +1015,7 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             id="has_tac_with_app"
             name="has_tac_with_app"
             title="Existe TAC com APP"
-            value={inputPlotLocation.has_tac_with_app}
+            value={inputAllotment.has_tac_with_app}
             onChange={handleChangeInput}
             required
           >
@@ -1010,7 +1041,7 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             id="has_infractions_committed"
             name="has_infractions_committed"
             title="Existe infrações cometidas"
-            value={inputPlotLocation.has_infractions_committed}
+            value={inputAllotment.has_infractions_committed}
             onChange={handleChangeInput}
             required
           >
@@ -1032,7 +1063,7 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             id="property_has_arvn"
             name="property_has_arvn"
             title="Imovel possui ARVN"
-            value={inputPlotLocation.property_has_arvn}
+            value={inputAllotment.property_has_arvn}
             onChange={handleChangeInput}
             required
           >
@@ -1057,8 +1088,8 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             id="what_want_to_with_surplus_area"
             name="what_want_to_with_surplus_area"
             title="O que pretende com área excedente"
-            placeholder="Ex: 5"
-            value={inputPlotLocation.what_want_to_with_surplus_area}
+            placeholder="Ex: Criar animais"
+            value={inputAllotment.what_want_to_with_surplus_area}
             onChange={handleChangeInput}
             maxLength="60"
           />
@@ -1074,7 +1105,7 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             id="has_rppn"
             name="has_rppn"
             title="Existe RPPN"
-            value={inputPlotLocation.has_rppn}
+            value={inputAllotment.has_rppn}
             onChange={handleChangeInput}
             required
           >
@@ -1096,7 +1127,7 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             id="has_crf"
             name="has_crf"
             title="Possui CRF"
-            value={inputPlotLocation.has_crf}
+            value={inputAllotment.has_crf}
             onChange={handleChangeInput}
             required
           >
@@ -1118,7 +1149,7 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             id="rli_period"
             name="rli_period"
             title="RLI submetida ao período"
-            value={inputPlotLocation.rli_period}
+            value={inputAllotment.rli_period}
             onChange={handleChangeInput}
             required
           />
@@ -1135,7 +1166,7 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             id="size_changes_after"
             name="size_changes_after"
             title="Alteração tamanho após 22/07/2008"
-            value={inputPlotLocation.size_changes_after}
+            value={inputAllotment.size_changes_after}
             onChange={handleChangeInput}
             required
           >
@@ -1154,15 +1185,15 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
       <Col lg="6">
         <FormGroup>
           <label className="form-control-label" htmlFor="qa_meets_family">
-            Quantidade atende família{" "}
+            Qualidade ambiental local atende a familia?{" "}
             <small className="text-red">(obrigatório)</small>
           </label>
           <Input
             type="select"
             id="qa_meets_family"
             name="qa_meets_family"
-            title="Qa atende família"
-            value={inputPlotLocation.qa_meets_family}
+            title="Qualidade ambiental local atende a familia?"
+            value={inputAllotment.qa_meets_family}
             onChange={handleChangeInput}
             required
           >
@@ -1190,8 +1221,8 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             type="number"
             name="water"
             title="Água"
-            placeholder="Ex: 6"
-            value={inputPlotLocation.water}
+            placeholder="Ex: 5"
+            value={inputAllotment.water}
             onChange={handleChangeInput}
             max="5"
             min="1"
@@ -1209,8 +1240,8 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             type="number"
             name="climate"
             title="Clima"
-            placeholder="Ex: 6"
-            value={inputPlotLocation.climate}
+            placeholder="Ex: 5"
+            value={inputAllotment.climate}
             onChange={handleChangeInput}
             max="5"
             min="1"
@@ -1228,8 +1259,8 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             type="number"
             name="ground"
             title="Clima"
-            placeholder="Ex: 6"
-            value={inputPlotLocation.ground}
+            placeholder="Ex: 5"
+            value={inputAllotment.ground}
             onChange={handleChangeInput}
             max="5"
             min="1"
@@ -1247,8 +1278,8 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             type="number"
             name="vegetation"
             title="Vegetação"
-            placeholder="Ex: 6"
-            value={inputPlotLocation.vegetation}
+            placeholder="Ex: 5"
+            value={inputAllotment.vegetation}
             onChange={handleChangeInput}
             max="5"
             min="1"
@@ -1259,15 +1290,15 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
       <Col lg="6">
         <FormGroup>
           <label className="form-control-label" htmlFor="develops_activity_qa">
-            Desenvolve atividade qa{" "}
-            <small className="text-red">(obrigatório)</small>
+            Desenvolve atividade para melhorar a qualidade ambiental local e/ou
+            regional? <small className="text-red">(obrigatório)</small>
           </label>
           <Input
             className="form-control-alternative"
             type="select"
             name="develops_activity_qa"
-            title="Desenvolve atividade qa"
-            value={inputPlotLocation.develops_activity_qa}
+            title="Desenvolve atividade para melhorar a qualidade ambiental local e/ou regional?"
+            value={inputAllotment.develops_activity_qa}
             onChange={handleChangeInput}
             required
           >
@@ -1282,15 +1313,15 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
       <Col lg="6">
         <FormGroup>
           <label className="form-control-label" htmlFor="what_activity_qa">
-            Qual atividade qa
+            Especifique qual é a atividade{" "}
           </label>
           <Input
             className="form-control-alternative"
             type="text"
             name="what_activity_qa"
-            title="Qual atividade qa"
-            placeholder="Ex: 6"
-            value={inputPlotLocation.what_activity_qa}
+            title="Especifique qual é a atividade"
+            placeholder="Ex: Remoção de resíduos"
+            value={inputAllotment.what_activity_qa}
             onChange={handleChangeInput}
             maxLength="255"
           />
@@ -1302,15 +1333,15 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             className="form-control-label"
             htmlFor="everyday_actions_interfere"
           >
-            Ações cotidianas interferem no ambiente{" "}
+            Ações cotidianas interferem no ambiente?{" "}
             <small className="text-red">(obrigatório)</small>
           </label>
           <Input
             className="form-control-alternative"
             type="select"
             name="everyday_actions_interfere"
-            title="Ações cotidianas interferem no ambiente"
-            value={inputPlotLocation.everyday_actions_interfere}
+            title="Ações cotidianas interferem no ambiente?"
+            value={inputAllotment.everyday_actions_interfere}
             onChange={handleChangeInput}
             required
           >
@@ -1325,15 +1356,15 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
       <Col lg="6">
         <FormGroup>
           <label className="form-control-label" htmlFor="what_shape">
-            Qual forma <small className="text-red">(obrigatório)</small>
+            De que forma? <small className="text-red">(obrigatório)</small>
           </label>
           <Input
             className="form-control-alternative"
             type="text"
             name="what_shape"
-            title="Qual forma"
-            placeholder="Ex: 6"
-            value={inputPlotLocation.what_shape}
+            title="De que forma?"
+            placeholder="Ex: Contaminação do solo"
+            value={inputAllotment.what_shape}
             onChange={handleChangeInput}
             maxLength="255"
           />
@@ -1349,8 +1380,8 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             type="text"
             name="exchange_experience"
             title="Participa espaços troca de experiência"
-            placeholder="Ex: 6"
-            value={inputPlotLocation.exchange_experience}
+            placeholder="Ex: Sim"
+            value={inputAllotment.exchange_experience}
             onChange={handleChangeInput}
             maxLength="255"
           />
@@ -1366,8 +1397,8 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             type="text"
             name="which_organization"
             title="Qual organização"
-            placeholder="Ex: 6"
-            value={inputPlotLocation.which_organization}
+            placeholder="Ex: CONAFER"
+            value={inputAllotment.which_organization}
             onChange={handleChangeInput}
             maxLength="255"
           />
@@ -1383,8 +1414,8 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             type="text"
             name="activities_interest"
             title="Atividades de interesse"
-            placeholder="Ex: 6"
-            value={inputPlotLocation.activities_interest}
+            placeholder="Ex: Capacitação"
+            value={inputAllotment.activities_interest}
             onChange={handleChangeInput}
             maxLength="255"
           />
@@ -1407,8 +1438,8 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             type="text"
             name="positive_in_settlement"
             title="O que considera positivo no assentamento"
-            placeholder="Ex: 6"
-            value={inputPlotLocation.positive_in_settlement}
+            placeholder="Ex: Tranquilidade"
+            value={inputAllotment.positive_in_settlement}
             onChange={handleChangeInput}
             maxLength="300"
           />
@@ -1427,8 +1458,8 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             type="text"
             name="negative_in_settlement"
             title="O que considera negativo no no assentamento"
-            placeholder="Ex: 6"
-            value={inputPlotLocation.negative_in_settlement}
+            placeholder="Ex: Falta de recursos do governo"
+            value={inputAllotment.negative_in_settlement}
             onChange={handleChangeInput}
             maxLength="300"
           />
@@ -1447,8 +1478,8 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             type="text"
             name="main_ownership_restrictions"
             title="Principais restrições de propriedade"
-            placeholder="Ex: 6"
-            value={inputPlotLocation.main_ownership_restrictions}
+            placeholder="Ex: Acesso ao Crédito, Assistência Técnica, Mão de obra, Maquinário, Problemas climáticos"
+            value={inputAllotment.main_ownership_restrictions}
             onChange={handleChangeInput}
             maxLength="300"
           />
@@ -1467,8 +1498,8 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             type="text"
             name="future_expectations_property"
             title="Expectativa futuras para propriedade"
-            placeholder="Ex: 6"
-            value={inputPlotLocation.future_expectations_property}
+            placeholder="Ex: Aumento da produção"
+            value={inputAllotment.future_expectations_property}
             onChange={handleChangeInput}
             maxLength="255"
           />
@@ -1486,7 +1517,7 @@ const LocalizacaoDoLote = ({ inputPlotLocation, setInputPlotLocation }) => {
             name="rural_tourism"
             title="Interesse em turismo rural"
             placeholder="Ex: 6"
-            value={inputPlotLocation.rural_tourism}
+            value={inputAllotment.rural_tourism}
             onChange={handleChangeInput}
             required
           >

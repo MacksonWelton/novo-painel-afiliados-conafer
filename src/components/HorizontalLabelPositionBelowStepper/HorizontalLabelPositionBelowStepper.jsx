@@ -6,6 +6,7 @@ import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
 import Typography from "@material-ui/core/Typography";
 import { Button } from "reactstrap";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,9 +32,11 @@ function HorizontalLabelPositionBelowStepper({
   activeStep,
   setActiveStep,
   getStepContent,
-  handleSubmitForm
+  handleSubmitForm,
 }) {
   const classes = useStyles();
+
+  const submitMessage = useSelector((state) => state.MembersReducer.submitMessage);
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
@@ -51,10 +54,10 @@ function HorizontalLabelPositionBelowStepper({
         alternativeLabel
       >
         {steps.map((label) => (
-            <Step key={label}>
-              <StepLabel>{label}</StepLabel>
-            </Step>
-          ))}
+          <Step key={label}>
+            <StepLabel>{label}</StepLabel>
+          </Step>
+        ))}
       </Stepper>
       <div>
         {activeStep === steps.length ? (
@@ -67,6 +70,11 @@ function HorizontalLabelPositionBelowStepper({
         ) : (
           <div>
             {getStepContent(activeStep)}
+            {submitMessage &&
+              <div className="mb-3 bg-red rounded p-2">
+                <small className="text-white text-capitalize">{submitMessage}</small>
+              </div>
+            }
             <div>
               <Button
                 disabled={activeStep === 0}
@@ -80,12 +88,7 @@ function HorizontalLabelPositionBelowStepper({
                   Concluído
                 </Button>
               ) : (
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={handleSubmitForm}
-                  type="submit"
-                >
+                <Button variant="contained" color="primary" onClick={handleSubmitForm} type="submit">
                   Próximo
                 </Button>
               )}

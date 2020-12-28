@@ -8,7 +8,7 @@ import { clearInput } from "utils/validators";
 const IdentificacaoDoBeneficiario = ({
   inputBeneficiaryIdentity,
   setInputBeneficiaryIdentity,
-  usersAffiliation
+  usersAffiliation,
 }) => {
   const [invalidInput, setInvalidInput] = useState(false);
 
@@ -28,22 +28,29 @@ const IdentificacaoDoBeneficiario = ({
 
   return (
     <Row>
+      <Col lg="12">
+        <h3 className="text-center mb-3">Dados do Beneficiário</h3>
+      </Col>
       <Col lg="6">
         <FormGroup>
           <label className="form-control-label" htmlFor="affiliation">
             Afiliação <small className="text-red">(obrigatório)</small>
           </label>
           <Input
-          type="select"
-          id="affiliation"
-          name="affiliation"
-          onChange={handleChangeInput}
-          value={inputBeneficiaryIdentity.affiliation}
-          required
+            type="select"
+            id="affiliation"
+            name="affiliation"
+            onChange={handleChangeInput}
+            value={inputBeneficiaryIdentity.affiliation}
+            required
           >
-            <option value="" hidden>Escolha uma opção</option>
+            <option value="" hidden>
+              Escolha uma opção
+            </option>
             {usersAffiliation.map((afilliate, i) => (
-              <option key={i} value={afilliate.affiliation}>{afilliate.name}</option>
+              <option key={i} value={afilliate.affiliation}>
+                {afilliate.name}
+              </option>
             ))}
           </Input>
         </FormGroup>
@@ -327,46 +334,46 @@ const IdentificacaoDoBeneficiario = ({
       </Col>
       {(inputBeneficiaryIdentity.marital_status === "União Estável" ||
         inputBeneficiaryIdentity.marital_status === "Casado(a)") && (
-          <>
-            <Col lg="6">
-              <FormGroup>
-                <label className="form-control-label" htmlFor="spouse_name">
-                  Nome do Cônjuge
-                </label>
-                <Input
-                  className="form-control-alternative"
-                  type="text"
-                  name="spouse_name"
-                  title="Nome do Cônjuge"
-                  placeholder="Ex: Fernanda da Silva"
-                  value={inputBeneficiaryIdentity.spouse_name}
-                  onChange={handleChangeInput}
-                  required
-                />
-              </FormGroup>
-            </Col>
-            <Col lg="6">
-              <FormGroup>
-                <label className="form-control-label" htmlFor="spouse_cpf">
-                  CPF do Cônjuge
-                </label>
-                <Input
-                  className="form-control-alternative"
-                  type="text"
-                  name="spouse_cpf"
-                  title="CPF do Cônjuge"
-                  placeholder="Ex: 123.567.112-99"
-                  value={mask(unMask(inputBeneficiaryIdentity.spouse_cpf), [
-                    "999.999.999-99",
-                  ])}
-                  onChange={handleChangeInput}
-                  maxLength="14"
-                  required
-                />
-              </FormGroup>
-            </Col>
-          </>
-        )}
+        <>
+          <Col lg="6">
+            <FormGroup>
+              <label className="form-control-label" htmlFor="spouse_name">
+                Nome do Cônjuge
+              </label>
+              <Input
+                className="form-control-alternative"
+                type="text"
+                name="spouse_name"
+                title="Nome do Cônjuge"
+                placeholder="Ex: Fernanda da Silva"
+                value={inputBeneficiaryIdentity.spouse_name}
+                onChange={handleChangeInput}
+                required
+              />
+            </FormGroup>
+          </Col>
+          <Col lg="6">
+            <FormGroup>
+              <label className="form-control-label" htmlFor="spouse_cpf">
+                CPF do Cônjuge
+              </label>
+              <Input
+                className="form-control-alternative"
+                type="text"
+                name="spouse_cpf"
+                title="CPF do Cônjuge"
+                placeholder="Ex: 123.567.112-99"
+                value={mask(unMask(inputBeneficiaryIdentity.spouse_cpf), [
+                  "999.999.999-99",
+                ])}
+                onChange={handleChangeInput}
+                maxLength="14"
+                required
+              />
+            </FormGroup>
+          </Col>
+        </>
+      )}
       <Col lg="6">
         <FormGroup>
           <label className="form-control-label" htmlFor="nationality">
@@ -427,7 +434,7 @@ const IdentificacaoDoBeneficiario = ({
       <Col lg="6">
         <FormGroup>
           <label className="form-control-label" htmlFor="cep">
-            CEP
+            CEP <small className="text-red">(obrigatório)</small>
           </label>
           <Input
             className="form-control-alternative"
@@ -443,7 +450,8 @@ const IdentificacaoDoBeneficiario = ({
                 handleChangeInputZipCode(response);
               }
             }}
-            maxLength="17"
+            maxLength="10"
+            minLength="1"
           />
         </FormGroup>
       </Col>

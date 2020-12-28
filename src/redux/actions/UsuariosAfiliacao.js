@@ -15,11 +15,14 @@ export const newUserAffiliation = (input, files) => async (dispatch) => {
     dispatch(setAlert(response.status, "Cadastro realizado com sucesso!", true));
   } catch(err) {
     console.error(err.message);
-    if (!err.response) {
-      console.log("Chamou")
+    if (err.message === "Network Error") {
       dispatch(setAlert(400, "Ocorreu um erro de conexão com o servidor.", true));
     } else if (err.response.status === 400 || err.response.status === 401) {
-      dispatch(setAlert(err.response.status, err.response.data.detail, true));
+      if (err.response.data.detail) {
+        dispatch(setAlert(err.response.status, err.response.data.detail, true));
+      } else if (err.response.data.error) {
+        dispatch(setAlert(err.response.status, err.response.data.err, true));
+      }
     } else {
       dispatch(setAlert(err.response.status, err.response.data.error_description, true));
     }
@@ -54,11 +57,15 @@ export const getUsersPJAffiliation = () => async (dispatch) => {
     const response = await api.get("/api/v1/affiliation/affiliation_pj/");
     dispatch(setUsersPJAFFiliation(response.data));
   } catch(err) {
-    console.error("pj", err.message);
+    console.error(err.message);
     if (err.message === "Network Error") {
       dispatch(setAlert(400, "Ocorreu um erro de conexão com o servidor.", true));
     } else if (err.response.status === 400 || err.response.status === 401) {
-      dispatch(setAlert(err.response.status, err.response.data.detail, true));
+      if (err.response.data.detail) {
+        dispatch(setAlert(err.response.status, err.response.data.detail, true));
+      } else if (err.response.data.error) {
+        dispatch(setAlert(err.response.status, err.response.data.err, true));
+      }
     } else {
       dispatch(setAlert(err.response.status, err.response.data.error_description, true));
     }
@@ -81,7 +88,11 @@ export const getUsersPFAffiliation = () => async (dispatch) => {
     if (err.message === "Network Error") {
       dispatch(setAlert(400, "Ocorreu um erro de conexão com o servidor.", true));
     } else if (err.response.status === 400 || err.response.status === 401) {
-      dispatch(setAlert(err.response.status, err.response.data.detail, true));
+      if (err.response.data.detail) {
+        dispatch(setAlert(err.response.status, err.response.data.detail, true));
+      } else if (err.response.data.error) {
+        dispatch(setAlert(err.response.status, err.response.data.err, true));
+      }
     } else {
       dispatch(setAlert(err.response.status, err.response.data.error_description, true));
     }

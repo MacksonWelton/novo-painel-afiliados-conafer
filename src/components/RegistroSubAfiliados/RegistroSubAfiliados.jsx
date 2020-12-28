@@ -13,8 +13,7 @@ import InfoDoImovel from "./components/InfoDoImovel/InfoDoImovel";
 import QualidadeAmbiental from "./components/QualidadeAmbiental/QualidadeAmbiental";
 import VisitaTecnica from "./components/VisitaTecnica/VisitaTecnica";
 import FotosGeometria from "./components/FotosGeometria/FotosGeometria";
-import { newBeneficiaryIdentity } from "../../redux/actions/Membros";
-import { setPlotLocation } from "../../redux/actions/Registro";
+import { newAllotment, newBeneficiaryIdentity } from "../../redux/actions/Membros";
 import { setResidents } from "../../redux/actions/Registro";
 import { setDiagnosisOfAgriculturalSystems } from "../../redux/actions/Registro";
 import { setProduction } from "../../redux/actions/Registro";
@@ -25,12 +24,14 @@ import { getUsersAffiliation } from "redux/actions/UsuariosAfiliacao";
 const RegistroSubAfiliados = ({ title }) => {
   const dispatch = useDispatch();
   const [usersAffiliation, setUsersAffiliation] = useState([]);
+  const [activeStep, setActiveStep] = useState(0);
 
   useEffect(() => {
     dispatch(getUsersAffiliation());
   }, [dispatch])
 
-  const {usersPFAffiliation, usersPJAffiliation} = useSelector(state => state.UsersAffiliationReducer)
+  const submitMessage = useSelector((state) => state.MembersReducer.submitMessage);
+  const {usersPFAffiliation, usersPJAffiliation} = useSelector(state => state.UsersAffiliationReducer);
 
   if (!usersAffiliation.length) {
     if (usersPFAffiliation && usersPJAffiliation) {
@@ -59,120 +60,127 @@ const RegistroSubAfiliados = ({ title }) => {
       }
     }
 
-  const [activeStep, setActiveStep] = React.useState(0);
-
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  const handleNext = async () => {
+    const message = await submitMessage;
+    if (!message) {
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    }
   };
 
   const [inputBeneficiaryIdentity, setInputBeneficiaryIdentity] = useState({
     affiliation: "",
-    name: "",
-    email: "",
-    cpf: "",
-    rg: "",
-    nis: "",
+    name: "João da Silva",
+    email: "teste@teste.com",
+    cpf: "121.911.500-20",
+    rg: "55555",
+    nis: "44444",
     marital_status: "",
-    mother_name: "",
+    mother_name: "Maria da Silva",
     spouse_name: "",
     spouse_cpf: "",
-    nationality: "",
-    year_residence: 0,
+    nationality: "Brasileira",
+    citizenship: "Maceió - AL",
+    year_residence: 10,
     always_resided: "",
-    phone: "",
-    alternative_phone: "",
-    state: "",
-    country: "",
+    phone: "82999999999",
+    alternative_phone: "82499999999",
+    state: "Teste",
+    country: "Brasil",
     city: "",
-    district: "",
+    district: "Centro",
     address: "",
-    number: 0,
-    cep: "",
-    location_zone: "",
-    collection_code: "",
-    status: "",
-    operational_core: "",
+    number: 10,
+    cep: "57055-620",
+    location_zone: "Zona Rural",
+    collection_code: "1111",
+    status: "Teste",
+    operational_core: "Seaprof",
     has_contract: "",
     concession_validity: "",
     lot_has_marking: "",
     beneficiary_knows_limit: "",
-    citizenship: "",
-    rb_status: "",
+    rb_status: "Teste",
     incra_area: "",
   });
 
-  const [inputPlotLocation, setInputPlotLocation] = useState({
-    member: "",
+  const [inputAllotment, setInputAllotment] = useState({
+    member: "97a2be13-eb10-4124-9f2b-6f71ead05c71",
     bioma: "",
-    operational_core: "",
-    allotmenet_state: "",
-    allotment_city: "",
-    settlement: "",
-    incra_allotment_number: "",
-    access_way: "",
-    coordinates: "",
-    lot_geometry: "",
-    thirst: "",
-    own_planting: 0,
-    native_forest: 0,
-    forest: 0,
-    fallow_capoeira: 0,
-    native_pasture: 0,
-    planted_pasture: 0,
-    degraded_area: 0,
-    batch_partnership: 0,
-    third_party_partnership: 0,
-    total: 0,
+    operational_core: "Seaprof",
+    allotment_state: "",
+    allotment_city: "Maceió",
+    settlement: "AASS555444",
+    incra_allotment_number: 40,
+    access_way: "Estrada de Terra",
+    coordinates: "-15.7810, -14.444",
+    thirst: 5,
+    own_planting: 5,
+    native_forest: 5,
+    forest: 5,
+    fallow_capoeira: 5,
+    native_pasture: 5,
+    planted_pasture: 5,
+    degraded_area: 5,
+    batch_partnership: 5,
+    third_party_partnership: 5,
+    total: 5,
     has_garden: "",
     grow_medicinal_plants: "",
-    production_system: "",
-    planting_type: "",
-    management: "",
-    planted_area: "",
-    amount_crops: 0,
+    production_system: "Monocultivo",
+    planting_type: "Convencional",
+    management: "Convencional",
+    planted_area: 5,
+    amount_crops: 5,
     wild_animals_sighted_lot: "",
     wild_animals_cause_problems: "",
-    oxen: 0,
-    equine: 0,
-    mules: 0,
+    oxen: 5,
+    equine: 5,
+    mules: 5,
     documentation_area: "",
-    property_name: "",
+    property_name: "Teste",
     georeferenced: "",
     property_ownership: "",
     domain_title: "",
     ccu:"",
     ccru: "",
     regularization: "",
-    sncr: "",
-    incra_certificate: "",
+    sncr: "3455",
+    incra_certificate: "47589",
     join_pra: "",
     alternatives_regularize_deficit: "",
     how_want_make_up_deficit_area: "",
     has_tac_with_app: "",
     has_infractions_committed: "",
     property_has_arvn: "",
-    what_want_to_with_surplus_area: "",
+    what_want_to_with_surplus_area: "Teste",
     has_rppn: "",
     has_crf: "",
     rli_period: "",
     size_changes_after: "",
     qa_meets_family: "",
-    water: 0,
-    climate: 0,
-    ground: 0,
-    vegetation: "",
+    water: 5,
+    climate: 5,
+    ground: 5,
+    vegetation: 5,
     develops_activity_qa: "",
-    what_activity_qa: "",
+    what_activity_qa: "Teste",
     everyday_actions_interfere: "",
-    what_shape: "",
-    exchange_experience: "",
-    which_organization: "",
-    activities_interest: "",
-    positive_in_settlement: "",
-    negative_in_settlement: "",
-    main_ownership_restrictions: "",
-    future_expectations_property: "",
+    what_shape: "Contaminação do solo",
+    exchange_experience: "Teste",
+    which_organization: "Teste",
+    activities_interest: "Teste",
+    positive_in_settlement: "Tudo",
+    negative_in_settlement: "Nada",
+    main_ownership_restrictions: "Nenhuma",
+    future_expectations_property: "Aumentar Produção",
     rural_tourism: "",
+  });
+
+  const [fileAllotment, setFileAllotment] = useState({
+    lot_geometry: {
+      fileName: "",
+      value: "",
+    },
   });
 
   const [inputResidents, setInputResidents] = useState({
@@ -295,7 +303,7 @@ const RegistroSubAfiliados = ({ title }) => {
   const [inputPropertyInformation, setInputPropertyInformation] = useState({
     join_pra: undefined,
     has_area_with_deficit_native_vegetation: undefined,
-    alternatives_regularize_deficit: "",
+    alternatives_regularize_deficit: "Teste",
     how_want_make_up_deficit_area: "",
     has_tac_with_app: undefined,
     has_infractions_committed: undefined,
@@ -370,6 +378,7 @@ const RegistroSubAfiliados = ({ title }) => {
   };
 
   function getStepContent(stepIndex) {
+
     switch (stepIndex) {
       case 0:
         return (
@@ -382,8 +391,10 @@ const RegistroSubAfiliados = ({ title }) => {
       case 1:
         return (
           <LocalizacaoDoLote
-            inputPlotLocation={inputPlotLocation}
-            setInputPlotLocation={setInputPlotLocation}
+            inputAllotment={inputAllotment}
+            setInputAllotment={setInputAllotment}
+            fileAllotment={fileAllotment}
+            setFileAllotment={setFileAllotment}
           />
         );
       case 2:
@@ -460,14 +471,13 @@ const RegistroSubAfiliados = ({ title }) => {
 
   const handleSubmitForm = (event) => {
     event.preventDefault();
-    handleNext();
 
     switch (activeStep) {
       case 0:
         // dispatch(newBeneficiaryIdentity(inputBeneficiaryIdentity));
         break;
       case 1:
-        dispatch(setPlotLocation(inputPlotLocation));
+        dispatch(newAllotment(inputAllotment, fileAllotment));
         break;
       case 2:
         dispatch(setResidents(resident, house));
@@ -483,6 +493,8 @@ const RegistroSubAfiliados = ({ title }) => {
       default:
         return;
     }
+
+    handleNext();
   };
 
   return (

@@ -8,6 +8,7 @@ const converterDataToFormData = (input, files) => {
   })
 
   if (files) {
+    console.log(files)
     Object.keys(files).forEach(file => {
       formData.append(file, files[file].value, files[file].fileName);
     })
