@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { FormGroup, Col, Input, Row } from "reactstrap";
 import { getBiomes } from "redux/actions/Membros";
 
-const LocalizacaoDoLote = ({
+const Allotment = ({
   inputAllotment,
   setInputAllotment,
   fileAllotment,
@@ -16,9 +16,7 @@ const LocalizacaoDoLote = ({
     dispatch(getBiomes());
   }, [dispatch]);
 
-  const member = useSelector(
-    (state) => state.MembersReducer.beneficiaryIdentity
-  );
+  const member = useSelector((state) => state.MembersReducer.member);
 
   const biomes = useSelector((state) => state.MembersReducer.biomes);
   const lat = useSelector((state) => state.GoogleMapsReducer.lat);
@@ -63,7 +61,7 @@ const LocalizacaoDoLote = ({
   return (
     <Row>
       <Col lg="12">
-        <h3 className="text-center mb-3">Local do lote</h3>
+        <h4 className="text-center mb-4">Local do lote</h4>
       </Col>
       <Col lg="6">
         <FormGroup>
@@ -124,7 +122,9 @@ const LocalizacaoDoLote = ({
             minLength="1"
             required
           >
-            <option value="" hidden>Escolha uma opção</option>
+            <option value="" hidden>
+              Escolha uma opção
+            </option>
             <option value="AC">Acre</option>
             <option value="AL">Alagoas</option>
             <option value="AP">Amapá</option>
@@ -283,7 +283,7 @@ const LocalizacaoDoLote = ({
       </Col>
       <Col lg="12">
         <hr />
-        <h3 className="text-center mb-3">Áreas</h3>
+        <h4 className="text-center mb-4">Áreas</h4>
       </Col>
       <Col lg="6">
         <FormGroup>
@@ -479,7 +479,7 @@ const LocalizacaoDoLote = ({
       </Col>
       <Col lg="12">
         <hr />
-        <h3 className="text-center mb-3">Área da sede</h3>
+        <h4 className="text-center mb-4">Área da sede</h4>
       </Col>
       <Col lg="6">
         <FormGroup>
@@ -524,7 +524,7 @@ const LocalizacaoDoLote = ({
       </Col>
       <Col lg="12">
         <hr />
-        <h3 className="text-center mb-3">Plantio Próprio</h3>
+        <h4 className="text-center mb-4">Plantio Próprio</h4>
       </Col>
       <Col lg="6">
         <FormGroup>
@@ -615,7 +615,7 @@ const LocalizacaoDoLote = ({
       </Col>
       <Col lg="12">
         <hr />
-        <h3 className="text-center mb-3">Animais silvestres</h3>
+        <h4 className="text-center mb-4">Animais silvestres</h4>
       </Col>
       <Col lg="6">
         <FormGroup>
@@ -670,7 +670,7 @@ const LocalizacaoDoLote = ({
       </Col>
       <Col lg="12">
         <hr />
-        <h3 className="text-center mb-3">Animais de serviço</h3>
+        <h4 className="text-center mb-4">Animais de serviço</h4>
       </Col>
       <Col lg="4">
         <FormGroup>
@@ -685,6 +685,7 @@ const LocalizacaoDoLote = ({
             placeholder="Ex: 10"
             value={inputAllotment.oxen}
             onChange={handleChangeInput}
+            min="0"
             required
           />
         </FormGroup>
@@ -702,6 +703,7 @@ const LocalizacaoDoLote = ({
             placeholder="Ex: 6"
             value={inputAllotment.equine}
             onChange={handleChangeInput}
+            min="0"
             required
           />
         </FormGroup>
@@ -719,13 +721,14 @@ const LocalizacaoDoLote = ({
             placeholder="Ex: 5"
             value={inputAllotment.mules}
             onChange={handleChangeInput}
+            min="0"
             required
           />
         </FormGroup>
       </Col>
       <Col lg="12">
         <hr />
-        <h3 className="text-center mb-3">Informações gerais</h3>
+        <h4 className="text-center mb-4">Informações gerais</h4>
       </Col>
       <Col lg="6">
         <FormGroup>
@@ -734,15 +737,14 @@ const LocalizacaoDoLote = ({
             <small className="text-red">(obrigatório)</small>
           </label>
           <Input
-            type="text"
+            type="number"
             id="documentation_area"
             name="documentation_area"
             title="Área da documentação"
             placeholder="Ex: 5"
             value={inputAllotment.documentation_area}
             onChange={handleChangeInput}
-            maxLength="60"
-            minLength="1"
+            min="0"
             required
           />
         </FormGroup>
@@ -809,7 +811,7 @@ const LocalizacaoDoLote = ({
       </Col>
       <Col lg="12">
         <hr />
-        <h3 className="text-center mb-3">Animais de serviço</h3>
+        <h4 className="text-center mb-4">Animais de serviço</h4>
       </Col>
       <Col lg="6">
         <FormGroup>
@@ -901,9 +903,9 @@ const LocalizacaoDoLote = ({
       </Col>
       <Col lg="12">
         <hr />
-        <h3 className="text-center mb-3">
+        <h4 className="text-center mb-4">
           Documentação - Propriedades e concessão
-        </h3>
+        </h4>
       </Col>
       <Col lg="6">
         <FormGroup>
@@ -941,7 +943,7 @@ const LocalizacaoDoLote = ({
       </Col>
       <Col lg="12">
         <hr />
-        <h3 className="text-center mb-3">Informações do Imovel</h3>
+        <h4 className="text-center mb-4">Informações do Imovel</h4>
       </Col>
       <Col lg="6">
         <FormGroup>
@@ -1180,7 +1182,7 @@ const LocalizacaoDoLote = ({
       </Col>
       <Col lg="12">
         <hr />
-        <h3 className="text-center mb-3">Qualidade Ambiental</h3>
+        <h4 className="text-center mb-4">Qualidade Ambiental</h4>
       </Col>
       <Col lg="6">
         <FormGroup>
@@ -1207,9 +1209,9 @@ const LocalizacaoDoLote = ({
       </Col>
       <Col lg="12">
         <hr />
-        <h3 className="text-center mb-3">
-          Qualidade Ambiental - quanto afeta a produção
-        </h3>
+        <h4 className="text-center mb-4">
+          Qualidade Ambiental - Quanto afeta a produção
+        </h4>
       </Col>
       <Col lg="6">
         <FormGroup>
@@ -1310,7 +1312,7 @@ const LocalizacaoDoLote = ({
           </Input>
         </FormGroup>
       </Col>
-      <Col lg="6">
+      <Col lg="12">
         <FormGroup>
           <label className="form-control-label" htmlFor="what_activity_qa">
             Especifique qual é a atividade{" "}
@@ -1353,7 +1355,7 @@ const LocalizacaoDoLote = ({
           </Input>
         </FormGroup>
       </Col>
-      <Col lg="6">
+      <Col lg="12">
         <FormGroup>
           <label className="form-control-label" htmlFor="what_shape">
             De que forma? <small className="text-red">(obrigatório)</small>
@@ -1370,10 +1372,11 @@ const LocalizacaoDoLote = ({
           />
         </FormGroup>
       </Col>
-      <Col lg="6">
+      <Col lg="12">
         <FormGroup>
           <label className="form-control-label" htmlFor="exchange_experience">
-            Participa espaços troca de experiência
+            Participa de algum espaço para troca de experiência ou treinamento
+            visando melhora da qualidade da sua produção?
           </label>
           <Input
             className="form-control-alternative"
@@ -1404,7 +1407,7 @@ const LocalizacaoDoLote = ({
           />
         </FormGroup>
       </Col>
-      <Col lg="6">
+      <Col lg="12">
         <FormGroup>
           <label className="form-control-label" htmlFor="activities_interest">
             Atividades de interesse
@@ -1423,9 +1426,9 @@ const LocalizacaoDoLote = ({
       </Col>
       <Col lg="12">
         <hr />
-        <h3 className="text-center mb-3">Avaliação do assento regular</h3>
+        <h4 className="text-center mb-4">Avaliações do assentado regular</h4>
       </Col>
-      <Col lg="6">
+      <Col lg="12">
         <FormGroup>
           <label
             className="form-control-label"
@@ -1445,7 +1448,7 @@ const LocalizacaoDoLote = ({
           />
         </FormGroup>
       </Col>
-      <Col lg="6">
+      <Col lg="12">
         <FormGroup>
           <label
             className="form-control-label"
@@ -1465,7 +1468,7 @@ const LocalizacaoDoLote = ({
           />
         </FormGroup>
       </Col>
-      <Col lg="6">
+      <Col lg="12">
         <FormGroup>
           <label
             className="form-control-label"
@@ -1485,7 +1488,7 @@ const LocalizacaoDoLote = ({
           />
         </FormGroup>
       </Col>
-      <Col lg="6">
+      <Col lg="12">
         <FormGroup>
           <label
             className="form-control-label"
@@ -1533,4 +1536,4 @@ const LocalizacaoDoLote = ({
   );
 };
 
-export default LocalizacaoDoLote;
+export default Allotment;

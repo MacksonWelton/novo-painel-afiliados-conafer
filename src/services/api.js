@@ -29,14 +29,13 @@ api.interceptors.response.use(
 
     if (error.response) {
       if (
-        (error.response.status === 401 || error.response.status === 400) &&
+        error.response.status === 401 &&
         access_token
       ) {
         const response = await refreshToken(error);
         return response;
       }
     } else {
-      console.error(error.message);
       setAlert(400, "Ocorreu um erro de conexão com o servidor.", true);
     }
 

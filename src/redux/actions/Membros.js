@@ -31,11 +31,11 @@ export const setMembers = (members) => ({
   },
 });
 
-export const newBeneficiaryIdentity = (input) => async (dispatch) => {
+export const newMember = (input) => async (dispatch) => {
   try {
     const response = await api.post("/api/v1/member/member/", input);
 
-    dispatch(setBeneficiaryIdentity(response.data));
+    dispatch(setMember(response.data));
 
     dispatch(setSubmitMessage(false));
   } catch (err) {
@@ -57,10 +57,10 @@ export const newBeneficiaryIdentity = (input) => async (dispatch) => {
   }
 };
 
-const setBeneficiaryIdentity = (beneficiaryIdentity) => ({
-  type: "SET_BENEFICIARY_IDENTITY",
+const setMember = (member) => ({
+  type: "SET_MEMBER",
   payload: {
-    beneficiaryIdentity,
+    member,
   },
 });
 
@@ -74,11 +74,15 @@ const setSubmitMessage = (submitMessage) => ({
 export const newAllotment = (input, files) => async (dispatch) => {
   const formData = converterDataToFormData(input, files);
   try {
-    await api.post("/api/v1/allotment/allotment/", formData, {
+    const response = await api.post("/api/v1/allotment/allotment/", formData, {
       headers: {
         "Content-Type": `multipart/form-data; boundary=${formData._boundary}`,
       },
     });
+
+    dispatch(setAllotment(response.data));
+    dispatch(setSubmitMessage(false));
+    
   } catch (err) {
     if (!err.response) {
       dispatch(
@@ -97,6 +101,100 @@ export const newAllotment = (input, files) => async (dispatch) => {
     }
   }
 };
+
+const setAllotment = (allotment) => ({
+  type: "SET_ALLOTMENT",
+  payload: {
+    allotment
+  }
+})
+
+export const newAgriculturalSystem = (input) => async (dispatch) => {
+  try {
+    await api.post("/api/v1/agricultural_system/agricultural_system/", input);
+
+    dispatch(setSubmitMessage(false));
+  } catch(err) {
+    if (!err.response) {
+      dispatch(
+        setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
+      );
+    } else if (err.response.status === 400 || err.response.status === 401) {
+      if (err.response.data.detail) {
+        dispatch(setAlert(err.response.status, err.response.data.detail, true));
+      } else {
+        dispatch(setSubmitMessage(Object.values(err.response.data).join(" ")));
+      }
+    } else {
+      dispatch(
+        setAlert(err.response.status, err.response.data.error_description, true)
+      );
+    }
+  }
+}
+
+export const getProductionName = () => async (dispatch) => {
+  try {
+    const response = await api.get("/api/v1/production/name_production/");
+
+    dispatch(setProductionName(response.data))
+  } catch(err) {
+    if (!err.response) {
+      dispatch(
+        setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
+      );
+    } else if (err.response.status === 400 || err.response.status === 401) {
+      if (err.response.data.detail) {
+        dispatch(setAlert(err.response.status, err.response.data.detail, true));
+      } else {
+        dispatch(setSubmitMessage(Object.values(err.response.data).join(" ")));
+      }
+    } else {
+      dispatch(
+        setAlert(err.response.status, err.response.data.error_description, true)
+      );
+    }
+  }
+}
+
+const setProductionName = (productionName) => ({
+  type: "SET_PRODUCTION_NAME",
+  payload: {
+    productionName
+  }
+})
+
+export const getTypeProduction = () => async (dispatch) => {
+  try {
+    const response = await api.get("/api/v1/production/type_production/");
+
+    dispatch(setTypeProduction(response.data));
+  } catch(err) {
+    if (!err.response) {
+      dispatch(
+        setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
+      );
+    } else if (err.response.status === 400 || err.response.status === 401) {
+      if (err.response.data.detail) {
+        dispatch(setAlert(err.response.status, err.response.data.detail, true));
+      } else {
+        dispatch(setSubmitMessage(Object.values(err.response.data).join(" ")));
+      }
+    } else {
+      dispatch(
+        setAlert(err.response.status, err.response.data.error_description, true)
+      );
+    }
+  }
+}
+
+const setTypeProduction = (typeProduction) => ({
+  type: "SET_TYPE_PRODUCTION",
+  payload: {
+    typeProduction
+  }
+})
+
 
 export const getDataMembers = () => async (dispatch) => {
   try {

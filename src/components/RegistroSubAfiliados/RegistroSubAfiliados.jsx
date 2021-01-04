@@ -2,9 +2,8 @@ import HorizontalLabelPositionBelowStepper from "components/HorizontalLabelPosit
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Form } from "reactstrap";
-import EnderecoCorrespondencia from "./components/EnderecoCorrespondencia/EnderecoCorrespondencia";
-import IdentificacaoDoBeneficiario from "./components/IdentificacaoDoBeneficiario/IdentificacaoDoBeneficiario";
-import LocalizacaoDoLote from "./components/LocalizacaoDoLote/LocalizacaoDoLote";
+import Member from "./components/Member/Member";
+import Allotment from "./components/Allotment/Allotment";
 import Moradias from "./components/Moradias/Moradias";
 import DiagnosticoDeSistemasAgrarios from "./components/DiagnosticoDeSistemasAgrarios/DiagnosticoDeSistemasAgrarios";
 import Producao from "./components/Producao/Producao";
@@ -13,13 +12,15 @@ import InfoDoImovel from "./components/InfoDoImovel/InfoDoImovel";
 import QualidadeAmbiental from "./components/QualidadeAmbiental/QualidadeAmbiental";
 import VisitaTecnica from "./components/VisitaTecnica/VisitaTecnica";
 import FotosGeometria from "./components/FotosGeometria/FotosGeometria";
-import { newAllotment, newBeneficiaryIdentity } from "../../redux/actions/Membros";
+import { newAgriculturalSystem, newAllotment, newMember } from "../../redux/actions/Membros";
 import { setResidents } from "../../redux/actions/Registro";
 import { setDiagnosisOfAgriculturalSystems } from "../../redux/actions/Registro";
 import { setProduction } from "../../redux/actions/Registro";
 
 import FormContext from "./context";
 import { getUsersAffiliation } from "redux/actions/UsuariosAfiliacao";
+import Improvement from "./components/Improvement/Improvement";
+import Transport from "components/Transport/Transport";
 
 const RegistroSubAfiliados = ({ title }) => {
   const dispatch = useDispatch();
@@ -67,14 +68,14 @@ const RegistroSubAfiliados = ({ title }) => {
     }
   };
 
-  const [inputBeneficiaryIdentity, setInputBeneficiaryIdentity] = useState({
+  const [inputMember, setInputMember] = useState({
     affiliation: "",
     name: "João da Silva",
     email: "teste@teste.com",
     cpf: "121.911.500-20",
     rg: "55555",
     nis: "44444",
-    marital_status: "",
+    marital_status: "Solteiro()",
     mother_name: "Maria da Silva",
     spouse_name: "",
     spouse_cpf: "",
@@ -104,7 +105,7 @@ const RegistroSubAfiliados = ({ title }) => {
   });
 
   const [inputAllotment, setInputAllotment] = useState({
-    member: "97a2be13-eb10-4124-9f2b-6f71ead05c71",
+    member: "",
     bioma: "",
     operational_core: "Seaprof",
     allotment_state: "",
@@ -136,10 +137,10 @@ const RegistroSubAfiliados = ({ title }) => {
     oxen: 5,
     equine: 5,
     mules: 5,
-    documentation_area: "",
+    documentation_area: 0,
     property_name: "Teste",
     georeferenced: "",
-    property_ownership: "",
+    property_ownership: "Teste",
     domain_title: "",
     ccu:"",
     ccru: "",
@@ -147,8 +148,8 @@ const RegistroSubAfiliados = ({ title }) => {
     sncr: "3455",
     incra_certificate: "47589",
     join_pra: "",
-    alternatives_regularize_deficit: "",
-    how_want_make_up_deficit_area: "",
+    alternatives_regularize_deficit: "teste",
+    how_want_make_up_deficit_area: "teste",
     has_tac_with_app: "",
     has_infractions_committed: "",
     property_has_arvn: "",
@@ -207,43 +208,30 @@ const RegistroSubAfiliados = ({ title }) => {
 
   const [resident, setResident] = useState();
 
-  const [inputAddress, setInputAddress] = useState({
-    address: "",
-    number: "",
-    city: "",
-    district: "",
-    cep: "",
-    state: "",
-    location_zone: "",
-    email: "",
-    phone: "",
-    alternative_phone: "",
-    country: "",
-  });
-
   const [
     inputDiagnosisOfAgriculturalSystems,
     setInputDiagnosisOfAgriculturalSystems,
   ] = useState({
+    allotment: "",
     income_off_lot: "",
-    government_assistance: undefined,
-    housing_policy: undefined,
+    government_assistance: "",
+    housing_policy: "",
     financing_line: "",
-    has_rural_communication: undefined,
+    has_rural_communication: "",
     rural_communication: "",
     final_destination_waste: "",
     has_basic_sanitation: "",
     schools_transport: "",
     hire_employees: "",
-    technical_assistance: undefined,
-    reminds_burning_in_lot: undefined,
-    has_water_access: undefined,
-    year_water_access: undefined,
-    riparian_forest: undefined,
-    has_energy: undefined,
+    technical_assistance: "",
+    reminds_burning_in_lot: "",
+    has_water_access: "",
+    year_water_access: "",
+    riparian_forest: "",
+    has_energy: "",
     network_type: "",
-    energy_meets_production: undefined,
-    complements_energy: undefined,
+    energy_meets_production: "",
+    complements_energy: "",
     uses_any_these: "",
     want_to_get: "",
     potable_water: "",
@@ -255,37 +243,67 @@ const RegistroSubAfiliados = ({ title }) => {
     how_uses_rainwater: "",
   });
 
-  const [inputProduction, setInputProduction] = useState({
-    thirst: "",
-    own_planting: "",
-    native_forest: "",
-    forest: "",
-    fallow_capoeira: "",
-    native_pasture: "",
-    planted_pasture: "",
-    degraded_area: "",
-    batch_partnership: "",
-    third_party_partnership: "",
-    total: "",
-    has_garden: undefined,
-    grow_medicinal_plants: undefined,
-    has_own_planting: undefined,
-    plantations: [],
-    production_system: "",
-    planting_type: "",
-    management: "",
-    planted_area: "",
-    amount_crops: "",
-    wild_animals_sighted_lot: "",
-    wild_nimals_cause_problems: undefined,
-    oxen: "",
-    equine: "",
-    mules: "",
-    improvements: [],
+  const [inputAnimalProduction, setInputAnimalProduction] = useState({
+    allotment: "",
+    production: "",
     annual_production: "",
-    self_consumption: "",
-    annual_marketed: "",
+    price_per_kg: "",
+    annual_marketed: 0,
+    how_much_sell: "",
+    seedling_origin: "",
+    creole_seed: "",
+    pest_problems: "",
+    irrigated_area: "",
+    generates_waste: "",
   });
+
+  const [inputVegetables, setInputVegetables] = useState({
+    allotment: "",
+    production: "",
+    annual_production: 0,
+    price_per_kg: 0,
+    annual_marketed: 0,
+    how_much_sell: 0,
+    seedling_origin: "",
+    creole_seed: "",
+    pest_problems: "",
+    irrigated_area: 0,
+    generates_waste: ""
+  });
+
+  const [inputPsiculture, setInputPsiculture] = useState({
+    allotment: "",
+    type_psiculture: "",
+    management: "",
+    harvesting_systems: "",
+    food_supplementation: 0,
+    annual_food_supplementation: 0,
+    goal: "",
+    fish_pay: "",
+    reservoir_size: "",
+    meat_production: "",
+    purchase_price: "",
+    commercialized_production: "",
+    average_price: "",
+    mai_marketing_channels: "",
+  });
+
+  const [inputImprovement, setInputImprovement] = useState({
+    allotment: "",
+    improvement: "",
+    type_improvement: "",
+    footage: 0,
+    age_improvement: ""
+  });
+
+  const [inputTransport, setInputTransport] = useState({
+  allotment: "",
+  means_transport: "",
+  own_road_transport_cost: "",
+  waterway_transportation_cost: "",
+  road_chartered_transport_cost: "",
+  waterway_chartered_transportation_cost: "",
+  })
 
   const [inputDocumentation, setInputDocumentation] = useState({
     documentation_area: "",
@@ -360,11 +378,9 @@ const RegistroSubAfiliados = ({ title }) => {
     "Id. do Beneficiário",
     "Local do Lote",
     "Moradias",
-    "Id. da Unid. Familiar",
-    "Endereço",
     "Diagnóstico de Sis. Agrários",
     "Produção",
-    "Documentação",
+    "Benfeitorias",
     "Info. do Imóvel",
     "Qual. Ambiental",
     "Visita Técnica",
@@ -382,15 +398,15 @@ const RegistroSubAfiliados = ({ title }) => {
     switch (stepIndex) {
       case 0:
         return (
-          <IdentificacaoDoBeneficiario
+          <Member
             usersAffiliation={usersAffiliation}
-            inputBeneficiaryIdentity={inputBeneficiaryIdentity}
-            setInputBeneficiaryIdentity={setInputBeneficiaryIdentity}
+            inputMember={inputMember}
+            setInputMember={setInputMember}
           />
         );
       case 1:
         return (
-          <LocalizacaoDoLote
+          <Allotment
             inputAllotment={inputAllotment}
             setInputAllotment={setInputAllotment}
             fileAllotment={fileAllotment}
@@ -406,13 +422,6 @@ const RegistroSubAfiliados = ({ title }) => {
         );
       case 3:
         return (
-          <EnderecoCorrespondencia
-            inputAddress={inputAddress}
-            setInputAddress={setInputAddress}
-          />
-        );
-      case 4:
-        return (
           <DiagnosticoDeSistemasAgrarios
             inputDiagnosisOfAgriculturalSystems={
               inputDiagnosisOfAgriculturalSystems
@@ -422,16 +431,27 @@ const RegistroSubAfiliados = ({ title }) => {
             }
           />
         );
-      case 5:
+      case 4:
         return (
           <Producao
-            inputProduction={inputProduction}
-            setInputProduction={setInputProduction}
+            inputAnimalProduction={inputAnimalProduction} 
+            setInputAnimalProduction={setInputAnimalProduction}
+            inputVegetables={inputVegetables}
+            setInputVegetables={setInputVegetables}
+            inputPsiculture={inputPsiculture}
+            setInputPsiculture={setInputPsiculture}
           />
         );
+        case 5:
+          return (
+            <Improvement
+            inputImprovement={inputImprovement}
+            setInputImprovement={setInputImprovement}
+            />
+          );
       case 6:
         return (
-          <Documentacao
+          <Transport
             inputDocumentation={inputDocumentation}
             setInputDocumentation={setInputDocumentation}
           />
@@ -474,21 +494,21 @@ const RegistroSubAfiliados = ({ title }) => {
 
     switch (activeStep) {
       case 0:
-        // dispatch(newBeneficiaryIdentity(inputBeneficiaryIdentity));
+        // dispatch(newMember(inputMember));
         break;
       case 1:
-        dispatch(newAllotment(inputAllotment, fileAllotment));
+        // dispatch(newAllotment(inputAllotment, fileAllotment));
         break;
       case 2:
-        dispatch(setResidents(resident, house));
+        // dispatch(setResidents(resident, house));
         break;
       case 3:
-        dispatch(
-          setDiagnosisOfAgriculturalSystems(inputDiagnosisOfAgriculturalSystems)
-        );
+        // dispatch(
+        //   newAgriculturalSystem(inputDiagnosisOfAgriculturalSystems)
+        // );
         break;
       case 4:
-        dispatch(setProduction(inputProduction));
+        dispatch(setProduction());
         break;
       default:
         return;

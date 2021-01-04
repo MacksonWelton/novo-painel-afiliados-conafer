@@ -1,5 +1,5 @@
 import React, { useState, Fragment } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Button } from "reactstrap";
 
 import Moradia from "./components/Moradia/Moradia";
@@ -11,8 +11,11 @@ import { setHouses, deleteHouse, setResidents } from "../../../../redux/actions/
 
 const Moradias = () => {
   const dispatch = useDispatch();
-  
 
+  const member = useSelector(
+    (state) => state.MembersReducer.member
+  );
+  
   let resident;
   let house;
 

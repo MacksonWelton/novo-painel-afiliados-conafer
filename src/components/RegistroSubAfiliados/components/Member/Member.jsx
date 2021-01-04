@@ -5,16 +5,16 @@ import { findZipCode } from "utils/findZipCode";
 import { cpfValidator } from "utils/validators";
 import { clearInput } from "utils/validators";
 
-const IdentificacaoDoBeneficiario = ({
-  inputBeneficiaryIdentity,
-  setInputBeneficiaryIdentity,
+const Member = ({
+  inputMember,
+  setInputMember,
   usersAffiliation,
 }) => {
   const [invalidInput, setInvalidInput] = useState(false);
 
   const handleChangeInputZipCode = (res) => {
-    setInputBeneficiaryIdentity({
-      ...inputBeneficiaryIdentity,
+    setInputMember({
+      ...inputMember,
       city: res.city,
       state: res.state,
       address: res.street,
@@ -23,7 +23,7 @@ const IdentificacaoDoBeneficiario = ({
 
   const handleChangeInput = (event) => {
     const { name, value } = event.target;
-    setInputBeneficiaryIdentity({ ...inputBeneficiaryIdentity, [name]: value });
+    setInputMember({ ...inputMember, [name]: value });
   };
 
   return (
@@ -41,7 +41,7 @@ const IdentificacaoDoBeneficiario = ({
             id="affiliation"
             name="affiliation"
             onChange={handleChangeInput}
-            value={inputBeneficiaryIdentity.affiliation}
+            value={inputMember.affiliation}
             required
           >
             <option value="" hidden>
@@ -67,7 +67,7 @@ const IdentificacaoDoBeneficiario = ({
             id="name"
             title="Digite seu nome completo"
             placeholder="Ex: João da Silva"
-            value={inputBeneficiaryIdentity.name}
+            value={inputMember.name}
             onChange={handleChangeInput}
             maxLength="255"
             minLength="1"
@@ -84,7 +84,7 @@ const IdentificacaoDoBeneficiario = ({
             className="form-control-alternative"
             type="text"
             name="cpf"
-            value={mask(inputBeneficiaryIdentity.cpf, ["999.999.999-99"])}
+            value={mask(inputMember.cpf, ["999.999.999-99"])}
             placeholder="123.567.112-99"
             onChange={(e) => {
               handleChangeInput(e);
@@ -116,7 +116,7 @@ const IdentificacaoDoBeneficiario = ({
             name="rg"
             title="RG"
             placeholder="Ex: 0000000"
-            value={inputBeneficiaryIdentity.rg}
+            value={inputMember.rg}
             onChange={handleChangeInput}
           />
         </FormGroup>
@@ -132,7 +132,7 @@ const IdentificacaoDoBeneficiario = ({
             name="nis"
             title="NIS"
             placeholder="Ex: 0000000"
-            value={inputBeneficiaryIdentity.nis}
+            value={inputMember.nis}
             maxLength="14"
             onChange={handleChangeInput}
           />
@@ -149,7 +149,7 @@ const IdentificacaoDoBeneficiario = ({
             name="email"
             title="Email"
             placeholder="Ex: email@conafer.org.br"
-            value={inputBeneficiaryIdentity.email}
+            value={inputMember.email}
             onChange={handleChangeInput}
             maxLength="254"
           />
@@ -166,7 +166,7 @@ const IdentificacaoDoBeneficiario = ({
             name="phone"
             title="Telefone"
             placeholder="Ex: (00) 00000-0000"
-            value={mask(inputBeneficiaryIdentity.phone, ["(99) 99999-9999"])}
+            value={mask(inputMember.phone, ["(99) 99999-9999"])}
             onChange={handleChangeInput}
             maxLength="17"
             minLength="1"
@@ -184,7 +184,7 @@ const IdentificacaoDoBeneficiario = ({
             name="alternative_phone"
             title="Telefone Alternativo"
             placeholder="Ex: (00) 00000-0000"
-            value={mask(inputBeneficiaryIdentity.alternative_phone, [
+            value={mask(inputMember.alternative_phone, [
               "(99) 99999-9999",
             ])}
             onChange={handleChangeInput}
@@ -203,7 +203,7 @@ const IdentificacaoDoBeneficiario = ({
             name="collection_code"
             title="Código de Coleta"
             placeholder="Ex: 0000"
-            value={inputBeneficiaryIdentity.collection_code}
+            value={inputMember.collection_code}
             onChange={handleChangeInput}
           />
         </FormGroup>
@@ -219,7 +219,7 @@ const IdentificacaoDoBeneficiario = ({
             name="citizenship"
             title="Naturalidade"
             placeholder="Ex: Maceió - AL"
-            value={inputBeneficiaryIdentity.citizenship}
+            value={inputMember.citizenship}
             onChange={handleChangeInput}
             maxLength="30"
             minLength="1"
@@ -238,7 +238,7 @@ const IdentificacaoDoBeneficiario = ({
             name="rb_status"
             title="Status na RB"
             placeholder="Ex: Titulado"
-            value={inputBeneficiaryIdentity.rb_status}
+            value={inputMember.rb_status}
             onChange={handleChangeInput}
           />
         </FormGroup>
@@ -255,7 +255,7 @@ const IdentificacaoDoBeneficiario = ({
             name="incra_area"
             title="Ocupa área destinada pelo Incra"
             placeholder="Ocupa área destinada pelo Incra"
-            value={inputBeneficiaryIdentity.incra_area}
+            value={inputMember.incra_area}
             onChange={handleChangeInput}
             required
           >
@@ -282,7 +282,7 @@ const IdentificacaoDoBeneficiario = ({
             name="status"
             title="Status"
             placeholder="Ex: Beneficiário"
-            value={inputBeneficiaryIdentity.status}
+            value={inputMember.status}
             onChange={handleChangeInput}
           />
         </FormGroup>
@@ -298,7 +298,7 @@ const IdentificacaoDoBeneficiario = ({
             name="marital_status"
             title="Estado Civil"
             placeholder="Ex: Solteiro"
-            value={inputBeneficiaryIdentity.marital_status}
+            value={inputMember.marital_status}
             onChange={handleChangeInput}
             required
           >
@@ -324,7 +324,7 @@ const IdentificacaoDoBeneficiario = ({
             name="mother_name"
             title="Nome da Mãe"
             placeholder="Ex: Maria da Silva"
-            value={inputBeneficiaryIdentity.mother_name}
+            value={inputMember.mother_name}
             onChange={handleChangeInput}
             maxLength="255"
             minLength="1"
@@ -332,8 +332,8 @@ const IdentificacaoDoBeneficiario = ({
           />
         </FormGroup>
       </Col>
-      {(inputBeneficiaryIdentity.marital_status === "União Estável" ||
-        inputBeneficiaryIdentity.marital_status === "Casado(a)") && (
+      {(inputMember.marital_status === "União Estável" ||
+        inputMember.marital_status === "Casado(a)") && (
         <>
           <Col lg="6">
             <FormGroup>
@@ -346,7 +346,7 @@ const IdentificacaoDoBeneficiario = ({
                 name="spouse_name"
                 title="Nome do Cônjuge"
                 placeholder="Ex: Fernanda da Silva"
-                value={inputBeneficiaryIdentity.spouse_name}
+                value={inputMember.spouse_name}
                 onChange={handleChangeInput}
                 required
               />
@@ -363,7 +363,7 @@ const IdentificacaoDoBeneficiario = ({
                 name="spouse_cpf"
                 title="CPF do Cônjuge"
                 placeholder="Ex: 123.567.112-99"
-                value={mask(unMask(inputBeneficiaryIdentity.spouse_cpf), [
+                value={mask(unMask(inputMember.spouse_cpf), [
                   "999.999.999-99",
                 ])}
                 onChange={handleChangeInput}
@@ -385,7 +385,7 @@ const IdentificacaoDoBeneficiario = ({
             name="nationality"
             title="Nacionalidade"
             placeholder="Ex: Brasileiro"
-            value={inputBeneficiaryIdentity.nationality}
+            value={inputMember.nationality}
             maxLength="30"
             minLength="1"
             onChange={handleChangeInput}
@@ -409,7 +409,7 @@ const IdentificacaoDoBeneficiario = ({
             name="operational_core"
             title="Núcleo Operacional da ATER (Município)"
             placeholder="Ex: Seaprof"
-            value={inputBeneficiaryIdentity.operational_core}
+            value={inputMember.operational_core}
             onChange={handleChangeInput}
           />
         </FormGroup>
@@ -425,7 +425,7 @@ const IdentificacaoDoBeneficiario = ({
             name="location_zone"
             title="Zona de Localização"
             placeholder="Ex: Zona Rural"
-            value={inputBeneficiaryIdentity.location_zone}
+            value={inputMember.location_zone}
             onChange={handleChangeInput}
             maxLength="17"
           />
@@ -442,7 +442,7 @@ const IdentificacaoDoBeneficiario = ({
             name="cep"
             title="CEP"
             placeholder="Ex: 57.160-000"
-            value={mask(inputBeneficiaryIdentity.cep, ["99.999-999"])}
+            value={mask(inputMember.cep, ["99.999-999"])}
             onChange={handleChangeInput}
             onBlur={async (e) => {
               const response = await findZipCode(e);
@@ -466,7 +466,7 @@ const IdentificacaoDoBeneficiario = ({
             name="address"
             title="Endereço"
             placeholder="Ex: Av. São Paulo"
-            value={inputBeneficiaryIdentity.address}
+            value={inputMember.address}
             onChange={handleChangeInput}
             maxLength="17"
           />
@@ -483,7 +483,7 @@ const IdentificacaoDoBeneficiario = ({
             name="district"
             title="Bairro"
             placeholder="Ex: Centro"
-            value={inputBeneficiaryIdentity.district}
+            value={inputMember.district}
             onChange={handleChangeInput}
             maxLength="17"
             required
@@ -501,7 +501,7 @@ const IdentificacaoDoBeneficiario = ({
             name="number"
             title="Número"
             placeholder="Ex: 123"
-            value={inputBeneficiaryIdentity.number}
+            value={inputMember.number}
             onChange={handleChangeInput}
             max="2147483647"
             min="0"
@@ -520,7 +520,7 @@ const IdentificacaoDoBeneficiario = ({
             name="city"
             title="Cidade"
             placeholder="Ex: São Paulo"
-            value={inputBeneficiaryIdentity.city}
+            value={inputMember.city}
             onChange={handleChangeInput}
             maxLength="17"
             required
@@ -536,7 +536,7 @@ const IdentificacaoDoBeneficiario = ({
             className="form-control-alternative"
             type="select"
             onChange={handleChangeInput}
-            value={inputBeneficiaryIdentity.state}
+            value={inputMember.state}
             title="Estado"
             name="state"
             id="state"
@@ -584,7 +584,7 @@ const IdentificacaoDoBeneficiario = ({
             name="country"
             title="País"
             placeholder="Ex: Brasil"
-            value={inputBeneficiaryIdentity.country}
+            value={inputMember.country}
             onChange={handleChangeInput}
             maxLength="17"
           />
@@ -602,7 +602,7 @@ const IdentificacaoDoBeneficiario = ({
             name="year_residence"
             title="Anos que reside na região"
             placeholder="Ex: 6"
-            value={inputBeneficiaryIdentity.year_residence}
+            value={inputMember.year_residence}
             onChange={handleChangeInput}
             max="2147483647"
             min="0"
@@ -621,7 +621,7 @@ const IdentificacaoDoBeneficiario = ({
             type="date"
             name="concession_validity"
             title="Validade da Concessão"
-            value={inputBeneficiaryIdentity.concession_validity}
+            value={inputMember.concession_validity}
             onChange={handleChangeInput}
           />
         </FormGroup>
@@ -635,7 +635,7 @@ const IdentificacaoDoBeneficiario = ({
             className="form-control-alternative"
             type="select"
             onChange={handleChangeInput}
-            value={inputBeneficiaryIdentity.always_resided}
+            value={inputMember.always_resided}
             title="Sempre residiu no meio rural?"
             name="always_resided"
             id="always_resided"
@@ -661,7 +661,7 @@ const IdentificacaoDoBeneficiario = ({
             className="form-control-alternative"
             type="select"
             onChange={handleChangeInput}
-            value={inputBeneficiaryIdentity.beneficiary_knows_limit}
+            value={inputMember.beneficiary_knows_limit}
             title="O beneficiário conhece o limite do lote?"
             name="beneficiary_knows_limit"
             id="beneficiary_knows_limit"
@@ -685,7 +685,7 @@ const IdentificacaoDoBeneficiario = ({
             className="form-control-alternative"
             type="select"
             onChange={handleChangeInput}
-            value={inputBeneficiaryIdentity.lot_has_marking}
+            value={inputMember.lot_has_marking}
             title="Lote tem marco que identifica os limites?"
             name="lot_has_marking"
             id="lot_has_marking"
@@ -709,7 +709,7 @@ const IdentificacaoDoBeneficiario = ({
             className="form-control-alternative"
             type="select"
             onChange={handleChangeInput}
-            value={inputBeneficiaryIdentity.has_contract}
+            value={inputMember.has_contract}
             title="O beneficiário tem o contrato/termo de concessão de uso?"
             name="has_contract"
             id="select"
@@ -727,4 +727,4 @@ const IdentificacaoDoBeneficiario = ({
   );
 };
 
-export default IdentificacaoDoBeneficiario;
+export default Member;

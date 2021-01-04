@@ -44,7 +44,7 @@ const InfoGeraisUnidadeProducaoFamiliar = ({
             value={inputGeneralFamilyUnitInfo.state}
             title="Estado de Origem do Responsável"
             name="state"
-            id="select"
+            id="state"
           >
             <option value="AC">Acre</option>
             <option value="AL">Alagoas</option>
@@ -138,7 +138,7 @@ const InfoGeraisUnidadeProducaoFamiliar = ({
             value={inputGeneralFamilyUnitInfo.always_resided}
             title="Sempre residiu no meio rural?"
             name="always_resided"
-            id="select"
+            id="always_resided"
             required
           >
             <option value={undefined} hidden>
