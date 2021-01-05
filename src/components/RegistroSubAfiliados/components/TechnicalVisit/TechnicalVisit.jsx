@@ -2,13 +2,13 @@ import React from "react";
 import { Col, FormGroup, Input, Row } from "reactstrap";
 
 const TechnicalVisit = ({
-  inputTechicalVisit,
+  inputTechnicalVisit,
   setInputTechnicalVisit
 }) => {
 
   const handleChangeInput = (event) => {
     const {name, value} = event.target;
-    setInputTechnicalVisit({...inputTechicalVisit, [name]: value});
+    setInputTechnicalVisit({...inputTechnicalVisit, [name]: value});
   }
 
   return (
@@ -24,7 +24,8 @@ const TechnicalVisit = ({
             name="informant_name"
             id="informant_name"
             title="Nome do informante"
-            value={inputTechicalVisit.informant_name}
+            placeholder="Ex: José Antônio"
+            value={inputTechnicalVisit.informant_name}
             onChange={handleChangeInput}
             required
             maxLength="255"
@@ -32,7 +33,7 @@ const TechnicalVisit = ({
           />
         </FormGroup>
       </Col>
-      <Col lg="6">
+      <Col lg="12">
         <FormGroup>
           <label className="form-control-label" htmlFor="conversation_participants">
           Participantes da conversa
@@ -43,7 +44,8 @@ const TechnicalVisit = ({
             name="conversation_participants"
             id="conversation_participants"
             title="Participantes da conversa"
-            value={inputTechicalVisit.conversation_participants}
+            placeholder="Ex: Maria da Silva, Fernanda dos Santos, Atônio Ferreira"
+            value={inputTechnicalVisit.conversation_participants}
             onChange={handleChangeInput}
             required
             maxLength="255"
@@ -55,4 +57,4 @@ const TechnicalVisit = ({
   );
 };
 
-export const TechnicalVisit;
+export default TechnicalVisit;

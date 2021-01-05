@@ -16,14 +16,15 @@ const Transport = ({
       <Col lg="6">
         <FormGroup>
           <label className="form-control-label" htmlFor="means_transport">
-            Principal meio de transporte{" "}<small className="text-red">(obrigatório)</small>
+            Principal meio de transporte da produção{" "}<small className="text-red">(obrigatório)</small>
           </label>
           <Input
             className="form-control-alternative"
             type="text"
             name="means_transport"
             id="means_transport"
-            title="Principal meio de transporte"
+            title="Principal meio de transporte da produção"
+            placeholder="Ex: Veículo próprio"
             value={inputTransport.means_transport}
             onChange={handleChangeInput}
             required
@@ -43,6 +44,7 @@ const Transport = ({
             name="own_road_transport_cost"
             id="own_road_transport_cost"
             title="Custo com transporte rodoviário próprio"
+            placeholder="Ex: R$ 100,00"
             value={inputTransport.own_road_transport_cost}
             onChange={handleChangeInput}
           />
@@ -59,6 +61,7 @@ const Transport = ({
             name="waterway_transportation_cost	"
             id="waterway_transportation_cost	"
             title="Custo com transporte hidroviário próprio"
+            placeholder="Ex: R$ 150,00"
             value={inputTransport.waterway_transportation_cost	}
             onChange={handleChangeInput}
           />
@@ -75,6 +78,7 @@ const Transport = ({
             name="road_chartered_transport_cost"
             id="road_chartered_transport_cost"
             title="Custo com transporte fretado rodoviário"
+            placeholder="Ex: R$ 150,00"
             value={inputTransport.road_chartered_transport_cost}
             onChange={handleChangeInput}
           />
@@ -91,6 +95,7 @@ const Transport = ({
             name="waterway_chartered_transportation_cost"
             id="waterway_chartered_transportation_cost"
             title="Custo transporte fretado hidroviário"
+            placeholder="Ex: R$ 100,00"
             value={inputTransport.waterway_chartered_transportation_cost}
             onChange={handleChangeInput}
           />

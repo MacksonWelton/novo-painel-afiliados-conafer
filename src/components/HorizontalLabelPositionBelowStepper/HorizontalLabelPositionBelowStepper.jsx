@@ -11,7 +11,6 @@ import { useSelector } from "react-redux";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
-    orientation: "vertical",
   },
   stepper: {
     display: "flex",
@@ -50,11 +49,11 @@ function HorizontalLabelPositionBelowStepper({
     <div className={classes.root}>
       <Stepper
         activeStep={activeStep}
-        className="d-flex flex-wrap p-5"
-        alternativeLabel
+        orientation="horizontal"
+        className="d-flex align-items-end flex-wrap"
       >
         {steps.map((label) => (
-          <Step key={label}>
+          <Step key={label} className="mt-3">
             <StepLabel>{label}</StepLabel>
           </Step>
         ))}

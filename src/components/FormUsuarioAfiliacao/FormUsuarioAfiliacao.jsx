@@ -54,9 +54,8 @@ const FormUsuarioAfiliacao = ({
                 ? files.profilepic.fileName
                 : "Selecione uma Foto"}
               <Input
-                className="form-control-alternative"
+                className="form-control-alternative d-none"
                 type="file"
-                style={{ display: "none" }}
                 name="profilepic"
                 onChange={handleChangeInputFile}
               />

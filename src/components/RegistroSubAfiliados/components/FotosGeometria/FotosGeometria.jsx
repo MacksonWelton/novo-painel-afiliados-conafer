@@ -99,9 +99,8 @@ const FotosGeometria = ({
               ? inputPhotosAndGeometry.front_domain_title.name
               : "Selecione a Frente do Documento"}
             <Input
-              className="form-control-alternative"
+              className="form-control-alternative d-none"
               type="file"
-              style={{ display: "none" }}
               name="front_domain_title"
               onChange={handleChangeInputFile}
             />
@@ -120,10 +119,9 @@ const FotosGeometria = ({
               ? inputPhotosAndGeometry.back_domain_title.name
               : "Selecione Atrás do Documento"}
             <Input
-              className="form-control-alternative"
+              className="form-control-alternative d-none"
               type="file"
               name="back_domain_title"
-              style={{ display: "none" }}
               onChange={handleChangeInputFile}
             />
             {inputPhotosAndGeometry.back_domain_title && (
@@ -147,9 +145,8 @@ const FotosGeometria = ({
               ? inputPhotosAndGeometry.front_nesting_card.name
               : "Selecione a Frente do Documento"}
             <Input
-              className="form-control-alternative"
+              className="form-control-alternative d-none"
               type="file"
-              style={{ display: "none" }}
               name="front_nesting_card"
               onChange={handleChangeInputFile}
             />
@@ -168,10 +165,9 @@ const FotosGeometria = ({
               ? inputPhotosAndGeometry.back_nesting_card.name
               : "Selecione Atrás do Documento"}
             <Input
-              className="form-control-alternative"
+              className="form-control-alternative d-none"
               type="file"
               name="back_nesting_card"
-              style={{ display: "none" }}
               onChange={handleChangeInputFile}
             />
             {inputPhotosAndGeometry.back_nesting_card && (
@@ -197,9 +193,8 @@ const FotosGeometria = ({
               ? inputPhotosAndGeometry.georeferencing.name
               : "Selecione o Documento"}
             <Input
-              className="form-control-alternative"
+              className="form-control-alternative d-none"
               type="file"
-              style={{ display: "none" }}
               name="georeferencing"
               onChange={handleChangeInputFile}
             />
@@ -226,9 +221,8 @@ const FotosGeometria = ({
               ? inputPhotosAndGeometry.front_beneficiary_rg.name
               : "Selecione a Frente do Documento"}
             <Input
-              className="form-control-alternative"
+              className="form-control-alternative d-none"
               type="file"
-              style={{ display: "none" }}
               name="front_beneficiary_rg"
               onChange={handleChangeInputFile}
             />
@@ -247,10 +241,9 @@ const FotosGeometria = ({
               ? inputPhotosAndGeometry.back_beneficiary_rg.name
               : "Selecione Atrás do Documento"}
             <Input
-              className="form-control-alternative"
+              className="form-control-alternative d-none"
               type="file"
               name="back_beneficiary_rg"
-              style={{ display: "none" }}
               onChange={handleChangeInputFile}
             />
           </label>

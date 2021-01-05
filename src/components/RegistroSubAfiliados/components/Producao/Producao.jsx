@@ -128,10 +128,11 @@ const Producao = ({
           </label>
           <Input
             className="form-control-alternative"
-            type="number"
+            type="text"
             name="price_per_kg"
             id="price_per_kg"
             title="Preço por Kg"
+            placeholder="Ex: R$ 50,00"
             value={inputVegetables.price_per_kg}
             onChange={handleChangeInputVegetables}
             min="0"
@@ -166,6 +167,7 @@ const Producao = ({
             name="how_much_sell"
             id="how_much_sell"
             title="Quanto vende (kg)"
+            placeholder="Ex: R$ 70,00"
             value={inputVegetables.how_much_sell}
             onChange={handleChangeInputVegetables}
             min="0"
@@ -323,6 +325,7 @@ const Producao = ({
             type="text"
             name="type_psiculture"
             id="type_psiculture"
+            placeholder="Ex: Tanque Escavado"
             value={inputPsiculture.type_psiculture}
             onChange={handleChangeInputPsiculture}
             required
@@ -341,6 +344,7 @@ const Producao = ({
             type="text"
             name="management"
             id="management"
+            placeholder="Extensivo"
             value={inputPsiculture.management}
             onChange={handleChangeInputPsiculture}
             required
@@ -360,6 +364,7 @@ const Producao = ({
             type="text"
             name="harvesting_systems"
             id="harvesting_systems"
+            placeholder="Ex: Redes"
             value={inputPsiculture.harvesting_systems}
             onChange={handleChangeInputPsiculture}
             required
@@ -371,14 +376,15 @@ const Producao = ({
       <Col lg="6">
         <FormGroup>
           <label className="form-control-label" htmlFor="food_supplementation">
-            Complementação alimentar (quanto gasta em R$){" "}
+            Complementação alimentar{" "}
             <small className="text-red">(obrigatório)</small>
           </label>
           <Input
             className="form-control-alternative"
-            type="number"
+            type="text"
             name="food_supplementation"
             id="food_supplementation"
+            placeholder="Ex: Ração"
             value={inputPsiculture.food_supplementation}
             onChange={handleChangeInputPsiculture}
             required
@@ -397,9 +403,10 @@ const Producao = ({
           </label>
           <Input
             className="form-control-alternative"
-            type="number"
+            type="text"
             name="annual_food_supplementation"
             id="annual_food_supplementation"
+            placeholder="Ex: R$ 1.500,00"
             value={inputPsiculture.annual_food_supplementation}
             onChange={handleChangeInputPsiculture}
             required
@@ -410,7 +417,7 @@ const Producao = ({
       <Col lg="6">
         <FormGroup>
           <label className="form-control-label" htmlFor="goal">
-            Complementação alimentar anual (quanto gasta em R$){" "}
+            Finalidade{" "}
             <small className="text-red">(obrigatório)</small>
           </label>
           <Input
@@ -418,6 +425,7 @@ const Producao = ({
             type="text"
             name="goal"
             id="goal"
+            placeholder="Ex: Venda"
             value={inputPsiculture.goal}
             onChange={handleChangeInputPsiculture}
             required
@@ -451,7 +459,7 @@ const Producao = ({
       <Col lg="6">
         <FormGroup>
           <label className="form-control-label" htmlFor="reservoir_size">
-          Tamanho do reservatório <small className="text-red">(obrigatório)</small>
+          Tamanho do reservatório (m²) <small className="text-red">(obrigatório)</small>
           </label>
           <Input
             className="form-control-alternative"
@@ -469,13 +477,15 @@ const Producao = ({
       <Col lg="6">
         <FormGroup>
           <label className="form-control-label" htmlFor="purchase_price">
-          Preço compra (kg) <small className="text-red">(obrigatório)</small>
+          Preço compra (kg) no mercado local{" "}
+          <small className="text-red">(obrigatório)</small>
           </label>
           <Input
             className="form-control-alternative"
             type="text"
             name="purchase_price"
             id="purchase_price"
+            placeholder="Ex: R$ 35,00"
             value={inputPsiculture.purchase_price}
             onChange={handleChangeInputPsiculture}
             required
@@ -486,7 +496,8 @@ const Producao = ({
       <Col lg="6">
         <FormGroup>
           <label className="form-control-label" htmlFor="meat_production">
-          Produção carne (kg) <small className="text-red">(obrigatório)</small>
+          Produção carne (kg/ano){" "}
+          <small className="text-red">(obrigatório)</small>
           </label>
           <Input
             className="form-control-alternative"
@@ -504,7 +515,8 @@ const Producao = ({
       <Col lg="6">
         <FormGroup>
           <label className="form-control-label" htmlFor="commercialized_production">
-          Produção comercializada <small className="text-red">(obrigatório)</small>
+          Produção comercializada (Kg/ano){" "}
+          <small className="text-red">(obrigatório)</small>
           </label>
           <Input
             className="form-control-alternative"
@@ -522,13 +534,15 @@ const Producao = ({
       <Col lg="6">
         <FormGroup>
           <label className="form-control-label" htmlFor="average_price">
-          Preço médio (kg) <small className="text-red">(obrigatório)</small>
+          Preço médio (kg) na comercialização{" "}
+          <small className="text-red">(obrigatório)</small>
           </label>
           <Input
             className="form-control-alternative"
             type="text"
             name="average_price"
             id="average_price"
+            placeholder="Ex: R$ 40,00"
             value={inputPsiculture.average_price}
             onChange={handleChangeInputPsiculture}
             required
@@ -546,6 +560,7 @@ const Producao = ({
             type="text"
             name="mai_marketing_channels"
             id="mai_marketing_channels"
+            placeholder="Ex: Feira Livre"
             value={inputPsiculture.mai_marketing_channels}
             onChange={handleChangeInputPsiculture}
             required

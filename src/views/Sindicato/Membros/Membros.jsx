@@ -313,6 +313,7 @@ const Membros = () => {
       <Modal
         isOpen={openAddMember}
         size="lg"
+        style={{minWidth: "60%"}}
       >
         <ModalHeader
           toggle={() => {

@@ -264,10 +264,9 @@ const Allotment = ({
               ? fileAllotment.lot_geometry.fileName
               : "Escolha o arquivo"}
             <Input
-              className="form-control-alternative"
+              className="form-control-alternative d-none"
               type="file"
               title="Documento de geometria do lote"
-              style={{ display: "none" }}
               name="lot_geometry"
               id="lot_geometry"
               onChange={handleChangeInputFile}
