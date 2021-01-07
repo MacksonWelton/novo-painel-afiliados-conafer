@@ -5,11 +5,7 @@ import { findZipCode } from "utils/findZipCode";
 import { cpfValidator } from "utils/validators";
 import { clearInput } from "utils/validators";
 
-const Member = ({
-  inputMember,
-  setInputMember,
-  usersAffiliation,
-}) => {
+const Member = ({ inputMember, setInputMember, usersAffiliation }) => {
   const [invalidInput, setInvalidInput] = useState(false);
 
   const handleChangeInputZipCode = (res) => {
@@ -28,375 +24,386 @@ const Member = ({
 
   return (
     <Row>
-      <Col lg="12">
-        <h3 className="text-center mb-3">Dados do Beneficiário</h3>
-      </Col>
-      <Col lg="6">
-        <FormGroup>
-          <label className="form-control-label" htmlFor="affiliation">
-            Afiliação <small className="text-red">(obrigatório)</small>
-          </label>
-          <Input
-            type="select"
-            id="affiliation"
-            name="affiliation"
-            onChange={handleChangeInput}
-            value={inputMember.affiliation}
-            required
-          >
-            <option value="" hidden>
-              Escolha uma opção
-            </option>
-            {usersAffiliation.map((afilliate, i) => (
-              <option key={i} value={afilliate.affiliation}>
-                {afilliate.name}
-              </option>
-            ))}
-          </Input>
-        </FormGroup>
-      </Col>
-      <Col lg="6">
-        <FormGroup>
-          <label className="form-control-label" htmlFor="name">
-            Nome completo <small className="text-red">(obrigatório)</small>
-          </label>
-          <Input
-            className="form-control-alternative"
-            type="text"
-            name="name"
-            id="name"
-            title="Digite seu nome completo"
-            placeholder="Ex: João da Silva"
-            value={inputMember.name}
-            onChange={handleChangeInput}
-            maxLength="255"
-            minLength="1"
-            required
-          />
-        </FormGroup>
-      </Col>
-      <Col lg="6">
-        <FormGroup>
-          <label className="form-control-label" htmlFor="cpf">
-            CPF <small className="text-red">(obrigatório)</small>
-          </label>
-          <Input
-            className="form-control-alternative"
-            type="text"
-            name="cpf"
-            value={mask(inputMember.cpf, ["999.999.999-99"])}
-            placeholder="123.567.112-99"
-            onChange={(e) => {
-              handleChangeInput(e);
-              setInvalidInput(cpfValidator(e));
-            }}
-            onBlur={(e) => {
-              setInvalidInput(clearInput(e, cpfValidator(e)));
-            }}
-            title="CPF"
-            maxLength="14"
-            minLength="1"
-            required
-          />
-          {invalidInput && (
-            <small className="ml-2 text-red">
-              O número do CPF está incorreto. Por favor, tente novamente.
-            </small>
-          )}
-        </FormGroup>
-      </Col>
-      <Col lg="6">
-        <FormGroup>
-          <label className="form-control-label" htmlFor="rg">
-            RG
-          </label>
-          <Input
-            className="form-control-alternative"
-            type="text"
-            name="rg"
-            title="RG"
-            placeholder="Ex: 0000000"
-            value={inputMember.rg}
-            onChange={handleChangeInput}
-          />
-        </FormGroup>
-      </Col>
-      <Col lg="6">
-        <FormGroup>
-          <label className="form-control-label" htmlFor="nis">
-            NIS
-          </label>
-          <Input
-            className="form-control-alternative"
-            type="text"
-            name="nis"
-            title="NIS"
-            placeholder="Ex: 0000000"
-            value={inputMember.nis}
-            maxLength="14"
-            onChange={handleChangeInput}
-          />
-        </FormGroup>
-      </Col>
-      <Col lg="6">
-        <FormGroup>
-          <label className="form-control-label" htmlFor="email">
-            Email
-          </label>
-          <Input
-            className="form-control-alternative"
-            type="email"
-            name="email"
-            title="Email"
-            placeholder="Ex: email@conafer.org.br"
-            value={inputMember.email}
-            onChange={handleChangeInput}
-            maxLength="254"
-          />
-        </FormGroup>
-      </Col>
-      <Col lg="6">
-        <FormGroup>
-          <label className="form-control-label" htmlFor="phone">
-            Telefone <small className="text-red">(obrigatório)</small>
-          </label>
-          <Input
-            className="form-control-alternative"
-            type="tel"
-            name="phone"
-            title="Telefone"
-            placeholder="Ex: (00) 00000-0000"
-            value={mask(inputMember.phone, ["(99) 99999-9999"])}
-            onChange={handleChangeInput}
-            maxLength="17"
-            minLength="1"
-          />
-        </FormGroup>
-      </Col>
-      <Col lg="6">
-        <FormGroup>
-          <label className="form-control-label" htmlFor="alternative_phone">
-            Telefone Alternativo
-          </label>
-          <Input
-            className="form-control-alternative"
-            type="tel"
-            name="alternative_phone"
-            title="Telefone Alternativo"
-            placeholder="Ex: (00) 00000-0000"
-            value={mask(inputMember.alternative_phone, [
-              "(99) 99999-9999",
-            ])}
-            onChange={handleChangeInput}
-            maxLength="17"
-          />
-        </FormGroup>
-      </Col>
-      <Col lg="6">
-        <FormGroup>
-          <label className="form-control-label" htmlFor="collection_code">
-            Código de Coleta
-          </label>
-          <Input
-            className="form-control-alternative"
-            type="text"
-            name="collection_code"
-            title="Código de Coleta"
-            placeholder="Ex: 0000"
-            value={inputMember.collection_code}
-            onChange={handleChangeInput}
-          />
-        </FormGroup>
-      </Col>
-      <Col lg="6">
-        <FormGroup>
-          <label className="form-control-label" htmlFor="citizenship">
-            Naturalidade
-          </label>
-          <Input
-            className="form-control-alternative"
-            type="text"
-            name="citizenship"
-            title="Naturalidade"
-            placeholder="Ex: Maceió - AL"
-            value={inputMember.citizenship}
-            onChange={handleChangeInput}
-            maxLength="30"
-            minLength="1"
-            required
-          />
-        </FormGroup>
-      </Col>
-      <Col lg="6">
-        <FormGroup>
-          <label className="form-control-label" htmlFor="rb_status">
-            Status na RB
-          </label>
-          <Input
-            className="form-control-alternative"
-            type="text"
-            name="rb_status"
-            title="Status na RB"
-            placeholder="Ex: Titulado"
-            value={inputMember.rb_status}
-            onChange={handleChangeInput}
-          />
-        </FormGroup>
-      </Col>
-      <Col lg="6">
-        <FormGroup>
-          <label className="form-control-label" htmlFor="incra_area">
-            Ocupa área destinada pelo Incra{" "}
-            <small className="text-red">(obrigatório)</small>
-          </label>
-          <Input
-            className="form-control-alternative"
-            type="select"
-            name="incra_area"
-            title="Ocupa área destinada pelo Incra"
-            placeholder="Ocupa área destinada pelo Incra"
-            value={inputMember.incra_area}
-            onChange={handleChangeInput}
-            required
-          >
-            <option value={undefined} hidden>
-              Escolha uma opção
-            </option>
-            <option value={true}>Sim</option>
-            <option value={false}>Não</option>
-          </Input>
-        </FormGroup>
-      </Col>
-      <Col lg="12">
-        <hr />
-        <h3 className="text-center mb-3">Idenificação da Unidade Familiar</h3>
-      </Col>
-      <Col lg="6">
-        <FormGroup>
-          <label className="form-control-label" htmlFor="status">
-            Status
-          </label>
-          <Input
-            className="form-control-alternative"
-            type="status"
-            name="status"
-            title="Status"
-            placeholder="Ex: Beneficiário"
-            value={inputMember.status}
-            onChange={handleChangeInput}
-          />
-        </FormGroup>
-      </Col>
-      <Col lg="6">
-        <FormGroup>
-          <label className="form-control-label" htmlFor="marital_status">
-            Estado Civil <small className="text-red">(obrigatório)</small>
-          </label>
-          <Input
-            className="form-control-alternative"
-            type="select"
-            name="marital_status"
-            title="Estado Civil"
-            placeholder="Ex: Solteiro"
-            value={inputMember.marital_status}
-            onChange={handleChangeInput}
-            required
-          >
-            <option value="" hidden>
-              Escolha uma opção
-            </option>
-            <option value="Solteiro(a)">Solteiro(a)</option>
-            <option value="União Estável">União Estável</option>
-            <option value="Casado(a)">Casado(a)</option>
-            <option value="Divorciado(a)">Divorciado(a)</option>
-            <option value="Viúvo(a)">Viúvo(a)</option>
-          </Input>
-        </FormGroup>
-      </Col>
-      <Col lg="6">
-        <FormGroup>
-          <label className="form-control-label" htmlFor="mother_name">
-            Nome da Mãe <small className="text-red">(obrigatório)</small>
-          </label>
-          <Input
-            className="form-control-alternative"
-            type="text"
-            name="mother_name"
-            title="Nome da Mãe"
-            placeholder="Ex: Maria da Silva"
-            value={inputMember.mother_name}
-            onChange={handleChangeInput}
-            maxLength="255"
-            minLength="1"
-            required
-          />
-        </FormGroup>
-      </Col>
-      {(inputMember.marital_status === "União Estável" ||
-        inputMember.marital_status === "Casado(a)") && (
-        <>
+      <Col lg="12" className="border p-4 mb-3 shadow rounded">
+        <Row>
+          <Col lg="12">
+            <h2 className="text-center mb-3">Dados do Beneficiário</h2>
+            <hr/>
+          </Col>
           <Col lg="6">
             <FormGroup>
-              <label className="form-control-label" htmlFor="spouse_name">
-                Nome do Cônjuge
+              <label className="form-control-label" htmlFor="affiliation">
+                Afiliação <small className="text-red">(obrigatório)</small>
+              </label>
+              <Input
+                type="select"
+                id="affiliation"
+                name="affiliation"
+                onChange={handleChangeInput}
+                value={inputMember.affiliation}
+                required
+              >
+                <option value="" hidden>
+                  Escolha uma opção
+                </option>
+                {usersAffiliation.map((afilliate, i) => (
+                  <option key={i} value={afilliate.affiliation}>
+                    {afilliate.name}
+                  </option>
+                ))}
+              </Input>
+            </FormGroup>
+          </Col>
+          <Col lg="6">
+            <FormGroup>
+              <label className="form-control-label" htmlFor="name">
+                Nome completo <small className="text-red">(obrigatório)</small>
               </label>
               <Input
                 className="form-control-alternative"
                 type="text"
-                name="spouse_name"
-                title="Nome do Cônjuge"
-                placeholder="Ex: Fernanda da Silva"
-                value={inputMember.spouse_name}
+                name="name"
+                id="name"
+                title="Digite seu nome completo"
+                placeholder="Ex: João da Silva"
+                value={inputMember.name}
                 onChange={handleChangeInput}
+                maxLength="255"
+                minLength="1"
                 required
               />
             </FormGroup>
           </Col>
           <Col lg="6">
             <FormGroup>
-              <label className="form-control-label" htmlFor="spouse_cpf">
-                CPF do Cônjuge
+              <label className="form-control-label" htmlFor="cpf">
+                CPF <small className="text-red">(obrigatório)</small>
               </label>
               <Input
                 className="form-control-alternative"
                 type="text"
-                name="spouse_cpf"
-                title="CPF do Cônjuge"
-                placeholder="Ex: 123.567.112-99"
-                value={mask(unMask(inputMember.spouse_cpf), [
-                  "999.999.999-99",
-                ])}
-                onChange={handleChangeInput}
+                name="cpf"
+                value={mask(inputMember.cpf, ["999.999.999-99"])}
+                placeholder="123.567.112-99"
+                onChange={(e) => {
+                  handleChangeInput(e);
+                  setInvalidInput(cpfValidator(e));
+                }}
+                onBlur={(e) => {
+                  setInvalidInput(clearInput(e, cpfValidator(e)));
+                }}
+                title="CPF"
                 maxLength="14"
+                minLength="1"
+                required
+              />
+              {invalidInput && (
+                <small className="ml-2 text-red">
+                  O número do CPF está incorreto. Por favor, tente novamente.
+                </small>
+              )}
+            </FormGroup>
+          </Col>
+          <Col lg="6">
+            <FormGroup>
+              <label className="form-control-label" htmlFor="rg">
+                RG
+              </label>
+              <Input
+                className="form-control-alternative"
+                type="text"
+                name="rg"
+                title="RG"
+                placeholder="Ex: 0000000"
+                value={inputMember.rg}
+                onChange={handleChangeInput}
+              />
+            </FormGroup>
+          </Col>
+          <Col lg="6">
+            <FormGroup>
+              <label className="form-control-label" htmlFor="nis">
+                NIS
+              </label>
+              <Input
+                className="form-control-alternative"
+                type="text"
+                name="nis"
+                title="NIS"
+                placeholder="Ex: 0000000"
+                value={inputMember.nis}
+                maxLength="14"
+                onChange={handleChangeInput}
+              />
+            </FormGroup>
+          </Col>
+          <Col lg="6">
+            <FormGroup>
+              <label className="form-control-label" htmlFor="email">
+                Email
+              </label>
+              <Input
+                className="form-control-alternative"
+                type="email"
+                name="email"
+                title="Email"
+                placeholder="Ex: email@conafer.org.br"
+                value={inputMember.email}
+                onChange={handleChangeInput}
+                maxLength="254"
+              />
+            </FormGroup>
+          </Col>
+          <Col lg="6">
+            <FormGroup>
+              <label className="form-control-label" htmlFor="phone">
+                Telefone <small className="text-red">(obrigatório)</small>
+              </label>
+              <Input
+                className="form-control-alternative"
+                type="tel"
+                name="phone"
+                title="Telefone"
+                placeholder="Ex: (00) 00000-0000"
+                value={mask(inputMember.phone, ["(99) 99999-9999"])}
+                onChange={handleChangeInput}
+                maxLength="17"
+                minLength="1"
+              />
+            </FormGroup>
+          </Col>
+          <Col lg="6">
+            <FormGroup>
+              <label className="form-control-label" htmlFor="alternative_phone">
+                Telefone Alternativo
+              </label>
+              <Input
+                className="form-control-alternative"
+                type="tel"
+                name="alternative_phone"
+                title="Telefone Alternativo"
+                placeholder="Ex: (00) 00000-0000"
+                value={mask(inputMember.alternative_phone, ["(99) 99999-9999"])}
+                onChange={handleChangeInput}
+                maxLength="17"
+              />
+            </FormGroup>
+          </Col>
+          <Col lg="6">
+            <FormGroup>
+              <label className="form-control-label" htmlFor="collection_code">
+                Código de Coleta
+              </label>
+              <Input
+                className="form-control-alternative"
+                type="text"
+                name="collection_code"
+                title="Código de Coleta"
+                placeholder="Ex: 0000"
+                value={inputMember.collection_code}
+                onChange={handleChangeInput}
+              />
+            </FormGroup>
+          </Col>
+          <Col lg="6">
+            <FormGroup>
+              <label className="form-control-label" htmlFor="citizenship">
+                Naturalidade
+              </label>
+              <Input
+                className="form-control-alternative"
+                type="text"
+                name="citizenship"
+                title="Naturalidade"
+                placeholder="Ex: Maceió - AL"
+                value={inputMember.citizenship}
+                onChange={handleChangeInput}
+                maxLength="30"
+                minLength="1"
                 required
               />
             </FormGroup>
           </Col>
-        </>
-      )}
-      <Col lg="6">
-        <FormGroup>
-          <label className="form-control-label" htmlFor="nationality">
-            Nacionalidade <small className="text-red">(obrigatório)</small>
-          </label>
-          <Input
-            className="form-control-alternative"
-            type="text"
-            name="nationality"
-            title="Nacionalidade"
-            placeholder="Ex: Brasileiro"
-            value={inputMember.nationality}
-            maxLength="30"
-            minLength="1"
-            onChange={handleChangeInput}
-          />
-        </FormGroup>
+          <Col lg="6">
+            <FormGroup>
+              <label className="form-control-label" htmlFor="rb_status">
+                Status na RB
+              </label>
+              <Input
+                className="form-control-alternative"
+                type="text"
+                name="rb_status"
+                title="Status na RB"
+                placeholder="Ex: Titulado"
+                value={inputMember.rb_status}
+                onChange={handleChangeInput}
+              />
+            </FormGroup>
+          </Col>
+          <Col lg="6">
+            <FormGroup>
+              <label className="form-control-label" htmlFor="incra_area">
+                Ocupa área destinada pelo Incra{" "}
+                <small className="text-red">(obrigatório)</small>
+              </label>
+              <Input
+                className="form-control-alternative"
+                type="select"
+                name="incra_area"
+                title="Ocupa área destinada pelo Incra"
+                placeholder="Ocupa área destinada pelo Incra"
+                value={inputMember.incra_area}
+                onChange={handleChangeInput}
+                required
+              >
+                <option value={undefined} hidden>
+                  Escolha uma opção
+                </option>
+                <option value={true}>Sim</option>
+                <option value={false}>Não</option>
+              </Input>
+            </FormGroup>
+          </Col>
+        </Row>
       </Col>
+      <Col lg="12" className="border p-4 mb-3 shadow rounded">
+        <Row>
+          <Col lg="12">
+            <h2 className="text-center mb-3">
+              Idenificação da Unidade Familiar
+            </h2>
+            <hr/>
+          </Col>
+          <Col lg="6">
+            <FormGroup>
+              <label className="form-control-label" htmlFor="status">
+                Status
+              </label>
+              <Input
+                className="form-control-alternative"
+                type="status"
+                name="status"
+                title="Status"
+                placeholder="Ex: Beneficiário"
+                value={inputMember.status}
+                onChange={handleChangeInput}
+              />
+            </FormGroup>
+          </Col>
+          <Col lg="6">
+            <FormGroup>
+              <label className="form-control-label" htmlFor="marital_status">
+                Estado Civil <small className="text-red">(obrigatório)</small>
+              </label>
+              <Input
+                className="form-control-alternative"
+                type="select"
+                name="marital_status"
+                title="Estado Civil"
+                placeholder="Ex: Solteiro"
+                value={inputMember.marital_status}
+                onChange={handleChangeInput}
+                required
+              >
+                <option value="" hidden>
+                  Escolha uma opção
+                </option>
+                <option value="Solteiro(a)">Solteiro(a)</option>
+                <option value="União Estável">União Estável</option>
+                <option value="Casado(a)">Casado(a)</option>
+                <option value="Divorciado(a)">Divorciado(a)</option>
+                <option value="Viúvo(a)">Viúvo(a)</option>
+              </Input>
+            </FormGroup>
+          </Col>
+          <Col lg="6">
+            <FormGroup>
+              <label className="form-control-label" htmlFor="mother_name">
+                Nome da Mãe <small className="text-red">(obrigatório)</small>
+              </label>
+              <Input
+                className="form-control-alternative"
+                type="text"
+                name="mother_name"
+                title="Nome da Mãe"
+                placeholder="Ex: Maria da Silva"
+                value={inputMember.mother_name}
+                onChange={handleChangeInput}
+                maxLength="255"
+                minLength="1"
+                required
+              />
+            </FormGroup>
+          </Col>
+          {(inputMember.marital_status === "União Estável" ||
+            inputMember.marital_status === "Casado(a)") && (
+            <>
+              <Col lg="6">
+                <FormGroup>
+                  <label className="form-control-label" htmlFor="spouse_name">
+                    Nome do Cônjuge
+                  </label>
+                  <Input
+                    className="form-control-alternative"
+                    type="text"
+                    name="spouse_name"
+                    title="Nome do Cônjuge"
+                    placeholder="Ex: Fernanda da Silva"
+                    value={inputMember.spouse_name}
+                    onChange={handleChangeInput}
+                    required
+                  />
+                </FormGroup>
+              </Col>
+              <Col lg="6">
+                <FormGroup>
+                  <label className="form-control-label" htmlFor="spouse_cpf">
+                    CPF do Cônjuge
+                  </label>
+                  <Input
+                    className="form-control-alternative"
+                    type="text"
+                    name="spouse_cpf"
+                    title="CPF do Cônjuge"
+                    placeholder="Ex: 123.567.112-99"
+                    value={mask(unMask(inputMember.spouse_cpf), [
+                      "999.999.999-99",
+                    ])}
+                    onChange={handleChangeInput}
+                    maxLength="14"
+                    required
+                  />
+                </FormGroup>
+              </Col>
+            </>
+          )}
+          <Col lg="6">
+            <FormGroup>
+              <label className="form-control-label" htmlFor="nationality">
+                Nacionalidade <small className="text-red">(obrigatório)</small>
+              </label>
+              <Input
+                className="form-control-alternative"
+                type="text"
+                name="nationality"
+                title="Nacionalidade"
+                placeholder="Ex: Brasileiro"
+                value={inputMember.nationality}
+                maxLength="30"
+                minLength="1"
+                onChange={handleChangeInput}
+              />
+            </FormGroup>
+          </Col>
+        </Row>
+      </Col>
+      <Col lg="12" className="border p-4 mb-3 shadow rounded">
+      <Row>
       <Col lg="12">
-        <hr />
-        <h3 className="text-center mb-3">
+        <h2 className="text-center mb-3">
           Informações Gerais da Unidade Familiar
-        </h3>
+        </h2>
+        <hr/>
       </Col>
       <Col lg="6">
         <FormGroup>
@@ -712,7 +719,7 @@ const Member = ({
             value={inputMember.has_contract}
             title="O beneficiário tem o contrato/termo de concessão de uso?"
             name="has_contract"
-            id="select"
+            id="has_contract"
             required
           >
             <option value={undefined} hidden>
@@ -722,6 +729,8 @@ const Member = ({
             <option value={false}>Não</option>
           </Input>
         </FormGroup>
+      </Col>
+      </Row>
       </Col>
     </Row>
   );

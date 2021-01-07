@@ -7,7 +7,7 @@ import Moradores from './components/Moradores/Moradores';
 import { PersonOutlineOutlined } from '@material-ui/icons';
 
 import { setResidents } from '../../../../../../redux/actions/Registro';
-import { Button } from 'reactstrap';
+import { Button, Col, Row } from 'reactstrap';
 
 const Moradia = ({ houseNumber, setHouse, setResident }) => {
 
@@ -49,7 +49,8 @@ const Moradia = ({ houseNumber, setHouse, setResident }) => {
   setHouseNumber(houseNumber);
 
   return (
-    <>
+    <Row>
+      <Col lg="12" className="border p-4 mb-3 shadow rounded">
       <h3>Moradia - {houseNumber}</h3>
       <hr/>
       {formResident.map((form, i) => (
@@ -67,7 +68,8 @@ const Moradia = ({ houseNumber, setHouse, setResident }) => {
           Remover
       </Button>
       </div>
-    </>
+      </Col>
+    </Row>
   )
 }
 

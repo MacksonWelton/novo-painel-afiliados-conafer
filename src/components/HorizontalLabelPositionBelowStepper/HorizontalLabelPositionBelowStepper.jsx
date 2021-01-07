@@ -9,9 +9,6 @@ import { Button } from "reactstrap";
 import { useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    width: "100%",
-  },
   stepper: {
     display: "flex",
     flexWrap: "wrap",
@@ -31,7 +28,7 @@ function HorizontalLabelPositionBelowStepper({
   activeStep,
   setActiveStep,
   getStepContent,
-  handleSubmitForm,
+  handleSubmitData
 }) {
   const classes = useStyles();
 
@@ -46,11 +43,11 @@ function HorizontalLabelPositionBelowStepper({
   };
 
   return (
-    <div className={classes.root}>
+    <div>
       <Stepper
         activeStep={activeStep}
         orientation="horizontal"
-        className="d-flex align-items-end flex-wrap"
+        className="d-flex align-items-end flex-wrap mb-3 shadow"
       >
         {steps.map((label) => (
           <Step key={label} className="mt-3">
@@ -62,7 +59,7 @@ function HorizontalLabelPositionBelowStepper({
         {activeStep === steps.length ? (
           <div>
             <Typography className={classes.instructions}>
-              All steps completed
+              Formulário enviado <i className="fas fa-check-circle text-success"></i>
             </Typography>
             <Button onClick={handleReset}>Resetar</Button>
           </div>
@@ -83,11 +80,11 @@ function HorizontalLabelPositionBelowStepper({
                 Voltar
               </Button>
               {activeStep === steps.length - 1 ? (
-                <Button variant="contained" color="primary">
+                <Button variant="contained" color="primary" onClick={handleSubmitData}>
                   Concluído
                 </Button>
               ) : (
-                <Button variant="contained" color="primary" onClick={handleSubmitForm} type="submit">
+                <Button variant="contained" color="primary" type="submit">
                   Próximo
                 </Button>
               )}

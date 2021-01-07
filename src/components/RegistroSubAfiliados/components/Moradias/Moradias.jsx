@@ -1,6 +1,6 @@
 import React, { useState, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button } from "reactstrap";
+import { Button, Col, Row } from "reactstrap";
 
 import Moradia from "./components/Moradia/Moradia";
 
@@ -53,7 +53,8 @@ const Moradias = () => {
   };
 
   return (
-    <>
+    <Row>
+      <Col lg="12" className="border p-4 mb-3 shadow rounded">
       {formHouse.map((form, i) => (
         <Fragment key={i}>{form}</Fragment>
       ))}
@@ -78,7 +79,8 @@ const Moradias = () => {
           Remover
         </Button>
       </div>
-    </>
+      </Col>
+    </Row>
   );
 };
 
