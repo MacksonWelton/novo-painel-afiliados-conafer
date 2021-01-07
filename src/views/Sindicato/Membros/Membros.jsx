@@ -312,10 +312,8 @@ const Membros = () => {
       </Container>
       <Modal
         isOpen={openAddMember}
-        toggle={() => {
-          setOpenAddMember(!openAddMember);
-        }}
         size="lg"
+        style={{minWidth: "60%"}}
       >
         <ModalHeader
           toggle={() => {

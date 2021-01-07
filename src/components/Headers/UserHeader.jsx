@@ -59,7 +59,7 @@ const UserHeader = ({ userData, fileName, input, handleChangeFile }) => {
           <label className="btn bg-light ml-1 mb-0">
             {fileName.cover ? fileName.cover : "Escolha uma foto de fundo"}
             <Input
-              style={{ display: "none" }}
+              className="d-none"
               type="file"
               name="cover"
               onChange={handleChangeFile}

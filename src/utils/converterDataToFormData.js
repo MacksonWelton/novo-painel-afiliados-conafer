@@ -9,7 +9,9 @@ const converterDataToFormData = (input, files) => {
 
   if (files) {
     Object.keys(files).forEach(file => {
-      formData.append(file, files[file].value, files[file].fileName);
+      if (files[file].value) {
+        formData.append(file, files[file].value, files[file].fileName);
+      }
     })
   }
 

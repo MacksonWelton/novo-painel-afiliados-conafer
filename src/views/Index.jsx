@@ -26,12 +26,12 @@ import {
   chartExample2,
 } from "variables/charts.js";
 
-import Header from "components/Headers/Header";
-import StatsCard from "components/StatsCard/StatsCard";
-import MapaAfiliados from "components/MapaAfiliados/MapaAfiliados";
+import Header from "../components/Headers/Header";
+import StatsCard from "../components/StatsCard/StatsCard";
+import MapaAfiliados from "../components/MapaAfiliados/MapaAfiliados";
 import { useSelector, useDispatch } from "react-redux";
-import { getUsersAffiliation } from "redux/actions/UsuariosAfiliacao";
-import { getMembers } from "redux/actions/Membros";
+import { getUsersAffiliation } from "../redux/actions/UsuariosAfiliacao";
+import { getMembers } from "../redux/actions/Membros";
 
 const Index = () => {
   const dispatch = useDispatch();

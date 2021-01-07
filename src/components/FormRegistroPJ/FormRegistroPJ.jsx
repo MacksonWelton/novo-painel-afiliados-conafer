@@ -16,9 +16,9 @@ import {
   Row,
 } from "reactstrap";
 import FormProduction from "components/FormProduction/FormProduction";
-import { cnpjValidator } from "utils/validators";
-import { clearInput } from "utils/validators";
-import { findZipCode } from "utils/findZipCode";
+import { cnpjValidator } from "../../utils/validators";
+import { clearInput } from "../../utils/validators";
+import { findZipCode } from "../../utils/findZipCode";
 
 const FormRegistroPJ = ({
   production,

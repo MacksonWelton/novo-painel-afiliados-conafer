@@ -12,14 +12,14 @@ const Moradores = ({ setInputResident, residentNumber }) => {
     birthdate: "",
     schooling: "",
     main_source_income: "",
-    generates_income: undefined,
+    generates_income:"",
     batch_work_time: "",
-    issues_invoice: undefined,
-    ex_beneficiary: undefined,
+    issues_invoice:"",
+    ex_beneficiary:"",
     activity: "",
     demotivating_activity: "",
-    retired: undefined,
-    work_outside: undefined,
+    retired: "",
+    work_outside: "",
     initial_age_work_outside: "",
     deficiency: "",
     last_diceases: "",
@@ -39,6 +39,7 @@ const Moradores = ({ setInputResident, residentNumber }) => {
   return (
     <>
       <h4>Morador - {residentNumber}</h4>
+      <hr/>
       <div className="row">
         <Col lg="6">
           <FormGroup>
@@ -89,7 +90,7 @@ const Moradores = ({ setInputResident, residentNumber }) => {
               onChange={handleChangeInput}
               required
             >
-              <option value={undefined} hidden>
+              <option value="" hidden>
                 Escolha uma opção
               </option>
               <option value="Masculino">Masculino</option>
@@ -162,7 +163,7 @@ const Moradores = ({ setInputResident, residentNumber }) => {
               name="generates_income"
               id="generates_income"
             >
-              <option value={undefined} hidden>
+              <option value="" hidden>
                 Escolha uma opção
               </option>
               <option value={true}>Sim</option>
@@ -201,7 +202,7 @@ const Moradores = ({ setInputResident, residentNumber }) => {
               title="Emitir NF"
               id="issues_invoice"
             >
-              <option value={undefined} hidden>
+              <option value="" hidden>
                 Escolha uma opção
               </option>
               <option value={true}>Sim</option>
@@ -221,9 +222,9 @@ const Moradores = ({ setInputResident, residentNumber }) => {
               value={inputResidents.ex_beneficiary}
               title="Ex-Beneficiário"
               name="ex_beneficiary"
-              id="select"
+              id="ex_beneficiary"
             >
-              <option value={undefined} hidden>
+              <option value="" hidden>
                 Escolha uma opção
               </option>
               <option value={true}>Sim</option>
@@ -281,7 +282,7 @@ const Moradores = ({ setInputResident, residentNumber }) => {
               name="retired"
               id="retired"
             >
-              <option value={undefined} hidden>
+              <option value="" hidden>
                 Escolha uma opção
               </option>
               <option value={true}>Sim</option>
@@ -306,7 +307,7 @@ const Moradores = ({ setInputResident, residentNumber }) => {
               name="work_outside"
               id="work_outside"
             >
-              <option value={undefined} hidden>
+              <option value="" hidden>
                 Escolha uma opção
               </option>
               <option value={true}>Sim</option>
@@ -346,10 +347,10 @@ const Moradores = ({ setInputResident, residentNumber }) => {
               value={inputResidents.handicapped}
               title="Deficiência"
               name="handicapped"
-              id="select"
+              id="handicapped"
               required
             >
-              <option value={undefined} hidden>
+              <option value="" hidden>
                 Escolha uma opção
               </option>
               <option value={true}>Sim</option>
@@ -391,9 +392,9 @@ const Moradores = ({ setInputResident, residentNumber }) => {
                   title="Transtorno Mental"
                   value={inputResidents.mentalDisorder}
                   name="mentalDisorder"
-                  id="select"
+                  id="mentalDisorder"
                 >
-                  <option value={undefined} hidden>
+                  <option value="" hidden>
                     Escolha uma opção
                   </option>
                   <option value={true}>Sim</option>
@@ -413,9 +414,9 @@ const Moradores = ({ setInputResident, residentNumber }) => {
                   title="Precisa de Cuidados"
                   value={inputResidents.needsCare}
                   name="needsCare"
-                  id="select"
+                  id="needsCare"
                 >
-                  <option value={undefined} hidden>
+                  <option value="" hidden>
                     Escolha uma opção
                   </option>
                   <option value={true}>Sim</option>
@@ -434,10 +435,10 @@ const Moradores = ({ setInputResident, residentNumber }) => {
                   onChange={handleChangeInput}
                   value={inputResidents.haveCaregiver}
                   name="haveCaregiver"
-                  id="select"
+                  id="haveCaregiver"
                   title="Tem cuidador"
                 >
-                  <option value={undefined} hidden>
+                  <option value="" hidden>
                     Escolha uma opção
                   </option>
                   <option value={true}>Sim</option>
@@ -456,10 +457,10 @@ const Moradores = ({ setInputResident, residentNumber }) => {
                   onChange={handleChangeInput}
                   value={inputResidents.organizationCare}
                   name="organizationCare"
-                  id="select"
+                  id="organizationCare"
                   title="Organização Cuidados"
                 >
-                  <option value={undefined} hidden>
+                  <option value="" hidden>
                     Escolha uma opção
                   </option>
                   <option value={true}>Sim</option>
