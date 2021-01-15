@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 // reactstrap components
@@ -26,6 +26,7 @@ import { setAuthentication } from "redux/actions/Login";
 import ModalRegistroAfiliados from "components/ModalRegistroAfiliados/ModalRegistroAfiliados";
 import { getUsersPJAffiliation } from "redux/actions/UsuariosAfiliacao";
 import { getUsersPFAffiliation } from "redux/actions/UsuariosAfiliacao";
+import { refreshToken } from "redux/actions/Login";
 
 const AdminNavbar = (props) => {
   const history = useHistory();
@@ -34,31 +35,32 @@ const AdminNavbar = (props) => {
   const [confirmAuth, setConfirmAuth] = useState(false);
   const [open, setOpen] = useState({
     modal: false,
-    active: true
+    active: true,
   });
 
   const profile = useSelector((state) => state.ProfileReducer.profile);
   const auth = useSelector((state) => state.LoginReducer.auth);
 
-  
-  const {usersPFAffiliation, usersPJAffiliation} = useSelector(state => state.UsersAffiliationReducer);
+  const { usersPFAffiliation, usersPJAffiliation } = useSelector(
+    (state) => state.UsersAffiliationReducer
+  );
 
-    if (auth && !confirmAuth) {
-      dispatch(getProfile());
-      dispatch(getUsersPJAffiliation());
-      dispatch(getUsersPFAffiliation());
-      setConfirmAuth(true);
-    } else if (!confirmAuth) {
-      history.push("/");
-      setConfirmAuth(true);
-    }
+  if (auth && !confirmAuth) {
+    dispatch(getProfile());
+    dispatch(getUsersPJAffiliation());
+    dispatch(getUsersPFAffiliation());
+    setConfirmAuth(true);
+  } else if (!confirmAuth) {
+    history.push("/");
+    setConfirmAuth(true);
+  }
 
   if (Object.keys(profile).length && !profile.is_active) {
     history.push("/auth/affiliate-registration");
   }
 
   if (!usersPFAffiliation.length && !usersPJAffiliation.length && open.active) {
-    setOpen({...open, modal: !open.modal, active: !open.active});
+    setOpen({ ...open, modal: !open.modal, active: !open.active });
   }
 
   const exit = () => {
@@ -89,7 +91,11 @@ const AdminNavbar = (props) => {
           </Form>
           <Nav className="align-items-center d-none d-md-flex" navbar>
             <UncontrolledDropdown nav>
-              <DropdownToggle title="Clique para abrir o menu" className="pr-0" nav>
+              <DropdownToggle
+                title="Clique para abrir o menu"
+                className="pr-0"
+                nav
+              >
                 <Media className="align-items-center">
                   <span
                     className="avatar avatar-sm rounded-circle"
@@ -107,8 +113,7 @@ const AdminNavbar = (props) => {
                   </span>
                   <Media className="ml-2 d-none d-lg-block">
                     <span className="mb-0 text-sm font-weight-bold">
-                      {profile.name}{" "}
-                      <i className="fas fa-caret-down"></i>
+                      {profile.name} <i className="fas fa-caret-down"></i>
                     </span>
                   </Media>
                 </Media>
@@ -117,20 +122,36 @@ const AdminNavbar = (props) => {
                 <DropdownItem className="noti-title" header tag="div">
                   <h6 className="text-overflow m-0">Bem-vindo(a)!</h6>
                 </DropdownItem>
-                <DropdownItem title="Acessar e editar meus dados" to="/admin/user-profile" tag={Link}>
+                <DropdownItem
+                  title="Acessar e editar meus dados"
+                  to="/admin/user-profile"
+                  tag={Link}
+                >
                   <i className="fas fa-user-circle" />
                   <span>Meu Perfil</span>
                 </DropdownItem>
-                <DropdownItem title="Visualizar e adicionar usuários do painel" to="/admin/usuario-de-afiliacao" tag={Link}>
+                <DropdownItem
+                  title="Visualizar e adicionar usuários do painel"
+                  to="/admin/usuario-de-afiliacao"
+                  tag={Link}
+                >
                   <i className="fas fa-users" />
                   <span>Usuários</span>
                 </DropdownItem>
-                <DropdownItem title="Entrar em contato com o suporte da CONAFER" to="/admin/suporte" tag={Link}>
+                <DropdownItem
+                  title="Entrar em contato com o suporte da CONAFER"
+                  to="/admin/suporte"
+                  tag={Link}
+                >
                   <i className="far fa-life-ring" />
                   <span>Ajuda</span>
                 </DropdownItem>
                 <DropdownItem divider />
-                <DropdownItem title="Sair do painel" onClick={exit} style={{cursor: "pointer"}}>
+                <DropdownItem
+                  title="Sair do painel"
+                  onClick={exit}
+                  style={{ cursor: "pointer" }}
+                >
                   <i className="ni ni-user-run" />
                   <span>Sair</span>
                 </DropdownItem>
@@ -139,7 +160,7 @@ const AdminNavbar = (props) => {
           </Nav>
         </Container>
       </Navbar>
-      <ModalRegistroAfiliados open={open} setOpen={setOpen}/>
+      <ModalRegistroAfiliados open={open} setOpen={setOpen} />
     </>
   );
 };

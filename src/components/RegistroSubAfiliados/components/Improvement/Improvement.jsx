@@ -98,11 +98,11 @@ const Improvement = ({ inputImprovements, setInputImprovements }) => {
           <Col lg="6">
             <FormGroup>
               <label className="form-control-label" htmlFor="footage">
-                Metragem <small className="text-red">(obrigatório)</small>
+                Metragem (m²) <small className="text-red">(obrigatório)</small>
               </label>
               <Input
                 className="form-control-alternative"
-                type="text"
+                type="number"
                 name="footage"
                 id="footage"
                 title="Metragem"
@@ -134,8 +134,8 @@ const Improvement = ({ inputImprovements, setInputImprovements }) => {
                   <tr key={i}>
                     <td className="border">{item.improvement}</td>
                     <td className="border">{item.type_improvement}</td>
-                    <td className="border">{item.footage}</td>
                     <td className="border">{item.age_improvement}</td>
+                    <td className="border">{item.footage}</td>
                     <td className="border">
                       <Button onClick={() => removeImprovment(i)}>
                         <DeleteForeverOutlined />

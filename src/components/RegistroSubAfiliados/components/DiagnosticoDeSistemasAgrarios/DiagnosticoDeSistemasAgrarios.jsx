@@ -31,7 +31,7 @@ const DiagnosticoDeSistemasAgrarios = ({
               </label>
               <Input
                 className="form-control-alternative"
-                type="text"
+                type="number"
                 name="income_off_lot"
                 id="income_off_lot"
                 title="Qual é a renda extra lote (fora do lote) anual?"

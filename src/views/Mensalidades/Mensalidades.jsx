@@ -24,7 +24,7 @@ import {
   Input,
 } from "reactstrap";
 
-import Header from "components/Headers/Header";
+import Header from "../../components/Headers/Header";
 
 import {
   deletePayments,
@@ -33,11 +33,11 @@ import {
 } from "../../redux/actions/Mensalidades";
 
 import MensalidadesData from "./MensalidadesData";
-import ProgressCard from "components/ProgressCard/ProgressCard";
+import ProgressCard from "../../components/ProgressCard/ProgressCard";
 import { Tr } from "./styles";
-import { CardHeaderStyled } from "views/Contratos/styles";
-import { InputStyled } from "views/Contratos/styles";
-import BotoesDeAcao from "components/BotoesDeAcao/BotoesDeAcao";
+import { CardHeaderStyled } from "../../views/Contratos/styles";
+import { InputStyled } from "../../views/Contratos/styles";
+import BotoesDeAcao from "../../components/BotoesDeAcao/BotoesDeAcao";
 
 const Mensalidades = () => {
   const dispatch = useDispatch();

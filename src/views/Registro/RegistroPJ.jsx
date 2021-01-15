@@ -9,7 +9,7 @@ import {
 } from "../../redux/actions/Registro";
 import FormRegistroPJ from "components/FormRegistroPJ/FormRegistroPJ";
 import { Container } from "reactstrap";
-import Header from "components/Headers/Header";
+import Header from "../../components/Headers/Header";
 
 const RegistroPJ = () => {
   const dispatch = useDispatch();

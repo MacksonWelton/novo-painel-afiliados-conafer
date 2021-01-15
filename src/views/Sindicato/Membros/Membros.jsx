@@ -24,27 +24,30 @@ import {
   Input,
 } from "reactstrap";
 
-import Header from "components/Headers/Header";
+import Header from "../../../components/Headers/Header";
 
 import {
   getMembers,
   downloadMembers,
   deleteMembers,
+  getDataMembers,
 } from "../../../redux/actions/Membros";
 
 import { InputStyled, Tr } from "./styles";
-import ProgressCard from "components/ProgressCard/ProgressCard";
-import RegistroSubAfiliados from "components/RegistroSubAfiliados/RegistroSubAfiliados";
-import { CardHeaderStyled } from "views/Contratos/styles";
-import BotoesDeAcao from "components/BotoesDeAcao/BotoesDeAcao";
-import ModalMembro from "components/ModalMembro/ModalMembro";
+import ProgressCard from "../../../components/ProgressCard/ProgressCard";
+import RegistroSubAfiliados from "../../../components/RegistroSubAfiliados/RegistroSubAfiliados";
+import { CardHeaderStyled } from "./styles";
+import BotoesDeAcao from "../../../components/BotoesDeAcao/BotoesDeAcao";
+import ModalMembro from "../../../components/ModalMembro/ModalMembro";
 
 const Membros = () => {
   const dispatch = useDispatch();
   const members = useSelector((state) => state.MembersReducer.members);
+  const dataMembers = useSelector((state) => state.MembersReducer.dataMembers);
 
   useEffect(() => {
     dispatch(getMembers());
+    dispatch(getDataMembers());
   }, [dispatch]);
 
   const [open, setOpen] = useState(false);
@@ -66,7 +69,7 @@ const Membros = () => {
 
     if (checked) {
       setCheckbox(
-        members.map((member) => {
+        dataMembers.map((member) => {
           return { id: member.id, checked: true };
         })
       );
@@ -173,8 +176,9 @@ const Membros = () => {
                   )}
                   <tr>
                     <th scope="col">
-                      <div className="d-flex justify-content-end ml-lg-2 align-items-center">
+                      <div className="d-flex justify-content-end ml-3 align-items-center">
                         <Input
+                          className="position-relative"
                           type="checkbox"
                           onChange={handleSelectAllCheckbox}
                         />
@@ -183,12 +187,12 @@ const Membros = () => {
                     <th scope="col">Nome</th>
                     <th scope="col">Telefone</th>
                     <th scope="col">E-mail</th>
-                    <th scope="col">Status</th>
+                    <th scope="col">Estado</th>
                     <th scope="col" />
                   </tr>
                 </thead>
                 <tbody>
-                  {members.map((member, index) => (
+                  {dataMembers.map((member, index) => (
                     <Tr
                       onClick={() => {
                         setOpen(!open);
@@ -201,6 +205,7 @@ const Membros = () => {
                         onClick={(e) => e.stopPropagation()}
                       >
                         <Input
+                          className="position-relative"
                           checked={
                             checkbox.filter((check) => check.id === member.id)
                               .length
@@ -210,15 +215,10 @@ const Membros = () => {
                           onChange={handleChangeCheckbox}
                         />
                       </td>
-                      <td>{member.name_initials}</td>
+                      <td>{member.name}</td>
                       <td>{member.phone}</td>
                       <td>{member.email}</td>
-                      <td>
-                        <Badge color="" className="badge-dot">
-                          <i className={getBadge(member.is_active)} />
-                          {getStatus(member.is_active)}
-                        </Badge>
-                      </td>
+                      <td>{member.state}</td>
                       <td className="text-right">
                         <UncontrolledDropdown>
                           <DropdownToggle
@@ -310,11 +310,7 @@ const Membros = () => {
           </div>
         </Row>
       </Container>
-      <Modal
-        isOpen={openAddMember}
-        size="lg"
-        style={{minWidth: "60%"}}
-      >
+      <Modal isOpen={openAddMember} size="lg" style={{ minWidth: "60%" }}>
         <ModalHeader
           toggle={() => {
             setOpenAddMember(!openAddMember);
@@ -334,7 +330,7 @@ const Membros = () => {
           </Button>
         </ModalFooter>
       </Modal>
-      <ModalMembro open={open} setOpen={setOpen} member={member}/>
+      <ModalMembro open={open} setOpen={setOpen} member={member} />
     </>
   );
 };

@@ -29,6 +29,8 @@ import Orcamentos from "./views/Orcamentos/Orcamentos";
 import Propostas from "./views/Propostas/Propostas";
 import Mensalidades from "./views/Mensalidades/Mensalidades";
 import Membros from "./views/Sindicato/Membros/Membros";
+import Allotments from "./views/Sindicato/Allotments/Allotments";
+import DiagnosisAgriculturalSystems from "./views/Sindicato/DiagnosisAgriculturalSystems/DiagnosisAgriculturalSystems";
 import UserAffiliation from "./views/Sindicato/UsuariosAfiliacao/UsuariosAfiliacao";
 
 var routes = [
@@ -43,7 +45,7 @@ var routes = [
   {
     path: "/contratos",
     name: "Contratos",
-    icon: "ni ni-single-copy-04 text-green",
+    icon: "ni ni-single-copy-04 text-pink",
     component: Contratos,
     layout: "/admin",
     show: true
@@ -59,7 +61,7 @@ var routes = [
   {
     path: "/propostas",
     name: "Propostas",
-    icon: "fas fa-handshake text-blue",
+    icon: "fas fa-handshake text-gray",
     component: Propostas,
     layout: "/admin",
     show: true
@@ -85,6 +87,22 @@ var routes = [
     name: "Membros",
     icon: "fas fa-users text-dark",
     component: Membros,
+    layout: "/admin",
+    show: true
+  },
+  {
+    path: "/allotments",
+    name: "Lotes",
+    icon: "fas fa-map-marked-alt text-info",
+    component: Allotments,
+    layout: "/admin",
+    show: true
+  },
+  {
+    path: "/diagnosis-agricultural-systems",
+    name: "Diagnóstico de Sistemas Agrários",
+    icon: "far fa-chart-bar text-green",
+    component: DiagnosisAgriculturalSystems,
     layout: "/admin",
     show: true
   },

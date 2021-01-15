@@ -4,7 +4,7 @@ import { setAlert } from "./Alertas";
 
 export const getProfile = () => async (dispatch) => {
   try {
-    const response = await api.get("/api/v1/user/detail/user_affiliation/");
+    const response = await api.get("user/detail/user_affiliation/");
     dispatch(setProfile(response.data));
   } catch (err) {
     console.error(err.response);
@@ -24,7 +24,7 @@ export const updateProfile = (input, files) => async (dispatch) => {
 
   try {
     const response = await api.put(
-      `/api/v1/user/user_affiliation/${input.id}/`,
+      `user/user_affiliation/${input.id}/`,
       formData,
       {
         headers: {
@@ -57,7 +57,7 @@ const setProfile = (profile) => ({
 export const updatePassword = (input, profile) => async (dispatch) => {
   try {
     const response = await api.patch(
-      `/api/v1/user/user_affiliation/${profile.id}/`,
+      `user/user_affiliation/${profile.id}/`,
       input,
       {
         headers: {

@@ -25,7 +25,7 @@ import {
   ModalFooter,
 } from "reactstrap";
 
-import Header from "components/Headers/Header";
+import Header from "../../components/Headers/Header";
 
 import {
   newProposals,
@@ -36,10 +36,10 @@ import {
 
 import PropostasData from "./PropostasData";
 import { Tr } from "./styles";
-import ProgressCard from "components/ProgressCard/ProgressCard";
-import { InputStyled } from "views/Contratos/styles";
-import { CardHeaderStyled } from "views/Contratos/styles";
-import BotoesDeAcao from "components/BotoesDeAcao/BotoesDeAcao";
+import ProgressCard from "../../components/ProgressCard/ProgressCard";
+import { InputStyled } from "../../views/Contratos/styles";
+import { CardHeaderStyled } from "../../views/Contratos/styles";
+import BotoesDeAcao from "../../components/BotoesDeAcao/BotoesDeAcao";
 
 const Propostas = () => {
   const dispatch = useDispatch();
