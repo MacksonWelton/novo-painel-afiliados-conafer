@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Modal, ModalBody, ModalFooter, ModalHeader, Button } from "reactstrap";
 import PropTypes from "prop-types";
 import DadaosBeneficiario from "./components/DadaosBeneficiario";
@@ -11,7 +11,13 @@ import SupervisaoOcupacional from "./components/SupervisaoOcupacional";
 import DiagnosticoSistemasAgrarios from "./components/DiagnosticoSistemasAgrarios";
 import Producao from "./components/Producao";
 
-const ModalMembro = ({ open, setOpen, member }) => {
+const ModalMembro = ({
+  open,
+  setOpen,
+  member,
+  allotment,
+  diagnosisAgriculturalSystem,
+}) => {
   return (
     <Modal
       isOpen={open}
@@ -25,18 +31,22 @@ const ModalMembro = ({ open, setOpen, member }) => {
           setOpen(!open);
         }}
       >
-        Informações de Membro
+        Informações RAPATRA
       </ModalHeader>
       <ModalBody>
-        <DadaosBeneficiario member={member} />
-        <LocalizacaoLote member={member} />
-        <Moradias member={member} />
+        {member && <DadaosBeneficiario member={member} />}
+        {allotment && <LocalizacaoLote allotment={allotment} />}
+        {diagnosisAgriculturalSystem && (
+          <DiagnosticoSistemasAgrarios
+            diagnosisAgriculturalSystem={diagnosisAgriculturalSystem}
+          />
+        )}
+        {/* <Moradias member={member} />
         <IdentificacaoUnidadeFamiliar member={member} />
         <SupervisaoOcupacional member={member} />
         <InfoGeraisUnidadeProdFamiliar member={member} />
         <EnderecoParaCorrespondencia member={member} />
-        <DiagnosticoSistemasAgrarios member={member} />
-        <Producao member={member} />
+        <Producao member={member} /> */}
       </ModalBody>
       <ModalFooter className="d-flex justify-content-end">
         <Button color="primary" onClick={() => setOpen(!open)}>
@@ -48,12 +58,6 @@ const ModalMembro = ({ open, setOpen, member }) => {
       </ModalFooter>
     </Modal>
   );
-};
-
-ModalMembro.propTypes = {
-  open: PropTypes.any.isRequired,
-  setOpen: PropTypes.any.isRequired,
-  member: PropTypes.object.isRequired,
 };
 
 export default ModalMembro;

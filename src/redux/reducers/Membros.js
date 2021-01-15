@@ -1,16 +1,19 @@
+import { ActionPolymer } from "material-ui/svg-icons";
+
 const initialState = {
   member: "",
+  allotments: [],
+  diagnosisAgriculturalSystems: [],
   allotment: "",
   production: "",
   improvement: "",
   transport: "",
   technicalVisit: "",
-
   productionName: [],
   typeProduction: [],
   members: [],
   biomes: [],
-  dataMembers: "",
+  dataMembers: [],
   submitMessage: "",
 };
 
@@ -25,19 +28,15 @@ const MembersReducer = (state = initialState, action) => {
       return { ...state, dataMembers: action.payload.dataMembers };
     case "SET_MEMBERS":
       return { ...state, members: action.payload.members };
+    case "SET_ALLOTMENTS":
+      return { ...state, allotments: action.payload.allotments };
+    case "SET_DIAGNOSIS_AGRICULTURAL_SYSTEMS":
+      return {
+        ...state,
+        diagnosisAgriculturalSystems: action.payload.diagnosisAgriculturalSystems,
+      };
     case "SET_ALLOTMENT":
-      return {
-        ...state,
-        allotment: {
-          data: action.payload.allotment,
-          files: action.payload.files,
-        },
-      };
-    case "SET_AGRICULTURAL_SYSTEM":
-      return {
-        ...state,
-        agriculturalSystem: action.payload.agriculturalSystem,
-      };
+      return {...state, allotment: ActionPolymer.payload.allotment};
     case "SET_PRODUCTION":
       return {
         ...state,

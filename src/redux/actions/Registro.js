@@ -5,7 +5,7 @@ import { setAlert } from "./Alertas";
 export const signUp = (userData) => async (dispatch) => {
   try {
     const response = await api.post(
-      "/api/v1/user/user_affiliation/",
+      "user/user_affiliation/",
       userData,
       {
         header: {
@@ -65,7 +65,7 @@ export const recoverPassword = (email) => (dispatch) => {
 
 export const AgriculturalProduction = () => async (dispatch) => {
   try {
-    const response = await api.get("/api/v1/production/name_production/");
+    const response = await api.get("production/name_production/");
     dispatch(setAgriculturalProduction(response.data));
   } catch (err) {
     console.error(err.response);
@@ -75,7 +75,7 @@ export const AgriculturalProduction = () => async (dispatch) => {
 
 export const TypeAgriculturalProduction = () => async (dispatch) => {
   try {
-    const response = await api.get("/api/v1/production/type_production/");
+    const response = await api.get("production/type_production/");
 
     dispatch(setTypeAgriculturalProduction(response.data));
   } catch (err) {
@@ -94,7 +94,7 @@ export const pjAffiliateRegister = (
 
   try {
     const response = await api.post(
-      "/api/v1/affiliation/affiliation_pj/",
+      "affiliation/affiliation_pj/",
       formData,
       {
         headers: {
@@ -133,7 +133,7 @@ const newAgriculturalProduction = (id, agriculturalProduction) => async (
 
     agriculturalProduction.forEach(async (production) => {
       production.affiliation = id;
-      response = await api.post("/api/v1/production/production/", production);
+      response = await api.post("production/production/", production);
     });
 
     dispatch(
@@ -160,7 +160,7 @@ export const pfAffiliateRegister = (userData, agriculturalProduction) => async (
 ) => {
   try {
     const response = await api.post(
-      "/api/v1/affiliation/affiliation_pf/",
+      "affiliation/affiliation_pf/",
       userData
     );
 

@@ -26,7 +26,7 @@ import {
   FormGroup,
 } from "reactstrap";
 
-import Header from "components/Headers/Header";
+import Header from "../../components/Headers/Header";
 
 import {
   newComment,
@@ -37,8 +37,8 @@ import {
 
 import ContratosData from "./ContratosData";
 import { CardHeaderStyled, InputStyled, Tr } from "./styles";
-import ProgressCard from "components/ProgressCard/ProgressCard";
-import BotoesDeAcao from "components/BotoesDeAcao/BotoesDeAcao";
+import ProgressCard from "../../components/ProgressCard/ProgressCard";
+import BotoesDeAcao from "../../components/BotoesDeAcao/BotoesDeAcao";
 
 const Contratos = () => {
   const dispatch = useDispatch();

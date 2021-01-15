@@ -6,7 +6,7 @@ export const newUserAffiliation = (input, files) => async (dispatch) => {
   const formData = converterDataToFormData(input, files);
 
   try {
-    const response = await api.post("/api/v1/user/user_affiliation/", formData, {
+    const response = await api.post("user/user_affiliation/", formData, {
       headers: {
         "Content-Type": `multipart/form-data; boundary=${formData._boundary}`
       }
@@ -31,7 +31,7 @@ export const newUserAffiliation = (input, files) => async (dispatch) => {
 
 export const getUsersAffiliation = () => async (dispatch) => {
   try {
-    const response = await api.get("/api/v1/user/user_affiliation/");
+    const response = await api.get("user/user_affiliation/");
     dispatch(setUersAffiliation(response.data))
   } catch(err) {
     console.error(err.message);
@@ -54,7 +54,7 @@ const setUersAffiliation = (usersAffiliation) => ({
 
 export const getUsersPJAffiliation = () => async (dispatch) => {
   try {
-    const response = await api.get("/api/v1/affiliation/affiliation_pj/");
+    const response = await api.get("affiliation/affiliation_pj/");
     dispatch(setUsersPJAFFiliation(response.data));
   } catch(err) {
     console.error(err.message);
@@ -81,7 +81,7 @@ const setUsersPJAFFiliation = (usersPJAffiliation) => ({
 
 export const getUsersPFAffiliation = () => async (dispatch) => {
   try {
-    const response = await api.get("/api/v1/affiliation/affiliation_pf/");
+    const response = await api.get("affiliation/affiliation_pf/");
     dispatch(setUsersPFAFFiliation(response.data));
   } catch(err) {
     console.error(err.message);
@@ -108,7 +108,7 @@ const setUsersPFAFFiliation = (usersPFAffiliation) => ({
 
 export const updateAffiliatesActivation = (user) => async (dispatch) => {
   try {
-    const response = await api.patch(`/api/v1/user/user_affiliation/${user.id}/`, user);
+    const response = await api.patch(`/user/user_affiliation/${user.id}/`, user);
     dispatch(setAlert(response.status, "Ativação realizada com sucesso!", true));
   } catch (err) {
     console.error(err.message);
@@ -132,7 +132,7 @@ export const downloadUsersAffiliates = () => () => {
 
 export const getUserAffiliation = () => async (dispatch) => {
   try {
-    const response = await api.get("/api/v1/user/detail/user_affiliation/");
+    const response = await api.get("user/detail/user_affiliation/");
     dispatch(setUserAffiliation(response.data))
   } catch (err) {
     console.error(err.message);

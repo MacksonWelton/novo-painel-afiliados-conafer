@@ -5,7 +5,12 @@ import { Button, Input, FormGroup, Row, Table, Col } from "reactstrap";
 import { getTypeProduction } from "redux/actions/Membros";
 import { getProductionName } from "redux/actions/Membros";
 
-const Producao = ({}) => {
+const Producao = ({
+  inputVegetablesProduction,
+  setInputVegetablesProduction,
+  inputPsicultureProduction,
+  setInputPsicultureProduction,
+}) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -33,7 +38,7 @@ const Producao = ({}) => {
     annual_production: 0,
     price_per_kg: "",
     annual_marketed: 0,
-    how_much_sell: "",
+    how_much_sell: 0,
     seedling_origin: "",
     creole_seed: "",
     pest_problems: "",
@@ -58,9 +63,6 @@ const Producao = ({}) => {
     mai_marketing_channels: "",
   });
 
-  const [tableVegetables, setTableVegetables] = useState([]);
-  const [tablePsiculture, setTablePsiculture] = useState([]);
-
   const productionName = useSelector(
     (state) => state.MembersReducer.productionName
   );
@@ -76,14 +78,15 @@ const Producao = ({}) => {
   };
 
   const addVegetablesInTable = () => {
-    if (inputVegetables.production && 
-      inputVegetables.seedling_origin && 
+    if (
+      inputVegetables.production &&
+      inputVegetables.seedling_origin &&
       inputVegetables.creole_seed &&
       inputVegetables.irrigated_area &&
       inputVegetables.generates_waste
-      ) {
-        setTableVegetables([...tableVegetables, inputVegetables]);
-      }
+    ) {
+      setInputVegetablesProduction([...inputVegetablesProduction, inputVegetables]);
+    }
   };
 
   const addPisicultureInTable = () => {
@@ -101,17 +104,17 @@ const Producao = ({}) => {
       inputPsiculture.commercialized_production &&
       inputPsiculture.average_price &&
       inputPsiculture.mai_marketing_channels
-      ) {
-      setTablePsiculture([...tablePsiculture, inputPsiculture]);
+    ) {
+      setInputPsicultureProduction([...inputPsicultureProduction, inputPsiculture]);
     }
   };
 
   const removeVegetablesInTable = (index) => {
-    setTableVegetables(tableVegetables.filter((item, i) => i !== index));
+    setInputVegetablesProduction(inputVegetablesProduction.filter((item, i) => i !== index));
   };
 
   const removePsicultureInTable = (index) => {
-    setTablePsiculture(tablePsiculture.filter((item, i) => i !== index));
+    setInputPsicultureProduction(inputPsicultureProduction.filter((item, i) => i !== index));
   };
 
   return (
@@ -173,7 +176,7 @@ const Producao = ({}) => {
               </label>
               <Input
                 className="form-control-alternative"
-                type="text"
+                type="number"
                 name="price_per_kg"
                 id="price_per_kg"
                 title="Preço por Kg"
@@ -208,11 +211,11 @@ const Producao = ({}) => {
               </label>
               <Input
                 className="form-control-alternative"
-                type="text"
+                type="number"
                 name="how_much_sell"
                 id="how_much_sell"
                 title="Quanto vende (kg)"
-                placeholder="Ex: R$ 70,00"
+                placeholder="Ex: 10"
                 value={inputVegetables.how_much_sell}
                 onChange={handleChangeInputVegetables}
                 min="0"
@@ -343,7 +346,7 @@ const Producao = ({}) => {
                 </tr>
               </thead>
               <tbody>
-                {tableVegetables.map((item, i) => (
+                {inputVegetablesProduction.map((item, i) => (
                   <tr key={i}>
                     <td className="border">{item.production}</td>
                     <td className="border">{item.annual_production} Kg</td>
@@ -437,7 +440,7 @@ const Producao = ({}) => {
               </label>
               <Input
                 className="form-control-alternative"
-                type="text"
+                type="number"
                 name="food_supplementation"
                 id="food_supplementation"
                 placeholder="Ex: Ração"
@@ -459,18 +462,18 @@ const Producao = ({}) => {
               </label>
               <Input
                 className="form-control-alternative"
-                type="text"
+                type="number"
                 name="annual_food_supplementation"
                 id="annual_food_supplementation"
                 placeholder="Ex: R$ 1.500,00"
                 value={inputPsiculture.annual_food_supplementation}
                 onChange={handleChangeInputPsiculture}
                 required
-                min="1"
+                min="0"
               />
             </FormGroup>
           </Col>
-          <Col lg="6">
+          <Col lg="6" className="d-flex flex-column justify-content-end">
             <FormGroup>
               <label className="form-control-label" htmlFor="goal">
                 Finalidade <small className="text-red">(obrigatório)</small>
@@ -539,14 +542,14 @@ const Producao = ({}) => {
               </label>
               <Input
                 className="form-control-alternative"
-                type="text"
+                type="number"
                 name="purchase_price"
                 id="purchase_price"
                 placeholder="Ex: R$ 35,00"
                 value={inputPsiculture.purchase_price}
                 onChange={handleChangeInputPsiculture}
                 required
-                minLength="1"
+                min="0"
               />
             </FormGroup>
           </Col>
@@ -599,14 +602,14 @@ const Producao = ({}) => {
               </label>
               <Input
                 className="form-control-alternative"
-                type="text"
+                type="number"
                 name="average_price"
                 id="average_price"
                 placeholder="Ex: R$ 40,00"
                 value={inputPsiculture.average_price}
                 onChange={handleChangeInputPsiculture}
                 required
-                minLength="1"
+                min="0"
               />
             </FormGroup>
           </Col>
@@ -647,7 +650,7 @@ const Producao = ({}) => {
                 </tr>
               </thead>
               <tbody>
-                {tablePsiculture.map((item, i) => (
+                {inputPsicultureProduction.map((item, i) => (
                   <tr key={i}>
                     <td className="border">{item.type_psiculture}</td>
                     <td className="border">{item.meat_production} Kg</td>

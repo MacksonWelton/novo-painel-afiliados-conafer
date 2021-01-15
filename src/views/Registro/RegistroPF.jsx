@@ -8,7 +8,7 @@ import {
 } from "../../redux/actions/Registro";
 
 import FormRegistroPF from "../../components/FormRegistroPF/FormRegistroPF";
-import Header from "components/Headers/Header";
+import Header from "../../components/Headers/Header";
 import { Container } from "reactstrap";
 
 const RegistroPF = () => {

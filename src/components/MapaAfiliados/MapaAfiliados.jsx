@@ -13,7 +13,7 @@ import fafer from "../../assets/img/icons/fafer.svg";
 import mapMarkerOrange from "../../assets/img/icons/map-marker-orange.svg";
 import mapMarkerBlue from "../../assets/img/icons/map-marker-blue.svg";
 import ModalInfo from "./ModalInfo";
-import ModalMembro from "components/ModalMembro/ModalMembro";
+import ModalMembro from "../ModalMembro/ModalMembro";
 
 const mapContainerStyle = {
   width: "100%",
@@ -25,7 +25,7 @@ const center = {
   lng: -48.0774459,
 };
 
-const MapaAfiliados = ({ members, usersPFAffiliation, usersPJAffiliation }) => {
+const MapaAfiliados = ({ allotments, usersPFAffiliation, usersPJAffiliation }) => {
   const [users, setUsers] = useState({
     usersPFAffiliation: "",
     usersPJAffiliation: "",
@@ -115,13 +115,13 @@ const MapaAfiliados = ({ members, usersPFAffiliation, usersPJAffiliation }) => {
       onClick={() => setMap(null)}
     >
       {" "}
-      {members &&
-        members.map((member, i) => (
+      {allotments &&
+        allotments.map((allotment, i) => (
           <Marker
             key={i}
             position={{
-              lat: Number(member.lot.coordinates.lat),
-              lng: Number(member.lot.coordinates.lng),
+              lat: Number(allotment.coordinates.split(",")[0]),
+              lng: Number(allotment.coordinates.split(",")[1]),
             }}
             icon={{
               url: mapMarkerBlue,
@@ -129,7 +129,7 @@ const MapaAfiliados = ({ members, usersPFAffiliation, usersPJAffiliation }) => {
               anchor: new window.google.maps.Point(15, 15),
               scaledSize: new window.google.maps.Size(26, 35),
             }}
-            onClick={(e) => handleClickOnMarker(e, member)}
+            onClick={(e) => handleClickOnMarker(e, allotment)}
           />
         ))}
       {users.usersPFAffiliation &&

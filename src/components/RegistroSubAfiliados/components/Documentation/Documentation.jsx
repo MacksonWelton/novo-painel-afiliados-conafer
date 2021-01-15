@@ -27,6 +27,29 @@ const Documentation = ({
     },
   });
 
+  const handleChangeInputFiles = (event) => {
+    const name = event.target.name;
+    const value = event.target.files;
+
+    if (value) {
+      const fileName = "archive";
+
+      setInputDocumentationList({
+        ...inputDocumentationList,
+        [name]: {
+          ...inputDocumentationList[name],
+          fileName: fileName,
+          value: value,
+        },
+      });
+    } else {
+      setInputDocumentationList({
+        ...inputDocumentationList,
+        [name]: { ...inputDocumentationList[name], fileName: "", value: "" },
+      });
+    }
+  }
+
   const handleChangeInputFile = (event) => {
     const name = event.target.name;
     const value = event.target.files[0];
@@ -104,237 +127,293 @@ const Documentation = ({
             <h2 className="text-center mb-4">Documentos</h2>
             <hr />
           </Col>
-          <Col lg="6">
-            <label
-              className="form-control-label ml-2"
-              htmlFor="front_domain_title"
-            >
-              Título domínio frente
-            </label>
-            <FormGroup>
-              <label className="btn bg-light ml-1 mb-0">
-                {inputDocumentation.front_domain_title.fileName
-                  ? inputDocumentation.front_domain_title.fileName.substring(
-                      0,
-                      40
-                    )
-                  : "Escolher Arquivo"}
-                <Input
-                  className="d-none"
-                  type="file"
-                  name="front_domain_title"
-                  id="front_domain_title"
-                  title="Título domínio frente"
-                  onChange={handleChangeInputFile}
-                />
-              </label>
-            </FormGroup>
+          <Col lg="12" className="border rounded mb-3">
+            <Row>
+              <Col
+                lg="12"
+                className="text-center mb-3 pt-2 border border-bottom"
+              >
+                <h3>Título de Domínio</h3>
+              </Col>
+              <Col lg="6">
+                <label
+                  className="form-control-label ml-2"
+                  htmlFor="front_domain_title"
+                >
+                  Título domínio frente
+                </label>
+                <FormGroup>
+                  <label className="btn bg-light ml-1 mb-0">
+                    {inputDocumentation.front_domain_title.fileName
+                      ? inputDocumentation.front_domain_title.fileName.substring(
+                          0,
+                          40
+                        )
+                      : "Escolher Arquivo"}
+                    <Input
+                      className="d-none"
+                      type="file"
+                      name="front_domain_title"
+                      id="front_domain_title"
+                      title="Título domínio frente"
+                      onChange={handleChangeInputFile}
+                    />
+                  </label>
+                </FormGroup>
+              </Col>
+              <Col lg="6">
+                <label
+                  className="form-control-label ml-2"
+                  htmlFor="back_domain_title"
+                >
+                  Título domínio verso
+                </label>
+                <FormGroup>
+                  <label className="btn bg-light ml-1 mb-0">
+                    {inputDocumentation.back_domain_title.fileName
+                      ? inputDocumentation.back_domain_title.fileName.substring(
+                          0,
+                          40
+                        )
+                      : "Escolher Arquivo"}
+                    <Input
+                      className="d-none"
+                      type="file"
+                      name="back_domain_title"
+                      id="back_domain_title"
+                      title="Título domínio verso"
+                      onChange={handleChangeInputFile}
+                    />
+                  </label>
+                </FormGroup>
+              </Col>
+            </Row>
           </Col>
-          <Col lg="6">
-            <label
-              className="form-control-label ml-2"
-              htmlFor="back_domain_title"
-            >
-              Título domínio verso
-            </label>
-            <FormGroup>
-              <label className="btn bg-light ml-1 mb-0">
-                {inputDocumentation.back_domain_title.fileName
-                  ? inputDocumentation.back_domain_title.fileName.substring(
-                      0,
-                      40
-                    )
-                  : "Escolher Arquivo"}
-                <Input
-                  className="d-none"
-                  type="file"
-                  name="back_domain_title"
-                  id="back_domain_title"
-                  title="Título domínio verso"
-                  onChange={handleChangeInputFile}
-                />
-              </label>
-            </FormGroup>
+          <Col lg="12" className="border rounded mb-3">
+            <Row>
+              <Col
+                lg="12"
+                className="text-center mb-3 pt-2 border border-bottom"
+              >
+                <h3>Cartão Assentamento</h3>
+              </Col>
+              <Col lg="6">
+                <label
+                  className="form-control-label ml-2"
+                  htmlFor="front_nesting_card"
+                >
+                  Cartão assentamento frente
+                </label>
+                <FormGroup>
+                  <label className="btn bg-light ml-1 mb-0">
+                    {inputDocumentation.front_nesting_card.fileName
+                      ? inputDocumentation.front_nesting_card.fileName.substring(
+                          0,
+                          40
+                        )
+                      : "Escolher Arquivo"}
+                    <Input
+                      className="d-none"
+                      type="file"
+                      name="front_nesting_card"
+                      id="front_nesting_card"
+                      title="Cartão assentamento frente"
+                      onChange={handleChangeInputFile}
+                    />
+                  </label>
+                </FormGroup>
+              </Col>
+              <Col lg="6">
+                <label
+                  className="form-control-label ml-2"
+                  htmlFor="back_nesting_card"
+                >
+                  Cartão assentamento verso
+                </label>
+                <FormGroup>
+                  <label className="btn bg-light ml-1 mb-0">
+                    {inputDocumentation.back_nesting_card.fileName
+                      ? inputDocumentation.back_nesting_card.fileName.substring(
+                          0,
+                          40
+                        )
+                      : "Escolher Arquivo"}
+                    <Input
+                      className="d-none"
+                      type="file"
+                      name="back_nesting_card"
+                      id="back_nesting_card"
+                      title="Cartão assentamento verso"
+                      onChange={handleChangeInputFile}
+                    />
+                  </label>
+                </FormGroup>
+              </Col>
+            </Row>
           </Col>
-          <Col lg="6">
-            <label
-              className="form-control-label ml-2"
-              htmlFor="front_nesting_card"
-            >
-              Cartão assentamento frente
-            </label>
-            <FormGroup>
-              <label className="btn bg-light ml-1 mb-0">
-                {inputDocumentation.front_nesting_card.fileName
-                  ? inputDocumentation.front_nesting_card.fileName.substring(
-                      0,
-                      40
-                    )
-                  : "Escolher Arquivo"}
-                <Input
-                  className="d-none"
-                  type="file"
-                  name="front_nesting_card"
-                  id="front_nesting_card"
-                  title="Cartão assentamento frente"
-                  onChange={handleChangeInputFile}
-                />
-              </label>
-            </FormGroup>
+          <Col lg="12" className="border rounded mb-3">
+            <Row>
+              <Col
+                lg="12"
+                className="text-center mb-3 pt-2 border border-bottom"
+              >
+                <h3>Georeferenciamento</h3>
+              </Col>
+              <Col lg="12">
+                <label
+                  className="form-control-label ml-2"
+                  htmlFor="georeferencing"
+                >
+                  Georeferenciamento
+                </label>
+                <FormGroup>
+                  <label className="btn bg-light ml-1 mb-0">
+                    {inputDocumentation.georeferencing.fileName
+                      ? inputDocumentation.georeferencing.fileName.substring(
+                          0,
+                          40
+                        )
+                      : "Escolher Arquivo"}
+                    <Input
+                      className="d-none"
+                      type="file"
+                      name="georeferencing"
+                      id="georeferencing"
+                      title="Georeferenciamento"
+                      onChange={handleChangeInputFile}
+                    />
+                  </label>
+                </FormGroup>
+              </Col>
+            </Row>
           </Col>
-          <Col lg="6">
-            <label
-              className="form-control-label ml-2"
-              htmlFor="back_nesting_card"
-            >
-              Cartão assentamento verso
-            </label>
-            <FormGroup>
-              <label className="btn bg-light ml-1 mb-0">
-                {inputDocumentation.back_nesting_card.fileName
-                  ? inputDocumentation.back_nesting_card.fileName.substring(
-                      0,
-                      40
-                    )
-                  : "Escolher Arquivo"}
-                <Input
-                  className="d-none"
-                  type="file"
-                  name="back_nesting_card"
-                  id="back_nesting_card"
-                  title="Cartão assentamento verso"
-                  onChange={handleChangeInputFile}
-                />
-              </label>
-            </FormGroup>
+          <Col lg="12" className="border rounded mb-3">
+            <Row>
+              <Col
+                lg="12"
+                className="text-center mb-3 pt-2 border border-bottom"
+              >
+                <h3>RG do Beneficiário</h3>
+              </Col>
+              <Col lg="6">
+                <label
+                  className="form-control-label ml-2"
+                  htmlFor="front_beneficiary_rg"
+                >
+                  RG do beneficiário frente
+                </label>
+                <FormGroup>
+                  <label className="btn bg-light ml-1 mb-0">
+                    {inputDocumentation.front_beneficiary_rg.fileName
+                      ? inputDocumentation.front_beneficiary_rg.fileName.substring(
+                          0,
+                          40
+                        )
+                      : "Escolher Arquivo"}
+                    <Input
+                      className="d-none"
+                      type="file"
+                      name="front_beneficiary_rg"
+                      id="front_beneficiary_rg"
+                      title="RG do beneficiário frente"
+                      onChange={handleChangeInputFile}
+                      required
+                    />
+                  </label>
+                </FormGroup>
+              </Col>
+              <Col lg="6">
+                <label
+                  className="form-control-label ml-2"
+                  htmlFor="back_beneficiary_rg"
+                >
+                  RG do beneficiário verso
+                </label>
+                <FormGroup>
+                  <label className="btn bg-light ml-1 mb-0">
+                    {inputDocumentation.back_beneficiary_rg.fileName
+                      ? inputDocumentation.back_beneficiary_rg.fileName.substring(
+                          0,
+                          40
+                        )
+                      : "Escolher Arquivo"}
+                    <Input
+                      className="d-none"
+                      type="file"
+                      name="back_beneficiary_rg"
+                      id="back_beneficiary_rg"
+                      title="RG do beneficiário verso"
+                      onChange={handleChangeInputFile}
+                      required
+                    />
+                  </label>
+                </FormGroup>
+              </Col>
+            </Row>
           </Col>
-          <Col lg="12">
-            <label className="form-control-label ml-2" htmlFor="georeferencing">
-              Georeferenciamento
-            </label>
-            <FormGroup>
-              <label className="btn bg-light ml-1 mb-0">
-                {inputDocumentation.georeferencing.fileName
-                  ? inputDocumentation.georeferencing.fileName.substring(0, 40)
-                  : "Escolher Arquivo"}
-                <Input
-                  className="d-none"
-                  type="file"
-                  name="georeferencing"
-                  id="georeferencing"
-                  title="Georeferenciamento"
-                  onChange={handleChangeInputFile}
-                />
-              </label>
-            </FormGroup>
-          </Col>
-          <Col lg="6">
-            <label
-              className="form-control-label ml-2"
-              htmlFor="front_beneficiary_rg"
-            >
-              RG do beneficiário frente
-            </label>
-            <FormGroup>
-              <label className="btn bg-light ml-1 mb-0">
-                {inputDocumentation.front_beneficiary_rg.fileName
-                  ? inputDocumentation.front_beneficiary_rg.fileName.substring(
-                      0,
-                      40
-                    )
-                  : "Escolher Arquivo"}
-                <Input
-                  className="d-none"
-                  type="file"
-                  name="front_beneficiary_rg"
-                  id="front_beneficiary_rg"
-                  title="RG do beneficiário frente"
-                  onChange={handleChangeInputFile}
-                  required
-                />
-              </label>
-            </FormGroup>
-          </Col>
-          <Col lg="6">
-            <label
-              className="form-control-label ml-2"
-              htmlFor="back_beneficiary_rg"
-            >
-              RG do beneficiário verso
-            </label>
-            <FormGroup>
-              <label className="btn bg-light ml-1 mb-0">
-                {inputDocumentation.back_beneficiary_rg.fileName
-                  ? inputDocumentation.back_beneficiary_rg.fileName.substring(
-                      0,
-                      40
-                    )
-                  : "Escolher Arquivo"}
-                <Input
-                  className="d-none"
-                  type="file"
-                  name="back_beneficiary_rg"
-                  id="back_beneficiary_rg"
-                  title="RG do beneficiário verso"
-                  onChange={handleChangeInputFile}
-                  required
-                />
-              </label>
-            </FormGroup>
-          </Col>
-          <Col lg="6">
-            <label
-              className="form-control-label ml-2"
-              htmlFor="front_companion_rg"
-            >
-              RG do companheiro frente
-            </label>
-            <FormGroup>
-              <label className="btn bg-light ml-1 mb-0">
-                {inputDocumentation.front_companion_rg.fileName
-                  ? inputDocumentation.front_companion_rg.fileName.substring(
-                      0,
-                      40
-                    )
-                  : "Escolher Arquivo"}
-                <Input
-                  className="d-none"
-                  type="file"
-                  name="front_companion_rg"
-                  id="front_companion_rg"
-                  title="RG do companheiro frente"
-                  onChange={handleChangeInputFile}
-                  required
-                />
-              </label>
-            </FormGroup>
-          </Col>
-          <Col lg="6">
-            <label
-              className="form-control-label ml-2"
-              htmlFor="back_companion_rg"
-            >
-              RG do companheiro verso
-            </label>
-            <FormGroup>
-              <label className="btn bg-light ml-1 mb-0">
-                {inputDocumentation.back_companion_rg.fileName
-                  ? inputDocumentation.back_companion_rg.fileName.substring(
-                      0,
-                      40
-                    )
-                  : "Escolher Arquivo"}
-                <Input
-                  className="d-none"
-                  type="file"
-                  name="back_companion_rg"
-                  id="back_companion_rg"
-                  title="RG do companheiro verso"
-                  onChange={handleChangeInputFile}
-                  required
-                />
-              </label>
-            </FormGroup>
+          <Col lg="12" className="border rounded mb-3">
+            <Row>
+              <Col
+                lg="12"
+                className="text-center mb-3 pt-2 border border-bottom-bottom"
+              >
+                <h3>RG do Companheiro</h3>
+              </Col>
+              <Col lg="6">
+                <label
+                  className="form-control-label ml-2"
+                  htmlFor="front_companion_rg"
+                >
+                  RG do companheiro frente
+                </label>
+                <FormGroup>
+                  <label className="btn bg-light ml-1 mb-0">
+                    {inputDocumentation.front_companion_rg.fileName
+                      ? inputDocumentation.front_companion_rg.fileName.substring(
+                          0,
+                          40
+                        )
+                      : "Escolher Arquivo"}
+                    <Input
+                      className="d-none"
+                      type="file"
+                      name="front_companion_rg"
+                      id="front_companion_rg"
+                      title="RG do companheiro frente"
+                      onChange={handleChangeInputFile}
+                      required
+                    />
+                  </label>
+                </FormGroup>
+              </Col>
+              <Col lg="6">
+                <label
+                  className="form-control-label ml-2"
+                  htmlFor="back_companion_rg"
+                >
+                  RG do companheiro verso
+                </label>
+                <FormGroup>
+                  <label className="btn bg-light ml-1 mb-0">
+                    {inputDocumentation.back_companion_rg.fileName
+                      ? inputDocumentation.back_companion_rg.fileName.substring(
+                          0,
+                          40
+                        )
+                      : "Escolher Arquivo"}
+                    <Input
+                      className="d-none"
+                      type="file"
+                      name="back_companion_rg"
+                      id="back_companion_rg"
+                      title="RG do companheiro verso"
+                      onChange={handleChangeInputFile}
+                      required
+                    />
+                  </label>
+                </FormGroup>
+              </Col>
+            </Row>
           </Col>
         </Row>
       </Col>
@@ -353,8 +432,14 @@ const Documentation = ({
             </label>
             <FormGroup>
               <label className="btn bg-light ml-1 mb-0">
-                {files.documentation_birth_cetificate.fileName
+                {/* {files.documentation_birth_cetificate.fileName
                   ? files.documentation_birth_cetificate.fileName.substring(
+                      0,
+                      40
+                    )
+                  : "Escolher Arquivo"} */}
+                {inputDocumentationList.documentation_birth_cetificate.fileName
+                  ? inputDocumentationList.documentation_birth_cetificate.fileName.substring(
                       0,
                       40
                     )
@@ -365,7 +450,8 @@ const Documentation = ({
                   name="documentation_birth_cetificate"
                   id="documentation_birth_cetificate"
                   title="Certidão de Nascimento"
-                  onChange={handleChangeInputOtherFiles}
+                  onChange={handleChangeInputFiles}
+                  multiple="multiple"
                   required
                 />
               </label>
@@ -392,7 +478,7 @@ const Documentation = ({
                 </tr>
               </thead>
               <tbody>
-                {inputDocumentationList.documentation_birth_cetificate.map(
+                {/* {inputDocumentationList.documentation_birth_cetificate.map(
                   (file, i) => (
                     <tr key={i}>
                       <td>{file.fileName.substring(0, 35)}</td>
@@ -407,7 +493,7 @@ const Documentation = ({
                       </td>
                     </tr>
                   )
-                )}
+                )} */}
               </tbody>
             </Table>
           </Col>
@@ -464,7 +550,7 @@ const Documentation = ({
                 </tr>
               </thead>
               <tbody>
-                {inputDocumentationList.documentation_cpf.map((file, i) => (
+                {/* {inputDocumentationList.documentation_cpf.map((file, i) => (
                   <tr key={i}>
                     <td>{file.fileName.substring(0, 35)}</td>
                     <td>
@@ -475,7 +561,7 @@ const Documentation = ({
                       </Button>
                     </td>
                   </tr>
-                ))}
+                ))} */}
               </tbody>
             </Table>
           </Col>
@@ -535,7 +621,7 @@ const Documentation = ({
                 </tr>
               </thead>
               <tbody>
-                {inputDocumentationList.documentation_economic_ativities.map(
+                {/* {inputDocumentationList.documentation_economic_ativities.map(
                   (file, i) => (
                     <tr key={i}>
                       <td>{file.fileName.substring(0, 35)}</td>
@@ -550,7 +636,7 @@ const Documentation = ({
                       </td>
                     </tr>
                   )
-                )}
+                )} */}
               </tbody>
             </Table>
           </Col>
@@ -607,20 +693,22 @@ const Documentation = ({
                 </tr>
               </thead>
               <tbody>
-                {inputDocumentationList.documentation_improvement.map((file, i) => (
-                  <tr key={i}>
-                    <td>{file.fileName.substring(0, 35)}</td>
-                    <td>
-                      <Button
-                        onClick={() =>
-                          removeFile("documentation_improvement", i)
-                        }
-                      >
-                        <DeleteForeverOutlined />
-                      </Button>
-                    </td>
-                  </tr>
-                ))}
+                {/* {inputDocumentationList.documentation_improvement.map(
+                  (file, i) => (
+                    <tr key={i}>
+                      <td>{file.fileName.substring(0, 35)}</td>
+                      <td>
+                        <Button
+                          onClick={() =>
+                            removeFile("documentation_improvement", i)
+                          }
+                        >
+                          <DeleteForeverOutlined />
+                        </Button>
+                      </td>
+                    </tr>
+                  )
+                )} */}
               </tbody>
             </Table>
           </Col>

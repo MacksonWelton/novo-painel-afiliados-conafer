@@ -6,7 +6,8 @@ import converterDataToFormData from "../../utils/converterDataToFormData";
 
 export const getMembers = () => async (dispatch) => {
   try {
-    // const response = await api.get("/api/v1/member/member/");
+    const response = await api.get("member/member/");
+
     dispatch(setMembers(MembrosData));
   } catch (err) {
     console.error(err.message);
@@ -38,6 +39,128 @@ const setSubmitMessage = (submitMessage) => ({
   },
 });
 
+export const getDataMembers = () => async (dispatch) => {
+  try {
+    const response = await api.get("member/member/");
+    dispatch(setDataMembers(response.data));
+  } catch (err) {
+    console.error(err.response);
+    if (!err.response) {
+      dispatch(
+        setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
+      );
+    } else if (err.response.status === 400 || err.response.status === 401) {
+      dispatch(setAlert(err.response.status, err.response.data.detail, true));
+    } else {
+      dispatch(
+        setAlert(err.response.status, err.response.data.error_description, true)
+      );
+    }
+  }
+};
+
+const setDataMembers = (dataMembers) => ({
+  type: "SET_DATA_MEMBERS",
+  payload: {
+    dataMembers,
+  },
+});
+
+export const getAllotments = () => async (dispatch) => {
+  try {
+    const response = await api.get(`allotment/allotment/`);
+
+    dispatch(setAllotments(response.data));
+  } catch (err) {
+    console.error(err.response);
+    if (!err.response) {
+      dispatch(
+        setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
+      );
+    } else if (err.response.status === 400 || err.response.status === 401) {
+      dispatch(setAlert(err.response.status, err.response.data.detail, true));
+    } else {
+      dispatch(
+        setAlert(err.response.status, err.response.data.error_description, true)
+      );
+    }
+  }
+};
+
+const setAllotments = (allotments) => ({
+  type: "SET_ALLOTMENTS",
+  payload: {
+    allotments,
+  },
+});
+
+export const getAllotmentById = (id) => async (dispatch) => {
+  try {
+    
+    const response = await api.get(`allotment/allotment/${id}/`);
+    
+    dispatch(setAllotmentById(response.data));
+
+  } catch (err) {
+    if (!err.response) {
+      dispatch(
+        setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
+      );
+    } else if (err.response.status === 400 || err.response.status === 401) {
+      dispatch(setAlert(err.response.status, err.response.data.detail, true));
+    } else {
+      dispatch(
+        setAlert(err.response.status, err.response.data.error_description, true)
+      );
+    }
+  }
+};
+
+const setAllotmentById = (allotment) => ({
+  type: "",
+  payload: {
+    allotment,
+  },
+});
+
+export const getDiagnosisAgriculturalSystems = () => async (dispatch) => {
+  try {
+
+    const response = await api("/agricultural_system/agricultural_system/");
+
+    const diagnosisAgriculturalSystems = await Promise.all(response.data.map(async (item)=> {
+      const allotmentData = await api.get(`allotment/allotment/${item.allotment}/`);
+
+      return {...item, 
+        allotmentName: allotmentData.data.property_name, 
+        allotment_city: allotmentData.data.allotment_city, 
+        allotment_state: allotmentData.data.allotment_state};
+    }));
+
+    dispatch(setDiagnosisAgriculturalSystems(diagnosisAgriculturalSystems));
+  } catch (err) {
+    console.error(err.message)
+    if (!err.response) {
+      dispatch(
+        setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
+      );
+    } else if (err.response.status === 400 || err.response.status === 401) {
+      dispatch(setAlert(err.response.status, err.response.data.detail, true));
+    } else {
+      dispatch(
+        setAlert(err.response.status, err.response.data.error_description, true)
+      );
+    }
+  }
+}
+
+const setDiagnosisAgriculturalSystems = (diagnosisAgriculturalSystems) => ({
+  type: "SET_DIAGNOSIS_AGRICULTURAL_SYSTEMS",
+  payload: {
+    diagnosisAgriculturalSystems
+  }
+})
+
 export const newMember = (
   inputMember,
   inputAllotment,
@@ -52,52 +175,55 @@ export const newMember = (
   inputDocumentationList
 ) => async (dispatch) => {
   try {
-    const responseMember = await api.post(
-      "/api/v1/member/member/",
-      inputMember
-    );
+    // const responseMember = await api.post(
+    //   "member/member/",
+    //   inputMember
+    // );
 
-    inputAllotment.member = responseMember.data.id;
+    // inputAllotment.member = responseMember.data.id;
 
-    const formDataAllotment = converterDataToFormData(
-      inputAllotment,
-      fileAllotment
-    );
+    // const formDataAllotment = converterDataToFormData(
+    //   inputAllotment,
+    //   fileAllotment
+    // );
 
-    const responseAllotment = await api.post(
-      "/api/v1/allotment/allotment/",
-      formDataAllotment,
-      {
-        headers: {
-          "Content-Type": `multipart/form-data; boundary=${formDataAllotment._boundary}`,
-        },
-      }
-    );
+    // const responseAllotment = await api.post(
+    //   "allotment/allotment/",
+    //   formDataAllotment,
+    //   {
+    //     headers: {
+    //       "Content-Type": `multipart/form-data; boundary=${formDataAllotment._boundary}`,
+    //     },
+    //   }
+    // );
 
-    inputDiagnosisOfAgriculturalSystems.allotment = responseAllotment.data.id;
+    // inputDiagnosisOfAgriculturalSystems.allotment = responseAllotment.data.id;
+
+    // dispatch(
+    //   postDiagnosisOfAgriculturalSystems(inputDiagnosisOfAgriculturalSystems)
+    // );
+
+    // dispatch(
+    //   postProduction(
+    //     responseAllotment.data.id,
+    //     inputVegetablesProduction,
+    //     inputPsicultureProduction
+    //   )
+    // );
+
+    // dispatch(postImprovements(responseAllotment.data.id, inputImprovements));
+
+    // dispatch(postTransport(responseAllotment.data.id, inputTransport));
+
+    // dispatch(postTechinicalVisit(responseAllotment.data.id, inputTechnicalVisit));
 
     dispatch(
-      postDiagnosisOfAgriculturalSystems(inputDiagnosisOfAgriculturalSystems)
-    );
-
-    dispatch(
-      postProduction(
-        responseAllotment.data.id,
-        inputVegetablesProduction,
-        inputPsicultureProduction
+      postDocumentation(
+        "f7263886-85bf-4087-9b42-96ca60dfe6f9",
+        inputDocumentation,
+        inputDocumentationList
       )
     );
-
-    dispatch(postImprovements(responseAllotment.data.id, inputImprovements));
-
-    dispatch(postTransport(responseAllotment.data.id, inputTransport));
-
-    dispatch(postTechinicalVisit(responseAllotment.data.id, inputTechnicalVisit));
-
-    dispatch();
-
-    inputDocumentation.allotment = responseAllotment.data.id;
-
   } catch (err) {
     console.error(err.message);
   }
@@ -108,7 +234,7 @@ export const postDiagnosisOfAgriculturalSystems = (
 ) => async () => {
   try {
     await api.post(
-      "/api/v1/agricultural_system/agricultural_system/",
+      "agricultural_system/agricultural_system/",
       inputDiagnosisOfAgriculturalSystems
     );
   } catch (err) {
@@ -120,26 +246,25 @@ export const postTransport = (idAllotment, inputTransport) => async () => {
   try {
     for (const transport of inputTransport) {
       transport.allotment = idAllotment;
-      await api.post("/api/v1/transport/transport");
+      await api.post("transport/transport", transport);
     }
-  } catch(err) {
-    console.error(err.message);
-  }
-}
-
-export const postTechinicalVisit = (idAllotment, inputTechnicalVisit) => async () => {
-
-  inputTechnicalVisit.allotment = idAllotment;
-
-  try {
-    await api.post(
-      "/api/v1/technical_visit/technical_visit/",
-      inputTechnicalVisit
-    );
   } catch (err) {
     console.error(err.message);
   }
-}
+};
+
+export const postTechinicalVisit = (
+  idAllotment,
+  inputTechnicalVisit
+) => async () => {
+  inputTechnicalVisit.allotment = idAllotment;
+
+  try {
+    await api.post("technical_visit/technical_visit/", inputTechnicalVisit);
+  } catch (err) {
+    console.error(err.message);
+  }
+};
 
 export const postProduction = (
   idAllotment,
@@ -149,54 +274,65 @@ export const postProduction = (
   try {
     for (const production of inputVegetablesProduction) {
       production.allotment = idAllotment;
-      await api.post("/api/v1/production/vegetables_production/", production);
+      await api.post("production/vegetables_production/", production);
     }
 
     for (const production of inputPsicultureProduction) {
       production.allotment = idAllotment;
-      await api.post("/api/v1/production/vegetables_production/", production);
+      await api.post("psiculture/psiculture/", production);
     }
   } catch (err) {
     console.error(err.message);
   }
 };
 
-export const postImprovements = (idAllotment, inputImprovements) => async () => {
+export const postImprovements = (
+  idAllotment,
+  inputImprovements
+) => async () => {
   try {
     for (const improvement of inputImprovements) {
       improvement.allotment = idAllotment;
-      await api.post("/api/v1/improvement/improvement/", improvement);
+      await api.post("improvement/improvement/", improvement);
     }
-  } catch (err) {
-    console.error(err.message)
-  }
-}
-
-export const postDocumentation = (idAllotment, inputDocumentation, inputDocumentationList) => async () => {
-  try {
-    const formDataDocumentation = converterDataToFormData(
-      inputDocumentation,
-      inputDocumentation
-    );
-
-    let formData;
-
-    for (formData of inputDocumentationList) {
-      formData = Object.assign(
-        formDataDocumentation,
-        converterDataToFormData("", inputDocumentationList)
-      );
-    }
-
-    await api.post("/api/v1/documentation/documentation/", formData);
   } catch (err) {
     console.error(err.message);
   }
-}
+};
+
+export const postDocumentation = (
+  idAllotment,
+  inputDocumentation,
+  inputDocumentationList
+) => async () => {
+  const documentationAllotment = { member: idAllotment };
+
+  const formDataDocumentation = converterDataToFormData(
+    documentationAllotment,
+    inputDocumentation
+  );
+
+  console.log(inputDocumentation);
+
+  Object.keys(inputDocumentationList).forEach((files) => {
+    console.log(inputDocumentationList[files].value);
+    formDataDocumentation.append(files, inputDocumentationList[files].value);
+  });
+
+  try {
+    await api.post("documentation/documentation/", formDataDocumentation, {
+      headers: {
+        "Content-Type": `multipart/form-data; boundary=${formDataDocumentation._boundary}`,
+      },
+    });
+  } catch (err) {
+    console.error(err.message);
+  }
+};
 
 export const getProductionName = () => async (dispatch) => {
   try {
-    const response = await api.get("/api/v1/production/name_production/");
+    const response = await api.get("production/name_production/");
 
     dispatch(setProductionName(response.data));
   } catch (err) {
@@ -227,7 +363,7 @@ const setProductionName = (productionName) => ({
 
 export const getTypeProduction = () => async (dispatch) => {
   try {
-    const response = await api.get("/api/v1/production/type_production/");
+    const response = await api.get("production/type_production/");
 
     dispatch(setTypeProduction(response.data));
   } catch (err) {
@@ -256,36 +392,9 @@ const setTypeProduction = (typeProduction) => ({
   },
 });
 
-export const getDataMembers = () => async (dispatch) => {
-  try {
-    const response = await api.get("/api/v1/member/member/");
-    dispatch(setDataMembers(response.data));
-  } catch (err) {
-    console.error(err.response);
-    if (!err.response) {
-      dispatch(
-        setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
-      );
-    } else if (err.response.status === 400 || err.response.status === 401) {
-      dispatch(setAlert(err.response.status, err.response.data.detail, true));
-    } else {
-      dispatch(
-        setAlert(err.response.status, err.response.data.error_description, true)
-      );
-    }
-  }
-};
-
-const setDataMembers = (dataMembers) => ({
-  type: "SET_DATA_MEMBERS",
-  payload: {
-    dataMembers,
-  },
-});
-
 export const getBiomes = () => async (dispatch) => {
   try {
-    const response = await api.get("/api/v1/allotment/bioma/");
+    const response = await api.get("allotment/bioma/");
 
     dispatch(setBiomes(response.data));
   } catch (err) {

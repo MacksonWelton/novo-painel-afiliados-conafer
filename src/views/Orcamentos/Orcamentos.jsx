@@ -1,60 +1,22 @@
-import BotoesDeAcao from "components/BotoesDeAcao/BotoesDeAcao";
-import Header from "components/Headers/Header";
-import ProgressCard from "components/ProgressCard/ProgressCard";
+import BotoesDeAcao from "../../components/BotoesDeAcao/BotoesDeAcao";
+import Header from "../../components/Headers/Header";
+import ProgressCard from "../../components/ProgressCard/ProgressCard";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Badge,
-
-
-
-
-
-
-
-
-
-
-
-
-
   Button, Card,
   CardFooter,
-
-
-
-
-
-
-
-
   Container, DropdownItem, DropdownMenu,
-
-
   DropdownToggle,
-
-
-
-
-
-
-
-
-
   Form, Input, Modal,
-
-
-
-
   ModalBody,
   ModalFooter, ModalHeader, Pagination,
   PaginationItem,
   PaginationLink,
-
-
   Row, Table, UncontrolledDropdown
 } from "reactstrap";
-import { CardHeaderStyled, InputStyled } from "views/Contratos/styles";
+import { CardHeaderStyled, InputStyled } from "./styles";
 import { deleteBudgets, downloadBudgets, newBudgets, newComment } from "../../redux/actions/Orcamentos";
 import OrcamentosData from "./OrcamentosData";
 import { Tr } from "./styles";

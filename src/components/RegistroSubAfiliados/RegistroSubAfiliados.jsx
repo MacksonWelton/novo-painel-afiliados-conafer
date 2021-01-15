@@ -90,10 +90,7 @@ const RegistroSubAfiliados = ({ title }) => {
   }
 
   const handleNext = async () => {
-    const message = await submitMessage;
-    if (!message) {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    }
   };
 
   const [inputMember, setInputMember] = useState({
@@ -328,14 +325,26 @@ const RegistroSubAfiliados = ({ title }) => {
     back_companion_rg: {
       fileName: "",
       value: "",
-    }
+    },
   });
 
   const [inputDocumentationList, setInputDocumentationList] = useState({
-    documentation_birth_cetificate: [],
-    documentation_cpf: [],
-    documentation_economic_ativities: [],
-    documentation_improvement: [],
+    documentation_birth_cetificate: {
+      fileName: "",
+      value: "",
+    },
+    documentation_cpf: {
+      fileName: "",
+      value: "",
+    },
+    documentation_economic_ativities: {
+      fileName: "",
+      value: "",
+    },
+    documentation_improvement: {
+      fileName: "",
+      value: "",
+    },
   });
 
   const [inputPropertyInformation, setInputPropertyInformation] = useState({
@@ -529,6 +538,7 @@ const RegistroSubAfiliados = ({ title }) => {
           setActiveStep={setActiveStep}
           getStepContent={getStepContent}
           handleSubmitData={handleSubmitData}
+          handleSubmitForm={handleSubmitForm}
         />
       </Form>
     </FormContext.Provider>

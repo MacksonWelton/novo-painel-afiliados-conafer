@@ -3,9 +3,12 @@
 const converterDataToFormData = (input, files) => {
   const formData = new FormData();
 
-  Object.keys(input).forEach(data => {
-    formData.append(data, input[data]);
-  })
+  if (input) {
+    Object.keys(input).forEach(data => {
+      formData.append(data, input[data]);
+    })
+  }
+
 
   if (files) {
     Object.keys(files).forEach(file => {
@@ -14,7 +17,6 @@ const converterDataToFormData = (input, files) => {
       }
     })
   }
-
 
   return formData;
 }
