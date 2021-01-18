@@ -1,9 +1,11 @@
-import { ActionPolymer } from "material-ui/svg-icons";
-
 const initialState = {
   member: "",
   allotments: [],
   diagnosisAgriculturalSystems: [],
+  productions: [],
+  vegetablesProductions: [],
+  animalsProductions: [],
+  psicultureProductions: [],
   allotment: "",
   production: "",
   improvement: "",
@@ -35,8 +37,17 @@ const MembersReducer = (state = initialState, action) => {
         ...state,
         diagnosisAgriculturalSystems: action.payload.diagnosisAgriculturalSystems,
       };
+    case "SET_PRODUCTIONS":
+      return {...state, productions: action.payload.productions};
+
+    case "SET_VEGETABLES_PRODUCTIONS":
+      return {...state, vegetablesProductions: action.payload.vegetablesProductions};
+    case "SET_ANIMALS_PRODUCTIONS":
+      return {...state, animalsProductions: action.payload.animalsProductions};
+    case "SET_PSICULTURE_PRODUCTIONS":
+      return {...state, psicultureProductions: action.payload.psicultureProductions};
     case "SET_ALLOTMENT":
-      return {...state, allotment: ActionPolymer.payload.allotment};
+      return {...state, allotment: action.payload.allotment};
     case "SET_PRODUCTION":
       return {
         ...state,

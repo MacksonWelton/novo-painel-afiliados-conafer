@@ -31,6 +31,10 @@ import Mensalidades from "./views/Mensalidades/Mensalidades";
 import Membros from "./views/Sindicato/Membros/Membros";
 import Allotments from "./views/Sindicato/Allotments/Allotments";
 import DiagnosisAgriculturalSystems from "./views/Sindicato/DiagnosisAgriculturalSystems/DiagnosisAgriculturalSystems";
+import Productions from "./views/Sindicato/Production/Productions/Productions";
+import VegetablesProduction from "./views/Sindicato/Production/VegetablesProduction/VegetablesProduction";
+import AnimalsProduction from "./views/Sindicato/Production/AnimalProduction/AnimalProduction";
+import Psiculture from "./views/Sindicato/Production/Psiculture/Psiculture";
 import UserAffiliation from "./views/Sindicato/UsuariosAfiliacao/UsuariosAfiliacao";
 
 var routes = [
@@ -101,10 +105,49 @@ var routes = [
   {
     path: "/diagnosis-agricultural-systems",
     name: "Diagnóstico de Sistemas Agrários",
-    icon: "far fa-chart-bar text-green",
+    icon: "fas fa-leaf text-green",
     component: DiagnosisAgriculturalSystems,
     layout: "/admin",
     show: true
+  },
+  {
+    dropdown: true,
+    title: "Produção",
+    icon: "far fa-chart-bar text-red",
+    items: [
+      {
+        show: true,
+        path: "/productions/productions",
+        name: "Produção",
+        icon: "fas fa-chart-pie text-green",
+        component: Productions,
+        layout: "/admin",
+      },
+      {
+        show: true,
+        path: "/productions/vegetables",
+        name: "Produção de Vegetais",
+        icon: "fas fa-chart-pie text-green",
+        component: VegetablesProduction,
+        layout: "/admin",
+      },
+      {
+        show: true,
+        path: "/productions/animals",
+        name: "Produção de Animais",
+        icon: "fas fa-chart-pie text-green",
+        component: AnimalsProduction,
+        layout: "/admin",
+      },
+      {
+        show: true,
+        path: "/productions/psiculture/",
+        name: "Psicultura",
+        icon: "fas fa-chart-pie text-green",
+        component: Psiculture,
+        layout: "/admin",
+      },
+    ]
   },
   {
     path: "/suporte",
@@ -128,7 +171,7 @@ var routes = [
     icon: "ni ni-key-25 text-info",
     component: Login,
     layout: "/auth",
-    show: true
+    show: false
   },
   {
     path: "/register",
@@ -136,7 +179,7 @@ var routes = [
     icon: "ni ni-circle-08 text-pink",
     component: Registro,
     layout: "/auth",
-    show: true
+    show: false
   },
   {
     path: "/recover-password",
@@ -144,7 +187,7 @@ var routes = [
     icon: "ni ni-circle-08 text-pink",
     component: RecuperarSenha,
     layout: "/auth",
-    show: true
+    show: false
   },
   {
     path: "/affiliate-registration",
@@ -152,7 +195,7 @@ var routes = [
     icon: "ni ni-circle-08 text-pink",
     component: RegistroDeAfiliados,
     layout: "/auth",
-    show: true
+    show: false
   },
   {
     path: "/registration-pj",

@@ -26,6 +26,7 @@ import {
   Container,
   Row,
   Col,
+  Dropdown
 } from "reactstrap";
 
 import Avatar from "../../assets/img/theme/avatar.png";
@@ -56,6 +57,12 @@ class Sidebar extends React.Component {
     });
   };
 
+  toggle = (key) => {
+    this.setState({
+      dropdownOpen: this.state.dropdownOpen === key ? false : key,
+    });
+  };
+
 
   exit = () => {
     localStorage.clear();
@@ -68,7 +75,7 @@ class Sidebar extends React.Component {
   // creates the links that appear in the left menu / Sidebar
   createLinks = (routes) => {
     return routes.map((prop, key) => {
-      if (prop.layout === "/admin" && prop.show) {
+      if (prop.show) {
         return (
           <NavItem key={key}>
             <NavLink
@@ -82,11 +89,47 @@ class Sidebar extends React.Component {
             </NavLink>
           </NavItem>
         );
+      } else if (prop.dropdown) {
+        return (
+          <Dropdown
+            nav
+            isOpen={this.state.dropdownOpen === key}
+            toggle={() => this.toggle(key)}
+            key={key}
+            direction="right"
+          >
+            <DropdownToggle nav caret>
+              <i className={prop.icon} />
+              {prop.title}
+            </DropdownToggle>
+            <DropdownMenu className="shadow ml-4 bg-white rounded">
+              {prop.items.map((item, key) => {
+                if (item.show) {
+                  return (
+                    <div key={key}>
+                      <NavLink
+                        to={item.layout + item.path}
+                        tag={NavLinkRRD}
+                        onClick={this.closeCollapse}
+                      >
+                        <i className={item.icon} />
+                        {item.name}
+                      </NavLink>
+                    </div>
+                  );
+                } else {
+                  return null;
+                }
+              })}
+            </DropdownMenu>
+          </Dropdown>
+        );
       } else {
         return null;
       }
     });
   };
+
   render() {
     const { routes, logo } = this.props;
     let navbarBrandProps;
