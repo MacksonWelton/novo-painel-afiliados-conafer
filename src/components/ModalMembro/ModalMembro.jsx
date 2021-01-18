@@ -10,6 +10,8 @@ import EnderecoParaCorrespondencia from "./components/EnderecoParaCorrespondenci
 import SupervisaoOcupacional from "./components/SupervisaoOcupacional";
 import DiagnosticoSistemasAgrarios from "./components/DiagnosticoSistemasAgrarios";
 import Producao from "./components/Producao";
+import VegetablesProduction from "./components/VegetablesProduction";
+import Psiculture from "./components/Psiculture";
 
 const ModalMembro = ({
   open,
@@ -17,7 +19,12 @@ const ModalMembro = ({
   member,
   allotment,
   diagnosisAgriculturalSystem,
+  production,
+  vegetablesProduction,
+  animalsProduction,
+  psiculture
 }) => {
+
   return (
     <Modal
       isOpen={open}
@@ -41,12 +48,16 @@ const ModalMembro = ({
             diagnosisAgriculturalSystem={diagnosisAgriculturalSystem}
           />
         )}
+        {production && (<Producao production={production} />)}
+        {vegetablesProduction && (<VegetablesProduction vegetablesProduction={vegetablesProduction}/>)}
+        {/* {animalsProduction} */}
+        {psiculture && (<Psiculture psiculture={psiculture}/>)}
         {/* <Moradias member={member} />
         <IdentificacaoUnidadeFamiliar member={member} />
         <SupervisaoOcupacional member={member} />
         <InfoGeraisUnidadeProdFamiliar member={member} />
         <EnderecoParaCorrespondencia member={member} />
-        <Producao member={member} /> */}
+         */}
       </ModalBody>
       <ModalFooter className="d-flex justify-content-end">
         <Button color="primary" onClick={() => setOpen(!open)}>

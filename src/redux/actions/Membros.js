@@ -96,11 +96,9 @@ const setAllotments = (allotments) => ({
 
 export const getAllotmentById = (id) => async (dispatch) => {
   try {
-    
     const response = await api.get(`allotment/allotment/${id}/`);
-    
-    dispatch(setAllotmentById(response.data));
 
+    dispatch(setAllotmentById(response.data));
   } catch (err) {
     if (!err.response) {
       dispatch(
@@ -125,21 +123,165 @@ const setAllotmentById = (allotment) => ({
 
 export const getDiagnosisAgriculturalSystems = () => async (dispatch) => {
   try {
-
     const response = await api("/agricultural_system/agricultural_system/");
 
-    const diagnosisAgriculturalSystems = await Promise.all(response.data.map(async (item)=> {
-      const allotmentData = await api.get(`allotment/allotment/${item.allotment}/`);
+    const diagnosisAgriculturalSystems = await Promise.all(
+      response.data.map(async (item) => {
+        const allotmentData = await api.get(
+          `allotment/allotment/${item.allotment}/`
+        );
 
-      return {...item, 
-        allotmentName: allotmentData.data.property_name, 
-        allotment_city: allotmentData.data.allotment_city, 
-        allotment_state: allotmentData.data.allotment_state};
-    }));
+        return {
+          ...item,
+          allotmentName: allotmentData.data.property_name,
+          allotment_city: allotmentData.data.allotment_city,
+          allotment_state: allotmentData.data.allotment_state,
+        };
+      })
+    );
 
     dispatch(setDiagnosisAgriculturalSystems(diagnosisAgriculturalSystems));
   } catch (err) {
-    console.error(err.message)
+    console.error(err.message);
+    if (!err.response) {
+      dispatch(
+        setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
+      );
+    } else if (err.response.status === 400 || err.response.status === 401) {
+      dispatch(setAlert(err.response.status, err.response.data.detail, true));
+    } else {
+      dispatch(
+        setAlert(err.response.status, err.response.data.error_description, true)
+      );
+    }
+  }
+};
+
+const setDiagnosisAgriculturalSystems = (diagnosisAgriculturalSystems) => ({
+  type: "SET_DIAGNOSIS_AGRICULTURAL_SYSTEMS",
+  payload: {
+    diagnosisAgriculturalSystems,
+  },
+});
+
+export const getProductions = () => async (dispatch) => {
+  try {
+    const response = await api.get("production/production/");
+
+    const productions = await Promise.all(
+      response.data.map(async (item) => {
+        const nameProduction = await api.get(
+          `production/name_production/${item.production}/`
+        );
+
+        const nameTypeProduction = await api.get(
+          `production/type_production/${item.type_production}/`
+        );
+
+        return {
+          ...item,
+          productionName: nameProduction.data.name,
+          typeName: nameTypeProduction.data.name,
+        };
+      })
+    );
+
+    dispatch(setProductions(productions));
+  } catch (err) {
+    console.error(err.message);
+    if (!err.response) {
+      dispatch(
+        setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
+      );
+    } else if (err.response.status === 400 || err.response.status === 401) {
+      dispatch(setAlert(err.response.status, err.response.data.detail, true));
+    } else {
+      dispatch(
+        setAlert(err.response.status, err.response.data.error_description, true)
+      );
+    }
+  }
+};
+
+const setProductions = (productions) => ({
+  type: "SET_PRODUCTIONS",
+  payload: {
+    productions,
+  },
+});
+
+export const getVegetablesProductions = () => async (dispatch) => {
+  try {
+    const response = await api.get("production/vegetables_production/");
+
+    const vegetablesProductions = await Promise.all(
+      response.data.map(async (item) => {
+        const nameProduction = await api.get(
+          `production/name_production/${item.production}/`
+        );
+
+        const allotmentData = await api.get(
+          `allotment/allotment/${item.allotment}/`
+        );
+
+        return {
+          ...item,
+          productionName: nameProduction.data.name,
+          allotmentName: allotmentData.data.property_name,
+        };
+      })
+    );
+
+    dispatch(setVegetablesProductions(vegetablesProductions));
+  } catch (err) {
+    console.error(err.message);
+    if (!err.response) {
+      dispatch(
+        setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
+      );
+    } else if (err.response.status === 400 || err.response.status === 401) {
+      dispatch(setAlert(err.response.status, err.response.data.detail, true));
+    } else {
+      dispatch(
+        setAlert(err.response.status, err.response.data.error_description, true)
+      );
+    }
+  }
+};
+
+const setVegetablesProductions = (vegetablesProductions) => ({
+  type: "SET_VEGETABLES_PRODUCTIONS",
+  payload: {
+    vegetablesProductions,
+  },
+});
+
+export const getAnimalsProductions = () => async (dispatch) => {
+  try {
+    const response = await api.get("production/animal_production/");
+
+    const animalsProductions = await Promise.all(
+      response.data.map(async (item) => {
+        const nameProduction = await api.get(
+          `production/name_production/${item.production}/`
+        );
+
+        const allotmentData = await api.get(
+          `allotment/allotment/${item.allotment}/`
+        );
+
+        return {
+          ...item,
+          productionName: nameProduction.data.name,
+          allotmentName: allotmentData.data.property_name,
+        };
+      })
+    );
+
+    dispatch(setAnimalsProductions(animalsProductions));
+
+  } catch (err){
+    console.error(err.message);
     if (!err.response) {
       dispatch(
         setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
@@ -154,10 +296,52 @@ export const getDiagnosisAgriculturalSystems = () => async (dispatch) => {
   }
 }
 
-const setDiagnosisAgriculturalSystems = (diagnosisAgriculturalSystems) => ({
-  type: "SET_DIAGNOSIS_AGRICULTURAL_SYSTEMS",
+const setAnimalsProductions = (animalsProductions) => ({
+  type: "SET_ANIMALS_PRODUCTIONS",
   payload: {
-    diagnosisAgriculturalSystems
+    animalsProductions
+  }
+})
+
+export const getPsicultureProductions = () => async (dispatch) => {
+  try {
+    const response = await api.get("psiculture/psiculture/");
+
+    const psicultureProductions = await Promise.all(
+      response.data.map(async (item) => {
+
+        const allotmentData = await api.get(
+          `allotment/allotment/${item.allotment}/`
+        );
+
+        return {
+          ...item,
+          allotmentName: allotmentData.data.property_name,
+        };
+      })
+    );
+
+    dispatch(setPsicultureProductions(psicultureProductions));
+  } catch(err) {
+    console.error(err.message);
+    if (!err.response) {
+      dispatch(
+        setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
+      );
+    } else if (err.response.status === 400 || err.response.status === 401) {
+      dispatch(setAlert(err.response.status, err.response.data.detail, true));
+    } else {
+      dispatch(
+        setAlert(err.response.status, err.response.data.error_description, true)
+      );
+    }
+  }
+}
+
+const setPsicultureProductions = (psicultureProductions) => ({
+  type: "SET_PSICULTURE_PRODUCTIONS",
+  payload: {
+    psicultureProductions
   }
 })
 

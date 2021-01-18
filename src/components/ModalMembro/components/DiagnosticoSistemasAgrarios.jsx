@@ -44,7 +44,7 @@ const DiagnosticoSistemasAgrarios = ({ diagnosisAgriculturalSystem }) => {
             <Col lg="6" className="mb-3">
               <div className="border border-default rounded p-2">
                 <b>Tem meio de comunicação rural?:</b>{" "}
-                {diagnosisAgriculturalSystem.has_rural_communication}
+                {diagnosisAgriculturalSystem.has_rural_communication ? "Sim" : "Não"}
               </div>
             </Col>
             <Col lg="6" className="mb-3">
@@ -62,7 +62,7 @@ const DiagnosticoSistemasAgrarios = ({ diagnosisAgriculturalSystem }) => {
             <Col lg="6" className="mb-3">
               <div className="border border-default rounded p-2">
                 <b>Saneamento básico da moradia (esgoto sanitário):</b>{" "}
-                {diagnosisAgriculturalSystem.has_basic_sanitation}
+                {diagnosisAgriculturalSystem.has_basic_sanitation ? "Sim" : "Não"}
               </div>
             </Col>
             <Col lg="6" className="mb-3">
@@ -74,7 +74,7 @@ const DiagnosticoSistemasAgrarios = ({ diagnosisAgriculturalSystem }) => {
             <Col lg="6" className="mb-3">
               <div className="border border-default rounded p-2">
                 <b>Contrata empregados para ajudar na produção do lote?:</b>{" "}
-                {diagnosisAgriculturalSystem.hire_employees}
+                {diagnosisAgriculturalSystem.hire_employees ? "Sim" : "Não"}
               </div>
             </Col>
             <Col lg="6" className="mb-3">
@@ -168,8 +168,8 @@ const DiagnosticoSistemasAgrarios = ({ diagnosisAgriculturalSystem }) => {
             </Col>
             <Col lg="6" className="mb-3">
               <div className="border border-default rounded p-2">
-                <b>Tratamento da água de consumo:</b>{" "}
-                {diagnosisAgriculturalSystem.drinking_water_treatment}
+                <b>Lote tem água tratada?:</b>{" "}
+                {diagnosisAgriculturalSystem.potable_water ? "Sim" : "Não"}
               </div>
             </Col>
             <Col lg="6" className="mb-3">
