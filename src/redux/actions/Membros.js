@@ -345,6 +345,135 @@ const setPsicultureProductions = (psicultureProductions) => ({
   }
 })
 
+export const getImprovements = () => async (dispatch) => {
+  try {
+    const response = await api.get("improvement/improvement/");
+
+    const improvements = await Promise.all(
+      response.data.map(async (item) => {
+
+        const allotmentData = await api.get(
+          `allotment/allotment/${item.allotment}/`
+        );
+
+        return {
+          ...item,
+          allotmentName: allotmentData.data.property_name,
+        };
+      })
+    );
+
+    dispatch(setImprovements(improvements));
+  } catch(err) {
+    console.error(err.message);
+    if (!err.response) {
+      dispatch(
+        setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
+      );
+    } else if (err.response.status === 400 || err.response.status === 401) {
+      dispatch(setAlert(err.response.status, err.response.data.detail, true));
+    } else {
+      dispatch(
+        setAlert(err.response.status, err.response.data.error_description, true)
+      );
+    }
+  }
+}
+
+const setImprovements = (improvements) => ({
+  type: "SET_IMPROVEMENTS",
+  payload: {
+    improvements
+  }
+});
+
+
+export const getTransports = () => async (dispatch) => {
+  try {
+    const response = await api.get("transport/transport/");
+
+    const transports = await Promise.all(
+      response.data.map(async (item) => {
+
+        const allotmentData = await api.get(
+          `allotment/allotment/${item.allotment}/`
+        );
+
+        return {
+          ...item,
+          allotmentName: allotmentData.data.property_name,
+        };
+      })
+    );
+
+    dispatch(setTransports(transports));
+
+  } catch(err) {
+    console.error(err.message);
+    if (!err.response) {
+      dispatch(
+        setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
+      );
+    } else if (err.response.status === 400 || err.response.status === 401) {
+      dispatch(setAlert(err.response.status, err.response.data.detail, true));
+    } else {
+      dispatch(
+        setAlert(err.response.status, err.response.data.error_description, true)
+      );
+    }
+  }
+}
+
+const setTransports = (transports) => ({
+  type: "SET_TRANSPORTS",
+  payload: {
+    transports
+  }
+})
+
+export const getTechnicalVisits = () => async (dispatch) => {
+  try {
+    const response = await api.get("technical_visit/technical_visit/");
+
+    const technicalVisits = await Promise.all(
+      response.data.map(async (item) => {
+
+        const allotmentData = await api.get(
+          `allotment/allotment/${item.allotment}/`
+        );
+
+        return {
+          ...item,
+          allotmentName: allotmentData.data.property_name,
+        };
+      })
+    );
+
+    dispatch(setTechnicalVisits(technicalVisits));
+
+  } catch (err) {
+    console.error(err.message);
+    if (!err.response) {
+      dispatch(
+        setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
+      );
+    } else if (err.response.status === 400 || err.response.status === 401) {
+      dispatch(setAlert(err.response.status, err.response.data.detail, true));
+    } else {
+      dispatch(
+        setAlert(err.response.status, err.response.data.error_description, true)
+      );
+    }
+  }
+}
+
+const setTechnicalVisits = (technicalVisits) => ({
+  type: "SET_TECHNICAL_VISITS",
+  payload: {
+    technicalVisits
+  }
+})
+
 export const newMember = (
   inputMember,
   inputAllotment,

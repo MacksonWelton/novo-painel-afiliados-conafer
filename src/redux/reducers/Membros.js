@@ -6,6 +6,9 @@ const initialState = {
   vegetablesProductions: [],
   animalsProductions: [],
   psicultureProductions: [],
+  improvements: [],
+  transports: [],
+  technicalVisits: [],
   allotment: "",
   production: "",
   improvement: "",
@@ -46,8 +49,14 @@ const MembersReducer = (state = initialState, action) => {
       return {...state, animalsProductions: action.payload.animalsProductions};
     case "SET_PSICULTURE_PRODUCTIONS":
       return {...state, psicultureProductions: action.payload.psicultureProductions};
+    case "SET_IMPROVEMENTS":
+      return {...state, improvements: action.payload.improvements };
+    case "SET_TRANSPORTS":
+      return {...state, transports: action.payload.transports };
+    case "SET_TECHNICAL_VISITS":
+      return {...state, technicalVisits: action.payload.technicalVisits };
     case "SET_ALLOTMENT":
-      return {...state, allotment: action.payload.allotment};
+      return {...state, allotment: action.payload.allotment };
     case "SET_PRODUCTION":
       return {
         ...state,

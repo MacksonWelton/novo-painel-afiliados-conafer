@@ -96,7 +96,7 @@ class Sidebar extends React.Component {
             isOpen={this.state.dropdownOpen === key}
             toggle={() => this.toggle(key)}
             key={key}
-            direction="right"
+            direction="up"
           >
             <DropdownToggle nav caret>
               <i className={prop.icon} />

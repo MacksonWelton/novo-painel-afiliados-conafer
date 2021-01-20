@@ -28,7 +28,7 @@ import Header from "components/Headers/Header";
 
 import {
   downloadMembers,
-  getAllotments,
+  getTransports,
 } from "../../../redux/actions/Membros";
 
 import { InputStyled, Tr } from "./styles";
@@ -38,17 +38,17 @@ import { CardHeaderStyled } from "views/Contratos/styles";
 import BotoesDeAcao from "components/BotoesDeAcao/BotoesDeAcao";
 import ModalMembro from "components/ModalMembro/ModalMembro";
 
-const Allotments = () => {
+const Transports = () => {
   const dispatch = useDispatch();
-  const allotments = useSelector((state) => state.MembersReducer.allotments);
+  const transports = useSelector((state) => state.MembersReducer.transports);
 
   useEffect(() => {
-    dispatch(getAllotments())
+    dispatch(getTransports())
   }, [dispatch]);
 
   const [open, setOpen] = useState(false);
   const [openAddMember, setOpenAddMember] = useState(false);
-  const [allotment, setAllotment] = useState({});
+  const [transport, setTransport] = useState({});
   const [checkbox, setCheckbox] = useState([]);
 
   const handleChangeCheckbox = (event) => {
@@ -65,8 +65,8 @@ const Allotments = () => {
 
     if (checked) {
       setCheckbox(
-        allotments.map((member) => {
-          return { id: member.id, checked: true };
+        transports.map((transport) => {
+          return { id: transport.id, checked: true };
         })
       );
     } else {
@@ -125,8 +125,6 @@ const Allotments = () => {
     },
   ];
 
-  console.log(allotments)
-
   return (
     <>
       <Header children={<ProgressCard CardData={CardData} />} />
@@ -135,7 +133,7 @@ const Allotments = () => {
           <div className="col">
             <Card className="bg-default shadow">
               <CardHeaderStyled>
-                <h3 className="text-white mb-0">Lista de Lotes</h3>
+                <h3 className="text-white mb-0">Transportes</h3>
                 <div className="d-flex align-items-center">
                   <InputStyled type="text" placeholder="Pesquisar..." />
                   <Button className="bg-transparent border-0">
@@ -178,18 +176,16 @@ const Allotments = () => {
                       </div>
                     </th>
                     <th scope="col">Propriedade</th>
-                    <th scope="col">SNCR</th>
-                    <th scope="col">Cidade</th>
-                    <th scope="col">Estado</th>
+                    <th scope="col">Principal Meio de Transporte</th>
                     <th scope="col" />
                   </tr>
                 </thead>
                 <tbody>
-                  {allotments.map((allotment, index) => (
+                  {transports.map((transport, index) => (
                     <Tr
                       onClick={() => {
                         setOpen(!open);
-                        setAllotment(allotment);
+                        setTransport(transport);
                       }}
                       key={index}
                     >
@@ -200,18 +196,16 @@ const Allotments = () => {
                         <Input
                           className="position-relative"
                           checked={
-                            checkbox.filter((check) => check.id === allotment.id)
+                            checkbox.filter((check) => check.id === transport.id)
                               .length
                           }
-                          value={allotment.id}
+                          value={transport.id}
                           type="checkbox"
                           onChange={handleChangeCheckbox}
                         />
                       </td>
-                      <td>{allotment.property_name}</td>
-                      <td>{allotment.sncr}</td>
-                      <td>{allotment.allotment_city}</td>
-                      <td>{allotment.allotment_state}</td>
+                      <td>{transport.allotmentName}</td>
+                      <td>{transport.means_transport}</td>
                       <td className="text-right">
                         <UncontrolledDropdown>
                           <DropdownToggle
@@ -323,9 +317,9 @@ const Allotments = () => {
           </Button>
         </ModalFooter>
       </Modal>
-      <ModalMembro open={open} setOpen={setOpen} allotment={allotment} />
+      <ModalMembro open={open} setOpen={setOpen} transport={transport} />
     </>
   );
 };
 
-export default Allotments;
+export default Transports;

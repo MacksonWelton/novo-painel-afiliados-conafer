@@ -28,7 +28,7 @@ import Header from "components/Headers/Header";
 
 import {
   downloadMembers,
-  getAllotments,
+  getTechnicalVisits,
 } from "../../../redux/actions/Membros";
 
 import { InputStyled, Tr } from "./styles";
@@ -38,17 +38,17 @@ import { CardHeaderStyled } from "views/Contratos/styles";
 import BotoesDeAcao from "components/BotoesDeAcao/BotoesDeAcao";
 import ModalMembro from "components/ModalMembro/ModalMembro";
 
-const Allotments = () => {
+const TechnicalVisit = () => {
   const dispatch = useDispatch();
-  const allotments = useSelector((state) => state.MembersReducer.allotments);
+  const technicalVisits = useSelector((state) => state.MembersReducer.technicalVisits);
 
   useEffect(() => {
-    dispatch(getAllotments())
+    dispatch(getTechnicalVisits())
   }, [dispatch]);
 
   const [open, setOpen] = useState(false);
   const [openAddMember, setOpenAddMember] = useState(false);
-  const [allotment, setAllotment] = useState({});
+  const [technicalVisit, setTechnicalVisit] = useState({});
   const [checkbox, setCheckbox] = useState([]);
 
   const handleChangeCheckbox = (event) => {
@@ -65,8 +65,8 @@ const Allotments = () => {
 
     if (checked) {
       setCheckbox(
-        allotments.map((member) => {
-          return { id: member.id, checked: true };
+        technicalVisits.map((technicalVisit) => {
+          return { id: technicalVisit.id, checked: true };
         })
       );
     } else {
@@ -125,8 +125,6 @@ const Allotments = () => {
     },
   ];
 
-  console.log(allotments)
-
   return (
     <>
       <Header children={<ProgressCard CardData={CardData} />} />
@@ -135,7 +133,7 @@ const Allotments = () => {
           <div className="col">
             <Card className="bg-default shadow">
               <CardHeaderStyled>
-                <h3 className="text-white mb-0">Lista de Lotes</h3>
+                <h3 className="text-white mb-0">Transportes</h3>
                 <div className="d-flex align-items-center">
                   <InputStyled type="text" placeholder="Pesquisar..." />
                   <Button className="bg-transparent border-0">
@@ -178,18 +176,16 @@ const Allotments = () => {
                       </div>
                     </th>
                     <th scope="col">Propriedade</th>
-                    <th scope="col">SNCR</th>
-                    <th scope="col">Cidade</th>
-                    <th scope="col">Estado</th>
+                    <th scope="col">Informante</th>
                     <th scope="col" />
                   </tr>
                 </thead>
                 <tbody>
-                  {allotments.map((allotment, index) => (
+                  {technicalVisits.map((technicalVisit, index) => (
                     <Tr
                       onClick={() => {
                         setOpen(!open);
-                        setAllotment(allotment);
+                        setTechnicalVisit(technicalVisit);
                       }}
                       key={index}
                     >
@@ -200,18 +196,16 @@ const Allotments = () => {
                         <Input
                           className="position-relative"
                           checked={
-                            checkbox.filter((check) => check.id === allotment.id)
+                            checkbox.filter((check) => check.id === technicalVisit.id)
                               .length
                           }
-                          value={allotment.id}
+                          value={technicalVisit.id}
                           type="checkbox"
                           onChange={handleChangeCheckbox}
                         />
                       </td>
-                      <td>{allotment.property_name}</td>
-                      <td>{allotment.sncr}</td>
-                      <td>{allotment.allotment_city}</td>
-                      <td>{allotment.allotment_state}</td>
+                      <td>{technicalVisit.allotmentName}</td>
+                      <td>{technicalVisit.informant_name}</td>
                       <td className="text-right">
                         <UncontrolledDropdown>
                           <DropdownToggle
@@ -323,9 +317,9 @@ const Allotments = () => {
           </Button>
         </ModalFooter>
       </Modal>
-      <ModalMembro open={open} setOpen={setOpen} allotment={allotment} />
+      <ModalMembro open={open} setOpen={setOpen} technicalVisit={technicalVisit} />
     </>
   );
 };
 
-export default Allotments;
+export default TechnicalVisit;
