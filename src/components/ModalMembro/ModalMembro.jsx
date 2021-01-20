@@ -1,17 +1,15 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Modal, ModalBody, ModalFooter, ModalHeader, Button } from "reactstrap";
-import PropTypes from "prop-types";
 import DadaosBeneficiario from "./components/DadaosBeneficiario";
 import LocalizacaoLote from "./components/LocalizacaoLote";
 import Moradias from "./components/Moradias";
-import IdentificacaoUnidadeFamiliar from "./components/IdentificacaoUnidadeFamiliar";
-import InfoGeraisUnidadeProdFamiliar from "./components/InfoGeraisUnidadeProdFamiliar";
-import EnderecoParaCorrespondencia from "./components/EnderecoParaCorrespondencia";
-import SupervisaoOcupacional from "./components/SupervisaoOcupacional";
 import DiagnosticoSistemasAgrarios from "./components/DiagnosticoSistemasAgrarios";
 import Producao from "./components/Producao";
 import VegetablesProduction from "./components/VegetablesProduction";
 import Psiculture from "./components/Psiculture";
+import Improvements from "./components/Improvements";
+import Transports from "./components/Transports";
+import TechnicalVisit from "./components/TechnicalVisit";
 
 const ModalMembro = ({
   open,
@@ -22,7 +20,10 @@ const ModalMembro = ({
   production,
   vegetablesProduction,
   animalsProduction,
-  psiculture
+  psiculture,
+  improvement,
+  transport,
+  technicalVisit
 }) => {
 
   return (
@@ -52,11 +53,10 @@ const ModalMembro = ({
         {vegetablesProduction && (<VegetablesProduction vegetablesProduction={vegetablesProduction}/>)}
         {/* {animalsProduction} */}
         {psiculture && (<Psiculture psiculture={psiculture}/>)}
+        {improvement && (<Improvements improvement={improvement}/>)}
+        {transport && (<Transports transport={transport} />)}
+        {technicalVisit && (<TechnicalVisit technicalVisit={technicalVisit}/>)}
         {/* <Moradias member={member} />
-        <IdentificacaoUnidadeFamiliar member={member} />
-        <SupervisaoOcupacional member={member} />
-        <InfoGeraisUnidadeProdFamiliar member={member} />
-        <EnderecoParaCorrespondencia member={member} />
          */}
       </ModalBody>
       <ModalFooter className="d-flex justify-content-end">

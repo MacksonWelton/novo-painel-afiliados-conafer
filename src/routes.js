@@ -35,6 +35,9 @@ import Productions from "./views/Sindicato/Production/Productions/Productions";
 import VegetablesProduction from "./views/Sindicato/Production/VegetablesProduction/VegetablesProduction";
 import AnimalsProduction from "./views/Sindicato/Production/AnimalProduction/AnimalProduction";
 import Psiculture from "./views/Sindicato/Production/Psiculture/Psiculture";
+import Improvements from "./views/Sindicato/Improvements/Improvements";
+import Transports from "./views/Sindicato/Transports/Transports";
+import TechnicalVisit from "./views/Sindicato/TechnicalVisit/TechnicalVisit";
 import UserAffiliation from "./views/Sindicato/UsuariosAfiliacao/UsuariosAfiliacao";
 
 var routes = [
@@ -73,7 +76,7 @@ var routes = [
   {
     path: "/mensalidades",
     name: "Mensalidades",
-    icon: "far fa-calendar-alt text-orange",
+    icon: "fas fa-calendar-alt text-red",
     component: Mensalidades,
     layout: "/admin",
     show: true
@@ -113,41 +116,65 @@ var routes = [
   {
     dropdown: true,
     title: "Produção",
-    icon: "far fa-chart-bar text-red",
+    icon: "far fa-chart-bar text-blue",
     items: [
       {
         show: true,
-        path: "/productions/productions",
+        path: "/producao/producao",
         name: "Produção",
-        icon: "fas fa-chart-pie text-green",
+        icon: "fas fa-chart-pie text-blue",
         component: Productions,
         layout: "/admin",
       },
       {
         show: true,
-        path: "/productions/vegetables",
+        path: "/producao/vegetal",
         name: "Produção de Vegetais",
-        icon: "fas fa-chart-pie text-green",
+        icon: "fas fa-tractor text-green",
         component: VegetablesProduction,
         layout: "/admin",
       },
       {
         show: true,
-        path: "/productions/animals",
+        path: "/producao/animais",
         name: "Produção de Animais",
-        icon: "fas fa-chart-pie text-green",
+        icon: "fas fa-drumstick-bite text-red",
         component: AnimalsProduction,
         layout: "/admin",
       },
       {
         show: true,
-        path: "/productions/psiculture/",
+        path: "/producao/psicultura/",
         name: "Psicultura",
-        icon: "fas fa-chart-pie text-green",
+        icon: "fas fa-fish text-info",
         component: Psiculture,
         layout: "/admin",
       },
     ]
+  },
+  {
+    path: "/benfeitorias",
+    name: "Benfeitorias",
+    icon: "fas fa-hammer text-yellow",
+    component: Improvements,
+    layout: "/admin",
+    show: true
+  },
+  {
+    path: "/transportes",
+    name: "Transportes",
+    icon: "fas fa-truck text-orange",
+    component: Transports,
+    layout: "/admin",
+    show: true
+  },
+  {
+    path: "/visita-tecnica",
+    name: "Visita Técnica",
+    icon: "fas fa-user-check text-gray",
+    component: TechnicalVisit,
+    layout: "/admin",
+    show: true
   },
   {
     path: "/suporte",
