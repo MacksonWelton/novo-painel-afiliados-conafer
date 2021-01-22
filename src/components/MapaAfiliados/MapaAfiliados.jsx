@@ -14,6 +14,8 @@ import mapMarkerOrange from "../../assets/img/icons/map-marker-orange.svg";
 import mapMarkerBlue from "../../assets/img/icons/map-marker-blue.svg";
 import ModalInfo from "./ModalInfo";
 import ModalMembro from "../ModalMembro/ModalMembro";
+import { useDispatch, useSelector } from "react-redux";
+import { getMemberById } from "redux/actions/Membros";
 
 const mapContainerStyle = {
   width: "100%",
@@ -25,17 +27,25 @@ const center = {
   lng: -48.0774459,
 };
 
-const MapaAfiliados = ({ allotments, usersPFAffiliation, usersPJAffiliation }) => {
+const MapaAfiliados = ({
+  allotments,
+  usersPFAffiliation,
+  usersPJAffiliation,
+}) => {
+  const dispatch = useDispatch();
+
   const [users, setUsers] = useState({
     usersPFAffiliation: "",
     usersPJAffiliation: "",
   });
 
+  const member = useSelector((state) => state.MembersReducer.member);
+
   const [map, setMap] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const [openProfile, setOpenProfile] = useState(false);
   const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: "AIzaSyBchWYtE1JHWWXsHOxoSgWsBg26z7j3amA",
+    googleMapsApiKey: "AIzaSyATOGn8kFwAhA95n5Bkgxqf3MW53LNLJXw",
   });
 
   const mapRef = useRef();
@@ -77,34 +87,44 @@ const MapaAfiliados = ({ allotments, usersPFAffiliation, usersPJAffiliation }) =
     );
   }
 
-  const handleClickOnMarker = (e, info) => {
+  const handleClickOnMarker = (e, memberInfo, allotmentInfo) => {
     setMap({
       ...map,
       lat: Number(e.latLng.lat().toFixed(7)),
       lng: Number(e.latLng.lng().toFixed(7)),
-      info,
+      memberInfo,
+      allotmentInfo
     });
   };
 
-  if (users.usersPFAffiliation === "" && usersPFAffiliation[0]) {
+  const addAddressInUsersPFAffiliation = async () => {
     setUsers({
       ...users,
-      usersPFAffiliation: usersPFAffiliation.map((affiliate) => {
+      usersPFAffiliation: await Promise.all(usersPFAffiliation.map(async (affiliate) => {
         const address = `${affiliate.address} ${affiliate.city} ${affiliate.state}`;
-        affiliate.coordinates = googleMapsCoordinates(address);
+        affiliate.coordinates = await googleMapsCoordinates(address);
         return affiliate;
-      }),
-    });
-  } else if (users.usersPJAffiliation === "" && usersPJAffiliation[0]) {
-    setUsers({
-      ...users,
-      usersPJAffiliation: usersPJAffiliation.map((affiliate) => {
-        const address = `${affiliate.address} ${affiliate.city} ${affiliate.state}`;
-        affiliate.coordinates = googleMapsCoordinates(address);
-        return affiliate;
-      }),
+      })),
     });
   }
+
+  const AddAddressInUsersPJAffiliation = async () => {
+    setUsers({
+      ...users,
+      usersPJAffiliation: await Promise.all(usersPJAffiliation.map(async (affiliate) => {
+        const address = `${affiliate.address} ${affiliate.city} ${affiliate.state}`;
+        affiliate.coordinates = await googleMapsCoordinates(address);
+        return affiliate;
+      })),
+    });
+  }
+
+  if (users.usersPFAffiliation === "" && usersPFAffiliation[0]) {
+    addAddressInUsersPFAffiliation();
+  } else if (users.usersPJAffiliation === "" && usersPJAffiliation[0]) {
+    AddAddressInUsersPJAffiliation();
+  }
+
 
   return (
     <GoogleMap
@@ -114,24 +134,32 @@ const MapaAfiliados = ({ allotments, usersPFAffiliation, usersPJAffiliation }) =
       onLoad={onMapLoad}
       onClick={() => setMap(null)}
     >
-      {" "}
       {allotments &&
-        allotments.map((allotment, i) => (
-          <Marker
-            key={i}
-            position={{
-              lat: Number(allotment.coordinates.split(",")[0]),
-              lng: Number(allotment.coordinates.split(",")[1]),
-            }}
-            icon={{
-              url: mapMarkerBlue,
-              origin: new window.google.maps.Point(0, 0),
-              anchor: new window.google.maps.Point(15, 15),
-              scaledSize: new window.google.maps.Size(26, 35),
-            }}
-            onClick={(e) => handleClickOnMarker(e, allotment)}
-          />
-        ))}
+        allotments.map((allotment, i) => {
+
+          if (!member) {
+            dispatch(getMemberById(allotment.member));
+          }
+
+          return (
+            <Marker
+              key={i}
+              position={{
+                lat: Number(allotment.coordinates.split(",")[0]),
+                lng: Number(allotment.coordinates.split(",")[1]),
+              }}
+              icon={{
+                url: mapMarkerBlue,
+                origin: new window.google.maps.Point(0, 0),
+                anchor: new window.google.maps.Point(15, 15),
+                scaledSize: new window.google.maps.Size(26, 35),
+              }}
+              onClick={(e) => {
+                handleClickOnMarker(e, member, allotment);
+              }}
+            />
+          );
+        })}
       {users.usersPFAffiliation &&
         users.usersPFAffiliation.map((user, i) => (
           <Marker
@@ -173,22 +201,23 @@ const MapaAfiliados = ({ allotments, usersPFAffiliation, usersPJAffiliation }) =
             setMap(null);
           }}
         >
-          <div className="bg-gradient-default rounded shadow p-3 text-white" style={{minWidth: "250px"}}>
-            <h3 className="text-white">
-              Informações
-            </h3>
+          <div
+            className="bg-gradient-default rounded shadow p-3 text-white"
+            style={{ minWidth: "250px" }}
+          >
+            <h3 className="text-white">Informações</h3>
             <hr className="border-white my-2" />
             <p className="m-0">
-              <strong>Nome:</strong>{" "}
-              {map.info.name_initials ? map.info.name_initials : map.info.name}
+              <strong>Nome:</strong> {map.memberInfo.name}
             </p>
             <p className="m-0">
-              <strong>Telefone:</strong> {map.info.contact_phone ? map.info.contact_phone : map.info.phone}
+              <strong>Telefone:</strong>{" "}
+              {map.memberInfo.contact_phone ? map.memberInfo.contact_phone : map.memberInfo.phone}
             </p>
             <p className="mb-3">
-              <strong>Email:</strong> {map.info.email}
+              <strong>Email:</strong> {map.memberInfo.email}
             </p>
-            {map.info.lot && (
+            {map.allotmentInfo && (
               <>
                 <Button
                   className="my-2"
@@ -209,7 +238,11 @@ const MapaAfiliados = ({ allotments, usersPFAffiliation, usersPJAffiliation }) =
                   openModal={openModal}
                   setOpenModal={setOpenModal}
                 />
-                <ModalMembro open={openProfile} setOpen={setOpenProfile} member={map.info} />
+                <ModalMembro
+                  open={openProfile}
+                  setOpen={setOpenProfile}
+                  member={map.memberInfo}
+                />
               </>
             )}
           </div>

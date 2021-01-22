@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 // reactstrap components
@@ -31,7 +31,6 @@ import { refreshToken } from "redux/actions/Login";
 const AdminNavbar = (props) => {
   const history = useHistory();
   const dispatch = useDispatch();
-
   const [confirmAuth, setConfirmAuth] = useState(false);
   const [open, setOpen] = useState({
     modal: false,
@@ -50,6 +49,19 @@ const AdminNavbar = (props) => {
     dispatch(getUsersPJAffiliation());
     dispatch(getUsersPFAffiliation());
     setConfirmAuth(true);
+
+    setTimeout(() => {
+      if (localStorage.getItem("refresh_token")) {
+        dispatch(refreshToken());
+      }
+    }, 2000);
+
+    setInterval(() => {
+      if (localStorage.getItem("refresh_token")) {
+        dispatch(refreshToken());
+      }
+    }, 240000);
+
   } else if (!confirmAuth) {
     history.push("/");
     setConfirmAuth(true);
@@ -77,7 +89,7 @@ const AdminNavbar = (props) => {
           <h4 className="mb-0 text-white text-uppercase d-none d-lg-inline-block">
             {props.brandText}
           </h4>
-          <Form className="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
+          {/* <Form className="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
             <FormGroup className="mb-0">
               <InputGroup className="input-group-alternative">
                 <InputGroupAddon addonType="prepend">
@@ -88,7 +100,7 @@ const AdminNavbar = (props) => {
                 <Input placeholder="Pesquisar..." type="text" />
               </InputGroup>
             </FormGroup>
-          </Form>
+          </Form> */}
           <Nav className="align-items-center d-none d-md-flex" navbar>
             <UncontrolledDropdown nav>
               <DropdownToggle

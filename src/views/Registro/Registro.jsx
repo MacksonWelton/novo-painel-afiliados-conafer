@@ -20,9 +20,6 @@ import {
 
 import { signUp, setSignUp } from "../../redux/actions/Registro";
 
-import FacebookIcon from "../../assets/img/icons/common/facebook.svg";
-import GoogleIcon from "../../assets/img/icons/common/google.svg";
-
 const Registro = () => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -58,38 +55,11 @@ const Registro = () => {
       <Col lg="5" md="7">
         <Card className="bg-secondary shadow border-0">
           <CardHeader className="bg-transparent pb-5">
-            <div className="text-muted text-center mt-2 mb-3">
-              <small>Entre com</small>
-            </div>
-            <div className="btn-wrapper text-center">
-              <Button
-                className="btn-neutral btn-icon"
-                color="default"
-                href="#pablo"
-                onClick={(e) => e.preventDefault()}
-              >
-                <span className="btn-inner--icon">
-                  <img alt="..." src={FacebookIcon} />
-                </span>
-                <span className="btn-inner--text">Facebook</span>
-              </Button>
-              <Button
-                className="btn-neutral btn-icon"
-                color="default"
-                href="#pablo"
-                onClick={(e) => e.preventDefault()}
-              >
-                <span className="btn-inner--icon">
-                  <img alt="..." src={GoogleIcon} />
-                </span>
-                <span className="btn-inner--text">Google</span>
-              </Button>
+          <div className="text-muted text-center mt-3 mb--3">
+              <p>Crie uma conta com os dados requeridos</p>
             </div>
           </CardHeader>
           <CardBody className="px-lg-5 py-lg-5">
-            <div className="text-center text-muted mb-4">
-              <small>Ou crie uma conta com os dados requeridos</small>
-            </div>
             <Form onSubmit={submitForm}>
               <FormGroup>
                 <InputGroup className="input-group-alternative mb-3">

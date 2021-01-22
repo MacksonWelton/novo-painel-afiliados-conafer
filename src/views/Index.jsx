@@ -31,10 +31,27 @@ import StatsCard from "../components/StatsCard/StatsCard";
 import MapaAfiliados from "../components/MapaAfiliados/MapaAfiliados";
 import { useSelector, useDispatch } from "react-redux";
 import { getUsersAffiliation } from "../redux/actions/UsuariosAfiliacao";
-import { getMembers } from "../redux/actions/Membros";
+import { getAllotments } from "../redux/actions/Membros";
 
 const Index = () => {
   const dispatch = useDispatch();
+
+  const allotments = useSelector((state) => state.MembersReducer.allotments);
+  const { usersPFAffiliation, usersPJAffiliation } = useSelector(
+    (state) => state.UsersAffiliationReducer
+  );
+
+  useEffect(() => {
+    if (!usersPFAffiliation.length && !usersPJAffiliation.length) {
+      dispatch(getUsersAffiliation());
+    }
+  
+    if (!allotments.length) {
+      dispatch(getAllotments());
+    }
+  }, [dispatch, usersPFAffiliation.length, usersPJAffiliation.length, allotments.length]);
+
+
   const [activeNav, setActiveNav] = useState(1);
   const [chartExample1Data, setChartExample1Data] = useState("data1");
   const cardData = [
@@ -72,11 +89,6 @@ const Index = () => {
     },
   ];
 
-  useEffect(() => {
-    dispatch(getUsersAffiliation());
-    dispatch(getMembers());
-  }, [dispatch]);
-
   if (window.Chart) {
     parseOptions(Chart, chartOptions());
   }
@@ -86,12 +98,6 @@ const Index = () => {
     setActiveNav(index);
     setChartExample1Data(chartExample1Data === "data1" ? "data2" : "data1");
   };
-
-  const members = useSelector((state) => state.MembersReducer.members);
-
-  const { usersPFAffiliation, usersPJAffiliation } = useSelector(
-    (state) => state.UsersAffiliationReducer
-  );
 
   return (
     <>
@@ -105,7 +111,7 @@ const Index = () => {
                 <MapaAfiliados
                   usersPFAffiliation={usersPFAffiliation}
                   usersPJAffiliation={usersPJAffiliation}
-                  members={members}
+                  allotments={allotments}
                 />
               </CardBody>
             </Card>

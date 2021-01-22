@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
-  Badge,
   Card,
   CardFooter,
   DropdownMenu,
@@ -83,22 +82,6 @@ const Psiculture = () => {
     dispatch(downloadMembers(checkbox));
   };
 
-  const getBadge = (is_active) => {
-    if (is_active) {
-      return "bg-primary";
-    } else {
-      return "bg-red";
-    }
-  };
-
-  const getStatus = (is_active) => {
-    if (is_active) {
-      return "Ativado";
-    } else {
-      return "Desativado";
-    }
-  };
-
   const CardData = [
     {
       title: "Abertos",
@@ -139,14 +122,14 @@ const Psiculture = () => {
             <Card className="bg-default shadow">
               <CardHeaderStyled>
                 <h3 className="text-white mb-0">
-                  Produção
+                  Psicultura
                 </h3>
-                <div className="d-flex align-items-center">
+                {/* <div className="d-flex align-items-center">
                   <InputStyled type="text" placeholder="Pesquisar..." />
                   <Button className="bg-transparent border-0">
                     <i className="fas fa-search text-white display-4"></i>
                   </Button>
-                </div>
+                </div> */}
                 <div>
                   <Button
                     onClick={() => setOpenAddMember(!openAddMember)}

@@ -1,6 +1,5 @@
 // import api from "services/api";
 import api from "services/api";
-import MembrosData from "views/Sindicato/Membros/MembrosData";
 import { setAlert } from "./Alertas";
 import converterDataToFormData from "../../utils/converterDataToFormData";
 
@@ -8,14 +7,14 @@ export const getMembers = () => async (dispatch) => {
   try {
     const response = await api.get("member/member/");
 
-    dispatch(setMembers(MembrosData));
+    dispatch(setMembers(response.data));
   } catch (err) {
     console.error(err.message);
     if (!err.response) {
       dispatch(
         setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
       );
-    } else if (err.response.status === 400 || err.response.status === 401) {
+    } else if (err.response.status === 401) {
       dispatch(setAlert(err.response.status, err.response.data.detail, true));
     } else {
       dispatch(
@@ -39,30 +38,18 @@ const setSubmitMessage = (submitMessage) => ({
   },
 });
 
-export const getDataMembers = () => async (dispatch) => {
+export const getMemberById = (id) => async (dispatch) => {
   try {
-    const response = await api.get("member/member/");
-    dispatch(setDataMembers(response.data));
-  } catch (err) {
-    console.error(err.response);
-    if (!err.response) {
-      dispatch(
-        setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
-      );
-    } else if (err.response.status === 400 || err.response.status === 401) {
-      dispatch(setAlert(err.response.status, err.response.data.detail, true));
-    } else {
-      dispatch(
-        setAlert(err.response.status, err.response.data.error_description, true)
-      );
-    }
-  }
+    const response = await api.get(`member/member/${id}`);
+
+    dispatch(setMember(response.data));
+  } catch (err) {}
 };
 
-const setDataMembers = (dataMembers) => ({
-  type: "SET_DATA_MEMBERS",
+const setMember = (member) => ({
+  type: "SET_MEMBER",
   payload: {
-    dataMembers,
+    member,
   },
 });
 
@@ -70,14 +57,28 @@ export const getAllotments = () => async (dispatch) => {
   try {
     const response = await api.get(`allotment/allotment/`);
 
-    dispatch(setAllotments(response.data));
+    const allotments = await Promise.all(
+      response.data.map(async (item) => {
+        
+        const bioma = await api.get(
+          `allotment/bioma/${item.bioma}/`
+          );
+          
+        return {
+          ...item,
+          biomaName: bioma.data.name,
+        };
+      })
+    );
+
+    dispatch(setAllotments(allotments));
   } catch (err) {
     console.error(err.response);
     if (!err.response) {
       dispatch(
         setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
       );
-    } else if (err.response.status === 400 || err.response.status === 401) {
+    } else if (err.response.status === 401) {
       dispatch(setAlert(err.response.status, err.response.data.detail, true));
     } else {
       dispatch(
@@ -104,7 +105,7 @@ export const getAllotmentById = (id) => async (dispatch) => {
       dispatch(
         setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
       );
-    } else if (err.response.status === 400 || err.response.status === 401) {
+    } else if (err.response.status === 401) {
       dispatch(setAlert(err.response.status, err.response.data.detail, true));
     } else {
       dispatch(
@@ -147,7 +148,7 @@ export const getDiagnosisAgriculturalSystems = () => async (dispatch) => {
       dispatch(
         setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
       );
-    } else if (err.response.status === 400 || err.response.status === 401) {
+    } else if (err.response.status === 401) {
       dispatch(setAlert(err.response.status, err.response.data.detail, true));
     } else {
       dispatch(
@@ -193,7 +194,7 @@ export const getProductions = () => async (dispatch) => {
       dispatch(
         setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
       );
-    } else if (err.response.status === 400 || err.response.status === 401) {
+    } else if (err.response.status === 401) {
       dispatch(setAlert(err.response.status, err.response.data.detail, true));
     } else {
       dispatch(
@@ -239,7 +240,7 @@ export const getVegetablesProductions = () => async (dispatch) => {
       dispatch(
         setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
       );
-    } else if (err.response.status === 400 || err.response.status === 401) {
+    } else if (err.response.status === 401) {
       dispatch(setAlert(err.response.status, err.response.data.detail, true));
     } else {
       dispatch(
@@ -279,14 +280,13 @@ export const getAnimalsProductions = () => async (dispatch) => {
     );
 
     dispatch(setAnimalsProductions(animalsProductions));
-
-  } catch (err){
+  } catch (err) {
     console.error(err.message);
     if (!err.response) {
       dispatch(
         setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
       );
-    } else if (err.response.status === 400 || err.response.status === 401) {
+    } else if (err.response.status === 401) {
       dispatch(setAlert(err.response.status, err.response.data.detail, true));
     } else {
       dispatch(
@@ -294,14 +294,14 @@ export const getAnimalsProductions = () => async (dispatch) => {
       );
     }
   }
-}
+};
 
 const setAnimalsProductions = (animalsProductions) => ({
   type: "SET_ANIMALS_PRODUCTIONS",
   payload: {
-    animalsProductions
-  }
-})
+    animalsProductions,
+  },
+});
 
 export const getPsicultureProductions = () => async (dispatch) => {
   try {
@@ -309,7 +309,6 @@ export const getPsicultureProductions = () => async (dispatch) => {
 
     const psicultureProductions = await Promise.all(
       response.data.map(async (item) => {
-
         const allotmentData = await api.get(
           `allotment/allotment/${item.allotment}/`
         );
@@ -322,13 +321,13 @@ export const getPsicultureProductions = () => async (dispatch) => {
     );
 
     dispatch(setPsicultureProductions(psicultureProductions));
-  } catch(err) {
+  } catch (err) {
     console.error(err.message);
     if (!err.response) {
       dispatch(
         setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
       );
-    } else if (err.response.status === 400 || err.response.status === 401) {
+    } else if (err.response.status === 401) {
       dispatch(setAlert(err.response.status, err.response.data.detail, true));
     } else {
       dispatch(
@@ -336,14 +335,14 @@ export const getPsicultureProductions = () => async (dispatch) => {
       );
     }
   }
-}
+};
 
 const setPsicultureProductions = (psicultureProductions) => ({
   type: "SET_PSICULTURE_PRODUCTIONS",
   payload: {
-    psicultureProductions
-  }
-})
+    psicultureProductions,
+  },
+});
 
 export const getImprovements = () => async (dispatch) => {
   try {
@@ -351,7 +350,6 @@ export const getImprovements = () => async (dispatch) => {
 
     const improvements = await Promise.all(
       response.data.map(async (item) => {
-
         const allotmentData = await api.get(
           `allotment/allotment/${item.allotment}/`
         );
@@ -364,13 +362,13 @@ export const getImprovements = () => async (dispatch) => {
     );
 
     dispatch(setImprovements(improvements));
-  } catch(err) {
+  } catch (err) {
     console.error(err.message);
     if (!err.response) {
       dispatch(
         setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
       );
-    } else if (err.response.status === 400 || err.response.status === 401) {
+    } else if (err.response.status === 401) {
       dispatch(setAlert(err.response.status, err.response.data.detail, true));
     } else {
       dispatch(
@@ -378,15 +376,14 @@ export const getImprovements = () => async (dispatch) => {
       );
     }
   }
-}
+};
 
 const setImprovements = (improvements) => ({
   type: "SET_IMPROVEMENTS",
   payload: {
-    improvements
-  }
+    improvements,
+  },
 });
-
 
 export const getTransports = () => async (dispatch) => {
   try {
@@ -394,7 +391,6 @@ export const getTransports = () => async (dispatch) => {
 
     const transports = await Promise.all(
       response.data.map(async (item) => {
-
         const allotmentData = await api.get(
           `allotment/allotment/${item.allotment}/`
         );
@@ -407,14 +403,13 @@ export const getTransports = () => async (dispatch) => {
     );
 
     dispatch(setTransports(transports));
-
-  } catch(err) {
+  } catch (err) {
     console.error(err.message);
     if (!err.response) {
       dispatch(
         setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
       );
-    } else if (err.response.status === 400 || err.response.status === 401) {
+    } else if (err.response.status === 401) {
       dispatch(setAlert(err.response.status, err.response.data.detail, true));
     } else {
       dispatch(
@@ -422,14 +417,14 @@ export const getTransports = () => async (dispatch) => {
       );
     }
   }
-}
+};
 
 const setTransports = (transports) => ({
   type: "SET_TRANSPORTS",
   payload: {
-    transports
-  }
-})
+    transports,
+  },
+});
 
 export const getTechnicalVisits = () => async (dispatch) => {
   try {
@@ -437,7 +432,6 @@ export const getTechnicalVisits = () => async (dispatch) => {
 
     const technicalVisits = await Promise.all(
       response.data.map(async (item) => {
-
         const allotmentData = await api.get(
           `allotment/allotment/${item.allotment}/`
         );
@@ -450,14 +444,13 @@ export const getTechnicalVisits = () => async (dispatch) => {
     );
 
     dispatch(setTechnicalVisits(technicalVisits));
-
   } catch (err) {
     console.error(err.message);
     if (!err.response) {
       dispatch(
         setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
       );
-    } else if (err.response.status === 400 || err.response.status === 401) {
+    } else if (err.response.status === 401) {
       dispatch(setAlert(err.response.status, err.response.data.detail, true));
     } else {
       dispatch(
@@ -465,14 +458,55 @@ export const getTechnicalVisits = () => async (dispatch) => {
       );
     }
   }
-}
+};
 
 const setTechnicalVisits = (technicalVisits) => ({
   type: "SET_TECHNICAL_VISITS",
   payload: {
-    technicalVisits
+    technicalVisits,
+  },
+});
+
+export const getDocuments = () => async (dispatch) => {
+  try {
+    const response = await api.get("documentation/documentation/");
+
+    const documents = await Promise.all(
+      response.data.map(async (item) => {
+        const member = await api.get(`member/member/${item.member}`);
+
+        return {
+          ...item,
+          member: member.data.name,
+          state: member.data.state,
+          city: member.data.city
+        };
+      })
+    );
+
+    dispatch(setDocuments(documents));
+  } catch (err) {
+    console.error(err.message);
+    if (!err.response) {
+      dispatch(
+        setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
+      );
+    } else if (err.response.status === 401) {
+      dispatch(setAlert(err.response.status, err.response.data.detail, true));
+    } else {
+      dispatch(
+        setAlert(err.response.status, err.response.data.error_description, true)
+      );
+    }
   }
-})
+};
+
+const setDocuments = (documents) => ({
+  type: "SET_DOCUMENTS",
+  payload: {
+    documents
+  }
+});
 
 export const newMember = (
   inputMember,
@@ -653,7 +687,7 @@ export const getProductionName = () => async (dispatch) => {
       dispatch(
         setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
       );
-    } else if (err.response.status === 400 || err.response.status === 401) {
+    } else if (err.response.status === 401) {
       if (err.response.data.detail) {
         dispatch(setAlert(err.response.status, err.response.data.detail, true));
       } else {
@@ -684,7 +718,7 @@ export const getTypeProduction = () => async (dispatch) => {
       dispatch(
         setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
       );
-    } else if (err.response.status === 400 || err.response.status === 401) {
+    } else if (err.response.status === 401) {
       if (err.response.data.detail) {
         dispatch(setAlert(err.response.status, err.response.data.detail, true));
       } else {
@@ -715,7 +749,7 @@ export const getBiomes = () => async (dispatch) => {
       dispatch(
         setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
       );
-    } else if (err.response.status === 400 || err.response.status === 401) {
+    } else if (err.response.status === 401) {
       dispatch(setAlert(err.response.status, err.response.data.detail, true));
     } else {
       dispatch(

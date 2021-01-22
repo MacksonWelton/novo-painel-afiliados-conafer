@@ -10,6 +10,7 @@ import Psiculture from "./components/Psiculture";
 import Improvements from "./components/Improvements";
 import Transports from "./components/Transports";
 import TechnicalVisit from "./components/TechnicalVisit";
+import Documents from "./components/Documents";
 
 const ModalMembro = ({
   open,
@@ -23,9 +24,9 @@ const ModalMembro = ({
   psiculture,
   improvement,
   transport,
-  technicalVisit
+  technicalVisit,
+  document,
 }) => {
-
   return (
     <Modal
       isOpen={open}
@@ -42,27 +43,32 @@ const ModalMembro = ({
         Informações RAPATRA
       </ModalHeader>
       <ModalBody>
-        {member && <DadaosBeneficiario member={member} />}
-        {allotment && <LocalizacaoLote allotment={allotment} />}
-        {diagnosisAgriculturalSystem && (
-          <DiagnosticoSistemasAgrarios
-            diagnosisAgriculturalSystem={diagnosisAgriculturalSystem}
-          />
-        )}
-        {production && (<Producao production={production} />)}
-        {vegetablesProduction && (<VegetablesProduction vegetablesProduction={vegetablesProduction}/>)}
-        {/* {animalsProduction} */}
-        {psiculture && (<Psiculture psiculture={psiculture}/>)}
-        {improvement && (<Improvements improvement={improvement}/>)}
-        {transport && (<Transports transport={transport} />)}
-        {technicalVisit && (<TechnicalVisit technicalVisit={technicalVisit}/>)}
-        {/* <Moradias member={member} />
-         */}
+        <div>
+          {member && <DadaosBeneficiario member={member} />}
+          {allotment && <LocalizacaoLote allotment={allotment} />}
+          {diagnosisAgriculturalSystem && (
+            <DiagnosticoSistemasAgrarios
+              diagnosisAgriculturalSystem={diagnosisAgriculturalSystem}
+            />
+          )}
+          {production && <Producao production={production} />}
+          {vegetablesProduction && (
+            <VegetablesProduction vegetablesProduction={vegetablesProduction} />
+          )}
+          {/* {animalsProduction} */}
+          {psiculture && <Psiculture psiculture={psiculture} />}
+          {improvement && <Improvements improvement={improvement} />}
+          {transport && <Transports transport={transport} />}
+          {technicalVisit && <TechnicalVisit technicalVisit={technicalVisit} />}
+          {/* <Moradias member={member} />
+           */}
+          {document && <Documents document={document} />}
+        </div>
       </ModalBody>
       <ModalFooter className="d-flex justify-content-end">
-        <Button color="primary" onClick={() => setOpen(!open)}>
-          Dowload PDF
-        </Button>
+        {/* <Button color="primary" onClick={print}>
+              Download PDF
+            </Button> */}
         <Button color="secondary" onClick={() => setOpen(!open)}>
           Sair
         </Button>

@@ -1,5 +1,6 @@
-import React from 'react'
-import { Row, Col } from 'reactstrap'
+import React from 'react';
+import { Row, Col } from 'reactstrap';
+import moment from "moment";
 
 const DadaosBeneficiario = ({member}) => {
   return (
@@ -164,7 +165,7 @@ const DadaosBeneficiario = ({member}) => {
               <Col lg="6" className="mb-3">
                 <div className="border border-default rounded p-2">
                   <b>Validade da concessão: </b>
-                  {member.concession_validity}
+                  {moment(member.concession_validity).format("DD/MM/YYYY")}
                 </div>
               </Col>
               <Col lg="6" className="mb-3">
