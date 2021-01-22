@@ -13,11 +13,7 @@ export const login = (data) => async (dispatch) => {
   };
 
   try {
-    const response = await api.post("oauth/token/", userData, {
-      header: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-    });
+    const response = await api.post("oauth/token/", userData);
 
     dispatch(setAlert(response.status, "Login realizado com sucesso!", true));
 
@@ -54,17 +50,11 @@ export const setAuthentication = (auth) => ({
   },
 });
 
-export const refreshToken = () => async () => {
-  try {
-    const refresh_token = localStorage.getItem("refresh_token");
-    const header = {
-      "Content-Type": "application/x-www-form-urlencoded",
-    };
 
-    const parameters = {
-      method: "POST",
-      headers: header,
-    };
+export const refreshToken = () => async (dispatch) => {
+  try {
+
+    const refresh_token = await localStorage.getItem("refresh_token");
 
     const body = {
       grant_type: "refresh_token",
@@ -74,15 +64,15 @@ export const refreshToken = () => async () => {
       refresh_token: refresh_token,
     };
 
-    api.post("oauth/token/", body, parameters).then(async (res) => {
+      const res = await api.post("oauth/token/", body);
+
       localStorage.setItem("access_token", res.data.access_token);
       localStorage.setItem("refresh_token", res.data.refresh_token);
       localStorage.setItem("expires_in", res.data.expires_in);
       localStorage.setItem("token_type", res.data.token_type);
       localStorage.setItem("scope", res.data.scope);
-    });
   } catch (err) {
-    setAlert(400, "Ocorreu um erro de conexão com o servidor.", true);
+    dispatch(setAlert(400, "Ocorreu um erro de conexão com o servidor.", true));
     localStorage.clear();
     alert("Não foi possível estabelecer uma conexão.");
   }

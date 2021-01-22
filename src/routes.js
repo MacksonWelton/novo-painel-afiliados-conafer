@@ -38,16 +38,17 @@ import Psiculture from "./views/Sindicato/Production/Psiculture/Psiculture";
 import Improvements from "./views/Sindicato/Improvements/Improvements";
 import Transports from "./views/Sindicato/Transports/Transports";
 import TechnicalVisit from "./views/Sindicato/TechnicalVisit/TechnicalVisit";
+import Documents from "./views/Sindicato/Documents/Documents";
 import UserAffiliation from "./views/Sindicato/UsuariosAfiliacao/UsuariosAfiliacao";
 
 var routes = [
   {
     path: "/index",
     name: "Dashboard",
-    icon: "ni ni-tv-2 text-primary",
+    icon: "fas fa-tachometer-alt text-primary",
     component: Index,
     layout: "/admin",
-    show: true
+    show: true,
   },
   {
     path: "/contratos",
@@ -55,7 +56,7 @@ var routes = [
     icon: "ni ni-single-copy-04 text-pink",
     component: Contratos,
     layout: "/admin",
-    show: true
+    show: false,
   },
   {
     path: "/orcamentos",
@@ -63,7 +64,7 @@ var routes = [
     icon: "fas fa-coins text-yellow",
     component: Orcamentos,
     layout: "/admin",
-    show: true
+    show: false,
   },
   {
     path: "/propostas",
@@ -71,7 +72,7 @@ var routes = [
     icon: "fas fa-handshake text-gray",
     component: Propostas,
     layout: "/admin",
-    show: true
+    show: false,
   },
   {
     path: "/mensalidades",
@@ -79,7 +80,7 @@ var routes = [
     icon: "fas fa-calendar-alt text-red",
     component: Mensalidades,
     layout: "/admin",
-    show: true
+    show: false,
   },
   {
     path: "/usuario-de-afiliacao",
@@ -87,42 +88,42 @@ var routes = [
     icon: "fas fa-users text-black",
     component: UserAffiliation,
     layout: "/admin",
-    show: false
+    show: false,
   },
   {
     path: "/membros",
     name: "Membros",
-    icon: "fas fa-users text-dark",
+    icon: "fas fa-users text-primary",
     component: Membros,
     layout: "/admin",
-    show: true
+    show: true,
   },
   {
     path: "/allotments",
     name: "Lotes",
-    icon: "fas fa-map-marked-alt text-info",
+    icon: "fas fa-map-marked-alt text-primary",
     component: Allotments,
     layout: "/admin",
-    show: true
+    show: true,
   },
   {
     path: "/diagnosis-agricultural-systems",
     name: "Diagnóstico de Sistemas Agrários",
-    icon: "fas fa-leaf text-green",
+    icon: "fas fa-leaf text-primary",
     component: DiagnosisAgriculturalSystems,
     layout: "/admin",
-    show: true
+    show: true,
   },
   {
-    dropdown: true,
-    title: "Produção",
-    icon: "far fa-chart-bar text-blue",
-    items: [
+    collapse: true,
+    name: "Produção",
+    icon: "far fa-chart-bar text-primary",
+    views: [
       {
         show: true,
         path: "/producao/producao",
         name: "Produção",
-        icon: "fas fa-chart-pie text-blue",
+        icon: "fas fa-chart-pie text-primary",
         component: Productions,
         layout: "/admin",
       },
@@ -130,7 +131,7 @@ var routes = [
         show: true,
         path: "/producao/vegetal",
         name: "Produção de Vegetais",
-        icon: "fas fa-tractor text-green",
+        icon: "fas fa-tractor text-primary",
         component: VegetablesProduction,
         layout: "/admin",
       },
@@ -138,7 +139,7 @@ var routes = [
         show: true,
         path: "/producao/animais",
         name: "Produção de Animais",
-        icon: "fas fa-drumstick-bite text-red",
+        icon: "fas fa-drumstick-bite text-primary",
         component: AnimalsProduction,
         layout: "/admin",
       },
@@ -146,43 +147,51 @@ var routes = [
         show: true,
         path: "/producao/psicultura/",
         name: "Psicultura",
-        icon: "fas fa-fish text-info",
+        icon: "fas fa-fish text-primary",
         component: Psiculture,
         layout: "/admin",
       },
-    ]
+    ],
   },
   {
     path: "/benfeitorias",
     name: "Benfeitorias",
-    icon: "fas fa-hammer text-yellow",
+    icon: "fas fa-hammer text-primary",
     component: Improvements,
     layout: "/admin",
-    show: true
+    show: true,
   },
   {
     path: "/transportes",
     name: "Transportes",
-    icon: "fas fa-truck text-orange",
+    icon: "fas fa-truck text-primary",
     component: Transports,
     layout: "/admin",
-    show: true
+    show: true,
   },
   {
     path: "/visita-tecnica",
     name: "Visita Técnica",
-    icon: "fas fa-user-check text-gray",
+    icon: "fas fa-user-check text-primary",
     component: TechnicalVisit,
     layout: "/admin",
-    show: true
+    show: true,
+  },
+  {
+    path: "/documentos",
+    name: "Documentos",
+    icon: "fas fa-file-alt text-primary",
+    component: Documents,
+    layout: "/admin",
+    show: true,
   },
   {
     path: "/suporte",
     name: "Ajuda",
-    icon: "ni ni-support-16 text-red",
+    icon: "ni ni-support-16 text-primary",
     component: Suporte,
     layout: "/admin",
-    show: false
+    show: false,
   },
   {
     path: "/user-profile",
@@ -190,7 +199,7 @@ var routes = [
     icon: "ni ni-single-02 text-info",
     component: Perfil,
     layout: "/admin",
-    show: false
+    show: false,
   },
   {
     path: "/login",
@@ -198,7 +207,7 @@ var routes = [
     icon: "ni ni-key-25 text-info",
     component: Login,
     layout: "/auth",
-    show: false
+    show: false,
   },
   {
     path: "/register",
@@ -206,7 +215,7 @@ var routes = [
     icon: "ni ni-circle-08 text-pink",
     component: Registro,
     layout: "/auth",
-    show: false
+    show: false,
   },
   {
     path: "/recover-password",
@@ -214,7 +223,7 @@ var routes = [
     icon: "ni ni-circle-08 text-pink",
     component: RecuperarSenha,
     layout: "/auth",
-    show: false
+    show: false,
   },
   {
     path: "/affiliate-registration",
@@ -222,7 +231,7 @@ var routes = [
     icon: "ni ni-circle-08 text-pink",
     component: RegistroDeAfiliados,
     layout: "/auth",
-    show: false
+    show: false,
   },
   {
     path: "/registration-pj",
@@ -230,7 +239,7 @@ var routes = [
     icon: "ni ni-circle-08 text-pink",
     component: RegistroPJ,
     layout: "/admin",
-    show: false
+    show: false,
   },
   {
     path: "/registration-pf",
@@ -238,7 +247,7 @@ var routes = [
     icon: "ni ni-circle-08 text-pink",
     component: RegistroPF,
     layout: "/admin",
-    show: false
+    show: false,
   },
 ];
 

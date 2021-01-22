@@ -1,5 +1,5 @@
 const initialState = {
-  member: "",
+  member: null,
   allotments: [],
   diagnosisAgriculturalSystems: [],
   productions: [],
@@ -9,6 +9,7 @@ const initialState = {
   improvements: [],
   transports: [],
   technicalVisits: [],
+  documents: [],
   allotment: "",
   production: "",
   improvement: "",
@@ -18,7 +19,6 @@ const initialState = {
   typeProduction: [],
   members: [],
   biomes: [],
-  dataMembers: [],
   submitMessage: "",
 };
 
@@ -29,8 +29,6 @@ const MembersReducer = (state = initialState, action) => {
         ...state,
         member: action.payload.member,
       };
-    case "SET_DATA_MEMBERS":
-      return { ...state, dataMembers: action.payload.dataMembers };
     case "SET_MEMBERS":
       return { ...state, members: action.payload.members };
     case "SET_ALLOTMENTS":
@@ -55,6 +53,8 @@ const MembersReducer = (state = initialState, action) => {
       return {...state, transports: action.payload.transports };
     case "SET_TECHNICAL_VISITS":
       return {...state, technicalVisits: action.payload.technicalVisits };
+    case "SET_DOCUMENTS":
+      return {...state, documents: action.payload.documents };
     case "SET_ALLOTMENT":
       return {...state, allotment: action.payload.allotment };
     case "SET_PRODUCTION":

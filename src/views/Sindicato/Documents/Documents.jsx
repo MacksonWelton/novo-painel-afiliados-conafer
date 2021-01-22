@@ -5,10 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   Card,
   CardFooter,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
-  DropdownToggle,
   Pagination,
   PaginationItem,
   PaginationLink,
@@ -20,13 +16,12 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-  Input,
 } from "reactstrap";
 
 import Header from "components/Headers/Header";
 
 import {
-  getDiagnosisAgriculturalSystems,
+  getDocuments,
 } from "../../../redux/actions/Membros";
 
 import { Tr } from "./styles";
@@ -34,22 +29,17 @@ import RegistroSubAfiliados from "components/RegistroSubAfiliados/RegistroSubAfi
 import { CardHeaderStyled } from "views/Contratos/styles";
 import ModalMembro from "components/ModalMembro/ModalMembro";
 
-const DiagnosisAgriculturalSystems = () => {
+const Documents = () => {
   const dispatch = useDispatch();
-  const diagnosisAgriculturalSystems = useSelector(
-    (state) => state.MembersReducer.diagnosisAgriculturalSystems
-  );
-  
+  const documents = useSelector((state) => state.MembersReducer.documents);
+
   useEffect(() => {
-    dispatch(getDiagnosisAgriculturalSystems());
+    dispatch(getDocuments())
   }, [dispatch]);
 
   const [open, setOpen] = useState(false);
   const [openAddMember, setOpenAddMember] = useState(false);
-  const [
-    diagnosisAgriculturalSystem,
-    setDiagnosisAgriculturalSystem,
-  ] = useState({});
+  const [document, setDocument] = useState({});
   // const [checkbox, setCheckbox] = useState([]);
 
   // const handleChangeCheckbox = (event) => {
@@ -66,8 +56,8 @@ const DiagnosisAgriculturalSystems = () => {
 
   //   if (checked) {
   //     setCheckbox(
-  //       diagnosisAgriculturalSystems.map((diagnosis) => {
-  //         return { id: diagnosis.id, checked: true };
+  //       documents.map((document) => {
+  //         return { id: document.id, checked: true };
   //       })
   //     );
   //   } else {
@@ -87,9 +77,7 @@ const DiagnosisAgriculturalSystems = () => {
           <div className="col">
             <Card className="bg-default shadow">
               <CardHeaderStyled>
-                <h3 className="text-white mb-0">
-                  Diagnóstico de Sistemas Agrários
-                </h3>
+                <h3 className="text-white mb-0">Documentos</h3>
                 {/* <div className="d-flex align-items-center">
                   <InputStyled type="text" placeholder="Pesquisar..." />
                   <Button className="bg-transparent border-0">
@@ -131,17 +119,17 @@ const DiagnosisAgriculturalSystems = () => {
                         />
                       </div>
                     </th> */}
-                    <th scope="col">Propriedade</th>
+                    <th scope="col">Membro</th>
                     <th scope="col">Cidade</th>
                     <th scope="col">Estado</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {diagnosisAgriculturalSystems.map((diagnosis, index) => (
+                  {documents.map((document, index) => (
                     <Tr
                       onClick={() => {
                         setOpen(!open);
-                        setDiagnosisAgriculturalSystem(diagnosis);
+                        setDocument(document);
                       }}
                       key={index}
                     >
@@ -152,18 +140,17 @@ const DiagnosisAgriculturalSystems = () => {
                         <Input
                           className="position-relative"
                           checked={
-                            checkbox.filter(
-                              (check) => check.id === diagnosis.id
-                            ).length
+                            checkbox.filter((check) => check.id === document.id)
+                              .length
                           }
-                          value={diagnosis.id}
+                          value={document.id}
                           type="checkbox"
                           onChange={handleChangeCheckbox}
                         />
                       </td> */}
-                      <td>{diagnosis.allotmentName}</td>
-                      <td>{diagnosis.allotment_city}</td>
-                      <td>{diagnosis.allotment_state}</td>
+                      <td>{document.member}</td>
+                      <td>{document.city}</td>
+                      <td>{document.state}</td>
                     </Tr>
                   ))}
                 </tbody>
@@ -244,13 +231,9 @@ const DiagnosisAgriculturalSystems = () => {
           </Button>
         </ModalFooter>
       </Modal>
-      <ModalMembro
-        open={open}
-        setOpen={setOpen}
-        diagnosisAgriculturalSystem={diagnosisAgriculturalSystem}
-      />
+      <ModalMembro open={open} setOpen={setOpen} document={document} />
     </>
   );
 };
 
-export default DiagnosisAgriculturalSystems;
+export default Documents;

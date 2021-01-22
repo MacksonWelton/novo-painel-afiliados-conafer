@@ -5,7 +5,7 @@ const googleMapsCoordinates = (data) => {
   let newAddress;
   const coordinates = [];
 
-  Geocode.setApiKey("AIzaSyBchWYtE1JHWWXsHOxoSgWsBg26z7j3amA");
+  Geocode.setApiKey("AIzaSyATOGn8kFwAhA95n5Bkgxqf3MW53LNLJXw");
   Geocode.setLanguage("pt-BR");
 
   const latLng = (lat, lng) => {

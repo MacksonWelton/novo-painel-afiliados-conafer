@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col } from "reactstrap";
+import { Col, Row } from "reactstrap";
 
 const TechnicalVisit = ({ technicalVisit }) => {
   return (
@@ -23,7 +23,7 @@ const TechnicalVisit = ({ technicalVisit }) => {
                 {technicalVisit.informant_name}
               </div>
             </Col>
-            <Col lg="6" className="mb-3">
+            <Col lg="12" className="mb-3">
               <div className="border border-default rounded p-2">
                 <b>Participantes da conversa:</b>{" "}
                 {technicalVisit.conversation_participants}

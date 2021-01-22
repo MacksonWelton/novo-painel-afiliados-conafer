@@ -1,9 +1,9 @@
 import MapaAfiliados from "components/MapaAfiliados/MapaAfiliados";
+import ZoomImage from "components/ZoomImage/ZoomImage";
 import React from "react";
 import { Row, Col } from "reactstrap";
 
 const LocalizacaoLote = ({ allotment }) => {
-  console.log(allotment);
 
   return (
     <>
@@ -15,7 +15,7 @@ const LocalizacaoLote = ({ allotment }) => {
           <Col lg="6" className="my-3">
             <div className="border border-default rounded p-2">
               <b>Bioma: </b>
-              {allotment.bioma}
+              {allotment.biomaName}
             </div>
           </Col>
           <Col lg="6" className="my-3">
@@ -68,7 +68,7 @@ const LocalizacaoLote = ({ allotment }) => {
               <div className="mb-3">
                 <b>Arquivo geometria lote: </b>
               </div>
-              <img src={allotment.lot_geometry} width="100%" />
+              <ZoomImage image={allotment.lot_geometry}/>
             </div>
           </Col>
           <Col lg="6" className="mb-3">
@@ -260,7 +260,7 @@ const LocalizacaoLote = ({ allotment }) => {
           <Col lg="6" className="mb-3">
             <div className="border border-default rounded p-2">
               <b>Aderir PRA: </b>
-              {allotment.join_pra}
+              {allotment.join_pra ? "Sim" : "Não"}
             </div>
           </Col>
           <Col lg="6" className="mb-3">
@@ -278,7 +278,7 @@ const LocalizacaoLote = ({ allotment }) => {
           <Col lg="6" className="mb-3">
             <div className="border border-default rounded p-2">
               <b>Existe TAC com APP: </b>
-              {allotment.has_tac_with_app}
+              {allotment.has_tac_with_app ? "Sim" : "Não"}
             </div>
           </Col>
           <Col lg="6" className="mb-3">
@@ -290,7 +290,7 @@ const LocalizacaoLote = ({ allotment }) => {
           <Col lg="6" className="mb-3">
             <div className="border border-default rounded p-2">
               <b>Imovel possui ARVN: </b>
-              {allotment.property_has_arvn}
+              {allotment.property_has_arvn ? "Sim" : "Não"}
             </div>
           </Col>
           <Col lg="6" className="mb-3">

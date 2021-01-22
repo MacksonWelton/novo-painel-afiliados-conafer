@@ -33,8 +33,8 @@ class Admin extends React.Component {
 
   getRoutes = (routes) => {
     return routes.map((prop, key) => {
-      if (prop.dropdown) {
-        return prop.items.map((item, index) => {
+      if (prop.collapse) {
+        return prop.views.map((item, index) => {
           return (
             <Route
               path={item.layout + item.path}
@@ -43,7 +43,7 @@ class Admin extends React.Component {
             />
           );
         });
-      } else if (prop.layout === "/admin" && !prop.dropdown) {
+      } else if (prop.layout === "/admin" && !prop.collapse) {
         return (
           <Route
             path={prop.layout + prop.path}
@@ -65,9 +65,19 @@ class Admin extends React.Component {
         ) !== -1
       ) {
         return routes[i].name;
+      } else if (routes[i].collapse) {
+        for (let x = 0; x < routes[i].views.length; x++) {
+          if (
+            this.props.location.pathname.indexOf(
+              routes[i].views[x].layout + routes[i].views[x].path
+              ) !== -1
+              ) {
+            return routes[i].views[x].name;
+          }
+        }
       }
     }
-    return "Brand";
+    return "Página não encontrada.";
   };
 
   render() {

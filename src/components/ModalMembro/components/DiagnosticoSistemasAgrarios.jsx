@@ -1,5 +1,5 @@
 import React from "react";
-import { UncontrolledCollapse, Row, Col } from "reactstrap";
+import { Row, Col } from "reactstrap";
 
 const DiagnosticoSistemasAgrarios = ({ diagnosisAgriculturalSystem }) => {
   return (

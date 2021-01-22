@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
-  Badge,
   Card,
   CardFooter,
   DropdownMenu,
@@ -31,8 +30,7 @@ import {
   getProductions,
 } from "../../../../redux/actions/Membros";
 
-import { InputStyled, Tr } from "./styles";
-import ProgressCard from "components/ProgressCard/ProgressCard";
+import { Tr } from "./styles";
 import RegistroSubAfiliados from "components/RegistroSubAfiliados/RegistroSubAfiliados";
 import { CardHeaderStyled } from "views/Contratos/styles";
 import BotoesDeAcao from "components/BotoesDeAcao/BotoesDeAcao";
@@ -83,56 +81,9 @@ const Productions = () => {
     dispatch(downloadMembers(checkbox));
   };
 
-  const getBadge = (is_active) => {
-    if (is_active) {
-      return "bg-primary";
-    } else {
-      return "bg-red";
-    }
-  };
-
-  const getStatus = (is_active) => {
-    if (is_active) {
-      return "Ativado";
-    } else {
-      return "Desativado";
-    }
-  };
-
-  const CardData = [
-    {
-      title: "Abertos",
-      progress: 30,
-      max: 40,
-      icon: "fas fa-headset",
-      color: "yellow",
-    },
-    {
-      title: "Respondidos",
-      progress: 0,
-      max: 50,
-      icon: "fas fa-question",
-      color: "blue",
-    },
-    {
-      title: "Encerrados",
-      progress: 35,
-      max: 50,
-      icon: "fas fa-times",
-      color: "red",
-    },
-    {
-      title: "Concluídos",
-      progress: 35,
-      max: 40,
-      icon: "fas fa-check",
-      color: "green",
-    },
-  ];
-
   return (
     <>
-      <Header children={<ProgressCard CardData={CardData} />} />
+      <Header />
       <Container className="mt--7" fluid>
         <Row className="mt-5">
           <div className="col">
@@ -141,12 +92,12 @@ const Productions = () => {
                 <h3 className="text-white mb-0">
                   Produção
                 </h3>
-                <div className="d-flex align-items-center">
+                {/* <div className="d-flex align-items-center">
                   <InputStyled type="text" placeholder="Pesquisar..." />
                   <Button className="bg-transparent border-0">
                     <i className="fas fa-search text-white display-4"></i>
                   </Button>
-                </div>
+                </div> */}
                 <div>
                   <Button
                     onClick={() => setOpenAddMember(!openAddMember)}
@@ -162,7 +113,7 @@ const Productions = () => {
                 responsive
               >
                 <thead className="thead-dark">
-                  {checkbox.length > 0 && (
+                  {/* {checkbox.length > 0 && (
                     <tr>
                       <th></th>
                       <th>
@@ -171,9 +122,9 @@ const Productions = () => {
                         />
                       </th>
                     </tr>
-                  )}
+                  )} */}
                   <tr>
-                    <th scope="col">
+                    {/* <th scope="col">
                       <div className="d-flex justify-content-end ml-3 align-items-center">
                         <Input
                           className="position-relative"
@@ -181,7 +132,7 @@ const Productions = () => {
                           onChange={handleSelectAllCheckbox}
                         />
                       </div>
-                    </th>
+                    </th> */}
                     <th secope="col">Produção</th>
                     <th scope="col">Quantidade</th>
                     <th scope="col">Tipo</th>
@@ -198,7 +149,7 @@ const Productions = () => {
                       }}
                       key={index}
                     >
-                      <td
+                      {/* <td
                         className="d-flex justify-content-end"
                         onClick={(e) => e.stopPropagation()}
                       >
@@ -213,42 +164,11 @@ const Productions = () => {
                           type="checkbox"
                           onChange={handleChangeCheckbox}
                         />
-                      </td>
+                      </td> */}
                       <td>{production.productionName}</td>
                       <td>{production.how_produces}</td>
                       <td>{production.typeName}</td>
                       <td>{production.issues_invoice ? "Sim" : "Não"}</td>
-                      <td className="text-right">
-                        <UncontrolledDropdown>
-                          <DropdownToggle
-                            className="btn-icon-only text-light"
-                            href="#pablo"
-                            role="button"
-                            size="sm"
-                            color=""
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              e.preventDefault();
-                            }}
-                          >
-                            <i className="fas fa-ellipsis-v" />
-                          </DropdownToggle>
-                          <DropdownMenu className="dropdown-menu-arrow" right>
-                            <DropdownItem
-                              href="#pablo"
-                              onClick={(e) => e.preventDefault()}
-                            >
-                              Ativar
-                            </DropdownItem>
-                            <DropdownItem
-                              href="#pablo"
-                              onClick={(e) => e.preventDefault()}
-                            >
-                              Desativar
-                            </DropdownItem>
-                          </DropdownMenu>
-                        </UncontrolledDropdown>
-                      </td>
                     </Tr>
                   ))}
                 </tbody>
