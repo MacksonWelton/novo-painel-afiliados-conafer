@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button, Input, FormGroup, Row, Table, Col } from "reactstrap";
 import { getTypeProduction } from "redux/actions/Membros";
 import { getProductionName } from "redux/actions/Membros";
+import { formatReal } from "utils/converterToMoney";
 
 const Producao = ({
   inputVegetablesProduction,
@@ -181,9 +182,8 @@ const Producao = ({
                 id="price_per_kg"
                 title="Preço por Kg"
                 placeholder="Ex: R$ 50,00"
-                value={inputVegetables.price_per_kg}
+                value={formatReal(inputVegetables.price_per_kg)}
                 onChange={handleChangeInputVegetables}
-                min="0"
               />
             </FormGroup>
           </Col>
@@ -216,7 +216,7 @@ const Producao = ({
                 id="how_much_sell"
                 title="Quanto vende (kg)"
                 placeholder="Ex: 10"
-                value={inputVegetables.how_much_sell}
+                value={formatReal(inputVegetables.how_much_sell)}
                 onChange={handleChangeInputVegetables}
                 min="0"
               />

@@ -1,51 +1,50 @@
 import React from "react";
 import { Row, Col } from "reactstrap";
+import {Title, Content} from "./Styles";
 
 const Transports = ({ transport }) => {
   return (
     <>
-      <h3
-        className="border rounded bg-default text-center text-white py-2 w-100"
-      >
+      <Title>
         Transportes
-      </h3>
+      </Title>
       <div>
           <Row>
             <Col lg="6" className="mb-3">
-              <div className="border border-default rounded p-2">
+              <Content>
                 <b>Lote:</b>{" "}
                 {transport.allotmentName}
-              </div>
+              </Content>
             </Col>
             <Col lg="6" className="mb-3">
-              <div className="border border-default rounded p-2">
+              <Content>
                 <b> Principal meio de transporte:</b>{" "}
                 {transport.means_transport}
-              </div>
+              </Content>
             </Col>
             <Col lg="6" className="mb-3">
-              <div className="border border-default rounded p-2">
+              <Content>
                 <b>Custo de transporte rodoviário próprio:</b>{" "}
                 {transport.own_road_transport_cost}
-              </div>
+              </Content>
             </Col>
             <Col lg="6" className="mb-3">
-              <div className="border border-default rounded p-2">
+              <Content>
                 <b>Custo de transporte hidroviário próprio:</b>{" "}
                 {transport.waterway_transportation_cost}
-              </div>
+              </Content>
             </Col>
             <Col lg="6" className="mb-3">
-              <div className="border border-default rounded p-2">
+              <Content>
                 <b>Custo de transporte fretado rodoviário:</b>{" "}
                 {transport.road_chartered_transport_cost}
-              </div>
+              </Content>
             </Col>
             <Col lg="6" className="mb-3">
-              <div className="border border-default rounded p-2">
+              <Content>
                 <b>Custo de transporte fretado hidroviário:</b>{" "}
                 {transport.waterway_chartered_transportation_cost}
-              </div>
+              </Content>
             </Col>
           </Row>
       </div>

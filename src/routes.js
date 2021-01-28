@@ -28,7 +28,7 @@ import Suporte from "./views/Suporte/Suporte";
 import Orcamentos from "./views/Orcamentos/Orcamentos";
 import Propostas from "./views/Propostas/Propostas";
 import Mensalidades from "./views/Mensalidades/Mensalidades";
-import Membros from "./views/Sindicato/Membros/Membros";
+import Membros from "./views/Sindicato/Members/Members";
 import Allotments from "./views/Sindicato/Allotments/Allotments";
 import DiagnosisAgriculturalSystems from "./views/Sindicato/DiagnosisAgriculturalSystems/DiagnosisAgriculturalSystems";
 import Productions from "./views/Sindicato/Production/Productions/Productions";

@@ -1,99 +1,98 @@
 import React from "react";
 import { Row, Col } from "reactstrap";
+import {Title, Content} from "./Styles";
 
 const Psiculture = ({ psiculture }) => {
   return (
     <>
-      <h3
-        className="border rounded bg-default text-center text-white py-2 w-100"
-      >
+      <Title>
         Psiculturas
-      </h3>
+      </Title>
       <div>
           <Row>
             <Col lg="6" className="mb-3">
-              <div className="border border-default rounded p-2">
+              <Content>
                 <b>Lote:</b>{" "}
                 {psiculture.allotmentName}
-              </div>
+              </Content>
             </Col>
             <Col lg="6" className="mb-3">
-              <div className="border border-default rounded p-2">
+              <Content>
                 <b>Tipo:</b>{" "}
                 {psiculture.type_psiculture}
-              </div>
+              </Content>
             </Col>
             <Col lg="6" className="mb-3">
-              <div className="border border-default rounded p-2">
+              <Content>
                 <b>Manejo:</b>{" "}
                 {psiculture.management}
-              </div>
+              </Content>
             </Col>
             <Col lg="6" className="mb-3">
-              <div className="border border-default rounded p-2">
+              <Content>
                 <b>Sistema de despesca:</b>{" "}
                 {psiculture.harvesting_systems}
-              </div>
+              </Content>
             </Col>
             <Col lg="6" className="mb-3">
-              <div className="border border-default rounded p-2">
+              <Content>
                 <b>Complementação alimentar (quanto gasta em R$):</b>{" "}
                 {psiculture.food_supplementation}
-              </div>
+              </Content>
             </Col>
             <Col lg="6" className="mb-3">
-              <div className="border border-default rounded p-2">
+              <Content>
                 <b>Complementacao alimentar anual (quanto gasta em R$):</b>{" "}
                 {psiculture.annual_food_supplementation}
-              </div>
+              </Content>
             </Col>
             <Col lg="6" className="mb-3">
-              <div className="border border-default rounded p-2">
+              <Content>
                 <b>Finalidade:</b>{" "}
                 {psiculture.goal}
-              </div>
+              </Content>
             </Col>
             <Col lg="6" className="mb-3">
-              <div className="border border-default rounded p-2">
+              <Content>
                 <b>Pesque pague:</b>{" "}
                 {psiculture.fish_pay ? "Sim" : "Não"}
-              </div>
+              </Content>
             </Col>
             <Col lg="6" className="mb-3">
-              <div className="border border-default rounded p-2">
+              <Content>
                 <b>Tamanho do reservatório:</b>{" "}
                 {psiculture.reservoir_size}
-              </div>
+              </Content>
             </Col>
             <Col lg="6" className="mb-3">
-              <div className="border border-default rounded p-2">
+              <Content>
                 <b>Produção carne (kg):</b>{" "}
                 {psiculture.meat_production}
-              </div>
+              </Content>
             </Col>
             <Col lg="6" className="mb-3">
-              <div className="border border-default rounded p-2">
+              <Content>
                 <b>Preço compra (kg):</b>{" "}
                 {psiculture.purchase_price}
-              </div>
+              </Content>
             </Col>
             <Col lg="6" className="mb-3">
-              <div className="border border-default rounded p-2">
+              <Content>
                 <b>Produção comercializada:</b>{" "}
                 {psiculture.commercialized_production}
-              </div>
+              </Content>
             </Col>
             <Col lg="6" className="mb-3">
-              <div className="border border-default rounded p-2">
+              <Content>
                 <b>Preço médio (kg):</b>{" "}
                 {psiculture.average_price}
-              </div>
+              </Content>
             </Col>
             <Col lg="6" className="mb-3">
-              <div className="border border-default rounded p-2">
+              <Content>
                 <b>Principais canais comercialização:</b>{" "}
                 {psiculture.mai_marketing_channels}
-              </div>
+              </Content>
             </Col>
           </Row>
       </div>

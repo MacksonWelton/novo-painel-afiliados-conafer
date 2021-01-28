@@ -1,45 +1,44 @@
 import React from "react";
 import { Row, Col } from "reactstrap";
+import {Title, Content} from "./Styles";
 
 const Improvements = ({ improvement }) => {
   return (
     <>
-      <h3
-        className="border rounded bg-default text-center text-white py-2 w-100"
-      >
+      <Title>
         Benfeitoria
-      </h3>
+      </Title>
       <div>
           <Row>
             <Col lg="6" className="mb-3">
-              <div className="border border-default rounded p-2">
+              <Content>
                 <b>Lote:</b>{" "}
                 {improvement.allotmentName}
-              </div>
+              </Content>
             </Col>
             <Col lg="6" className="mb-3">
-              <div className="border border-default rounded p-2">
+              <Content>
                 <b>Benfeitoria:</b>{" "}
                 {improvement.improvement}
-              </div>
+              </Content>
             </Col>
             <Col lg="6" className="mb-3">
-              <div className="border border-default rounded p-2">
+              <Content>
                 <b>Tipo:</b>{" "}
                 {improvement.type_improvement}
-              </div>
+              </Content>
             </Col>
             <Col lg="6" className="mb-3">
-              <div className="border border-default rounded p-2">
+              <Content>
                 <b>Metragem:</b>{" "}
                 {improvement.footage}
-              </div>
+              </Content>
             </Col>
             <Col lg="6" className="mb-3">
-              <div className="border border-default rounded p-2">
+              <Content>
                 <b>Idade da benfeitoria:</b>{" "}
                 {improvement.age_improvement}
-              </div>
+              </Content>
             </Col>
           </Row>
       </div>

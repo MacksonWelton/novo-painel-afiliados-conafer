@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Modal, ModalBody, ModalFooter, ModalHeader, Button } from "reactstrap";
-import DadaosBeneficiario from "./components/DadaosBeneficiario";
-import LocalizacaoLote from "./components/LocalizacaoLote";
-import Moradias from "./components/Moradias";
-import DiagnosticoSistemasAgrarios from "./components/DiagnosticoSistemasAgrarios";
+import Member from "./components/Member";
+import Allotment from "./components/Allotment";
+// import Moradias from "./components/Moradias";
+import DiagnosisAgriculturalSystems from "./components/DiagnosisAgriculturalSystems";
 import Producao from "./components/Producao";
 import VegetablesProduction from "./components/VegetablesProduction";
 import Psiculture from "./components/Psiculture";
@@ -27,6 +27,8 @@ const ModalMembro = ({
   technicalVisit,
   document,
 }) => {
+  const ref = useRef();
+
   return (
     <Modal
       isOpen={open}
@@ -40,14 +42,14 @@ const ModalMembro = ({
           setOpen(!open);
         }}
       >
-        Informações RAPATRA
+        RAPATRA
       </ModalHeader>
       <ModalBody>
-        <div>
-          {member && <DadaosBeneficiario member={member} />}
-          {allotment && <LocalizacaoLote allotment={allotment} />}
+        <div ref={ref}>
+          {member && <Member member={member} />}
+          {allotment && <Allotment allotment={allotment} />}
           {diagnosisAgriculturalSystem && (
-            <DiagnosticoSistemasAgrarios
+            <DiagnosisAgriculturalSystems
               diagnosisAgriculturalSystem={diagnosisAgriculturalSystem}
             />
           )}
@@ -66,9 +68,6 @@ const ModalMembro = ({
         </div>
       </ModalBody>
       <ModalFooter className="d-flex justify-content-end">
-        {/* <Button color="primary" onClick={print}>
-              Download PDF
-            </Button> */}
         <Button color="secondary" onClick={() => setOpen(!open)}>
           Sair
         </Button>

@@ -9,18 +9,8 @@ import DiagnosticoDeSistemasAgrarios from "./components/DiagnosticoDeSistemasAgr
 import Producao from "./components/Producao/Producao";
 
 import {
-  setAgriculturalSystem,
-  setAllotment,
-  setImprovement,
-  setMember,
-  setTechnicalVisit,
-  setTransport,
-  setDocumentation,
   newMember,
 } from "../../redux/actions/Membros";
-import { setResidents } from "../../redux/actions/Registro";
-import { setDiagnosisOfAgriculturalSystems } from "../../redux/actions/Registro";
-import { setProduction } from "../../redux/actions/Registro";
 
 import FormContext from "./context";
 import { getUsersAffiliation } from "redux/actions/UsuariosAfiliacao";

@@ -1,5 +1,6 @@
 import React from "react";
 import { Input, FormGroup, Col, Row } from "reactstrap";
+import { formatReal } from "utils/converterToMoney";
 
 const DiagnosticoDeSistemasAgrarios = ({
   inputDiagnosisOfAgriculturalSystems,
@@ -30,12 +31,12 @@ const DiagnosticoDeSistemasAgrarios = ({
               </label>
               <Input
                 className="form-control-alternative"
-                type="number"
+                type="text"
                 name="income_off_lot"
                 id="income_off_lot"
                 title="Qual é a renda extra lote (fora do lote) anual?"
                 placeholder="Ex: R$ 0,00 a R$ 5.000,00"
-                value={inputDiagnosisOfAgriculturalSystems.income_off_lot}
+                value={formatReal(inputDiagnosisOfAgriculturalSystems.income_off_lot)}
                 onChange={handleChangeInput}
               />
             </FormGroup>

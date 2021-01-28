@@ -2,20 +2,36 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AlertSyled } from "./Styles";
 import { setVisibleAlert } from "redux/actions/Alertas";
+import { useHistory } from "react-router-dom";
+import { setAuthentication } from "../../redux/actions/Login";
+import { setAlert } from "redux/actions/Alertas";
 
 const Alertas = ({ alerts }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const visible = useSelector((state) => state.AlertsReducer.alerts.show);
 
   const [data, setData] = useState(null);
 
-  setTimeout(() => {
-    dispatch(setVisibleAlert(false));
-  }, 50000)
-
   useEffect(() => {
-    const onDismiss = () => dispatch(setVisibleAlert(false));
+
+    const onDismiss = () => {
+      
+      if (alerts.status === 401) {
+        localStorage.clear();
+        dispatch(setAuthentication(false));
+        history.push("/");
+      }
+      
+      dispatch(setVisibleAlert(false));
+      dispatch(setAlert(null, null, false));
+    };
+  
+    setTimeout(() => {
+      onDismiss();
+    }, 50000);
+
 
     switch (alerts.status) {
       case 200:
@@ -49,7 +65,7 @@ const Alertas = ({ alerts }) => {
       default:
         setData(null);
     }
-  }, [alerts.status, alerts.message, visible, dispatch]);
+  }, [alerts.status, alerts.message, visible, dispatch, history]);
 
   return <>{data}</>;
 };

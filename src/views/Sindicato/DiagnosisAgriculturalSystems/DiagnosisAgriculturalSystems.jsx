@@ -5,10 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   Card,
   CardFooter,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
-  DropdownToggle,
   Pagination,
   PaginationItem,
   PaginationLink,
@@ -20,7 +16,7 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-  Input,
+
 } from "reactstrap";
 
 import Header from "components/Headers/Header";

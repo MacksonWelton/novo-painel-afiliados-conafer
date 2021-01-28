@@ -1,81 +1,80 @@
 import React from "react";
 import { Row, Col } from "reactstrap";
+import {Title, Content} from "./Styles";
 
 const AnimalsProduction = ({ animalsProduction }) => {
   return (
     <>
-      <h3
-        className="border rounded bg-default text-center text-white py-2 w-100"
-      >
+      <Title>
         Produção de Vegetais
-      </h3>
+      </Title>
       <div>
           <Row>
             <Col lg="6" className="mb-3">
-              <div className="border border-default rounded p-2">
+              <Content>
                 <b>Produção:</b>{" "}
                 {animalsProduction.productionName}
-              </div>
+              </Content>
             </Col>
             <Col lg="6" className="mb-3">
-              <div className="border border-default rounded p-2">
+              <Content>
                 <b>Lote:</b>{" "}
                 {animalsProduction.allotmentName}
-              </div>
+              </Content>
             </Col>
             <Col lg="6" className="mb-3">
-              <div className="border border-default rounded p-2">
+              <Content>
                 <b>Produção anual:</b>{" "}
                 {animalsProduction.annual_production}
-              </div>
+              </Content>
             </Col>
             <Col lg="6" className="mb-3">
-              <div className="border border-default rounded p-2">
+              <Content>
                 <b>Preço por kg:</b>{" "}
                 {animalsProduction.price_per_kg}
-              </div>
+              </Content>
             </Col>
             <Col lg="6" className="mb-3">
-              <div className="border border-default rounded p-2">
+              <Content>
                 <b>Quantidade comercializada anual:</b>{" "}
                 {animalsProduction.annual_marketed}
-              </div>
+              </Content>
             </Col>
             <Col lg="6" className="mb-3">
-              <div className="border border-default rounded p-2">
+              <Content>
                 <b>Quanto vende (kg):</b>{" "}
                 {animalsProduction.how_much_sell}
-              </div>
+              </Content>
             </Col>
             <Col lg="6" className="mb-3">
-              <div className="border border-default rounded p-2">
+              <Content>
                 <b>Semente muda origem:</b>{" "}
                 {animalsProduction.seedling_origin}
-              </div>
+              </Content>
             </Col>
             <Col lg="6" className="mb-3">
-              <div className="border border-default rounded p-2">
+              <Content>
                 <b>Semente muda origem:</b>{" "}
                 {animalsProduction.creole_seed ? "Sim" : "Não"}
-              </div>
+              </Content>
             </Col>
             <Col lg="6" className="mb-3">
-              <div className="border border-default rounded p-2">
+              <Content>
                 <b>Problemas com pragas:</b>{" "}
                 {animalsProduction.pest_problems ? "Sim" : "Não"}
-              </div>
+              </Content>
             </Col>
             <Col lg="6" className="mb-3">
-              <div className="border border-default rounded p-2">
+              <Content>
                 <b>Área irrigada:</b>{" "}
                 {animalsProduction.irrigated_area}
-              </div>
+              </Content>
             </Col>
             <Col lg="6" className="mb-3">
-              <div className="border border-default rounded p-2">
+              <Content>
                 <b>Produção gera resíduo?:</b>{" "}
                 {animalsProduction.generates_waste ? "Sim" : "Não"}
-              </div>
+              </Content>
             </Col>
           </Row>
       </div>

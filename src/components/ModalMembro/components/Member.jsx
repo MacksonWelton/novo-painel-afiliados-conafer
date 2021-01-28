@@ -1,184 +1,181 @@
 import React from 'react';
 import { Row, Col } from 'reactstrap';
 import moment from "moment";
+import {Title, Content} from "./Styles";
 
-const DadaosBeneficiario = ({member}) => {
+const Member = ({member}) => {
   return (
     <>
-      <h3
-          className="border rounded bg-default text-center text-white py-2 w-100"
-        >
-          Dados do Membro
-        </h3>
+    <Title>Teste</Title>
         <div>
             <Row>
               <Col lg="12" className="mb-3">
-                <div className="border border-default rounded p-2">
+                <Content>
                   <b>Nome completo: </b> {member.name}
-                </div>
+                </Content>
               </Col>
               <Col lg="6" className="mb-3">
-                <div className="border border-default rounded p-2">
+                <Content>
                   <b>Naturalidade: </b> {member.citizenship}
-                </div>
+                </Content>
               </Col>
               <Col lg="6" className="mb-3">
-                <div className="border border-default rounded p-2">
+                <Content>
                   <b>CPF: </b> {member.cpf}
-                </div>
+                </Content>
               </Col>
               <Col lg="6" className="mb-3">
-                <div className="border border-default rounded p-2">
+                <Content>
                   <b>RG: </b> {member.rg}
-                </div>
+                </Content>
               </Col>
               <Col lg="6" className="mb-3">
-                <div className="border border-default rounded p-2">
+                <Content>
                   <b>NIS: </b> {member.nis}
-                </div>
+                </Content>
               </Col>
               <Col lg="6" className="mb-3">
-                <div className="border border-default rounded p-2">
+                <Content>
                   <b>Estado Civil: </b> {member.marital_status}
-                </div>
+                </Content>
               </Col>
               <Col lg="6" className="mb-3">
-                <div className="border border-default rounded p-2">
+                <Content>
                   <b>Nome da mãe: </b> {member.mother_name}
-                </div>
+                </Content>
               </Col>
               <Col lg="6" className="mb-3">
-                <div className="border border-default rounded p-2">
+                <Content>
                   <b>Nome do cônjuge: </b> {member.spouse_name}
-                </div>
+                </Content>
               </Col>
               <Col lg="6" className="mb-3">
-                <div className="border border-default rounded p-2">
+                <Content>
                   <b>CPF do cônjuge: </b> {member.spouse_cpf}
-                </div>
+                </Content>
               </Col>
               <Col lg="6" className="mb-3">
-                <div className="border border-default rounded p-2">
+                <Content>
                   <b>Nacionalidade: </b> {member.nationality}
-                </div>
+                </Content>
               </Col>
               <Col lg="6" className="mb-3">
-                <div className="border border-default rounded p-2">
+                <Content>
                   <b>Anos que reside na região: </b> {member.year_residence}
-                </div>
+                </Content>
               </Col>
               <Col lg="6" className="mb-3">
-                <div className="border border-default rounded p-2">
+                <Content>
                   <b>Sempre residiu no meio rural?: </b> {member.always_resided}
-                </div>
+                </Content>
               </Col>
               <Col lg="6" className="mb-3">
-                <div className="border border-default rounded p-2">
+                <Content>
                   <b>E-mail: </b> {member.email}
-                </div>
+                </Content>
               </Col>
               <Col lg="6" className="mb-3">
-                <div className="border border-default rounded p-2">
+                <Content>
                   <b>Telefone: </b> {member.phone}
-                </div>
+                </Content>
               </Col>
               <Col lg="6" className="mb-3">
-                <div className="border border-default rounded p-2">
+                <Content>
                   <b>Telefone alternativo: </b> {member.alternative_phone}
-                </div>
+                </Content>
               </Col>
               <Col lg="6" className="mb-3">
-                <div className="border border-default rounded p-2">
+                <Content>
                   <b>País: </b> {member.country}
-                </div>
+                </Content>
               </Col>
               <Col lg="6" className="mb-3">
-                <div className="border border-default rounded p-2">
+                <Content>
                   <b>Estado: </b> {member.state}
-                </div>
+                </Content>
               </Col>
               <Col lg="6" className="mb-3">
-                <div className="border border-default rounded p-2">
+                <Content>
                   <b>Cidade: </b> {member.city}
-                </div>
+                </Content>
               </Col>
               <Col lg="6" className="mb-3">
-                <div className="border border-default rounded p-2">
+                <Content>
                   <b>Bairro: </b> {member.district}
-                </div>
+                </Content>
               </Col>
               <Col lg="6" className="mb-3">
-                <div className="border border-default rounded p-2">
+                <Content>
                   <b>Endereço: </b> {member.address}
-                </div>
+                </Content>
               </Col>
               <Col lg="6" className="mb-3">
-                <div className="border border-default rounded p-2">
+                <Content>
                   <b>Número: </b> {member.number}
-                </div>
+                </Content>
               </Col>
               <Col lg="6" className="mb-3">
-                <div className="border border-default rounded p-2">
+                <Content>
                   <b>CEP: </b> {member.cep}
-                </div>
+                </Content>
               </Col>
               <Col lg="6" className="mb-3">
-                <div className="border border-default rounded p-2">
+                <Content>
                   <b>Zona de localização: </b> {member.location_zone}
-                </div>
+                </Content>
               </Col>
               <Col lg="6" className="mb-3">
-                <div className="border border-default rounded p-2">
+                <Content>
                   <b>Status na RB: </b> {member.rb_status}
-                </div>
+                </Content>
               </Col>
               <Col lg="6" className="mb-3">
-                <div className="border border-default rounded p-2">
+                <Content>
                   <b>Ocupa área Destinada pelo INCRA: </b>
                   {member.incra_area ? "Sim" : "Não"}
-                </div>
+                </Content>
               </Col>
               <Col lg="6" className="mb-3">
-                <div className="border border-default rounded p-2">
+                <Content>
                   <b>Código de coleta: </b>
                   {member.collection_code}
-                </div>
+                </Content>
               </Col>
               <Col lg="6" className="mb-3">
-                <div className="border border-default rounded p-2">
+                <Content>
                   <b>Status: </b>
                   {member.status}
-                </div>
+                </Content>
               </Col>
               <Col lg="6" className="mb-3">
-                <div className="border border-default rounded p-2">
+                <Content>
                   <b>Núcleo operacional ATER: </b>
                   {member.operational_core}
-                </div>
+                </Content>
               </Col>
               <Col lg="6" className="mb-3">
-                <div className="border border-default rounded p-2">
+                <Content>
                   <b>Beneficiário possui contrato concessão?: </b>
                   {member.has_contract ? "Sim" : "Não"}
-                </div>
+                </Content>
               </Col>
               <Col lg="6" className="mb-3">
-                <div className="border border-default rounded p-2">
+                <Content>
                   <b>Validade da concessão: </b>
                   {moment(member.concession_validity).format("DD/MM/YYYY")}
-                </div>
+                </Content>
               </Col>
               <Col lg="6" className="mb-3">
-                <div className="border border-default rounded p-2">
+                <Content>
                   <b>Lote possui marcação dos limites?: </b>
                   {member.lot_has_marking ? "Sim" : "Não"}
-                </div>
+                </Content>
               </Col>
               <Col lg="6" className="mb-3">
-                <div className="border border-default rounded p-2">
+                <Content>
                   <b>Beneficiário conhece limite lote?: </b>
                   {member.beneficiary_knows_limit ? "Sim" : "Não"}
-                </div>
+                </Content>
               </Col>
             </Row>
         </div>
@@ -186,4 +183,4 @@ const DadaosBeneficiario = ({member}) => {
   )
 }
 
-export default DadaosBeneficiario;
+export default Member;

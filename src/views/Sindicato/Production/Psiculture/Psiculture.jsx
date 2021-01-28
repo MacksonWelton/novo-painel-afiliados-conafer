@@ -5,10 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   Card,
   CardFooter,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
-  DropdownToggle,
   Pagination,
   PaginationItem,
   PaginationLink,
@@ -20,21 +16,17 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-  Input,
 } from "reactstrap";
 
 import Header from "components/Headers/Header";
 
 import {
-  downloadMembers,
   getPsicultureProductions,
 } from "../../../../redux/actions/Membros";
 
-import { InputStyled, Tr } from "./styles";
-import ProgressCard from "components/ProgressCard/ProgressCard";
+import { Tr } from "./styles";
 import RegistroSubAfiliados from "components/RegistroSubAfiliados/RegistroSubAfiliados";
 import { CardHeaderStyled } from "views/Contratos/styles";
-import BotoesDeAcao from "components/BotoesDeAcao/BotoesDeAcao";
 import ModalMembro from "components/ModalMembro/ModalMembro";
 
 const Psiculture = () => {
@@ -53,69 +45,10 @@ const Psiculture = () => {
     psiculture,
     setPsicultureProduction,
   ] = useState({});
-  const [checkbox, setCheckbox] = useState([]);
-
-  const handleChangeCheckbox = (event) => {
-    const { value, checked } = event.target;
-    if (checked) {
-      setCheckbox([...checkbox, { id: value, checked }]);
-    } else {
-      setCheckbox(checkbox.filter((check) => check.id !== value));
-    }
-  };
-
-  const handleSelectAllCheckbox = (event) => {
-    const checked = event.target.checked;
-
-    if (checked) {
-      setCheckbox(
-        psicultureProductions.map((production) => {
-          return { id: production.id, checked: true };
-        })
-      );
-    } else {
-      setCheckbox([]);
-    }
-  };
-
-  const handleDownloadsMembers = () => {
-    dispatch(downloadMembers(checkbox));
-  };
-
-  const CardData = [
-    {
-      title: "Abertos",
-      progress: 30,
-      max: 40,
-      icon: "fas fa-headset",
-      color: "yellow",
-    },
-    {
-      title: "Respondidos",
-      progress: 0,
-      max: 50,
-      icon: "fas fa-question",
-      color: "blue",
-    },
-    {
-      title: "Encerrados",
-      progress: 35,
-      max: 50,
-      icon: "fas fa-times",
-      color: "red",
-    },
-    {
-      title: "Concluídos",
-      progress: 35,
-      max: 40,
-      icon: "fas fa-check",
-      color: "green",
-    },
-  ];
 
   return (
     <>
-      <Header children={<ProgressCard CardData={CardData} />} />
+      <Header />
       <Container className="mt--7" fluid>
         <Row className="mt-5">
           <div className="col">
@@ -145,26 +78,7 @@ const Psiculture = () => {
                 responsive
               >
                 <thead className="thead-dark">
-                  {checkbox.length > 0 && (
-                    <tr>
-                      <th></th>
-                      <th>
-                        <BotoesDeAcao
-                          handleDownloadsItems={handleDownloadsMembers}
-                        />
-                      </th>
-                    </tr>
-                  )}
                   <tr>
-                    <th scope="col">
-                      <div className="d-flex justify-content-end ml-3 align-items-center">
-                        <Input
-                          className="position-relative"
-                          type="checkbox"
-                          onChange={handleSelectAllCheckbox}
-                        />
-                      </div>
-                    </th>
                     <th secope="col">Lote</th>
                     <th scope="col" />
                   </tr>
@@ -178,54 +92,7 @@ const Psiculture = () => {
                       }}
                       key={index}
                     >
-                      <td
-                        className="d-flex justify-content-end"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <Input
-                          className="position-relative"
-                          checked={
-                            checkbox.filter(
-                              (check) => check.id === production.id
-                            ).length
-                          }
-                          value={production.id}
-                          type="checkbox"
-                          onChange={handleChangeCheckbox}
-                        />
-                      </td>
                       <td>{production.allotmentName}</td>
-                      <td className="text-right">
-                        <UncontrolledDropdown>
-                          <DropdownToggle
-                            className="btn-icon-only text-light"
-                            href="#pablo"
-                            role="button"
-                            size="sm"
-                            color=""
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              e.preventDefault();
-                            }}
-                          >
-                            <i className="fas fa-ellipsis-v" />
-                          </DropdownToggle>
-                          <DropdownMenu className="dropdown-menu-arrow" right>
-                            <DropdownItem
-                              href="#pablo"
-                              onClick={(e) => e.preventDefault()}
-                            >
-                              Ativar
-                            </DropdownItem>
-                            <DropdownItem
-                              href="#pablo"
-                              onClick={(e) => e.preventDefault()}
-                            >
-                              Desativar
-                            </DropdownItem>
-                          </DropdownMenu>
-                        </UncontrolledDropdown>
-                      </td>
                     </Tr>
                   ))}
                 </tbody>

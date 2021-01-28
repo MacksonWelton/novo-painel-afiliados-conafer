@@ -1,39 +1,38 @@
 import React from "react";
 import { Row, Col } from "reactstrap";
+import {Title, Content} from "./Styles";
 
 const Producao = ({ production }) => {
   return (
     <>
-      <h3
-        className="border rounded bg-default text-center text-white py-2 w-100"
-      >
+      <Title>
         Produção
-      </h3>
+      </Title>
       <div>
           <Row>
             <Col lg="6" className="mb-3">
-              <div className="border border-default rounded p-2">
+              <Content>
                 <b>Produção:</b>{" "}
                 {production.productionName}
-              </div>
+              </Content>
             </Col>
             <Col lg="6" className="mb-3">
-              <div className="border border-default rounded p-2">
+              <Content>
                 <b>Quantidade Produzida:</b>{" "}
                 {production.how_produces}
-              </div>
+              </Content>
             </Col>
             <Col lg="6" className="mb-3">
-              <div className="border border-default rounded p-2">
+              <Content>
                 <b>Tipo de Produção:</b>{" "}
                 {production.typeName}
-              </div>
+              </Content>
             </Col>
             <Col lg="6" className="mb-3">
-              <div className="border border-default rounded p-2">
+              <Content>
                 <b>Emite Nota?:</b>{" "}
                 {production.issues_invoice ? "Sim" : "Não"}
-              </div>
+              </Content>
             </Col>
           </Row>
       </div>

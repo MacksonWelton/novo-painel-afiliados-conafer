@@ -85,12 +85,6 @@ const VegetablesProduction = () => {
                 <h3 className="text-white mb-0">
                   Produção
                 </h3>
-                <div className="d-flex align-items-center">
-                  <InputStyled type="text" placeholder="Pesquisar..." />
-                  <Button className="bg-transparent border-0">
-                    <i className="fas fa-search text-white display-4"></i>
-                  </Button>
-                </div>
                 <div>
                   <Button
                     onClick={() => setOpenAddMember(!openAddMember)}
