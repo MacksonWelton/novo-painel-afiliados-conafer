@@ -125,7 +125,6 @@ const MapaAfiliados = ({
     AddAddressInUsersPJAffiliation();
   }
 
-
   return (
     <GoogleMap
       mapContainerStyle={mapContainerStyle}

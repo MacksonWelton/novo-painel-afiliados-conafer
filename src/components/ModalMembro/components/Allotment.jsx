@@ -2,60 +2,59 @@ import MapaAfiliados from "components/MapaAfiliados/MapaAfiliados";
 import ZoomImage from "components/ZoomImage/ZoomImage";
 import React from "react";
 import { Row, Col } from "reactstrap";
+import {Title, Content} from "./Styles";
 
-const LocalizacaoLote = ({ allotment }) => {
+const Allotment = ({ allotment }) => {
 
   return (
     <>
-      <h3 className="border rounded bg-default text-center text-white py-2 w-100">
-        Informações do Lote
-      </h3>
+    <Title>Informações do Lote</Title>
       <div>
         <Row>
           <Col lg="6" className="my-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Bioma: </b>
               {allotment.biomaName}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="my-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Núcleo Operacional: </b>
               {allotment.operational_core}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="my-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Estado: </b>
               {allotment.allotment_state}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Município: </b>
               {allotment.allotment_city}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Assentamento: </b>
               {allotment.settlement}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Nº do Lote: </b>
               {allotment.incra_allotment_number}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Via de acesso ao imóvel: </b>
               {allotment.access_way}
-            </div>
+            </Content>
           </Col>
           <Col lg="12">
-            <div className="mb-3 border border-default rounded p-2">
+            <div className="mb-3 border rounded p-2">
               <div className="mb-3">
                 <b>Coordenadas geográficas: </b>
                 {allotment.coordinates}
@@ -64,354 +63,354 @@ const LocalizacaoLote = ({ allotment }) => {
             </div>
           </Col>
           <Col lg="12" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <div className="mb-3">
                 <b>Arquivo geometria lote: </b>
               </div>
               <ZoomImage image={allotment.lot_geometry}/>
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Sede: </b>
               {allotment.thirst}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Plantio próprio: </b>
               {allotment.own_planting}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Mata nativa: </b>
               {allotment.native_forest}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Pousio capoeira: </b>
               {allotment.fallow_capoeira}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Pastagem nativa: </b>
               {allotment.native_pasture}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Pastagem plantada: </b>
               {allotment.planted_pasture}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Area degradada: </b>
               {allotment.degraded_area}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Parceria lote: </b>
               {allotment.batch_partnership}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Parceria lote terceiros: </b>
               {allotment.third_party_partnership}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Total: </b>
               {allotment.total}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Possui horta: </b>
               {allotment.has_garden ? "Sim" : "Não"}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Cultiva plantas medicinais: </b>
               {allotment.grow_medicinal_plants ? "Sim" : "Não"}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Tipo de plantio: </b>
               {allotment.planting_type}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Manejo: </b>
               {allotment.management}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Área plantada: </b>
               {allotment.planted_area}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Quantidade de culturas: </b>
               {allotment.amount_crops}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Animais silvestres avistados no lote: </b>
               {allotment.wild_animals_sighted_lot}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Animais silvestres causam problemas: </b>
               {allotment.wild_animals_cause_problems}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Bois: </b>
               {allotment.oxen}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Equinos: </b>
               {allotment.equine}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Muares: </b>
               {allotment.mules}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Área da documentação: </b>
               {allotment.documentation_area}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Nome da propriedade: </b>
               {allotment.property_name}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Georreferenciada: </b>
               {allotment.georeferenced ? "Sim" : "Não"}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Concessão da propriedade posse: </b>
               {allotment.property_ownership}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Título domínio: </b>
               {allotment.domain_title ? "Sim" : "Não"}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>CCU: </b>
               {allotment.ccu ? "Sim" : "Não"}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>CCDRU: </b>
               {allotment.ccru ? "Sim" : "Não"}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Regularização: </b>
               {allotment.regularization ? "Sim" : "Não"}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>SNCR: </b>
               {allotment.sncr}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Certidão INCRA: </b>
               {allotment.incra_certificate}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Aderir PRA: </b>
               {allotment.join_pra ? "Sim" : "Não"}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Alternativas regularizar déficit: </b>
               {allotment.alternatives_regularize_deficit}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Como deseja compensar área com déficit: </b>
               {allotment.how_want_make_up_deficit_area}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Existe TAC com APP: </b>
               {allotment.has_tac_with_app ? "Sim" : "Não"}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Existe infrações cometidas: </b>
               {allotment.has_infractions_committed}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Imovel possui ARVN: </b>
               {allotment.property_has_arvn ? "Sim" : "Não"}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>O que pretende com área excedente: </b>
               {allotment.what_want_to_with_surplus_area}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Existe RPPN: </b>
               {allotment.has_rppn ? "Sim" : "Não"}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Possui CRF: </b>
               {allotment.has_crf ? "Sim" : "Não"}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Alteração tamanho após 22/07/2008: </b>
               {allotment.size_changes_after ? "Sim" : "Não"}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Quantidade atende a família: </b>
               {allotment.qa_meets_family ? "Sim" : "Não"}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Água: </b>
               {allotment.water}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Clima: </b>
               {allotment.climate}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Solo: </b>
               {allotment.ground}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Vegetação: </b>
               {allotment.vegetation}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Desenvolve atividade qa: </b>
               {allotment.develops_activity_qa ? "Sim" : "Não"}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Qual atividade qa: </b>
               {allotment.what_activity_qa}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Ações cotidianas interferem no ambiente: </b>
               {allotment.everyday_actions_interfere ? "Sim" : "Não"}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Participa espaços troca de experiência: </b>
               {allotment.exchange_experience}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Qual organização: </b>
               {allotment.which_organization}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Atividades de interesse: </b>
               {allotment.activities_interest}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>O que considera positivo no assentamento: </b>
               {allotment.positive_in_settlement}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>O que considera negativo no no assentamento: </b>
               {allotment.negative_in_settlement}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Principais restrições de propriedade: </b>
               {allotment.main_ownership_restrictions}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Expectativa futuras para propriedade: </b>
               {allotment.future_expectations_property}
-            </div>
+            </Content>
           </Col>
           <Col lg="6" className="mb-3">
-            <div className="border border-default rounded p-2">
+            <Content>
               <b>Interesse em turismo rural: </b>
               {allotment.rural_tourism ? "Sim" : "Não"}
-            </div>
+            </Content>
           </Col>
         </Row>
       </div>
@@ -419,4 +418,4 @@ const LocalizacaoLote = ({ allotment }) => {
   );
 };
 
-export default LocalizacaoLote;
+export default Allotment;

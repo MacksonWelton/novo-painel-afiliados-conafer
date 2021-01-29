@@ -5,10 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   Card,
   CardFooter,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
-  DropdownToggle,
   Pagination,
   PaginationItem,
   PaginationLink,
@@ -20,21 +16,19 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-  Input,
 } from "reactstrap";
 
 import Header from "components/Headers/Header";
 
 import {
-  downloadMembers,
   getProductions,
 } from "../../../../redux/actions/Membros";
 
 import { Tr } from "./styles";
 import RegistroSubAfiliados from "components/RegistroSubAfiliados/RegistroSubAfiliados";
 import { CardHeaderStyled } from "views/Contratos/styles";
-import BotoesDeAcao from "components/BotoesDeAcao/BotoesDeAcao";
 import ModalMembro from "components/ModalMembro/ModalMembro";
+import StatsCard from "components/StatsCard/StatsCard";
 
 const Productions = () => {
   const dispatch = useDispatch();
@@ -52,39 +46,22 @@ const Productions = () => {
     production,
     setProduction,
   ] = useState({});
-  const [checkbox, setCheckbox] = useState([]);
 
-  const handleChangeCheckbox = (event) => {
-    const { value, checked } = event.target;
-    if (checked) {
-      setCheckbox([...checkbox, { id: value, checked }]);
-    } else {
-      setCheckbox(checkbox.filter((check) => check.id !== value));
+  const cardData = [
+    {
+      title: "Produção",
+      progress: productions.length,
+      comparison: 2,
+      comparisonDate: "Desde do último mês",
+      icon: "far fa-chart-bar text-white",
+      color: "bg-orange",
     }
-  };
-
-  const handleSelectAllCheckbox = (event) => {
-    const checked = event.target.checked;
-
-    if (checked) {
-      setCheckbox(
-        productions.map((production) => {
-          return { id: production.id, checked: true };
-        })
-      );
-    } else {
-      setCheckbox([]);
-    }
-  };
-
-  const handleDownloadsMembers = () => {
-    dispatch(downloadMembers(checkbox));
-  };
+  ];
 
   return (
     <>
-      <Header />
-      <Container className="mt--7" fluid>
+      <Header children={<StatsCard CardData={cardData} />} />
+      <Container className="mt--9" fluid>
         <Row className="mt-5">
           <div className="col">
             <Card className="bg-default shadow">

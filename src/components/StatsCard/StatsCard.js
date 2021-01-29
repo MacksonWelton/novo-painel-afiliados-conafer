@@ -6,8 +6,8 @@ const StatsCard = ({ CardData }) => {
   return (
     <>
       {CardData.map((card, index) => (
-        <Col key={index} lg="6" xl="3">
-          <Card className="card-stats mb-4 mb-xl-0">
+        <Col key={index} lg="6" xl="3" className="mb-4">
+          <Card className="card-stats">
             <CardBody>
               <Row>
                 <div className="col">

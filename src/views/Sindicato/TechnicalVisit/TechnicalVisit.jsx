@@ -28,6 +28,7 @@ import { Tr } from "./styles";
 import RegistroSubAfiliados from "components/RegistroSubAfiliados/RegistroSubAfiliados";
 import { CardHeaderStyled } from "views/Contratos/styles";
 import ModalMembro from "components/ModalMembro/ModalMembro";
+import StatsCard from "components/StatsCard/StatsCard";
 
 const TechnicalVisit = () => {
   const dispatch = useDispatch();
@@ -40,50 +41,28 @@ const TechnicalVisit = () => {
   const [open, setOpen] = useState(false);
   const [openAddMember, setOpenAddMember] = useState(false);
   const [technicalVisit, setTechnicalVisit] = useState({});
-  // const [checkbox, setCheckbox] = useState([]);
 
-  // const handleChangeCheckbox = (event) => {
-  //   const { value, checked } = event.target;
-  //   if (checked) {
-  //     setCheckbox([...checkbox, { id: value, checked }]);
-  //   } else {
-  //     setCheckbox(checkbox.filter((check) => check.id !== value));
-  //   }
-  // };
+  const cardData = [
+    {
+      title: "Visitas Técnicas",
+      progress: technicalVisits.length,
+      comparison: 2,
+      comparisonDate: "Desde do último mês",
+      icon: "far fa-chart-bar text-white",
+      color: "bg-orange",
+    },
+  ];
 
-  // const handleSelectAllCheckbox = (event) => {
-  //   const checked = event.target.checked;
-
-  //   if (checked) {
-  //     setCheckbox(
-  //       technicalVisits.map((technicalVisit) => {
-  //         return { id: technicalVisit.id, checked: true };
-  //       })
-  //     );
-  //   } else {
-  //     setCheckbox([]);
-  //   }
-  // };
-
-  // const handleDownloadsMembers = () => {
-  //   dispatch(downloadMembers(checkbox));
-  // };
 
   return (
     <>
-      <Header/>
-      <Container className="mt--7" fluid>
+      <Header children={<StatsCard CardData={cardData} />}/>
+      <Container className="mt--9" fluid>
         <Row className="mt-5">
           <div className="col">
             <Card className="bg-default shadow">
               <CardHeaderStyled>
                 <h3 className="text-white mb-0">Visita Técnica</h3>
-                {/* <div className="d-flex align-items-center">
-                  <InputStyled type="text" placeholder="Pesquisar..." />
-                  <Button className="bg-transparent border-0">
-                    <i className="fas fa-search text-white display-4"></i>
-                  </Button>
-                </div> */}
                 <div>
                   <Button
                     onClick={() => setOpenAddMember(!openAddMember)}
@@ -99,26 +78,7 @@ const TechnicalVisit = () => {
                 responsive
               >
                 <thead className="thead-dark">
-                  {/* {checkbox.length > 0 && (
-                    <tr>
-                      <th></th>
-                      <th>
-                        <BotoesDeAcao
-                          handleDownloadsItems={handleDownloadsMembers}
-                        />
-                      </th>
-                    </tr>
-                  )} */}
                   <tr>
-                    {/* <th scope="col">
-                      <div className="d-flex justify-content-end ml-3 align-items-center">
-                        <Input
-                          className="position-relative"
-                          type="checkbox"
-                          onChange={handleSelectAllCheckbox}
-                        />
-                      </div>
-                    </th> */}
                     <th scope="col">Propriedade</th>
                     <th scope="col">Informante</th>
                   </tr>
@@ -132,21 +92,6 @@ const TechnicalVisit = () => {
                       }}
                       key={index}
                     >
-                      {/* <td
-                        className="d-flex justify-content-end"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <Input
-                          className="position-relative"
-                          checked={
-                            checkbox.filter((check) => check.id === technicalVisit.id)
-                              .length
-                          }
-                          value={technicalVisit.id}
-                          type="checkbox"
-                          onChange={handleChangeCheckbox}
-                        />
-                      </td> */}
                       <td>{technicalVisit.allotmentName}</td>
                       <td>{technicalVisit.informant_name}</td>
                     </Tr>

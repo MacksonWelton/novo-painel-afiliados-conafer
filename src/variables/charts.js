@@ -415,7 +415,6 @@ let chartExample2 = {
     ],
     datasets: [
       {
-        label: "Performance",
         data: [
           25,
           20,

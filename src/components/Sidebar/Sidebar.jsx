@@ -1,19 +1,3 @@
-/*!
-
-=========================================================
-* Argon Dashboard PRO React - v1.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-dashboard-pro-react
-* Copyright 2020 Creative Tim (https://www.creative-tim.com)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React from "react";
 // react library for routing
 import { NavLink as NavLinkRRD, Link } from "react-router-dom";
@@ -135,9 +119,11 @@ class Sidebar extends React.Component {
   // this function creates the links and collapses that appear in the sidebar (left menu)
   createLinks = (routes) => {
     return routes.map((prop, key) => {
+
       if (prop.redirect) {
         return null;
       }
+
       if (prop.collapse) {
         var st = {};
         st[prop["state"]] = !this.state[prop.state];
@@ -183,7 +169,7 @@ class Sidebar extends React.Component {
             <NavLink
               to={prop.layout + prop.path}
               activeClassName=""
-              onClick={this.closeSidenav}
+              onClick={this.toggleCollapse}
               tag={NavLinkRRD}
             >
               {prop.icon !== undefined ? (
@@ -193,8 +179,8 @@ class Sidebar extends React.Component {
                 </>
               ) : prop.miniName !== undefined ? (
                 <>
-                  <span className="sidenav-mini-icon"> {prop.miniName} </span>
-                  <span className="sidenav-normal"> {prop.name} </span>
+                  <span className="sidenav-mini-icon">{prop.miniName}</span>
+                  <span className="sidenav-normal">{prop.name}</span>
                 </>
               ) : (
                 prop.name
@@ -203,8 +189,11 @@ class Sidebar extends React.Component {
           </NavItem>
         );
       }
+      return null;
     });
   };
+
+  
   render() {
     const { routes, logo } = this.props;
     let navbarBrandProps;
@@ -246,21 +235,6 @@ class Sidebar extends React.Component {
           ) : null}
           {/* User */}
           <Nav className="align-items-center d-md-none">
-            <UncontrolledDropdown nav>
-              <DropdownToggle nav className="nav-link-icon">
-                <i className="ni ni-bell-55" />
-              </DropdownToggle>
-              <DropdownMenu
-                aria-labelledby="navbar-default_dropdown_1"
-                className="dropdown-menu-arrow"
-                right
-              >
-                <DropdownItem>Action</DropdownItem>
-                <DropdownItem>Another action</DropdownItem>
-                <DropdownItem divider />
-                <DropdownItem>Something else here</DropdownItem>
-              </DropdownMenu>
-            </UncontrolledDropdown>
             <UncontrolledDropdown nav>
               <DropdownToggle title="Clique para abrir o menu" nav>
                 <Media className="align-items-center">
@@ -339,7 +313,7 @@ class Sidebar extends React.Component {
               </Row>
             </div>
             {/* Form */}
-            <Form className="mt-4 mb-3 d-md-none">
+            {/* <Form className="mt-4 mb-3 d-md-none">
               <InputGroup className="input-group-rounded input-group-merge">
                 <Input
                   aria-label="Search"
@@ -353,7 +327,7 @@ class Sidebar extends React.Component {
                   </InputGroupText>
                 </InputGroupAddon>
               </InputGroup>
-            </Form>
+            </Form> */}
             {/* Navigation */}
             <Nav navbar>{this.createLinks(routes)}</Nav>
           </Collapse>

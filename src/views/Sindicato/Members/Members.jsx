@@ -27,13 +27,10 @@ import {
 import { Tr } from "./styles";
 import RegistroSubAfiliados from "../../../components/RegistroSubAfiliados/RegistroSubAfiliados";
 import { CardHeaderStyled } from "./styles";
-// import BotoesDeAcao from "../../../components/BotoesDeAcao/BotoesDeAcao";
 import ModalMembro from "../../../components/ModalMembro/ModalMembro";
+import StatsCard from "components/StatsCard/StatsCard";
 
-import jsPDF from "jspdf";
-import { renderToString } from "react-dom/server";
-
-const Membros = () => {
+const Members = () => {
   const dispatch = useDispatch();
   const members = useSelector((state) => state.MembersReducer.members);
 
@@ -44,43 +41,22 @@ const Membros = () => {
   const [open, setOpen] = useState(false);
   const [openAddMember, setOpenAddMember] = useState(false);
   const [member, setMember] = useState({});
-  // const [checkbox, setCheckbox] = useState([]);
 
-  // const handleChangeCheckbox = (event) => {
-  //   const { value, checked } = event.target;
-  //   if (checked) {
-  //     setCheckbox([...checkbox, { id: value, checked }]);
-  //   } else {
-  //     setCheckbox(checkbox.filter((check) => check.id !== value));
-  //   }
-  // };
-
-  // const handleSelectAllCheckbox = (event) => {
-  //   const checked = event.target.checked;
-
-  //   if (checked) {
-  //     setCheckbox(
-  //       members.map((member) => {
-  //         return { id: member.id, checked: true };
-  //       })
-  //     );
-  //   } else {
-  //     setCheckbox([]);
-  //   }
-  // };
-
-  // const handleDownloadsMembers = () => {
-  //   dispatch(downloadMembers(checkbox));
-  // };
-
-  // const handleDeleteMembers = () => {
-  //   dispatch(deleteMembers(checkbox));
-  // };
+  const cardData = [
+    {
+      title: "Membros",
+      progress: members.length,
+      comparison: 5,
+      comparisonDate: "Desde do último mês",
+      icon: "fas fa-user-friends",
+      color: "bg-dark",
+    }
+  ];
 
   return (
     <>
-      <Header/>
-      <Container className="mt--7" fluid>
+      <Header children={<StatsCard CardData={cardData} />}/>
+      <Container className="mt--9" fluid>
         <Row className="mt-5">
           <div className="col">
             <Card className="bg-default shadow">
@@ -107,27 +83,7 @@ const Membros = () => {
                 responsive
               >
                 <thead className="thead-dark">
-                  {/* {checkbox.length > 0 && (
-                    <tr>
-                      <th></th>
-                      <th>
-                        <BotoesDeAcao
-                          handleDownloadsItems={handleDownloadsMembers}
-                          handleDeleteItems={handleDeleteMembers}
-                        />
-                      </th>
-                    </tr>
-                  )} */}
                   <tr>
-                    {/* <th scope="col">
-                      <div className="d-flex justify-content-end ml-3 align-items-center">
-                        <Input
-                          className="position-relative"
-                          type="checkbox"
-                          onChange={handleSelectAllCheckbox}
-                        />
-                      </div>
-                    </th> */}
                     <th scope="col">Nome</th>
                     <th scope="col">Telefone</th>
                     <th scope="col">E-mail</th>
@@ -143,21 +99,6 @@ const Membros = () => {
                       }}
                       key={index}
                     >
-                      {/* <td
-                        className="d-flex justify-content-end"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <Input
-                          className="position-relative"
-                          checked={
-                            checkbox.filter((check) => check.id === member.id)
-                              .length
-                          }
-                          value={member.id}
-                          type="checkbox"
-                          onChange={handleChangeCheckbox}
-                        />
-                      </td> */}
                       <td>{member.name}</td>
                       <td>{member.phone}</td>
                       <td>{member.email}</td>
@@ -247,4 +188,4 @@ const Membros = () => {
   );
 };
 
-export default Membros;
+export default Members;

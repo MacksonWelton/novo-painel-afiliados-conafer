@@ -1,7 +1,7 @@
 const initialState = {
   alerts: {
-    status: "",
-    message: "",
+    status: null,
+    message: null,
     show: false,
   },
 };

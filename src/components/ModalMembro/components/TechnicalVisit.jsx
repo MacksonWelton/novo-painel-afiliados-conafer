@@ -1,33 +1,32 @@
 import React from "react";
 import { Col, Row } from "reactstrap";
+import {Title, Content} from "./Styles";
 
 const TechnicalVisit = ({ technicalVisit }) => {
   return (
     <>
-      <h3
-        className="border rounded bg-default text-center text-white py-2 w-100"
-      >
+      <Title>
         Visita Técnica
-      </h3>
+      </Title>
       <div>
           <Row>
             <Col lg="6" className="mb-3">
-              <div className="border border-default rounded p-2">
+              <Content>
                 <b>Lote:</b>{" "}
                 {technicalVisit.allotmentName}
-              </div>
+              </Content>
             </Col>
             <Col lg="6" className="mb-3">
-              <div className="border border-default rounded p-2">
+              <Content>
                 <b>Nome do informante:</b>{" "}
                 {technicalVisit.informant_name}
-              </div>
+              </Content>
             </Col>
             <Col lg="12" className="mb-3">
-              <div className="border border-default rounded p-2">
+              <Content>
                 <b>Participantes da conversa:</b>{" "}
                 {technicalVisit.conversation_participants}
-              </div>
+              </Content>
             </Col>
           </Row>
       </div>
