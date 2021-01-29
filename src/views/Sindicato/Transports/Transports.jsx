@@ -28,6 +28,7 @@ import { Tr } from "./styles";
 import RegistroSubAfiliados from "components/RegistroSubAfiliados/RegistroSubAfiliados";
 import { CardHeaderStyled } from "views/Contratos/styles";
 import ModalMembro from "components/ModalMembro/ModalMembro";
+import StatsCard from "components/StatsCard/StatsCard";
 
 const Transports = () => {
   const dispatch = useDispatch();
@@ -40,50 +41,27 @@ const Transports = () => {
   const [open, setOpen] = useState(false);
   const [openAddMember, setOpenAddMember] = useState(false);
   const [transport, setTransport] = useState({});
-  // const [checkbox, setCheckbox] = useState([]);
 
-  // const handleChangeCheckbox = (event) => {
-  //   const { value, checked } = event.target;
-  //   if (checked) {
-  //     setCheckbox([...checkbox, { id: value, checked }]);
-  //   } else {
-  //     setCheckbox(checkbox.filter((check) => check.id !== value));
-  //   }
-  // };
-
-  // const handleSelectAllCheckbox = (event) => {
-  //   const checked = event.target.checked;
-
-  //   if (checked) {
-  //     setCheckbox(
-  //       transports.map((transport) => {
-  //         return { id: transport.id, checked: true };
-  //       })
-  //     );
-  //   } else {
-  //     setCheckbox([]);
-  //   }
-  // };
-
-  // const handleDownloadsMembers = () => {
-  //   dispatch(downloadMembers(checkbox));
-  // };
+  const cardData = [
+    {
+      title: "Transportes",
+      progress: transports.length,
+      comparison: 2,
+      comparisonDate: "Desde do último mês",
+      icon: "far fa-chart-bar text-white",
+      color: "bg-orange",
+    },
+  ];
 
   return (
     <>
-      <Header/>
-      <Container className="mt--7" fluid>
+      <Header children={<StatsCard CardData={cardData} />}/>
+      <Container className="mt--9" fluid>
         <Row className="mt-5">
           <div className="col">
             <Card className="bg-default shadow">
               <CardHeaderStyled>
                 <h3 className="text-white mb-0">Transportes</h3>
-                {/* <div className="d-flex align-items-center">
-                  <InputStyled type="text" placeholder="Pesquisar..." />
-                  <Button className="bg-transparent border-0">
-                    <i className="fas fa-search text-white display-4"></i>
-                  </Button>
-                </div> */}
                 <div>
                   <Button
                     onClick={() => setOpenAddMember(!openAddMember)}
@@ -99,26 +77,7 @@ const Transports = () => {
                 responsive
               >
                 <thead className="thead-dark">
-                  {/* {checkbox.length > 0 && (
-                    <tr>
-                      <th></th>
-                      <th>
-                        <BotoesDeAcao
-                          handleDownloadsItems={handleDownloadsMembers}
-                        />
-                      </th>
-                    </tr>
-                  )} */}
                   <tr>
-                    {/* <th scope="col">
-                      <div className="d-flex justify-content-end ml-3 align-items-center">
-                        <Input
-                          className="position-relative"
-                          type="checkbox"
-                          onChange={handleSelectAllCheckbox}
-                        />
-                      </div>
-                    </th> */}
                     <th scope="col">Propriedade</th>
                     <th scope="col">Principal Meio de Transporte</th>
                   </tr>
@@ -132,21 +91,6 @@ const Transports = () => {
                       }}
                       key={index}
                     >
-                      {/* <td
-                        className="d-flex justify-content-end"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <Input
-                          className="position-relative"
-                          checked={
-                            checkbox.filter((check) => check.id === transport.id)
-                              .length
-                          }
-                          value={transport.id}
-                          type="checkbox"
-                          onChange={handleChangeCheckbox}
-                        />
-                      </td> */}
                       <td>{transport.allotmentName}</td>
                       <td>{transport.means_transport}</td>
                     </Tr>

@@ -29,6 +29,7 @@ import { Tr } from "./styles";
 import RegistroSubAfiliados from "components/RegistroSubAfiliados/RegistroSubAfiliados";
 import { CardHeaderStyled } from "views/Contratos/styles";
 import ModalMembro from "components/ModalMembro/ModalMembro";
+import StatsCard from "components/StatsCard/StatsCard";
 
 const DiagnosisAgriculturalSystems = () => {
   const dispatch = useDispatch();
@@ -46,39 +47,22 @@ const DiagnosisAgriculturalSystems = () => {
     diagnosisAgriculturalSystem,
     setDiagnosisAgriculturalSystem,
   ] = useState({});
-  // const [checkbox, setCheckbox] = useState([]);
 
-  // const handleChangeCheckbox = (event) => {
-  //   const { value, checked } = event.target;
-  //   if (checked) {
-  //     setCheckbox([...checkbox, { id: value, checked }]);
-  //   } else {
-  //     setCheckbox(checkbox.filter((check) => check.id !== value));
-  //   }
-  // };
-
-  // const handleSelectAllCheckbox = (event) => {
-  //   const checked = event.target.checked;
-
-  //   if (checked) {
-  //     setCheckbox(
-  //       diagnosisAgriculturalSystems.map((diagnosis) => {
-  //         return { id: diagnosis.id, checked: true };
-  //       })
-  //     );
-  //   } else {
-  //     setCheckbox([]);
-  //   }
-  // };
-
-  // const handleDownloadsMembers = () => {
-  //   dispatch(downloadMembers(checkbox));
-  // };
+  const cardData = [
+    {
+      title: "Diag. de S. Agrários",
+      progress: diagnosisAgriculturalSystems.length,
+      comparison: 3,
+      comparisonDate: "Desde do último mês",
+      icon: "fas fa-leaf text-white",
+      color: "bg-green",
+    },
+  ];
 
   return (
     <>
-      <Header/>
-      <Container className="mt--7" fluid>
+      <Header children={<StatsCard CardData={cardData} />}/>
+      <Container className="mt--9" fluid>
         <Row className="mt-5">
           <div className="col">
             <Card className="bg-default shadow">

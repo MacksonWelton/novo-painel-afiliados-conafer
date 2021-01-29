@@ -28,6 +28,7 @@ import { Tr } from "./styles";
 import RegistroSubAfiliados from "../../../components/RegistroSubAfiliados/RegistroSubAfiliados";
 import { CardHeaderStyled } from "./styles";
 import ModalMembro from "../../../components/ModalMembro/ModalMembro";
+import StatsCard from "components/StatsCard/StatsCard";
 
 const Members = () => {
   const dispatch = useDispatch();
@@ -41,10 +42,21 @@ const Members = () => {
   const [openAddMember, setOpenAddMember] = useState(false);
   const [member, setMember] = useState({});
 
+  const cardData = [
+    {
+      title: "Membros",
+      progress: members.length,
+      comparison: 5,
+      comparisonDate: "Desde do último mês",
+      icon: "fas fa-user-friends",
+      color: "bg-dark",
+    }
+  ];
+
   return (
     <>
-      <Header/>
-      <Container className="mt--7" fluid>
+      <Header children={<StatsCard CardData={cardData} />}/>
+      <Container className="mt--9" fluid>
         <Row className="mt-5">
           <div className="col">
             <Card className="bg-default shadow">

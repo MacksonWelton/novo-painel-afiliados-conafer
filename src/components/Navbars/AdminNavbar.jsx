@@ -44,12 +44,6 @@ const AdminNavbar = (props) => {
     dispatch(getUsersPFAffiliation());
     setConfirmAuth(true);
 
-    setTimeout(() => {
-      if (localStorage.getItem("refresh_token")) {
-        dispatch(refreshToken());
-      }
-    }, 2000);
-
     setInterval(() => {
       if (localStorage.getItem("refresh_token")) {
         dispatch(refreshToken());

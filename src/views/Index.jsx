@@ -133,7 +133,7 @@ const Index = () => {
       comparison: 3,
       comparisonDate: "Desde do último mês",
       icon: "fas fa-map-marked-alt text-white",
-      color: "bg-green",
+      color: "bg-yellow",
     },
     {
       title: "Diag. de S. Agrários",
@@ -141,7 +141,7 @@ const Index = () => {
       comparison: 3,
       comparisonDate: "Desde do último mês",
       icon: "fas fa-leaf text-white",
-      color: "bg-blue",
+      color: "bg-green",
     },
     {
       title: "Produção",
@@ -149,7 +149,7 @@ const Index = () => {
       comparison: 2,
       comparisonDate: "Desde do último mês",
       icon: "far fa-chart-bar text-white",
-      color: "bg-yellow",
+      color: "bg-orange",
     },
     {
       title: "Benfeitorias",
@@ -157,7 +157,7 @@ const Index = () => {
       comparison: 2,
       comparisonDate: "Desde do último mês",
       icon: "fas fa-hammer text-white",
-      color: "bg-info",
+      color: "bg-orange",
     },
     {
       title: "Transportes",
@@ -181,7 +181,7 @@ const Index = () => {
       comparison: 2,
       comparisonDate: "Desde do último mês",
       icon: "fas fa-file-alt text-white",
-      color: "bg-red",
+      color: "bg-gray",
     },
   ];
 

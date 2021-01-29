@@ -28,6 +28,7 @@ import { Tr } from "./styles";
 import RegistroSubAfiliados from "components/RegistroSubAfiliados/RegistroSubAfiliados";
 import { CardHeaderStyled } from "views/Contratos/styles";
 import ModalMembro from "components/ModalMembro/ModalMembro";
+import StatsCard from "components/StatsCard/StatsCard";
 
 const Productions = () => {
   const dispatch = useDispatch();
@@ -46,10 +47,21 @@ const Productions = () => {
     setProduction,
   ] = useState({});
 
+  const cardData = [
+    {
+      title: "Produção",
+      progress: productions.length,
+      comparison: 2,
+      comparisonDate: "Desde do último mês",
+      icon: "far fa-chart-bar text-white",
+      color: "bg-orange",
+    }
+  ];
+
   return (
     <>
-      <Header />
-      <Container className="mt--7" fluid>
+      <Header children={<StatsCard CardData={cardData} />} />
+      <Container className="mt--9" fluid>
         <Row className="mt-5">
           <div className="col">
             <Card className="bg-default shadow">

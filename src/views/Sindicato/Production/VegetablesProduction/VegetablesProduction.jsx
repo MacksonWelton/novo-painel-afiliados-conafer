@@ -28,6 +28,7 @@ import { InputStyled, Tr } from "./styles";
 import RegistroSubAfiliados from "components/RegistroSubAfiliados/RegistroSubAfiliados";
 import { CardHeaderStyled } from "views/Contratos/styles";
 import ModalMembro from "components/ModalMembro/ModalMembro";
+import StatsCard from "components/StatsCard/StatsCard";
 
 const VegetablesProduction = () => {
   const dispatch = useDispatch();
@@ -45,45 +46,28 @@ const VegetablesProduction = () => {
     vegetablesProduction,
     setVegetablesProduction,
   ] = useState({});
-  // const [checkbox, setCheckbox] = useState([]);
 
-  // const handleChangeCheckbox = (event) => {
-  //   const { value, checked } = event.target;
-  //   if (checked) {
-  //     setCheckbox([...checkbox, { id: value, checked }]);
-  //   } else {
-  //     setCheckbox(checkbox.filter((check) => check.id !== value));
-  //   }
-  // };
-
-  // const handleSelectAllCheckbox = (event) => {
-  //   const checked = event.target.checked;
-
-  //   if (checked) {
-  //     setCheckbox(
-  //       vegetablesProductions.map((production) => {
-  //         return { id: production.id, checked: true };
-  //       })
-  //     );
-  //   } else {
-  //     setCheckbox([]);
-  //   }
-  // };
-
-  // const handleDownloadsMembers = () => {
-  //   dispatch(downloadMembers(checkbox));
-  // };
+  const cardData = [
+    {
+      title: "Vegetais",
+      progress: vegetablesProductions.length,
+      comparison: 2,
+      comparisonDate: "Desde do último mês",
+      icon: "far fa-chart-bar text-white",
+      color: "bg-orange",
+    },
+  ];
 
   return (
     <>
-      <Header/>
-      <Container className="mt--7" fluid>
+      <Header children={<StatsCard CardData={cardData} />}/>
+      <Container className="mt--9" fluid>
         <Row className="mt-5">
           <div className="col">
             <Card className="bg-default shadow">
               <CardHeaderStyled>
                 <h3 className="text-white mb-0">
-                  Produção
+                  Produção de Vegetais
                 </h3>
                 <div>
                   <Button

@@ -30,7 +30,7 @@ const Alertas = ({ alerts }) => {
   
     setTimeout(() => {
       onDismiss();
-    }, 50000);
+    }, 5500);
 
 
     switch (alerts.status) {
