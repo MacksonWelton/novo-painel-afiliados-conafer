@@ -32,7 +32,6 @@ const Alertas = ({ alerts }) => {
       onDismiss();
     }, 5500);
 
-
     switch (alerts.status) {
       case 200:
         setData(
