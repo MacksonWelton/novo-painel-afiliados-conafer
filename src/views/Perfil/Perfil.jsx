@@ -70,8 +70,12 @@ const Perfil = () => {
 
   const submitForm = (event) => {
     event.preventDefault();
-    if (files.profilepic.value) {
+
+    if (files.profilepic.value === fileName.profilepic) {
       dispatch(updateProfile(input, files));
+    } else if (fileName.profilepic === Avatar) {
+      input.profilepic = ""
+      dispatch(updateProfile(input, null));
     } else {
       dispatch(updateProfile(input, null));
     }
@@ -120,7 +124,9 @@ const Perfil = () => {
                 <Col className="order-lg-2" lg="3">
                   <div className="card-profile-image">
                     <Img
-                      alt="..."
+                      style={{maxWidth: "250px", maxHeight: "230px"}}
+                      alt="Foto de perfil"
+                      title="Foto de perfil"
                       src={
                         fileName.show
                           ? fileName.profilepic
@@ -144,28 +150,31 @@ const Perfil = () => {
                     </Button>
                     <small className="w-100 mr-2 mt-2">Senha</small>
                   </div>
-                  <div className="d-flex flex-wrap justify-content-center">
+                  {/* <div className="d-flex flex-wrap justify-content-center">
                     <Button
                       className="mr-2 w-50 h-50"
                       color="default"
-                      onClick={(e) => e.preventDefault()}
+                      onClick={() => {}}
                       size="sm"
                       title="Mensagens"
                     >
-                      <i className="fas fa-envelope-square"></i>
+                      <i className="fas fa-trash"></i>
                     </Button>
-                    <small className="w-100 mr-2 mt-2">Msgs</small>
-                    </div>
+                    <small className="w-100 mr-2 mt-2">Foto</small>
+                    </div> */}
                 </div>
               </CardHeader>
               <CardBody className="pt-0 pt-md-4 mt-5">
                 <div className="text-center">
                   <h3>{profile.name}</h3>
+                  <hr className="mt-3 mb-0" />
                   <div className="h5 font-weight-300">
                     <i className="ni location_pin mr-2" />
-                    {profile.phone}, {profile.email}
+                    <ul className="text-left ml-5">
+                      <li>{profile.phone}</li>
+                      <li>{profile.email}</li>
+                    </ul>
                   </div>
-                  <hr className="my-4" />
                 </div>
               </CardBody>
             </Card>

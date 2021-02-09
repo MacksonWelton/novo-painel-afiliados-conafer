@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Input, FormGroup, Row, Table, Col } from "reactstrap";
 import { getProductionName, getTypeProduction } from "redux/actions/Membros";
-import { formatReal } from "utils/converterToMoney";
 
 const Production = ({
   usersAffiliation,
