@@ -69,10 +69,13 @@ const DiagnosisAgriculturalSystems = ({
                 id="income_off_lot"
                 title="Qual é a renda extra lote (fora do lote) anual?"
                 placeholder="Ex: R$ 0,00 a R$ 5.000,00"
-                value={formatReal(
-                  inputDiagnosisOfAgriculturalSystems.income_off_lot
-                )}
-                onChange={handleChangeInput}
+                value={inputDiagnosisOfAgriculturalSystems.income_off_lot}
+                onChange={(event) => {
+                  event = {target: {
+                    name: event.target.name,
+                    value: formatReal(event.target.value)
+                  }}
+                  handleChangeInput(event)}}
               />
             </FormGroup>
           </Col>

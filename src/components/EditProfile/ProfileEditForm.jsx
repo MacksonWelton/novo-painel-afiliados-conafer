@@ -52,6 +52,7 @@ const ProfileEditForm = ({
                   type="file"
                   name="profilepic"
                   onChange={handleChangeFile}
+                  accept="image/x-png, image/jpeg"
                 />
               </label>
             </FormGroup>

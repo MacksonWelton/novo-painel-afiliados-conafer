@@ -145,8 +145,13 @@ const VegetablesProduction = ({
                 id="price_per_kg"
                 title="Preço por Kg"
                 placeholder="Ex: R$ 50,00"
-                value={formatReal(inputVegetables.price_per_kg)}
-                onChange={handleChangeInput}
+                value={inputVegetables.price_per_kg}
+                onChange={(event) => {
+                  event = {target: {
+                    name: event.target.name,
+                    value: formatReal(event.target.value)
+                  }}
+                  handleChangeInput(event)}}
                 maxLength="16"
               />
             </FormGroup>
@@ -180,8 +185,13 @@ const VegetablesProduction = ({
                 id="how_much_sell"
                 title="Quanto vende (kg)"
                 placeholder="Ex: 10"
-                value={formatReal(inputVegetables.how_much_sell)}
-                onChange={handleChangeInput}
+                value={inputVegetables.how_much_sell}
+                onChange={(event) => {
+                  event = {target: {
+                    name: event.target.name,
+                    value: formatReal(event.target.value)
+                  }}
+                  handleChangeInput(event)}}
                 maxLength="16"
               />
             </FormGroup>
