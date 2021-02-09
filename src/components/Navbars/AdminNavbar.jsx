@@ -138,14 +138,14 @@ const AdminNavbar = (props) => {
                   <i className="fas fa-users" />
                   <span>Usuários</span>
                 </DropdownItem>
-                <DropdownItem
+                {/* <DropdownItem
                   title="Entrar em contato com o suporte da CONAFER"
                   to="/admin/suporte"
                   tag={Link}
                 >
                   <i className="far fa-life-ring" />
                   <span>Ajuda</span>
-                </DropdownItem>
+                </DropdownItem> */}
                 <DropdownItem divider />
                 <DropdownItem
                   title="Sair do painel"

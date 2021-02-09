@@ -11,11 +11,7 @@ import {
   Table,
   Container,
   Row,
-  Modal,
   Button,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
 } from "reactstrap";
 
 import Header from "components/Headers/Header";
@@ -25,10 +21,10 @@ import {
 } from "../../../redux/actions/Membros";
 
 import { Tr } from "./styles";
-import RegistroSubAfiliados from "components/RegistroSubAfiliados/RegistroSubAfiliados";
 import { CardHeaderStyled } from "views/Contratos/styles";
 import ModalMembro from "components/ModalMembro/ModalMembro";
 import StatsCard from "components/StatsCard/StatsCard";
+import SubAffiliateRegistrationModel from "components/SubAffiliateRegistrationModel/SubAffiliateRegistrationModel";
 
 const Transports = () => {
   const dispatch = useDispatch();
@@ -39,7 +35,10 @@ const Transports = () => {
   }, [dispatch]);
 
   const [open, setOpen] = useState(false);
-  const [openAddMember, setOpenAddMember] = useState(false);
+  const [openAddTransport, setOpenAddTransport] = useState({
+    modal: false,
+    transport: true
+  });
   const [transport, setTransport] = useState({});
 
   const cardData = [
@@ -64,7 +63,7 @@ const Transports = () => {
                 <h3 className="text-white mb-0">Transportes</h3>
                 <div>
                   <Button
-                    onClick={() => setOpenAddMember(!openAddMember)}
+                    onClick={() => setOpenAddTransport({...openAddTransport, modal: !openAddTransport.modal})}
                     className="m-auto"
                     color="primary"
                   >
@@ -153,26 +152,7 @@ const Transports = () => {
           </div>
         </Row>
       </Container>
-      <Modal isOpen={openAddMember} size="lg" style={{ minWidth: "60%" }}>
-        <ModalHeader
-          toggle={() => {
-            setOpenAddMember(!openAddMember);
-          }}
-        >
-          Adicionar Membro
-        </ModalHeader>
-        <ModalBody>
-          <RegistroSubAfiliados />
-        </ModalBody>
-        <ModalFooter className="d-flex justify-content-end">
-          <Button
-            color="secondary"
-            onClick={() => setOpenAddMember(!openAddMember)}
-          >
-            Cancelar
-          </Button>
-        </ModalFooter>
-      </Modal>
+       <SubAffiliateRegistrationModel open={openAddTransport} setOpen={setOpenAddTransport}/>
       <ModalMembro open={open} setOpen={setOpen} transport={transport} />
     </>
   );

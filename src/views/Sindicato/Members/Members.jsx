@@ -11,11 +11,7 @@ import {
   Table,
   Container,
   Row,
-  Modal,
-  Button,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
+  Button
 } from "reactstrap";
 
 import Header from "../../../components/Headers/Header";
@@ -25,10 +21,10 @@ import {
 } from "../../../redux/actions/Membros";
 
 import { Tr } from "./styles";
-import RegistroSubAfiliados from "../../../components/RegistroSubAfiliados/RegistroSubAfiliados";
 import { CardHeaderStyled } from "./styles";
 import ModalMembro from "../../../components/ModalMembro/ModalMembro";
 import StatsCard from "components/StatsCard/StatsCard";
+import SubAffiliateRegistrationModel from "components/SubAffiliateRegistrationModel/SubAffiliateRegistrationModel";
 
 const Members = () => {
   const dispatch = useDispatch();
@@ -39,7 +35,10 @@ const Members = () => {
   }, [dispatch]);
 
   const [open, setOpen] = useState(false);
-  const [openAddMember, setOpenAddMember] = useState(false);
+  const [openAddMember, setOpenAddMember] = useState({
+    modal: false,
+    member: true,
+  });
   const [member, setMember] = useState({});
 
   const cardData = [
@@ -70,7 +69,7 @@ const Members = () => {
                 </div> */}
                 <div>
                   <Button
-                    onClick={() => setOpenAddMember(!openAddMember)}
+                    onClick={() => setOpenAddMember({...openAddMember, modal: !openAddMember.modal})}
                     className="m-auto"
                     color="primary"
                   >
@@ -163,26 +162,7 @@ const Members = () => {
           </div>
         </Row>
       </Container>
-      <Modal isOpen={openAddMember} size="lg" style={{ minWidth: "60%" }}>
-        <ModalHeader
-          toggle={() => {
-            setOpenAddMember(!openAddMember);
-          }}
-        >
-          Adicionar Membro
-        </ModalHeader>
-        <ModalBody>
-          <RegistroSubAfiliados />
-        </ModalBody>
-        <ModalFooter className="d-flex justify-content-end">
-          <Button
-            color="secondary"
-            onClick={() => setOpenAddMember(!openAddMember)}
-          >
-            Cancelar
-          </Button>
-        </ModalFooter>
-      </Modal>
+      <SubAffiliateRegistrationModel setOpen={setOpenAddMember} open={openAddMember}/>
       <ModalMembro open={open} setOpen={setOpen} member={member}/>
     </>
   );

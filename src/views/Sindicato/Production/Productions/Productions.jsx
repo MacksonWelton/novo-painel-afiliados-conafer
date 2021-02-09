@@ -11,11 +11,7 @@ import {
   Table,
   Container,
   Row,
-  Modal,
   Button,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
 } from "reactstrap";
 
 import Header from "components/Headers/Header";
@@ -25,10 +21,10 @@ import {
 } from "../../../../redux/actions/Membros";
 
 import { Tr } from "./styles";
-import RegistroSubAfiliados from "components/RegistroSubAfiliados/RegistroSubAfiliados";
 import { CardHeaderStyled } from "views/Contratos/styles";
 import ModalMembro from "components/ModalMembro/ModalMembro";
 import StatsCard from "components/StatsCard/StatsCard";
+import SubAffiliateRegistrationModel from "components/SubAffiliateRegistrationModel/SubAffiliateRegistrationModel";
 
 const Productions = () => {
   const dispatch = useDispatch();
@@ -41,7 +37,10 @@ const Productions = () => {
   }, [dispatch]);
 
   const [open, setOpen] = useState(false);
-  const [openAddMember, setOpenAddMember] = useState(false);
+  const [openAddProduction, setOpenAddProduction] = useState({
+    modal: false,
+    production: true
+  });
   const [
     production,
     setProduction,
@@ -69,15 +68,9 @@ const Productions = () => {
                 <h3 className="text-white mb-0">
                   Produção
                 </h3>
-                {/* <div className="d-flex align-items-center">
-                  <InputStyled type="text" placeholder="Pesquisar..." />
-                  <Button className="bg-transparent border-0">
-                    <i className="fas fa-search text-white display-4"></i>
-                  </Button>
-                </div> */}
                 <div>
                   <Button
-                    onClick={() => setOpenAddMember(!openAddMember)}
+                    onClick={() => setOpenAddProduction({...openAddProduction, modal: !openAddProduction.modal})}
                     className="m-auto"
                     color="primary"
                   >
@@ -90,26 +83,7 @@ const Productions = () => {
                 responsive
               >
                 <thead className="thead-dark">
-                  {/* {checkbox.length > 0 && (
-                    <tr>
-                      <th></th>
-                      <th>
-                        <BotoesDeAcao
-                          handleDownloadsItems={handleDownloadsMembers}
-                        />
-                      </th>
-                    </tr>
-                  )} */}
                   <tr>
-                    {/* <th scope="col">
-                      <div className="d-flex justify-content-end ml-3 align-items-center">
-                        <Input
-                          className="position-relative"
-                          type="checkbox"
-                          onChange={handleSelectAllCheckbox}
-                        />
-                      </div>
-                    </th> */}
                     <th secope="col">Produção</th>
                     <th scope="col">Quantidade</th>
                     <th scope="col">Tipo</th>
@@ -126,22 +100,6 @@ const Productions = () => {
                       }}
                       key={index}
                     >
-                      {/* <td
-                        className="d-flex justify-content-end"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <Input
-                          className="position-relative"
-                          checked={
-                            checkbox.filter(
-                              (check) => check.id === production.id
-                            ).length
-                          }
-                          value={production.id}
-                          type="checkbox"
-                          onChange={handleChangeCheckbox}
-                        />
-                      </td> */}
                       <td>{production.productionName}</td>
                       <td>{production.how_produces}</td>
                       <td>{production.typeName}</td>
@@ -206,26 +164,7 @@ const Productions = () => {
           </div>
         </Row>
       </Container>
-      <Modal isOpen={openAddMember} size="lg" style={{ minWidth: "60%" }}>
-        <ModalHeader
-          toggle={() => {
-            setOpenAddMember(!openAddMember);
-          }}
-        >
-          Adicionar Membro
-        </ModalHeader>
-        <ModalBody>
-          <RegistroSubAfiliados />
-        </ModalBody>
-        <ModalFooter className="d-flex justify-content-end">
-          <Button
-            color="secondary"
-            onClick={() => setOpenAddMember(!openAddMember)}
-          >
-            Cancelar
-          </Button>
-        </ModalFooter>
-      </Modal>
+      <SubAffiliateRegistrationModel open={openAddProduction} setOpen={setOpenAddProduction}/>
       <ModalMembro
         open={open}
         setOpen={setOpen}

@@ -1,4 +1,3 @@
-// import api from "services/api";
 import api from "services/api";
 import { setAlert } from "./Alertas";
 import converterDataToFormData from "../../utils/converterDataToFormData";
@@ -59,11 +58,8 @@ export const getAllotments = () => async (dispatch) => {
 
     const allotments = await Promise.all(
       response.data.map(async (item) => {
-        
-        const bioma = await api.get(
-          `allotment/bioma/${item.bioma}/`
-          );
-          
+        const bioma = await api.get(`allotment/bioma/${item.bioma}/`);
+
         return {
           ...item,
           biomaName: bioma.data.name,
@@ -164,6 +160,80 @@ const setDiagnosisAgriculturalSystems = (diagnosisAgriculturalSystems) => ({
     diagnosisAgriculturalSystems,
   },
 });
+
+export const newProduction = (inputProduction) => async (dispatch) => {
+  try {
+    for (const production of inputProduction) {
+      await api.post("production/production/", production);
+    }
+
+    dispatch(setAlert(200, "Dados foram gravados com sucesso!", true));
+
+    dispatch(getProductions());
+  } catch (err) {
+    if (!err.response) {
+      dispatch(
+        setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
+      );
+    } else if (err.response.status === 401) {
+      dispatch(setAlert(err.response.status, err.response.data.detail, true));
+    } else {
+      dispatch(
+        setAlert(err.response.status, err.response.data.error_description, true)
+      );
+    }
+  }
+};
+
+export const newVegetableProduction = (inputPsicultureProduction) => async (
+  dispatch
+) => {
+  try {
+    for (const production of inputPsicultureProduction) {
+      await api.post("psiculture/psiculture/", production);
+    }
+
+    dispatch(setAlert(200, "Dados foram gravados com sucesso!", true));
+
+    dispatch(getVegetablesProductions())
+  } catch (err) {
+    console.error(err.message);
+    if (!err.response) {
+      dispatch(
+        setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
+      );
+    } else if (err.response.status === 401) {
+      dispatch(setAlert(err.response.status, err.response.data.detail, true));
+    } else {
+      dispatch(
+        setAlert(err.response.status, err.response.data.error_description, true)
+      );
+    }
+  }
+};
+
+export const newPsicultureProduction = (inputPsicultureProduction) => async (
+  dispatch
+) => {
+  try {
+    for (const production of inputPsicultureProduction) {
+      await api.post("psiculture/psiculture/", production);
+    }
+  } catch (err) {
+    console.error(err.message);
+    if (!err.response) {
+      dispatch(
+        setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
+      );
+    } else if (err.response.status === 401) {
+      dispatch(setAlert(err.response.status, err.response.data.detail, true));
+    } else {
+      dispatch(
+        setAlert(err.response.status, err.response.data.error_description, true)
+      );
+    }
+  }
+};
 
 export const getProductions = () => async (dispatch) => {
   try {
@@ -479,7 +549,7 @@ export const getDocuments = () => async (dispatch) => {
           ...item,
           member: member.data.name,
           state: member.data.state,
-          city: member.data.city
+          city: member.data.city,
         };
       })
     );
@@ -504,165 +574,179 @@ export const getDocuments = () => async (dispatch) => {
 const setDocuments = (documents) => ({
   type: "SET_DOCUMENTS",
   payload: {
-    documents
-  }
+    documents,
+  },
 });
 
-export const newMember = (
-  inputMember,
-  inputAllotment,
-  fileAllotment,
-  inputDiagnosisOfAgriculturalSystems,
-  inputVegetablesProduction,
-  inputPsicultureProduction,
-  inputImprovements,
-  inputTransport,
-  inputTechnicalVisit,
-  inputDocumentation,
-  inputDocumentationList
-) => async (dispatch) => {
+export const newMember = (inputMember) => async (dispatch) => {
   try {
-    // const responseMember = await api.post(
-    //   "member/member/",
-    //   inputMember
-    // );
+    await api.post("member/member/", inputMember);
 
-    // inputAllotment.member = responseMember.data.id;
+    dispatch(setAlert(200, "Dados foram gravados com sucesso!", true));
 
-    // const formDataAllotment = converterDataToFormData(
-    //   inputAllotment,
-    //   fileAllotment
-    // );
-
-    // const responseAllotment = await api.post(
-    //   "allotment/allotment/",
-    //   formDataAllotment,
-    //   {
-    //     headers: {
-    //       "Content-Type": `multipart/form-data; boundary=${formDataAllotment._boundary}`,
-    //     },
-    //   }
-    // );
-
-    // inputDiagnosisOfAgriculturalSystems.allotment = responseAllotment.data.id;
-
-    // dispatch(
-    //   postDiagnosisOfAgriculturalSystems(inputDiagnosisOfAgriculturalSystems)
-    // );
-
-    // dispatch(
-    //   postProduction(
-    //     responseAllotment.data.id,
-    //     inputVegetablesProduction,
-    //     inputPsicultureProduction
-    //   )
-    // );
-
-    // dispatch(postImprovements(responseAllotment.data.id, inputImprovements));
-
-    // dispatch(postTransport(responseAllotment.data.id, inputTransport));
-
-    // dispatch(postTechinicalVisit(responseAllotment.data.id, inputTechnicalVisit));
-
-    dispatch(
-      postDocumentation(
-        "f7263886-85bf-4087-9b42-96ca60dfe6f9",
-        inputDocumentation,
-        inputDocumentationList
-      )
-    );
+    dispatch(getMembers());
   } catch (err) {
-    console.error(err.message);
+    if (!err.response) {
+      dispatch(
+        setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
+      );
+    } else if (err.response.status === 401) {
+      if (err.response.data.detail) {
+        dispatch(setAlert(err.response.status, err.response.data.detail, true));
+      } else {
+        dispatch(setSubmitMessage(Object.values(err.response.data).join(" ")));
+      }
+    } else {
+      dispatch(
+        setAlert(err.response.status, err.response.data.error_description, true)
+      );
+    }
   }
 };
 
-export const postDiagnosisOfAgriculturalSystems = (
+export const newAllotment = (inputAllotment) => async (dispatch) => {
+  try {
+    await api.post("allotment/allotment/", inputAllotment);
+
+    dispatch(setAlert(200, "Dados foram gravados com sucesso!", true));
+
+    dispatch(getAllotments());
+  } catch (err) {
+    if (!err.response) {
+      dispatch(
+        setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
+      );
+    } else if (err.response.status === 401) {
+      if (err.response.data.detail) {
+        dispatch(setAlert(err.response.status, err.response.data.detail, true));
+      } else {
+        dispatch(setSubmitMessage(Object.values(err.response.data).join(" ")));
+      }
+    } else {
+      dispatch(
+        setAlert(err.response.status, err.response.data.error_description, true)
+      );
+    }
+  }
+};
+
+export const newDiagnosisAgriculturalSystems = (
   inputDiagnosisOfAgriculturalSystems
-) => async () => {
+) => async (dispatch) => {
   try {
     await api.post(
       "agricultural_system/agricultural_system/",
       inputDiagnosisOfAgriculturalSystems
     );
-  } catch (err) {
-    console.error(err.message);
-  }
-};
 
-export const postTransport = (idAllotment, inputTransport) => async () => {
-  try {
-    for (const transport of inputTransport) {
-      transport.allotment = idAllotment;
-      await api.post("transport/transport", transport);
+    dispatch(setAlert(200, "Dados foram gravados com sucesso!", true));
+
+    dispatch(getDiagnosisAgriculturalSystems())
+  } catch (err) {
+    if (!err.response) {
+      dispatch(
+        setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
+      );
+    } else if (err.response.status === 401) {
+      if (err.response.data.detail) {
+        dispatch(setAlert(err.response.status, err.response.data.detail, true));
+      } else {
+        dispatch(setSubmitMessage(Object.values(err.response.data).join(" ")));
+      }
+    } else {
+      dispatch(
+        setAlert(err.response.status, err.response.data.error_description, true)
+      );
     }
-  } catch (err) {
-    console.error(err.message);
   }
 };
 
-export const postTechinicalVisit = (
-  idAllotment,
-  inputTechnicalVisit
-) => async () => {
-  inputTechnicalVisit.allotment = idAllotment;
-
+export const newTransport = (inputTransport) => async (dispatch) => {
   try {
-    await api.post("technical_visit/technical_visit/", inputTechnicalVisit);
+    await api.post("transport/transport", inputTransport);
+
+    dispatch(setAlert(200, "Dados foram gravados com sucesso!", true));
+
+    dispatch(getTransports())
   } catch (err) {
-    console.error(err.message);
+    if (!err.response) {
+      dispatch(
+        setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
+      );
+    } else if (err.response.status === 401) {
+      if (err.response.data.detail) {
+        dispatch(setAlert(err.response.status, err.response.data.detail, true));
+      } else {
+        dispatch(setSubmitMessage(Object.values(err.response.data).join(" ")));
+      }
+    } else {
+      dispatch(
+        setAlert(err.response.status, err.response.data.error_description, true)
+      );
+    }
   }
 };
 
-export const postProduction = (
-  idAllotment,
-  inputVegetablesProduction,
-  inputPsicultureProduction
-) => async () => {
-  try {
-    for (const production of inputVegetablesProduction) {
-      production.allotment = idAllotment;
-      await api.post("production/vegetables_production/", production);
-    }
-
-    for (const production of inputPsicultureProduction) {
-      production.allotment = idAllotment;
-      await api.post("psiculture/psiculture/", production);
-    }
-  } catch (err) {
-    console.error(err.message);
-  }
-};
-
-export const postImprovements = (
-  idAllotment,
-  inputImprovements
-) => async () => {
+export const newImprovements = (inputImprovements) => async (dispatch) => {
   try {
     for (const improvement of inputImprovements) {
-      improvement.allotment = idAllotment;
       await api.post("improvement/improvement/", improvement);
     }
+    dispatch(setAlert(200, "Dados foram gravados com sucesso!", true));
+
+    dispatch(getImprovements());
   } catch (err) {
-    console.error(err.message);
+    if (!err.response) {
+      dispatch(
+        setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
+      );
+    } else if (err.response.status === 401) {
+      if (err.response.data.detail) {
+        dispatch(setAlert(err.response.status, err.response.data.detail, true));
+      } else {
+        dispatch(setSubmitMessage(Object.values(err.response.data).join(" ")));
+      }
+    } else {
+      dispatch(
+        setAlert(err.response.status, err.response.data.error_description, true)
+      );
+    }
   }
 };
 
-export const postDocumentation = (
-  idAllotment,
+export const newTechnicalVisit = (inputTechnicalVisit) => async (dispatch) => {
+  try {
+    await api.post("/technical_visit/technical_visit/", inputTechnicalVisit);
+
+    dispatch(setAlert(200, "Dados foram gravados com sucesso!", true));
+
+    dispatch(getTechnicalVisits());
+  } catch (err) {
+    if (!err.response) {
+      dispatch(
+        setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
+      );
+    } else if (err.response.status === 401) {
+      if (err.response.data.detail) {
+        dispatch(setAlert(err.response.status, err.response.data.detail, true));
+      } else {
+        dispatch(setSubmitMessage(Object.values(err.response.data).join(" ")));
+      }
+    } else {
+      dispatch(
+        setAlert(err.response.status, err.response.data.error_description, true)
+      );
+    }
+  }
+};
+
+export const newDocumentation = (
   inputDocumentation,
   inputDocumentationList
-) => async () => {
-  const documentationAllotment = { member: idAllotment };
-
-  const formDataDocumentation = converterDataToFormData(
-    documentationAllotment,
-    inputDocumentation
-  );
-
-  console.log(inputDocumentation);
+) => async (dispatch) => {
+  const formDataDocumentation = converterDataToFormData(inputDocumentation);
 
   Object.keys(inputDocumentationList).forEach((files) => {
-    console.log(inputDocumentationList[files].value);
     formDataDocumentation.append(files, inputDocumentationList[files].value);
   });
 
@@ -672,8 +756,25 @@ export const postDocumentation = (
         "Content-Type": `multipart/form-data; boundary=${formDataDocumentation._boundary}`,
       },
     });
+
+    dispatch(setAlert(200, "Dados foram gravados com sucesso!", true));
+
   } catch (err) {
-    console.error(err.message);
+    if (!err.response) {
+      dispatch(
+        setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
+      );
+    } else if (err.response.status === 401) {
+      if (err.response.data.detail) {
+        dispatch(setAlert(err.response.status, err.response.data.detail, true));
+      } else {
+        dispatch(setSubmitMessage(Object.values(err.response.data).join(" ")));
+      }
+    } else {
+      dispatch(
+        setAlert(err.response.status, err.response.data.error_description, true)
+      );
+    }
   }
 };
 

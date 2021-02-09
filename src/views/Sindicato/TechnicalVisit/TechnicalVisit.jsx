@@ -11,11 +11,7 @@ import {
   Table,
   Container,
   Row,
-  Modal,
   Button,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
 } from "reactstrap";
 
 import Header from "components/Headers/Header";
@@ -25,10 +21,10 @@ import {
 } from "../../../redux/actions/Membros";
 
 import { Tr } from "./styles";
-import RegistroSubAfiliados from "components/RegistroSubAfiliados/RegistroSubAfiliados";
 import { CardHeaderStyled } from "views/Contratos/styles";
 import ModalMembro from "components/ModalMembro/ModalMembro";
 import StatsCard from "components/StatsCard/StatsCard";
+import SubAffiliateRegistrationModel from "components/SubAffiliateRegistrationModel/SubAffiliateRegistrationModel";
 
 const TechnicalVisit = () => {
   const dispatch = useDispatch();
@@ -39,7 +35,10 @@ const TechnicalVisit = () => {
   }, [dispatch]);
 
   const [open, setOpen] = useState(false);
-  const [openAddMember, setOpenAddMember] = useState(false);
+  const [openAddTechnicalVisit, setOpenAddTechnicalVisit] = useState({
+    modal: false,
+    technicalVisit: true
+  });
   const [technicalVisit, setTechnicalVisit] = useState({});
 
   const cardData = [
@@ -65,7 +64,7 @@ const TechnicalVisit = () => {
                 <h3 className="text-white mb-0">Visita Técnica</h3>
                 <div>
                   <Button
-                    onClick={() => setOpenAddMember(!openAddMember)}
+                    onClick={() => setOpenAddTechnicalVisit({...openAddTechnicalVisit, modal: !openAddTechnicalVisit.modal})}
                     className="m-auto"
                     color="primary"
                   >
@@ -154,26 +153,7 @@ const TechnicalVisit = () => {
           </div>
         </Row>
       </Container>
-      <Modal isOpen={openAddMember} size="lg" style={{ minWidth: "60%" }}>
-        <ModalHeader
-          toggle={() => {
-            setOpenAddMember(!openAddMember);
-          }}
-        >
-          Adicionar Membro
-        </ModalHeader>
-        <ModalBody>
-          <RegistroSubAfiliados />
-        </ModalBody>
-        <ModalFooter className="d-flex justify-content-end">
-          <Button
-            color="secondary"
-            onClick={() => setOpenAddMember(!openAddMember)}
-          >
-            Cancelar
-          </Button>
-        </ModalFooter>
-      </Modal>
+      <SubAffiliateRegistrationModel open={openAddTechnicalVisit} setOpen={setOpenAddTechnicalVisit}/>
       <ModalMembro open={open} setOpen={setOpen} technicalVisit={technicalVisit} />
     </>
   );

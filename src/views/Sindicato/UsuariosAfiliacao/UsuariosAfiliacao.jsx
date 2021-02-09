@@ -31,7 +31,6 @@ import Header from "../../../components/Headers/Header";
 import {
   getUsersAffiliation,
   getUserAffiliation,
-  downloadUsersAffiliates,
   newUserAffiliation,
   updateAffiliatesActivation,
 } from "../../../redux/actions/UsuariosAfiliacao";
@@ -61,7 +60,6 @@ const UsuariosAfiliacao = () => {
   const [open, setOpen] = useState(false);
   const [openAddUser, setOpenAddUser] = useState(false);
   const [member, setMember] = useState({});
-  const [checkbox, setCheckbox] = useState([]);
   const [input, setInput] = useState({
     affiliation: "",
     name: "",
@@ -92,28 +90,6 @@ const UsuariosAfiliacao = () => {
     dispatch(newUserAffiliation(input, files));
   };
 
-  const handleChangeCheckbox = (event) => {
-    const { value, checked } = event.target;
-    if (checked) {
-      setCheckbox([...checkbox, { id: value, checked }]);
-    } else {
-      setCheckbox(checkbox.filter((check) => check.id !== value));
-    }
-  };
-
-  const handleSelectAllCheckbox = (event) => {
-    const checked = event.target.checked;
-
-    if (checked) {
-      setCheckbox(
-        usersAffiliation.map((member) => {
-          return { id: member.id, checked: true };
-        })
-      );
-    } else {
-      setCheckbox([]);
-    }
-  };
 
   const handleAffiliatesActivations = (user) => {
     let { id, name, email, is_active } = user;
@@ -121,14 +97,6 @@ const UsuariosAfiliacao = () => {
     const userData = {id, name, email, is_active: !is_active };
 
     dispatch(updateAffiliatesActivation(userData));
-  };
-
-  const handleDownloadsAffiliates = () => {
-    downloadUsersAffiliates(checkbox);
-  };
-
-  const handleDeleteusersAffiliation = () => {
-    // dispatch(deleteusersAffiliation(checkbox));
   };
 
   const handleChangeInputFile = (event) => {
@@ -201,12 +169,6 @@ const UsuariosAfiliacao = () => {
                 <h3 className="text-white mb-0">
                   Lista de Usuário de Afiliação
                 </h3>
-                <div className="d-flex align-items-center">
-                  <InputStyled type="text" placeholder="Pesquisar..." />
-                  <Button className="bg-transparent border-0">
-                    <i className="fas fa-search text-white display-4"></i>
-                  </Button>
-                </div>
                 <div>
                   <Button
                     onClick={() => setOpenAddUser(!openAddUser)}
@@ -222,26 +184,7 @@ const UsuariosAfiliacao = () => {
                 responsive
               >
                 <thead className="thead-dark">
-                  {checkbox.length > 0 && (
-                    <tr>
-                      <th></th>
-                      <th>
-                        <BotoesDeAcao
-                          handleDownloadsItems={handleDownloadsAffiliates}
-                          handleDeleteItems={handleDeleteusersAffiliation}
-                        />
-                      </th>
-                    </tr>
-                  )}
                   <tr>
-                    <th scope="col">
-                      <div className="d-flex justify-content-end align-items-center">
-                        <Input
-                          type="checkbox"
-                          onChange={handleSelectAllCheckbox}
-                        />
-                      </div>
-                    </th>
                     <th scope="col">Nome</th>
                     <th scope="col">Telefone</th>
                     <th scope="col">E-mail</th>
@@ -258,20 +201,6 @@ const UsuariosAfiliacao = () => {
                       }}
                       key={index}
                     >
-                      <td
-                        className="d-flex justify-content-end"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <Input
-                          checked={
-                            checkbox.filter((check) => check.id === user.id)
-                              .length
-                          }
-                          value={user.id}
-                          type="checkbox"
-                          onChange={handleChangeCheckbox}
-                        />
-                      </td>
                       <td>{user.name}</td>
                       <td>{user.phone}</td>
                       <td>{user.email}</td>
@@ -458,9 +387,6 @@ const UsuariosAfiliacao = () => {
           </div>
         </ModalBody>
         <ModalFooter className="d-flex justify-content-end">
-          <Button color="primary" onClick={() => setOpen(!open)}>
-            Dowload PDF
-          </Button>
           <Button color="secondary" onClick={() => setOpen(!open)}>
             Sair
           </Button>

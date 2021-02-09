@@ -11,41 +11,35 @@ import {
   Table,
   Container,
   Row,
-  Modal,
   Button,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
 } from "reactstrap";
 
 import Header from "components/Headers/Header";
 
-import {
-  getVegetablesProductions,
-} from "../../../../redux/actions/Membros";
+import { getVegetablesProductions } from "../../../../redux/actions/Membros";
 
-import { InputStyled, Tr } from "./styles";
-import RegistroSubAfiliados from "components/RegistroSubAfiliados/RegistroSubAfiliados";
+import { Tr } from "./styles";
 import { CardHeaderStyled } from "views/Contratos/styles";
 import ModalMembro from "components/ModalMembro/ModalMembro";
 import StatsCard from "components/StatsCard/StatsCard";
+import SubAffiliateRegistrationModel from "components/SubAffiliateRegistrationModel/SubAffiliateRegistrationModel";
 
 const VegetablesProduction = () => {
   const dispatch = useDispatch();
   const vegetablesProductions = useSelector(
     (state) => state.MembersReducer.vegetablesProductions
   );
-  
+
   useEffect(() => {
     dispatch(getVegetablesProductions());
   }, [dispatch]);
 
   const [open, setOpen] = useState(false);
-  const [openAddMember, setOpenAddMember] = useState(false);
-  const [
-    vegetablesProduction,
-    setVegetablesProduction,
-  ] = useState({});
+  const [openAddVegetableProduction, setOpenAddVegetableProduction] = useState({
+    modal: false,
+    vegetable: true,
+  });
+  const [vegetablesProduction, setVegetablesProduction] = useState({});
 
   const cardData = [
     {
@@ -60,18 +54,21 @@ const VegetablesProduction = () => {
 
   return (
     <>
-      <Header children={<StatsCard CardData={cardData} />}/>
+      <Header children={<StatsCard CardData={cardData} />} />
       <Container className="mt--9" fluid>
         <Row className="mt-5">
           <div className="col">
             <Card className="bg-default shadow">
               <CardHeaderStyled>
-                <h3 className="text-white mb-0">
-                  Produção de Vegetais
-                </h3>
+                <h3 className="text-white mb-0">Produção de Vegetais</h3>
                 <div>
                   <Button
-                    onClick={() => setOpenAddMember(!openAddMember)}
+                    onClick={() =>
+                      setOpenAddVegetableProduction({
+                        ...openAddVegetableProduction,
+                        modal: !openAddVegetableProduction.modal,
+                      })
+                    }
                     className="m-auto"
                     color="primary"
                   >
@@ -197,26 +194,10 @@ const VegetablesProduction = () => {
           </div>
         </Row>
       </Container>
-      <Modal isOpen={openAddMember} size="lg" style={{ minWidth: "60%" }}>
-        <ModalHeader
-          toggle={() => {
-            setOpenAddMember(!openAddMember);
-          }}
-        >
-          Adicionar Membro
-        </ModalHeader>
-        <ModalBody>
-          <RegistroSubAfiliados />
-        </ModalBody>
-        <ModalFooter className="d-flex justify-content-end">
-          <Button
-            color="secondary"
-            onClick={() => setOpenAddMember(!openAddMember)}
-          >
-            Cancelar
-          </Button>
-        </ModalFooter>
-      </Modal>
+      <SubAffiliateRegistrationModel
+        open={openAddVegetableProduction}
+        setOpen={setOpenAddVegetableProduction}
+      />
       <ModalMembro
         open={open}
         setOpen={setOpen}
