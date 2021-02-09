@@ -24,7 +24,7 @@ import {
   getAnimalsProductions,
 } from "../../../../redux/actions/Membros";
 
-import { InputStyled, Tr } from "./styles";
+import { Tr } from "./styles";
 import RegistroSubAfiliados from "components/RegistroSubAfiliados/RegistroSubAfiliados";
 import { CardHeaderStyled } from "views/Contratos/styles";
 import ModalMembro from "components/ModalMembro/ModalMembro";
