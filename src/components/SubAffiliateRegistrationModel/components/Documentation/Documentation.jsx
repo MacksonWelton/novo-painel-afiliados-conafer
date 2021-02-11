@@ -1,13 +1,26 @@
 import { DeleteForeverOutlined } from "@material-ui/icons";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Input, FormGroup, Col, Row, Button, Table } from "reactstrap";
+import {getMembers} from "../../../../redux/actions/Membros";
 
 const Documentation = ({
   inputDocumentation,
   setInputDocumentation,
+  inputDocumentationFile,
+  setInputDocumentationFile,
   inputDocumentationList,
   setInputDocumentationList,
 }) => {
+  const dispatch = useDispatch();
+
+
+  useEffect(() => {
+    dispatch(getMembers());
+  }, [])
+
+  const members = useSelector(state => state.MembersReducer.members);
+
   const [files, setFiles] = useState({
     documentation_birth_cetificate: {
       fileName: "",
@@ -27,27 +40,9 @@ const Documentation = ({
     },
   });
 
-  const handleChangeInputFiles = (event) => {
-    const name = event.target.name;
-    const value = event.target.files;
-
-    if (value) {
-      const fileName = "archive";
-
-      setInputDocumentationList({
-        ...inputDocumentationList,
-        [name]: {
-          ...inputDocumentationList[name],
-          fileName: fileName,
-          value: value,
-        },
-      });
-    } else {
-      setInputDocumentationList({
-        ...inputDocumentationList,
-        [name]: { ...inputDocumentationList[name], fileName: "", value: "" },
-      });
-    }
+  const handleChangeInput = (event) => {
+    const {name, value} = event.target;
+    setInputDocumentation({...inputDocumentation, [name]: value})
   }
 
   const handleChangeInputFile = (event) => {
@@ -57,18 +52,18 @@ const Documentation = ({
     if (value) {
       const fileName = event.target.files[0].name;
 
-      setInputDocumentation({
-        ...inputDocumentation,
+      setInputDocumentationFile({
+        ...inputDocumentationFile,
         [name]: {
-          ...inputDocumentation[name],
+          ...inputDocumentationFile[name],
           fileName: fileName,
           value: value,
         },
       });
     } else {
-      setInputDocumentation({
-        ...inputDocumentation,
-        [name]: { ...inputDocumentation[name], fileName: "", value: "" },
+      setInputDocumentationFile({
+        ...inputDocumentationFile,
+        [name]: { ...inputDocumentationFile[name], fileName: "", value: "" },
       });
     }
   };
@@ -127,6 +122,32 @@ const Documentation = ({
             <h2 className="text-center mb-4">Documentos</h2>
             <hr />
           </Col>
+          <Col lg="6">
+            <FormGroup>
+              <label className="form-control-label" htmlFor="member">
+                Membro <small className="text-red">(obrigatório)</small>
+              </label>
+              <Input
+                className="form-control-alternative"
+                type="select"
+                name="member"
+                id="member"
+                title="Lote"
+                value={inputDocumentation.member}
+                onChange={handleChangeInput}
+                required
+              >
+                <option value="" hidden>
+                  Escolha uma opção
+                </option>
+                {members.map((member, i) => (
+                  <option key={i} value={member.id}>
+                    {member.name}
+                  </option>
+                ))}
+              </Input>
+            </FormGroup>
+          </Col>
           <Col lg="12" className="border rounded mb-3">
             <Row>
               <Col
@@ -144,8 +165,8 @@ const Documentation = ({
                 </label>
                 <FormGroup>
                   <label className="btn bg-light ml-1 mb-0">
-                    {inputDocumentation.front_domain_title.fileName
-                      ? inputDocumentation.front_domain_title.fileName.substring(
+                    {inputDocumentationFile.front_domain_title.fileName
+                      ? inputDocumentationFile.front_domain_title.fileName.substring(
                           0,
                           40
                         )
@@ -170,8 +191,8 @@ const Documentation = ({
                 </label>
                 <FormGroup>
                   <label className="btn bg-light ml-1 mb-0">
-                    {inputDocumentation.back_domain_title.fileName
-                      ? inputDocumentation.back_domain_title.fileName.substring(
+                    {inputDocumentationFile.back_domain_title.fileName
+                      ? inputDocumentationFile.back_domain_title.fileName.substring(
                           0,
                           40
                         )
@@ -206,8 +227,8 @@ const Documentation = ({
                 </label>
                 <FormGroup>
                   <label className="btn bg-light ml-1 mb-0">
-                    {inputDocumentation.front_nesting_card.fileName
-                      ? inputDocumentation.front_nesting_card.fileName.substring(
+                    {inputDocumentationFile.front_nesting_card.fileName
+                      ? inputDocumentationFile.front_nesting_card.fileName.substring(
                           0,
                           40
                         )
@@ -232,8 +253,8 @@ const Documentation = ({
                 </label>
                 <FormGroup>
                   <label className="btn bg-light ml-1 mb-0">
-                    {inputDocumentation.back_nesting_card.fileName
-                      ? inputDocumentation.back_nesting_card.fileName.substring(
+                    {inputDocumentationFile.back_nesting_card.fileName
+                      ? inputDocumentationFile.back_nesting_card.fileName.substring(
                           0,
                           40
                         )
@@ -268,8 +289,8 @@ const Documentation = ({
                 </label>
                 <FormGroup>
                   <label className="btn bg-light ml-1 mb-0">
-                    {inputDocumentation.georeferencing.fileName
-                      ? inputDocumentation.georeferencing.fileName.substring(
+                    {inputDocumentationFile.georeferencing.fileName
+                      ? inputDocumentationFile.georeferencing.fileName.substring(
                           0,
                           40
                         )
@@ -304,8 +325,8 @@ const Documentation = ({
                 </label>
                 <FormGroup>
                   <label className="btn bg-light ml-1 mb-0">
-                    {inputDocumentation.front_beneficiary_rg.fileName
-                      ? inputDocumentation.front_beneficiary_rg.fileName.substring(
+                    {inputDocumentationFile.front_beneficiary_rg.fileName
+                      ? inputDocumentationFile.front_beneficiary_rg.fileName.substring(
                           0,
                           40
                         )
@@ -331,8 +352,8 @@ const Documentation = ({
                 </label>
                 <FormGroup>
                   <label className="btn bg-light ml-1 mb-0">
-                    {inputDocumentation.back_beneficiary_rg.fileName
-                      ? inputDocumentation.back_beneficiary_rg.fileName.substring(
+                    {inputDocumentationFile.back_beneficiary_rg.fileName
+                      ? inputDocumentationFile.back_beneficiary_rg.fileName.substring(
                           0,
                           40
                         )
@@ -368,8 +389,8 @@ const Documentation = ({
                 </label>
                 <FormGroup>
                   <label className="btn bg-light ml-1 mb-0">
-                    {inputDocumentation.front_companion_rg.fileName
-                      ? inputDocumentation.front_companion_rg.fileName.substring(
+                    {inputDocumentationFile.front_companion_rg.fileName
+                      ? inputDocumentationFile.front_companion_rg.fileName.substring(
                           0,
                           40
                         )
@@ -395,8 +416,8 @@ const Documentation = ({
                 </label>
                 <FormGroup>
                   <label className="btn bg-light ml-1 mb-0">
-                    {inputDocumentation.back_companion_rg.fileName
-                      ? inputDocumentation.back_companion_rg.fileName.substring(
+                    {inputDocumentationFile.back_companion_rg.fileName
+                      ? inputDocumentationFile.back_companion_rg.fileName.substring(
                           0,
                           40
                         )
@@ -432,17 +453,8 @@ const Documentation = ({
             </label>
             <FormGroup>
               <label className="btn bg-light ml-1 mb-0">
-                {/* {files.documentation_birth_cetificate.fileName
-                  ? files.documentation_birth_cetificate.fileName.substring(
-                      0,
-                      40
-                    )
-                  : "Escolher Arquivo"} */}
-                {inputDocumentationList.documentation_birth_cetificate.fileName
-                  ? inputDocumentationList.documentation_birth_cetificate.fileName.substring(
-                      0,
-                      40
-                    )
+                {files.documentation_birth_cetificate.fileName
+                  ? files.documentation_birth_cetificate.fileName
                   : "Escolher Arquivo"}
                 <Input
                   className="d-none"
@@ -450,8 +462,7 @@ const Documentation = ({
                   name="documentation_birth_cetificate"
                   id="documentation_birth_cetificate"
                   title="Certidão de Nascimento"
-                  onChange={handleChangeInputFiles}
-                  multiple="multiple"
+                  onChange={handleChangeInputOtherFiles}
                   required
                 />
               </label>
@@ -478,7 +489,7 @@ const Documentation = ({
                 </tr>
               </thead>
               <tbody>
-                {/* {inputDocumentationList.documentation_birth_cetificate.map(
+                {inputDocumentationList.documentation_birth_cetificate.map(
                   (file, i) => (
                     <tr key={i}>
                       <td>{file.fileName.substring(0, 35)}</td>
@@ -493,7 +504,7 @@ const Documentation = ({
                       </td>
                     </tr>
                   )
-                )} */}
+                )}
               </tbody>
             </Table>
           </Col>
@@ -550,7 +561,7 @@ const Documentation = ({
                 </tr>
               </thead>
               <tbody>
-                {/* {inputDocumentationList.documentation_cpf.map((file, i) => (
+                {inputDocumentationList.documentation_cpf.map((file, i) => (
                   <tr key={i}>
                     <td>{file.fileName.substring(0, 35)}</td>
                     <td>
@@ -561,7 +572,7 @@ const Documentation = ({
                       </Button>
                     </td>
                   </tr>
-                ))} */}
+                ))}
               </tbody>
             </Table>
           </Col>
@@ -583,10 +594,7 @@ const Documentation = ({
             <FormGroup>
               <label className="btn bg-light ml-1 mb-0">
                 {files.documentation_economic_ativities.fileName
-                  ? files.documentation_economic_ativities.fileName.substring(
-                      0,
-                      40
-                    )
+                  ? files.documentation_economic_ativities.fileName
                   : "Escolher Arquivo"}
                 <Input
                   className="d-none"
@@ -621,7 +629,7 @@ const Documentation = ({
                 </tr>
               </thead>
               <tbody>
-                {/* {inputDocumentationList.documentation_economic_ativities.map(
+                {inputDocumentationList.documentation_economic_ativities.map(
                   (file, i) => (
                     <tr key={i}>
                       <td>{file.fileName.substring(0, 35)}</td>
@@ -636,7 +644,7 @@ const Documentation = ({
                       </td>
                     </tr>
                   )
-                )} */}
+                )}
               </tbody>
             </Table>
           </Col>
@@ -693,7 +701,7 @@ const Documentation = ({
                 </tr>
               </thead>
               <tbody>
-                {/* {inputDocumentationList.documentation_improvement.map(
+                {inputDocumentationList.documentation_improvement.map(
                   (file, i) => (
                     <tr key={i}>
                       <td>{file.fileName.substring(0, 35)}</td>
@@ -708,7 +716,7 @@ const Documentation = ({
                       </td>
                     </tr>
                   )
-                )} */}
+                )}
               </tbody>
             </Table>
           </Col>
