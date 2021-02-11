@@ -5,9 +5,9 @@ export const login = (data) => async (dispatch) => {
   const { email, password } = data;
   const userData = {
     grant_type: "password",
-    client_id: "CXPJ3Wfi8bmabuHbj9BWl1mqgE15HW20RxRVw1Aj",
+    client_id: "3pI4EPaVJmzFzSHyvFMrKNj3t1jE4GMqnrapUaDE",
     client_secret:
-      "NnWl37fjkQ7Qcj2EnfU5xng8XsyOlj4ct6MihB4TWxjr143QMxQqX5bjyZWz04ys4HZIjugeSyDhe48k4EZFPJpyvSzRuD2gh2Zs5myivnCOIYD1i7Pd17YwU2AstuMD",
+      "XBOUKCtSTKgdYujIKMlAzbMOMbkcuC95ES7hrpDhAsgxVKtQVDV0XIJct1seUOdAyZZerdmHhWAN10fMmwZE4tV1JtXYVHqdcOQnSMcyovNtCm3m4M02EesS41gBusx7",
     username: email,
     password: password,
   };
@@ -33,7 +33,7 @@ export const login = (data) => async (dispatch) => {
       dispatch(
         setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
       );
-    } else if (err.response.status === 400 || err.response.status === 401) {
+    } else if (err.response.status === 401) {
       dispatch(setAlert(err.response.status, err.response.data.detail, true));
     } else {
       dispatch(
@@ -58,9 +58,9 @@ export const refreshToken = () => async (dispatch) => {
 
     const body = {
       grant_type: "refresh_token",
-      client_id: "CXPJ3Wfi8bmabuHbj9BWl1mqgE15HW20RxRVw1Aj",
+      client_id: "3pI4EPaVJmzFzSHyvFMrKNj3t1jE4GMqnrapUaDE",
       client_secret:
-        "NnWl37fjkQ7Qcj2EnfU5xng8XsyOlj4ct6MihB4TWxjr143QMxQqX5bjyZWz04ys4HZIjugeSyDhe48k4EZFPJpyvSzRuD2gh2Zs5myivnCOIYD1i7Pd17YwU2AstuMD",
+        "XBOUKCtSTKgdYujIKMlAzbMOMbkcuC95ES7hrpDhAsgxVKtQVDV0XIJct1seUOdAyZZerdmHhWAN10fMmwZE4tV1JtXYVHqdcOQnSMcyovNtCm3m4M02EesS41gBusx7",
       refresh_token: refresh_token,
     };
 

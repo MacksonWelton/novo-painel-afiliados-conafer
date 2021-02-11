@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import {
   pjAffiliateRegister,
-  AgriculturalProduction,
+  getAgriculturalProduction,
   TypeAgriculturalProduction,
 } from "../../redux/actions/Registro";
 import FormRegistroPJ from "components/FormRegistroPJ/FormRegistroPJ";
@@ -14,14 +14,14 @@ import Header from "../../components/Headers/Header";
 const RegistroPJ = () => {
   const dispatch = useDispatch();
 
-  const { production, typeProduction } = useSelector(
-    (state) => state.RegistroReducer
-  );
-
   useEffect(() => {
-    dispatch(AgriculturalProduction());
+    dispatch(getAgriculturalProduction());
     dispatch(TypeAgriculturalProduction());
   }, [dispatch]);
+
+  const { agriculturalProductions, typeProduction } = useSelector(
+    (state) => state.RegistroReducer
+  );
 
   const [input, setInput] = useState({
     name_initials: "",
@@ -182,7 +182,7 @@ const RegistroPJ = () => {
       <Header />
       <Container className="mt--7" fluid>
         <FormRegistroPJ
-          production={production}
+          production={agriculturalProductions}
           typeProduction={typeProduction}
           input={input}
           setInput={setInput}

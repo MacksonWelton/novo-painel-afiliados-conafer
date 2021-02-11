@@ -238,7 +238,7 @@ const Index = () => {
             </Card>
           </Col>
         </Row>
-        <Row className="mt-5">
+        {/* <Row className="mt-5">
           <Col className="mb-5 mb-xl-0" xl="12">
             <Card className="shadow">
               <CardHeader className="bg-transparent">
@@ -281,7 +281,7 @@ const Index = () => {
                 </Row>
               </CardHeader>
               <CardBody>
-                {/* {Chart} */}
+                {Chart}
                 <div className="chart">
                   <Line
                     data={chartExample1[chartExample1Data]}
@@ -292,7 +292,7 @@ const Index = () => {
               </CardBody>
             </Card>
           </Col>
-        </Row>
+        </Row> */}
       </Container>
     </>
   );

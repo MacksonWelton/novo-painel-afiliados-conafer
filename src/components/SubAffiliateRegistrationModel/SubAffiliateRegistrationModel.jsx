@@ -16,10 +16,11 @@ import {
   newProduction,
   newImprovements,
   newTransport,
-  newDocumentation
+  newDocumentation,
 } from "redux/actions/Membros";
 import { getUsersAffiliation } from "../../redux/actions/UsuariosAfiliacao";
 import Member from "./components/Member/Member";
+import Resident from "./components/Resident/Resident/Resident";
 import Allotment from "./components/Allotment/Allotment";
 import DiagnosisAgriculturalSystems from "./components/DiagnosisAgriculturalSystems/DiagnosisAgriculturalSystems";
 import Psiculture from "./components/Production/Psiculture/Psiculture";
@@ -30,6 +31,8 @@ import Transport from "./components/Transport/Transport";
 import TechnicalVisit from "./components/TechnicalVisit/TechnicalVisit";
 import { newTechnicalVisit } from "redux/actions/Membros";
 import Documentation from "./components/Documentation/Documentation";
+import { newResident } from "redux/actions/Membros";
+import Habitation from "./components/Resident/Habitation/Habitation";
 
 const SubAffiliateRegistrationModel = ({ setOpen, open }) => {
   const dispatch = useDispatch();
@@ -116,6 +119,33 @@ const SubAffiliateRegistrationModel = ({ setOpen, open }) => {
     beneficiary_knows_limit: "",
     rb_status: "",
     incra_area: "",
+  });
+
+  const [inputHabitation, setInputHabitation] = useState({
+    allotment: "",
+  })
+
+  const [inputResident, setInputResident] = useState({
+    habitation: "",
+    resident_name: "",
+    kinship: "",
+    sex: "",
+    birthdate: "",
+    schooling: "",
+    main_source_income: "",
+    generates_income: "",
+    batch_work_time: 0,
+    issues_invoice: "",
+    ex_beneficiary: "",
+    activity: "",
+    demotivating_activity: "",
+    retired: "",
+    work_outside: "",
+    initial_age_work_outside: 0,
+    deficiency: "",
+    last_diceases: "",
+    type_treatment: "",
+    access_treatment: "",
   });
 
   const [inputAllotment, setInputAllotment] = useState({
@@ -322,6 +352,8 @@ const SubAffiliateRegistrationModel = ({ setOpen, open }) => {
 
     if (open.member) {
       dispatch(newMember(inputMember));
+    }  else if (open.resident) {
+      dispatch(newResident(inputResident));
     } else if (open.allotment) {
       dispatch(newAllotment(inputAllotment));
     } else if (open.diagnosisAgriculturalSystems) {
@@ -359,6 +391,18 @@ const SubAffiliateRegistrationModel = ({ setOpen, open }) => {
               inputMember={inputMember}
               setInputMember={setInputMember}
               usersAffiliation={usersAffiliation}
+            />
+          )}
+          {open.habitation && (
+            <Habitation 
+              inputHabitation={inputHabitation}
+              setInputHabitation={setInputHabitation}
+            />
+          )}
+          {open.resident && (
+            <Resident
+              inputResident={inputResident}
+              setInputResident={setInputResident}
             />
           )}
           {open.allotment && (
@@ -417,11 +461,11 @@ const SubAffiliateRegistrationModel = ({ setOpen, open }) => {
             />
           )}
           {open.documentation && (
-            <Documentation 
-            inputDocumentation={inputDocumentation}
-            setInputDocumentation={setInputDocumentation}
-            inputDocumentationList={inputDocumentationList}
-            setInputDocumentationList={setInputDocumentationList}
+            <Documentation
+              inputDocumentation={inputDocumentation}
+              setInputDocumentation={setInputDocumentation}
+              inputDocumentationList={inputDocumentationList}
+              setInputDocumentationList={setInputDocumentationList}
             />
           )}
         </ModalBody>

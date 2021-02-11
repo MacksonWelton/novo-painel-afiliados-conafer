@@ -25,7 +25,6 @@ import {
 } from "../../../../redux/actions/Membros";
 
 import { Tr } from "./styles";
-import RegistroSubAfiliados from "components/RegistroSubAfiliados/RegistroSubAfiliados";
 import { CardHeaderStyled } from "views/Contratos/styles";
 import ModalMembro from "components/ModalMembro/ModalMembro";
 import StatsCard from "components/StatsCard/StatsCard";
@@ -202,7 +201,7 @@ const AnimalProduction = () => {
           Adicionar Membro
         </ModalHeader>
         <ModalBody>
-          <RegistroSubAfiliados />
+          
         </ModalBody>
         <ModalFooter className="d-flex justify-content-end">
           <Button
