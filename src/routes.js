@@ -29,6 +29,8 @@ import Orcamentos from "./views/Orcamentos/Orcamentos";
 import Propostas from "./views/Propostas/Propostas";
 import Mensalidades from "./views/Mensalidades/Mensalidades";
 import Membros from "./views/Sindicato/Members/Members";
+import Resident from "./views/Sindicato/Resident/Resident/Resident";
+import Habitation from "./views/Sindicato/Resident/Habitation/Habitation";
 import Allotments from "./views/Sindicato/Allotments/Allotments";
 import DiagnosisAgriculturalSystems from "./views/Sindicato/DiagnosisAgriculturalSystems/DiagnosisAgriculturalSystems";
 import Productions from "./views/Sindicato/Production/Productions/Productions";
@@ -97,6 +99,29 @@ var routes = [
     component: Membros,
     layout: "/admin",
     show: true,
+  },
+  {
+    collapse: true,
+    name: "Moradias",
+    icon: "fas fa-home text-primary",
+    views: [
+      {
+        show: true,
+        path: "/moradias/moradias",
+        name: "Moradias",
+        icon: "fas fa-home text-primary",
+        component: Habitation,
+        layout: "/admin",
+      },
+      {
+        show: true,
+        path: "/moradores/moradores",
+        name: "Moradores",
+        icon: "fas fas fa-user text-primary",
+        component: Resident,
+        layout: "/admin",
+      },
+    ],
   },
   {
     path: "/allotments",

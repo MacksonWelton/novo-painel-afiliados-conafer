@@ -8,6 +8,7 @@ const initialState = {
   diagnosisOfAgriculturalSystems: {},
   producao: {},
   production: [],
+  agriculturalProductions: [],
   typeProduction: [],
 };
 
@@ -29,11 +30,6 @@ const RegistroReducer = (state = initialState, action) => {
     case "DELETE_HOUSE":
       state.houses.pop();
       return state;
-    case "SET_RESIDENTS":
-      state.houses[action.payload.houseNumber - 1].push(
-        action.payload.resident
-      );
-      return {...state};
     case "SET_FAMILY_UNIT_IDENTIFICATION":
       return {
         ...state,
@@ -45,15 +41,15 @@ const RegistroReducer = (state = initialState, action) => {
         diagnosisOfAgriculturalSystems:
           action.payload.diagnosisOfAgriculturalSystems,
       };
-    case "SET_PRODUCTION":
-      return {
-        ...state,
-        producao: action.payload.producao,
-      };
     case "SET_PRODUCTIONS":
       return {
         ...state,
         production: action.payload.production
+      }
+    case "SET_AGRICULTURAL_PRODUCTIONS":
+      return {
+        ...state,
+        agriculturalProductions: action.payload.agriculturalProductions
       }
     case "SET_TYPE_PRODUCTION":
       return {

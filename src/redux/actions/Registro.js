@@ -63,13 +63,13 @@ export const recoverPassword = (email) => (dispatch) => {
   }
 };
 
-export const AgriculturalProduction = () => async (dispatch) => {
+export const getAgriculturalProduction = () => async (dispatch) => {
   try {
     const response = await api.get("production/name_production/");
     dispatch(setAgriculturalProduction(response.data));
   } catch (err) {
     console.error(err.response);
-    // console.error(err.message);
+    dispatch(setAlert("error", err.response.data.error_description, true));
   }
 };
 
@@ -186,10 +186,10 @@ export const pfAffiliateRegister = (userData, agriculturalProduction) => async (
   }
 };
 
-const setAgriculturalProduction = (production) => ({
-  type: "SET_PRODUCTIONS",
+const setAgriculturalProduction = (agriculturalProductions) => ({
+  type: "SET_AGRICULTURAL_PRODUCTIONS",
   payload: {
-    production,
+    agriculturalProductions,
   },
 });
 
@@ -225,14 +225,6 @@ export const deleteHouse = () => ({
   type: "DELETE_HOUSE",
 });
 
-export const setResidents = (resident, houseNumber) => ({
-  type: "SET_RESIDENTS",
-  payload: {
-    resident,
-    houseNumber,
-  },
-});
-
 export const setFamilyUnitIdentification = (familyUnitIdentification) => ({
   type: "SET_FAMILY_UNIT_IDENTIFICATION",
   payload: {
@@ -253,12 +245,5 @@ export const setDiagnosisOfAgriculturalSystems = (
   type: "SET_DIAGNOSIS_OF_AGRICULTURAL_SYSTEMS",
   payload: {
     diagnosisOfAgriculturalSystems,
-  },
-});
-
-export const setProduction = (production) => ({
-  type: "SET_PRODUCTION",
-  payload: {
-    production,
   },
 });

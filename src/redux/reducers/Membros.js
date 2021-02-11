@@ -1,5 +1,7 @@
 const initialState = {
   member: null,
+  residents: [],
+  habitations: [],
   allotments: [],
   diagnosisAgriculturalSystems: [],
   productions: [],
@@ -31,6 +33,10 @@ const MembersReducer = (state = initialState, action) => {
       };
     case "SET_MEMBERS":
       return { ...state, members: action.payload.members };
+    case "SET_HABITATIONS":
+      return {...state, habitations: action.payload.habitations};
+    case "SET_RESIDENTS":
+      return {...state, residents: action.payload.residents };
     case "SET_ALLOTMENTS":
       return { ...state, allotments: action.payload.allotments };
     case "SET_DIAGNOSIS_AGRICULTURAL_SYSTEMS":
@@ -40,7 +46,6 @@ const MembersReducer = (state = initialState, action) => {
       };
     case "SET_PRODUCTIONS":
       return {...state, productions: action.payload.productions};
-
     case "SET_VEGETABLES_PRODUCTIONS":
       return {...state, vegetablesProductions: action.payload.vegetablesProductions};
     case "SET_ANIMALS_PRODUCTIONS":

@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { Modal, ModalBody, ModalFooter, ModalHeader, Button } from "reactstrap";
 import Member from "./components/Member";
 import Allotment from "./components/Allotment";
-// import Moradias from "./components/Moradias";
+import Resident from "./components/Resident";
 import DiagnosisAgriculturalSystems from "./components/DiagnosisAgriculturalSystems";
 import Producao from "./components/Producao";
 import VegetablesProduction from "./components/VegetablesProduction";
@@ -11,11 +11,14 @@ import Improvements from "./components/Improvements";
 import Transports from "./components/Transports";
 import TechnicalVisit from "./components/TechnicalVisit";
 import Documents from "./components/Documents";
+import Habitation from "./components/Habitation";
 
 const ModalMembro = ({
   open,
   setOpen,
   member,
+  habitation,
+  resident,
   allotment,
   diagnosisAgriculturalSystem,
   production,
@@ -47,6 +50,8 @@ const ModalMembro = ({
       <ModalBody>
         <div ref={ref}>
           {member && <Member member={member} />}
+          {habitation && <Habitation habitation={habitation} />}
+          {resident && <Resident resident={resident}/>}
           {allotment && <Allotment allotment={allotment} />}
           {diagnosisAgriculturalSystem && (
             <DiagnosisAgriculturalSystems
@@ -62,8 +67,6 @@ const ModalMembro = ({
           {improvement && <Improvements improvement={improvement} />}
           {transport && <Transports transport={transport} />}
           {technicalVisit && <TechnicalVisit technicalVisit={technicalVisit} />}
-          {/* <Moradias member={member} />
-           */}
           {document && <Documents document={document} />}
         </div>
       </ModalBody>

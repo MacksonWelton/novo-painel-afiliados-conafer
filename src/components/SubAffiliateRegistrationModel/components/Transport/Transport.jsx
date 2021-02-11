@@ -18,8 +18,6 @@ const Transport = ({ inputTransport, setInputTransport }) => {
     setInputTransport({ ...inputTransport, [name]: value });
   };
 
-  console.log(inputTransport)
-
   return (
     <Row>
       <Col lg="12" className="border p-4 mb-3 shadow rounded">
@@ -41,8 +39,7 @@ const Transport = ({ inputTransport, setInputTransport }) => {
                 title="Lote"
                 value={inputTransport.allotment}
                 onChange={handleChangeInput}
-                maxLength="255"
-                minLength="1"
+                required
               >
                 <option value="" hidden>
                   Escolha uma opção

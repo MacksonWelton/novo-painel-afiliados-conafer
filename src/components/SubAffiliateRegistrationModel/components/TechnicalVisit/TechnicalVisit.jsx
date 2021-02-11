@@ -37,8 +37,7 @@ const TechnicalVisit = ({ inputTechnicalVisit, setInputTechnicalVisit }) => {
                 title="Lote"
                 value={inputTechnicalVisit.allotment}
                 onChange={handleChangeInput}
-                maxLength="255"
-                minLength="1"
+                required
               >
                 <option value="" hidden>
                   Escolha uma opção

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import {
   pfAffiliateRegister,
-  AgriculturalProduction,
+  getAgriculturalProduction,
   TypeAgriculturalProduction,
 } from "../../redux/actions/Registro";
 
@@ -14,14 +14,15 @@ import { Container } from "reactstrap";
 const RegistroPF = () => {
   const dispatch = useDispatch();
 
-  const { production, typeProduction } = useSelector(
-    (state) => state.RegistroReducer
-  );
 
   useEffect(() => {
-    dispatch(AgriculturalProduction());
+    dispatch(getAgriculturalProduction());
     dispatch(TypeAgriculturalProduction());
   }, [dispatch]);
+
+  const { agriculturalProductions, typeProduction } = useSelector(
+    (state) => state.RegistroReducer
+  );
 
   const alerts = useSelector((state) => state.AlertsReducer.alerts);
 
@@ -197,7 +198,7 @@ const RegistroPF = () => {
           deleteAgriculturalProduction={deleteAgriculturalProduction}
           addAgriculturalProduction={addAgriculturalProduction}
           inputAgriculturalProduction={inputAgriculturalProduction}
-          production={production}
+          production={agriculturalProductions}
           typeProduction={typeProduction}
           tableAgriculturalProduction={tableAgriculturalProduction}
         />
