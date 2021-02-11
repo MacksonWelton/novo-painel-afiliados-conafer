@@ -149,7 +149,7 @@ const Index = () => {
       comparison: 2,
       comparisonDate: "Desde do último mês",
       icon: "far fa-chart-bar text-white",
-      color: "bg-orange",
+      color: "bg-primary",
     },
     {
       title: "Benfeitorias",

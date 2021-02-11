@@ -260,6 +260,10 @@ const SubAffiliateRegistrationModel = ({ setOpen, open }) => {
   });
 
   const [inputDocumentation, setInputDocumentation] = useState({
+    member: "",
+  })
+
+  const [inputDocumentationFile, setInputDocumentationFile] = useState({
     front_domain_title: {
       fileName: "",
       value: "",
@@ -299,22 +303,10 @@ const SubAffiliateRegistrationModel = ({ setOpen, open }) => {
   });
 
   const [inputDocumentationList, setInputDocumentationList] = useState({
-    documentation_birth_cetificate: {
-      fileName: "",
-      value: "",
-    },
-    documentation_cpf: {
-      fileName: "",
-      value: "",
-    },
-    documentation_economic_ativities: {
-      fileName: "",
-      value: "",
-    },
-    documentation_improvement: {
-      fileName: "",
-      value: "",
-    },
+    documentation_birth_cetificate: [],
+    documentation_cpf: [],
+    documentation_economic_ativities: [],
+    documentation_improvement: []
   });
 
   const handleSubmitForm = (event) => {
@@ -341,7 +333,7 @@ const SubAffiliateRegistrationModel = ({ setOpen, open }) => {
     } else if (open.technicalVisit) {
       dispatch(newTechnicalVisit(inputTechnicalVisit));
     } else if (open.documentation) {
-      dispatch(newDocumentation(inputDocumentation));
+      dispatch(newDocumentation(inputDocumentation, inputDocumentationFile, inputDocumentationList));
     }
   };
 
@@ -434,6 +426,8 @@ const SubAffiliateRegistrationModel = ({ setOpen, open }) => {
             <Documentation
               inputDocumentation={inputDocumentation}
               setInputDocumentation={setInputDocumentation}
+              inputDocumentationFile={inputDocumentationFile}
+              setInputDocumentationFile={setInputDocumentationFile}
               inputDocumentationList={inputDocumentationList}
               setInputDocumentationList={setInputDocumentationList}
             />

@@ -101,6 +101,14 @@ var routes = [
     show: true,
   },
   {
+    path: "/allotments",
+    name: "Lotes",
+    icon: "fas fa-map-marked-alt text-primary",
+    component: Allotments,
+    layout: "/admin",
+    show: true,
+  },
+  {
     collapse: true,
     name: "Moradias",
     icon: "fas fa-home text-primary",
@@ -122,14 +130,6 @@ var routes = [
         layout: "/admin",
       },
     ],
-  },
-  {
-    path: "/allotments",
-    name: "Lotes",
-    icon: "fas fa-map-marked-alt text-primary",
-    component: Allotments,
-    layout: "/admin",
-    show: true,
   },
   {
     path: "/diagnosis-agricultural-systems",
