@@ -40,6 +40,7 @@ class Sidebar extends React.Component {
     this.state = {
       collapseOpen: false,
       ...this.getCollapseStates(props.routes),
+      key: undefined
     };
   }
   // verifies if routeName is the one active (in browser input)
@@ -91,9 +92,7 @@ class Sidebar extends React.Component {
   // while on the src/views/forms/RegularForms.js - route /admin/regular-forms
   getCollapseInitialState(routes) {
     for (let i = 0; i < routes.length; i++) {
-      if (routes[i].collapse && this.getCollapseInitialState(routes[i].views)) {
-        return true;
-      } else if (window.location.href.indexOf(routes[i].path) !== -1) {
+       if (window.location.href.indexOf(routes[i].path) !== -1) {
         return true;
       }
     }
@@ -139,6 +138,7 @@ class Sidebar extends React.Component {
               onClick={(e) => {
                 e.preventDefault();
                 this.setState(st);
+                this.setState({...this.state.key, key: key})
               }}
             >
               {prop.icon ? (
@@ -153,7 +153,7 @@ class Sidebar extends React.Component {
                 </>
               ) : null}
             </NavLink>
-            <Collapse isOpen={this.state[prop.state]}>
+            <Collapse isOpen={this.state[prop.state] && this.state.key === key}>
               <Nav className="nav-sm flex-column">
                 {this.createLinks(prop.views)}
               </Nav>
