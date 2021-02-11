@@ -36,53 +36,23 @@ import Habitation from "./components/Resident/Habitation/Habitation";
 
 const SubAffiliateRegistrationModel = ({ setOpen, open }) => {
   const dispatch = useDispatch();
-  const [usersAffiliation, setUsersAffiliation] = useState([]);
+  const [usersAffilitationOptions, setUserAffiliationOptions] = useState([]);
 
   useEffect(() => {
     dispatch(getUsersAffiliation());
   }, [dispatch]);
 
-  const { usersPFAffiliation, usersPJAffiliation } = useSelector(
-    (state) => state.UsersAffiliationReducer
+  const usersAffiliation = useSelector(
+    (state) => state.UsersAffiliationReducer.usersAffiliation
   );
 
-  if (!usersAffiliation.length) {
-    if (usersPFAffiliation && usersPJAffiliation) {
-      usersPFAffiliation.forEach((affiliate) => {
-        setUsersAffiliation([
-          {
-            affiliation: affiliate.id,
-            name: affiliate.name,
-          },
-        ]);
-      });
-      usersPJAffiliation.forEach((affiliate) => {
-        setUsersAffiliation([
-          {
-            affiliation: affiliate.id,
-            name: affiliate.name,
-          },
-        ]);
-      });
-    } else if (usersPFAffiliation) {
-      usersPFAffiliation.forEach((affiliate) => {
-        setUsersAffiliation([
-          {
-            affiliation: affiliate.id,
-            name: affiliate.name,
-          },
-        ]);
-      });
-    } else {
-      usersPJAffiliation.forEach((affiliate) => {
-        setUsersAffiliation([
-          {
-            affiliation: affiliate.id,
-            name: affiliate.name,
-          },
-        ]);
-      });
-    }
+  if (usersAffilitationOptions.length === 0 && usersAffiliation.length) {
+    setUserAffiliationOptions(
+      usersAffiliation.map((item) => {
+        item.name = item.name_initials ? item.name_initials : item.name;
+        return item;
+      })
+    );
   }
 
   const [inputMember, setInputMember] = useState({
@@ -123,7 +93,7 @@ const SubAffiliateRegistrationModel = ({ setOpen, open }) => {
 
   const [inputHabitation, setInputHabitation] = useState({
     allotment: "",
-  })
+  });
 
   const [inputResident, setInputResident] = useState({
     habitation: "",
@@ -352,7 +322,7 @@ const SubAffiliateRegistrationModel = ({ setOpen, open }) => {
 
     if (open.member) {
       dispatch(newMember(inputMember));
-    }  else if (open.resident) {
+    } else if (open.resident) {
       dispatch(newResident(inputResident));
     } else if (open.allotment) {
       dispatch(newAllotment(inputAllotment));
@@ -390,11 +360,11 @@ const SubAffiliateRegistrationModel = ({ setOpen, open }) => {
             <Member
               inputMember={inputMember}
               setInputMember={setInputMember}
-              usersAffiliation={usersAffiliation}
+              usersAffiliation={usersAffilitationOptions}
             />
           )}
           {open.habitation && (
-            <Habitation 
+            <Habitation
               inputHabitation={inputHabitation}
               setInputHabitation={setInputHabitation}
             />
@@ -427,7 +397,7 @@ const SubAffiliateRegistrationModel = ({ setOpen, open }) => {
             <Production
               inputProductionList={inputProductionList}
               setInputProductionList={setInputProductionList}
-              usersAffiliation={usersAffiliation}
+              usersAffiliation={usersAffilitationOptions}
             />
           )}
           {open.vegetable && (
