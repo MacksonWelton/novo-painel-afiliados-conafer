@@ -33,6 +33,9 @@ import { newTechnicalVisit } from "redux/actions/Membros";
 import Documentation from "./components/Documentation/Documentation";
 import { newResident } from "redux/actions/Membros";
 import Habitation from "./components/Resident/Habitation/Habitation";
+import AnimalProduction from "./components/Production/AnimalProduction/AnimalProduction";
+import { newPsicultureProduction } from "redux/actions/Membros";
+import { newAnimalProduction } from "redux/actions/Membros";
 
 const SubAffiliateRegistrationModel = ({ setOpen, open }) => {
   const dispatch = useDispatch();
@@ -239,6 +242,8 @@ const SubAffiliateRegistrationModel = ({ setOpen, open }) => {
     []
   );
 
+  const [inputAnimalProduction, setInputAnimalProduction] = useState([]);
+
   const [inputPsicultureProduction, setInputPsicultureProduction] = useState(
     []
   );
@@ -261,7 +266,7 @@ const SubAffiliateRegistrationModel = ({ setOpen, open }) => {
 
   const [inputDocumentation, setInputDocumentation] = useState({
     member: "",
-  })
+  });
 
   const [inputDocumentationFile, setInputDocumentationFile] = useState({
     front_domain_title: {
@@ -303,10 +308,10 @@ const SubAffiliateRegistrationModel = ({ setOpen, open }) => {
   });
 
   const [inputDocumentationList, setInputDocumentationList] = useState({
-    documentation_birth_cetificate: [],
-    documentation_cpf: [],
-    documentation_economic_ativities: [],
-    documentation_improvement: []
+    birth_certificates: [],
+    cpf_files: [],
+    economic_activities: [],
+    improvements_image: [],
   });
 
   const handleSubmitForm = (event) => {
@@ -317,15 +322,19 @@ const SubAffiliateRegistrationModel = ({ setOpen, open }) => {
     } else if (open.resident) {
       dispatch(newResident(inputResident));
     } else if (open.allotment) {
-      dispatch(newAllotment(inputAllotment));
+      dispatch(newAllotment(inputAllotment, fileAllotment));
     } else if (open.diagnosisAgriculturalSystems) {
       dispatch(
         newDiagnosisAgriculturalSystems(inputDiagnosisOfAgriculturalSystems)
       );
     } else if (open.production) {
       dispatch(newProduction(inputProductionList));
+    } else if (open.animal) {
+      dispatch(newAnimalProduction(inputAnimalProduction))
     } else if (open.vegetable) {
-      dispatch(newVegetableProduction(inputPsicultureProduction));
+      dispatch(newVegetableProduction(inputVegetablesProduction));
+    } else if (open.psiculture) {
+      dispatch(newPsicultureProduction(inputPsicultureProduction));
     } else if (open.improvement) {
       dispatch(newImprovements(inputImprovements));
     } else if (open.transport) {
@@ -333,7 +342,13 @@ const SubAffiliateRegistrationModel = ({ setOpen, open }) => {
     } else if (open.technicalVisit) {
       dispatch(newTechnicalVisit(inputTechnicalVisit));
     } else if (open.documentation) {
-      dispatch(newDocumentation(inputDocumentation, inputDocumentationFile, inputDocumentationList));
+      dispatch(
+        newDocumentation(
+          inputDocumentation,
+          inputDocumentationFile,
+          inputDocumentationList
+        )
+      );
     }
   };
 
@@ -390,6 +405,12 @@ const SubAffiliateRegistrationModel = ({ setOpen, open }) => {
               inputProductionList={inputProductionList}
               setInputProductionList={setInputProductionList}
               usersAffiliation={usersAffilitationOptions}
+            />
+          )}
+          {open.animal && (
+            <AnimalProduction
+              inputAnimalProduction={inputAnimalProduction}
+              setInputAnimalProduction={setInputAnimalProduction}
             />
           )}
           {open.vegetable && (

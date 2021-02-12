@@ -35,10 +35,29 @@ const VegetablesProduction = ({
     generates_waste: "",
   });
 
+  const [inputVegetableTable, setInputVegetableTable] = useState({
+    allotment: "",
+    production: "",
+    mensal_production: 0,
+    mensal_marketed: 0,
+    food_supplementation: "",
+    food_supplementation_value: "",
+    production_type: "",
+  });
+
+  const [inputVegetablesTable, setInputVegetablesTable] = useState([]);
+
   const handleChangeInput = (event) => {
     const { name, value } = event.target;
     setInputVegetables({ ...inputVegetables, [name]: value });
+
+    if (name === "production") {
+      setInputVegetableTable({...inputVegetableTable, [name]: event.target[event.target.selectedIndex].text});
+    } else {
+      setInputVegetableTable({...inputVegetableTable, [name]: value});
+    }
   };
+  
 
   const addVegetablesInTable = () => {
     if (
@@ -49,11 +68,13 @@ const VegetablesProduction = ({
       inputVegetables.generates_waste
     ) {
       setInputVegetablesProduction([...inputVegetablesProduction, inputVegetables]);
+      setInputVegetablesTable([...inputVegetablesTable, inputVegetableTable]);
     }
   };
 
   const removeVegetablesInTable = (index) => {
     setInputVegetablesProduction(inputVegetablesProduction.filter((item, i) => i !== index));
+    setInputVegetablesTable(inputVegetablesTable.filter((item, i) => i !== index));
   };
 
   return (
@@ -119,7 +140,7 @@ const VegetablesProduction = ({
           <Col lg="6">
             <FormGroup>
               <label className="form-control-label" htmlFor="annual_production">
-                Produção anual
+                Produção anual{" "}<small className="text-red">(obrigatório)</small>
               </label>
               <Input
                 className="form-control-alternative"
@@ -144,7 +165,7 @@ const VegetablesProduction = ({
                 name="price_per_kg"
                 id="price_per_kg"
                 title="Preço por Kg"
-                placeholder="Ex: R$ 50,00"
+                placeholder="Ex: 50,00"
                 value={inputVegetables.price_per_kg}
                 onChange={(event) => {
                   event = {target: {
@@ -184,7 +205,7 @@ const VegetablesProduction = ({
                 name="how_much_sell"
                 id="how_much_sell"
                 title="Quanto vende (kg)"
-                placeholder="Ex: 10"
+                placeholder="Ex: 10,00"
                 value={inputVegetables.how_much_sell}
                 onChange={(event) => {
                   event = {target: {
@@ -320,7 +341,7 @@ const VegetablesProduction = ({
                 </tr>
               </thead>
               <tbody>
-                {inputVegetablesProduction.map((item, i) => (
+                {inputVegetablesTable.map((item, i) => (
                   <tr key={i}>
                     <td className="border">{item.production}</td>
                     <td className="border">{item.annual_production} Kg</td>

@@ -11,11 +11,7 @@ import {
   Table,
   Container,
   Row,
-  Modal,
   Button,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
 } from "reactstrap";
 
 import Header from "components/Headers/Header";
@@ -28,6 +24,7 @@ import { Tr } from "./styles";
 import { CardHeaderStyled } from "views/Contratos/styles";
 import ModalMembro from "components/ModalMembro/ModalMembro";
 import StatsCard from "components/StatsCard/StatsCard";
+import SubAffiliateRegistrationModel from "components/SubAffiliateRegistrationModel/SubAffiliateRegistrationModel";
 
 const AnimalProduction = () => {
   const dispatch = useDispatch();
@@ -40,7 +37,10 @@ const AnimalProduction = () => {
   }, [dispatch]);
 
   const [open, setOpen] = useState(false);
-  const [openAddMember, setOpenAddMember] = useState(false);
+  const [openAddAnimalProduction, setOpenAddAnimalProduction] = useState({
+    modal: false,
+    animal: true
+  });
   const [
     animalsProduction,
     setAnimalsProduction,
@@ -70,7 +70,7 @@ const AnimalProduction = () => {
                 </h3>
                 <div>
                   <Button
-                    onClick={() => setOpenAddMember(!openAddMember)}
+                    onClick={() => setOpenAddAnimalProduction({...openAddAnimalProduction, modal: !openAddAnimalProduction.modal})}
                     className="m-auto"
                     color="primary"
                   >
@@ -192,26 +192,7 @@ const AnimalProduction = () => {
           </div>
         </Row>
       </Container>
-      <Modal isOpen={openAddMember} size="lg" style={{ minWidth: "60%" }}>
-        <ModalHeader
-          toggle={() => {
-            setOpenAddMember(!openAddMember);
-          }}
-        >
-          Adicionar Membro
-        </ModalHeader>
-        <ModalBody>
-          
-        </ModalBody>
-        <ModalFooter className="d-flex justify-content-end">
-          <Button
-            color="secondary"
-            onClick={() => setOpenAddMember(!openAddMember)}
-          >
-            Cancelar
-          </Button>
-        </ModalFooter>
-      </Modal>
+      <SubAffiliateRegistrationModel open={openAddAnimalProduction} setOpen={setOpenAddAnimalProduction}/>
       <ModalMembro
         open={open}
         setOpen={setOpen}

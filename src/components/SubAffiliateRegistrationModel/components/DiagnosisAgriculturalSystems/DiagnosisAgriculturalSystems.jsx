@@ -68,7 +68,7 @@ const DiagnosisAgriculturalSystems = ({
                 name="income_off_lot"
                 id="income_off_lot"
                 title="Qual é a renda extra lote (fora do lote) anual?"
-                placeholder="Ex: R$ 0,00 a R$ 5.000,00"
+                placeholder="Ex: 1.000,00"
                 value={inputDiagnosisOfAgriculturalSystems.income_off_lot}
                 onChange={(event) => {
                   event = {target: {
