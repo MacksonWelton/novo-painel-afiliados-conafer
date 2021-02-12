@@ -22,19 +22,19 @@ const Documentation = ({
   const members = useSelector(state => state.MembersReducer.members);
 
   const [files, setFiles] = useState({
-    documentation_birth_cetificate: {
+    birth_certificates: {
       fileName: "",
       value: "",
     },
-    documentation_cpf: {
+    cpf_files: {
       fileName: "",
       value: "",
     },
-    documentation_economic_ativities: {
+    economic_activities: {
       fileName: "",
       value: "",
     },
-    documentation_improvement: {
+    improvements_image: {
       fileName: "",
       value: "",
     },
@@ -447,20 +447,20 @@ const Documentation = ({
           <Col lg="6">
             <label
               className="form-control-label ml-2"
-              htmlFor="documentation_birth_cetificate"
+              htmlFor="birth_certificates"
             >
               Certidão de Nascimento
             </label>
             <FormGroup>
               <label className="btn bg-light ml-1 mb-0">
-                {files.documentation_birth_cetificate.fileName
-                  ? files.documentation_birth_cetificate.fileName
+                {files.birth_certificates.fileName
+                  ? files.birth_certificates.fileName
                   : "Escolher Arquivo"}
                 <Input
                   className="d-none"
                   type="file"
-                  name="documentation_birth_cetificate"
-                  id="documentation_birth_cetificate"
+                  name="birth_certificates"
+                  id="birth_certificates"
                   title="Certidão de Nascimento"
                   onChange={handleChangeInputOtherFiles}
                   required
@@ -473,7 +473,7 @@ const Documentation = ({
             className="d-flex align-items-center justify-content-center pt-2"
           >
             <Button
-              name="documentation_birth_cetificate"
+              name="birth_certificates"
               color="primary"
               onClick={addDocumentation}
             >
@@ -489,14 +489,14 @@ const Documentation = ({
                 </tr>
               </thead>
               <tbody>
-                {inputDocumentationList.documentation_birth_cetificate.map(
+                {inputDocumentationList.birth_certificates.map(
                   (file, i) => (
                     <tr key={i}>
                       <td>{file.fileName.substring(0, 35)}</td>
                       <td>
                         <Button
                           onClick={() =>
-                            removeFile("documentation_birth_cetificate", i)
+                            removeFile("birth_certificates", i)
                           }
                         >
                           <DeleteForeverOutlined />
@@ -513,27 +513,27 @@ const Documentation = ({
       <Col lg="12" className="border p-4 mb-3 shadow rounded">
         <Row>
           <div className="col-12">
-            <h2 className="text-center mb-4">CPF's</h2>
+            <h2 className="text-center mb-4">CPF_files's</h2>
             <hr />
           </div>
           <Col lg="6">
             <label
               className="form-control-label ml-2"
-              htmlFor="documentation_cpf"
+              htmlFor="cpf_files"
             >
-              CPF's
+              CPF_files's
             </label>
             <FormGroup>
               <label className="btn bg-light ml-1 mb-0">
-                {files.documentation_cpf.fileName
-                  ? files.documentation_cpf.fileName.substring(0, 40)
+                {files.cpf_files.fileName
+                  ? files.cpf_files.fileName.substring(0, 40)
                   : "Escolher Arquivo"}
                 <Input
                   className="d-none"
                   type="file"
-                  name="documentation_cpf"
-                  id="documentation_cpf"
-                  title="CPF's"
+                  name="cpf_files"
+                  id="cpf_files"
+                  title="CPF_files's"
                   onChange={handleChangeInputOtherFiles}
                   required
                 />
@@ -545,7 +545,7 @@ const Documentation = ({
             className="d-flex align-items-center justify-content-center pt-2"
           >
             <Button
-              name="documentation_cpf"
+              name="cpf_files"
               color="primary"
               onClick={addDocumentation}
             >
@@ -561,12 +561,12 @@ const Documentation = ({
                 </tr>
               </thead>
               <tbody>
-                {inputDocumentationList.documentation_cpf.map((file, i) => (
+                {inputDocumentationList.cpf_files.map((file, i) => (
                   <tr key={i}>
                     <td>{file.fileName.substring(0, 35)}</td>
                     <td>
                       <Button
-                        onClick={() => removeFile("documentation_cpf", i)}
+                        onClick={() => removeFile("cpf_files", i)}
                       >
                         <DeleteForeverOutlined />
                       </Button>
@@ -587,21 +587,21 @@ const Documentation = ({
           <Col lg="6">
             <label
               className="form-control-label ml-2"
-              htmlFor="documentation_economic_ativities"
+              htmlFor="economic_activities"
             >
               Atividades economicas
             </label>
             <FormGroup>
               <label className="btn bg-light ml-1 mb-0">
-                {files.documentation_economic_ativities.fileName
-                  ? files.documentation_economic_ativities.fileName
+                {files.economic_activities.fileName
+                  ? files.economic_activities.fileName
                   : "Escolher Arquivo"}
                 <Input
                   className="d-none"
                   type="file"
-                  name="documentation_economic_ativities"
-                  id="documentation_economic_ativities"
-                  title="CPF's"
+                  name="economic_activities"
+                  id="economic_activities"
+                  title="CPF_files's"
                   onChange={handleChangeInputOtherFiles}
                   required
                 />
@@ -613,7 +613,7 @@ const Documentation = ({
             className="d-flex align-items-center justify-content-center pt-2"
           >
             <Button
-              name="documentation_economic_ativities"
+              name="economic_activities"
               color="primary"
               onClick={addDocumentation}
             >
@@ -629,14 +629,14 @@ const Documentation = ({
                 </tr>
               </thead>
               <tbody>
-                {inputDocumentationList.documentation_economic_ativities.map(
+                {inputDocumentationList.economic_activities.map(
                   (file, i) => (
                     <tr key={i}>
                       <td>{file.fileName.substring(0, 35)}</td>
                       <td>
                         <Button
                           onClick={() =>
-                            removeFile("documentation_economic_ativities", i)
+                            removeFile("economic_activities", i)
                           }
                         >
                           <DeleteForeverOutlined />
@@ -659,20 +659,20 @@ const Documentation = ({
           <Col lg="6">
             <label
               className="form-control-label ml-2"
-              htmlFor="documentation_improvement"
+              htmlFor="improvements_image"
             >
               Imagens de benfeitorias
             </label>
             <FormGroup>
               <label className="btn bg-light ml-1 mb-0">
-                {files.documentation_improvement.fileName
-                  ? files.documentation_improvement.fileName.substring(0, 40)
+                {files.improvements_image.fileName
+                  ? files.improvements_image.fileName.substring(0, 40)
                   : "Escolher Arquivo"}
                 <Input
                   className="d-none"
                   type="file"
-                  name="documentation_improvement"
-                  id="documentation_improvement"
+                  name="improvements_image"
+                  id="improvements_image"
                   title="Imagens de benfeitorias"
                   onChange={handleChangeInputOtherFiles}
                   required
@@ -685,7 +685,7 @@ const Documentation = ({
             className="d-flex align-items-center justify-content-center pt-2"
           >
             <Button
-              name="documentation_improvement"
+              name="improvements_image"
               color="primary"
               onClick={addDocumentation}
             >
@@ -701,14 +701,14 @@ const Documentation = ({
                 </tr>
               </thead>
               <tbody>
-                {inputDocumentationList.documentation_improvement.map(
+                {inputDocumentationList.improvements_image.map(
                   (file, i) => (
                     <tr key={i}>
                       <td>{file.fileName.substring(0, 35)}</td>
                       <td>
                         <Button
                           onClick={() =>
-                            removeFile("documentation_improvement", i)
+                            removeFile("improvements_image", i)
                           }
                         >
                           <DeleteForeverOutlined />

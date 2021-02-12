@@ -21,35 +21,59 @@ const AnimalProduction = ({
     (state) => state.MembersReducer.productionName
   );
 
+  console.log(productionName)
+
   const [inputAnimal, setInputAnimal] = useState({
     allotment: "",
     production: "",
     mensal_production: 0,
     mensal_marketed: 0,
-    food_supplementation: 0,
-    food_supplementation_value: 0,
+    food_supplementation: "",
+    food_supplementation_value: "",
     production_type: "",
   });
+
+  const [inputAnimalTable, setInputAnimalTable] = useState({
+    allotment: "",
+    production: "",
+    mensal_production: 0,
+    mensal_marketed: 0,
+    food_supplementation: "",
+    food_supplementation_value: "",
+    production_type: "",
+  });
+
+  const [inputAnimalsTable, setInputAnimalsTable] = useState([]);
 
   const handleChangeInput = (event) => {
     const { name, value } = event.target;
     setInputAnimal({ ...inputAnimal, [name]: value });
+
+    if (name === "production") {
+      setInputAnimalTable({...inputAnimalTable, [name]: event.target[event.target.selectedIndex].text});
+    } else {
+      setInputAnimalTable({...inputAnimalTable, [name]: value});
+    }
+
   };
 
   const addAnimalInTable = () => {
     if (
       inputAnimal.production &&
-      inputAnimal.seedling_origin &&
-      inputAnimal.creole_seed &&
-      inputAnimal.irrigated_area &&
-      inputAnimal.generates_waste
+      inputAnimal.mensal_production &&
+      inputAnimal.mensal_marketed &&
+      inputAnimal.food_supplementation &&
+      inputAnimal.food_supplementation_value &&
+      inputAnimal.production_type
     ) {
       setInputAnimalProduction([...inputAnimalProduction, inputAnimal]);
+      setInputAnimalsTable([...inputAnimalsTable, inputAnimalTable]);
     }
   };
 
   const removeAnimalInTable = (index) => {
     setInputAnimalProduction(inputAnimalProduction.filter((item, i) => i !== index));
+    setInputAnimalsTable(inputAnimalsTable.filter((item, i) => i !== index));
   };
 
   return (
@@ -57,7 +81,7 @@ const AnimalProduction = ({
       <Col lg="12" className="border p-4 mb-3 shadow rounded">
         <Row>
           <Col lg="12">
-            <h2 className="text-center mb-4">Produção Vegetal</h2>
+            <h2 className="text-center mb-4">Produção Animal</h2>
             <hr />
           </Col>
           <Col lg="6">
@@ -115,7 +139,7 @@ const AnimalProduction = ({
           <Col lg="6">
             <FormGroup>
               <label className="form-control-label" htmlFor="mensal_production">
-                Produção mensal{" "}<small className="text-red">(obrigatório)</small>
+                Produção mensal (Kg){" "}<small className="text-red">(obrigatório)</small>
               </label>
               <Input
                 className="form-control-alternative"
@@ -133,7 +157,7 @@ const AnimalProduction = ({
           <Col lg="6">
             <FormGroup>
               <label className="form-control-label" htmlFor="mensal_marketed">
-                Quantidade comercializada mensal{" "}<small className="text-red">(obrigatório)</small>
+                Quantidade comercializada mensal (Kg){" "}<small className="text-red">(obrigatório)</small>
               </label>
               <Input
                 className="form-control-alternative"
@@ -160,6 +184,7 @@ const AnimalProduction = ({
                 name="food_supplementation"
                 id="food_supplementation"
                 title="Tipo de complementação alimentar"
+                placeholder="Ração"
                 value={inputAnimal.food_supplementation}
                 onChange={handleChangeInput}
                 required
@@ -171,7 +196,7 @@ const AnimalProduction = ({
           <Col lg="6">
             <FormGroup>
               <label className="form-control-label" htmlFor="food_supplementation_value">
-                Recursos em complementação alimentar
+                Recursos em complementação alimentar{" "}<small className="text-red">(obrigatório)</small>
               </label>
               <Input
                 className="form-control-alternative"
@@ -179,9 +204,14 @@ const AnimalProduction = ({
                 name="food_supplementation_value"
                 id="food_supplementation_value"
                 title="Recursos em complementação alimentar"
-                placeholder="Ex: 10"
+                placeholder="Ex: 100,00"
                 value={inputAnimal.food_supplementation_value}
-                onChange={handleChangeInput}
+                onChange={(event) => {
+                  event = {target: {
+                    name: event.target.name,
+                    value: formatReal(event.target.value)
+                  }}
+                  handleChangeInput(event)}}
               />
             </FormGroup>
           </Col>
@@ -189,7 +219,6 @@ const AnimalProduction = ({
             <FormGroup>
               <label className="form-control-label" htmlFor="production_type">
                 Tipo de produção (corte ou derivado){" "}<small className="text-red">(obrigatório)</small>
-                <small className="text-red">(obrigatório)</small>
               </label>
               <Input
                 className="form-control-alternative"
@@ -197,7 +226,7 @@ const AnimalProduction = ({
                 name="production_type"
                 id="production_type"
                 title="Tipo de produção (corte ou derivado)"
-                placeholder="Ex: Macapá - AP"
+                placeholder="Ex: Filé"
                 value={inputAnimal.production_type}
                 onChange={handleChangeInput}
                 maxLength="255"
@@ -216,15 +245,15 @@ const AnimalProduction = ({
               <thead>
                 <tr>
                   <th>Nome</th>
-                  <th>Produção Anual</th>
+                  <th>Produção Mensal</th>
                   <th></th>
                 </tr>
               </thead>
               <tbody>
-                {inputAnimalProduction.map((item, i) => (
+                {inputAnimalsTable.map((item, i) => (
                   <tr key={i}>
                     <td className="border">{item.production}</td>
-                    <td className="border">{item.annual_production} Kg</td>
+                    <td className="border">{item.mensal_production} Kg</td>
                     <td className="border">
                       <Button onClick={() => removeAnimalInTable(i)}>
                         <DeleteForeverOutlined />

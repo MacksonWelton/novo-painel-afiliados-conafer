@@ -297,12 +297,39 @@ export const newProduction = (inputProduction) => async (dispatch) => {
   }
 };
 
-export const newVegetableProduction = (inputPsicultureProduction) => async (
+export const newAnimalProduction = (inputAnimalProduction) => async (
   dispatch
 ) => {
   try {
-    for (const production of inputPsicultureProduction) {
-      await api.post("psiculture/psiculture/", production);
+    for (const production of inputAnimalProduction) {
+      await api.post("production/animal_production/", production);
+    }
+
+    dispatch(setAlert(200, "Dados foram gravados com sucesso!", true));
+
+    dispatch(getAnimalsProductions());
+  } catch (err) {
+    console.error(err.message);
+    if (!err.response) {
+      dispatch(
+        setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
+      );
+    } else if (err.response.status === 401) {
+      dispatch(setAlert(err.response.status, err.response.data.detail, true));
+    } else {
+      dispatch(
+        setAlert(err.response.status, err.response.data.error_description, true)
+      );
+    }
+  }
+};
+
+export const newVegetableProduction = (inputVegetablesProduction) => async (
+  dispatch
+) => {
+  try {
+    for (const production of inputVegetablesProduction) {
+      await api.post("production/vegetables_production/", production);
     }
 
     dispatch(setAlert(200, "Dados foram gravados com sucesso!", true));
@@ -716,9 +743,20 @@ export const newMember = (inputMember) => async (dispatch) => {
   }
 };
 
-export const newAllotment = (inputAllotment) => async (dispatch) => {
+export const newAllotment = (inputAllotment, fileAllotment) => async (
+  dispatch
+) => {
+  const formDataAllotment = converterDataToFormData(
+    inputAllotment,
+    fileAllotment
+  );
+
   try {
-    await api.post("allotment/allotment/", inputAllotment);
+    await api.post("allotment/allotment/", formDataAllotment, {
+      headers: {
+        "Content-Type": `multipart/form-data; boundary=${formDataAllotment._boundary}`,
+      },
+    });
 
     dispatch(setAlert(200, "Dados foram gravados com sucesso!", true));
 
@@ -894,23 +932,28 @@ export const newDocumentation = (
   }
 };
 
-const newDocuments = (inputDocumentationFile, inputDocumentationList) => async (dispatch) => {
-
+const newDocuments = (inputDocumentationFile, inputDocumentationList) => async (
+  dispatch
+) => {
   try {
-      for (const document of inputDocumentationList) {
+    for (const documents of Object.keys(inputDocumentationList)) {
+      for (const document of inputDocumentationList[documents]) {
+        const documentId = {
+          documentation: inputDocumentationFile.id,
+          member: inputDocumentationFile.member,
+        };
 
-        console.log("chamou")
+        const files = {
+          archive: document,
+        };
 
-        document.documentation = inputDocumentationFile.id;
-        document.member = inputDocumentationFile.member;
-
-        const formDataDocumentationList = converterDataToFormData(
-          document.member,
-          document
+        const formDataDocumentationList = await converterDataToFormData(
+          documentId,
+          files
         );
 
         await api.post(
-          "documentation/documentation/",
+          `documentation/${documents.replace("_", "-")}/`,
           formDataDocumentationList,
           {
             headers: {
@@ -918,6 +961,7 @@ const newDocuments = (inputDocumentationFile, inputDocumentationList) => async (
             },
           }
         );
+      }
     }
   } catch (err) {
     if (!err.response) {
@@ -936,7 +980,7 @@ const newDocuments = (inputDocumentationFile, inputDocumentationList) => async (
       );
     }
   }
-}
+};
 
 export const getProductionName = () => async (dispatch) => {
   try {

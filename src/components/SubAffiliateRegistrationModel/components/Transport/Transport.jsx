@@ -29,7 +29,7 @@ const Transport = ({ inputTransport, setInputTransport }) => {
           <Col lg="6">
             <FormGroup>
               <label className="form-control-label" htmlFor="allotment">
-                Lote <small className="text-red">(obrigatório)</small>
+                Lote{" "}<small className="text-red">(obrigatório)</small>
               </label>
               <Input
                 className="form-control-alternative"
@@ -87,7 +87,7 @@ const Transport = ({ inputTransport, setInputTransport }) => {
                 name="own_road_transport_cost"
                 id="own_road_transport_cost"
                 title="Custo com transporte rodoviário próprio"
-                placeholder="Ex: R$ 100,00"
+                placeholder="Ex: 100,00"
                 value={inputTransport.own_road_transport_cost}
                 onChange={(event) => {
                   event = {target: {
@@ -112,7 +112,7 @@ const Transport = ({ inputTransport, setInputTransport }) => {
                 name="waterway_transportation_cost"
                 id="waterway_transportation_cost"
                 title="Custo com transporte hidroviário próprio"
-                placeholder="Ex: R$ 150,00"
+                placeholder="Ex: 150,00"
                 value={inputTransport.waterway_transportation_cost}
                 onChange={(event) => {
                   event = {target: {
@@ -137,7 +137,7 @@ const Transport = ({ inputTransport, setInputTransport }) => {
                 name="road_chartered_transport_cost"
                 id="road_chartered_transport_cost"
                 title="Custo com transporte fretado rodoviário"
-                placeholder="Ex: R$ 150,00"
+                placeholder="Ex: 150,00"
                 value={inputTransport.road_chartered_transport_cost}
                 onChange={(event) => {
                   event = {target: {
@@ -162,7 +162,7 @@ const Transport = ({ inputTransport, setInputTransport }) => {
                 name="waterway_chartered_transportation_cost"
                 id="waterway_chartered_transportation_cost"
                 title="Custo transporte fretado hidroviário"
-                placeholder="Ex: R$ 100,00"
+                placeholder="Ex: 100,00"
                 value={inputTransport.waterway_chartered_transportation_cost}
                 onChange={(event) => {
                   event = {target: {
