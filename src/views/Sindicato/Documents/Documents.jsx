@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 
+import moment from "moment";
+
 import { useDispatch, useSelector } from "react-redux";
 
 import {
@@ -40,8 +42,10 @@ const Documents = () => {
     {
       title: "Documentos",
       progress: documents.length,
-      comparison: 2,
-      comparisonDate: "Desde do último mês",
+      comparison: documents.results.filter(item => (
+        moment(item.created_at).format("MM/YYYY") === moment().format("MM/YYYY")
+      )).length,
+      comparisonDate: "Registrados neste mês",
       icon: "fas fa-file-alt text-white",
       color: "bg-gray",
     },

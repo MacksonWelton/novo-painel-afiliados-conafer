@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 
+import moment from "moment";
+
 import { useDispatch, useSelector } from "react-redux";
 
 import {
@@ -43,8 +45,10 @@ const Members = () => {
     {
       title: "Membros",
       progress: members.count,
-      comparison: 5,
-      comparisonDate: "Desde do último mês",
+      comparison: members.results.filter(item => (
+        moment(item.created_at).format("MM/YYYY") === moment().format("MM/YYYY")
+      )).length,
+      comparisonDate: "Registrados neste mês",
       icon: "fas fa-user-friends",
       color: "bg-dark",
     }

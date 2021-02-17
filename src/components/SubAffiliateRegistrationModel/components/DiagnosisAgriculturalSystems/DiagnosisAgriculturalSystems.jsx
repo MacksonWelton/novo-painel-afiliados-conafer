@@ -76,6 +76,7 @@ const DiagnosisAgriculturalSystems = ({
                     value: formatReal(event.target.value)
                   }}
                   handleChangeInput(event)}}
+                  maxLength="16"
               />
             </FormGroup>
           </Col>

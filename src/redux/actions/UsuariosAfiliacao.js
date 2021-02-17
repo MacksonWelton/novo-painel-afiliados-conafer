@@ -29,9 +29,9 @@ export const newUserAffiliation = (input, files) => async (dispatch) => {
   }
 }
 
-export const getUsersAffiliation = () => async (dispatch) => {
+export const getUsersAffiliation = (offset = 0, limit = 10) => async (dispatch) => {
   try {
-    const response = await api.get("user/user_affiliation/");
+    const response = await api.get(`user/user_affiliation/?offset=${offset}&limit=${limit}`);
     dispatch(setUersAffiliation(response.data))
   } catch(err) {
     console.error(err.message);

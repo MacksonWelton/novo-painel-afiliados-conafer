@@ -1,18 +1,10 @@
 import React, { useEffect, useState } from "react";
 
+import moment from "moment";
+
 import { useDispatch, useSelector } from "react-redux";
 
-import {
-  Card,
-  CardFooter,
-  Pagination,
-  PaginationItem,
-  PaginationLink,
-  Table,
-  Container,
-  Row,
-  Button,
-} from "reactstrap";
+import { Card, CardFooter, Table, Container, Row, Button } from "reactstrap";
 
 import Header from "components/Headers/Header";
 
@@ -46,8 +38,12 @@ const VegetablesProduction = () => {
     {
       title: "Vegetais",
       progress: vegetablesProductions.count,
-      comparison: 2,
-      comparisonDate: "Desde do último mês",
+      comparison: vegetablesProductions.results.filter(
+        (item) =>
+          moment(item.created_at).format("MM/YYYY") ===
+          moment().format("MM/YYYY")
+      ).length,
+      comparisonDate: "Registrados neste mês",
       icon: "fas fa-tractor text-white",
       color: "bg-green",
     },
@@ -140,7 +136,7 @@ const VegetablesProduction = () => {
                 </tbody>
               </Table>
               <CardFooter className="py-4 bg-transparent border-0">
-              <Paginations
+                <Paginations
                   count={vegetablesProductions.count}
                   funcRequistion={getVegetablesProductions}
                 />

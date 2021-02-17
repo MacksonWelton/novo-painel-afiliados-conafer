@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 
+import moment from "moment";
+
 import { useDispatch, useSelector } from "react-redux";
 
 import {
@@ -49,8 +51,10 @@ const DiagnosisAgriculturalSystems = () => {
     {
       title: "Diag. de S. Agrários",
       progress: diagnosisAgriculturalSystems.count,
-      comparison: 3,
-      comparisonDate: "Desde do último mês",
+      comparison: diagnosisAgriculturalSystems.results.filter(item => (
+        moment(item.created_at).format("MM/YYYY") === moment().format("MM/YYYY")
+      )).length,
+      comparisonDate: "Registrado este mês",
       icon: "fas fa-leaf text-white",
       color: "bg-green",
     },

@@ -1,37 +1,28 @@
 import React, { useEffect, useState } from "react";
 
+import moment from "moment";
+
 import { useDispatch, useSelector } from "react-redux";
 
-import {
-  Card,
-  CardFooter,
-  Pagination,
-  PaginationItem,
-  PaginationLink,
-  Table,
-  Container,
-  Row,
-  Button,
-} from "reactstrap";
+import { Card, CardFooter, Table, Container, Row, Button } from "reactstrap";
 
 import Header from "components/Headers/Header";
 
-import {
-  getAnimalsProductions,
-} from "../../../../redux/actions/Membros";
+import { getAnimalsProductions } from "../../../../redux/actions/Membros";
 
 import { Tr } from "./styles";
 import { CardHeaderStyled } from "views/Contratos/styles";
 import ModalMembro from "components/ModalMembro/ModalMembro";
 import StatsCard from "components/StatsCard/StatsCard";
 import SubAffiliateRegistrationModel from "components/SubAffiliateRegistrationModel/SubAffiliateRegistrationModel";
+import Paginations from "components/Paginations/Paginations";
 
 const AnimalProduction = () => {
   const dispatch = useDispatch();
   const animalsProductions = useSelector(
     (state) => state.MembersReducer.animalsProductions
   );
-  
+
   useEffect(() => {
     dispatch(getAnimalsProductions());
   }, [dispatch]);
@@ -39,38 +30,42 @@ const AnimalProduction = () => {
   const [open, setOpen] = useState(false);
   const [openAddAnimalProduction, setOpenAddAnimalProduction] = useState({
     modal: false,
-    animal: true
+    animal: true,
   });
-  const [
-    animalsProduction,
-    setAnimalsProduction,
-  ] = useState({});
+  const [animalsProduction, setAnimalsProduction] = useState({});
 
   const cardData = [
     {
       title: "Animais",
       progress: animalsProductions.count,
-      comparison: 2,
-      comparisonDate: "Desde do último mês",
+      comparison: animalsProductions.results.filter(
+        (item) =>
+          moment(item.created_at).format("MM/YYYY") ===
+          moment().format("MM/YYYY")
+      ).length,
+      comparisonDate: "Registrados neste mês",
       icon: "fas fa-drumstick-bite text-white",
       color: "bg-red",
-    }
+    },
   ];
 
   return (
     <>
-      <Header children={<StatsCard CardData={cardData} />}/>
+      <Header children={<StatsCard CardData={cardData} />} />
       <Container className="mt--9" fluid>
         <Row className="mt-5">
           <div className="col">
             <Card className="bg-default shadow">
               <CardHeaderStyled>
-                <h3 className="text-white mb-0">
-                  Produção de Animais
-                </h3>
+                <h3 className="text-white mb-0">Produção de Animais</h3>
                 <div>
                   <Button
-                    onClick={() => setOpenAddAnimalProduction({...openAddAnimalProduction, modal: !openAddAnimalProduction.modal})}
+                    onClick={() =>
+                      setOpenAddAnimalProduction({
+                        ...openAddAnimalProduction,
+                        modal: !openAddAnimalProduction.modal,
+                      })
+                    }
                     className="m-auto"
                     color="primary"
                   >
@@ -137,62 +132,19 @@ const AnimalProduction = () => {
                 </tbody>
               </Table>
               <CardFooter className="py-4 bg-transparent border-0">
-                <nav aria-label="...">
-                  <Pagination
-                    className="pagination justify-content-end mb-0"
-                    listClassName="justify-content-end mb-0"
-                  >
-                    <PaginationItem className="disabled">
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                        tabIndex="-1"
-                      >
-                        <i className="fas fa-angle-left" />
-                        <span className="sr-only">Previous</span>
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem className="active">
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        1
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        2 <span className="sr-only">(current)</span>
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        3
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        <i className="fas fa-angle-right" />
-                        <span className="sr-only">Next</span>
-                      </PaginationLink>
-                    </PaginationItem>
-                  </Pagination>
-                </nav>
+                <Paginations
+                  count={animalsProductions.count}
+                  funcRequistion={getAnimalsProductions}
+                />
               </CardFooter>
             </Card>
           </div>
         </Row>
       </Container>
-      <SubAffiliateRegistrationModel open={openAddAnimalProduction} setOpen={setOpenAddAnimalProduction}/>
+      <SubAffiliateRegistrationModel
+        open={openAddAnimalProduction}
+        setOpen={setOpenAddAnimalProduction}
+      />
       <ModalMembro
         open={open}
         setOpen={setOpen}

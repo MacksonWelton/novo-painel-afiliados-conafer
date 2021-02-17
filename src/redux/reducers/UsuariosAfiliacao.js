@@ -1,5 +1,7 @@
 const initialState = {
-  usersAffiliation: [],
+  usersAffiliation: {
+    results: []
+  },
   userAffiliation: {
     affiliation: ""
   },

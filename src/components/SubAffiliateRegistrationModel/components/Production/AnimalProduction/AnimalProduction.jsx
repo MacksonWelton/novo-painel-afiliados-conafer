@@ -13,15 +13,13 @@ const AnimalProduction = ({
 
   useEffect(() => {
     dispatch(getAllotments());
-    dispatch(getProductionName());
+    dispatch(getProductionName("Animal"));
   }, [dispatch]);
 
   const allotments = useSelector((state) => state.MembersReducer.allotments);
   const productionName = useSelector(
     (state) => state.MembersReducer.productionName
   );
-
-  console.log(productionName)
 
   const [inputAnimal, setInputAnimal] = useState({
     allotment: "",
@@ -101,7 +99,7 @@ const AnimalProduction = ({
                 <option value="" hidden>
                   Escolha uma opção
                 </option>
-                {allotments.map((allotment, i) => (
+                {allotments.results.map((allotment, i) => (
                   <option key={i} value={allotment.id}>
                     {allotment.property_name}
                   </option>
@@ -169,7 +167,7 @@ const AnimalProduction = ({
                 value={inputAnimal.mensal_marketed}
                 onChange={handleChangeInput}
                 required
-                maxLength="16"
+                min="0"
               />
             </FormGroup>
           </Col>
@@ -200,7 +198,7 @@ const AnimalProduction = ({
               </label>
               <Input
                 className="form-control-alternative"
-                type="text"
+                type="number"
                 name="food_supplementation_value"
                 id="food_supplementation_value"
                 title="Recursos em complementação alimentar"
