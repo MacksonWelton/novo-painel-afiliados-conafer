@@ -16,45 +16,44 @@ import {
 
 import Header from "components/Headers/Header";
 
-import {
-  getTransports,
-} from "../../../redux/actions/Membros";
+import { getTransports } from "../../../redux/actions/Membros";
 
 import { Tr } from "./styles";
 import { CardHeaderStyled } from "views/Contratos/styles";
 import ModalMembro from "components/ModalMembro/ModalMembro";
 import StatsCard from "components/StatsCard/StatsCard";
 import SubAffiliateRegistrationModel from "components/SubAffiliateRegistrationModel/SubAffiliateRegistrationModel";
+import Paginations from "components/Paginations/Paginations";
 
 const Transports = () => {
   const dispatch = useDispatch();
   const transports = useSelector((state) => state.MembersReducer.transports);
 
   useEffect(() => {
-    dispatch(getTransports())
+    dispatch(getTransports());
   }, [dispatch]);
 
   const [open, setOpen] = useState(false);
   const [openAddTransport, setOpenAddTransport] = useState({
     modal: false,
-    transport: true
+    transport: true,
   });
   const [transport, setTransport] = useState({});
 
   const cardData = [
     {
       title: "Transportes",
-      progress: transports.length,
+      progress: transports.count,
       comparison: 2,
       comparisonDate: "Desde do último mês",
-      icon: "far fa-chart-bar text-white",
-      color: "bg-orange",
+      icon: "fas fa-truck text-white",
+      color: "bg-purple",
     },
   ];
 
   return (
     <>
-      <Header children={<StatsCard CardData={cardData} />}/>
+      <Header children={<StatsCard CardData={cardData} />} />
       <Container className="mt--9" fluid>
         <Row className="mt-5">
           <div className="col">
@@ -63,7 +62,12 @@ const Transports = () => {
                 <h3 className="text-white mb-0">Transportes</h3>
                 <div>
                   <Button
-                    onClick={() => setOpenAddTransport({...openAddTransport, modal: !openAddTransport.modal})}
+                    onClick={() =>
+                      setOpenAddTransport({
+                        ...openAddTransport,
+                        modal: !openAddTransport.modal,
+                      })
+                    }
                     className="m-auto"
                     color="primary"
                   >
@@ -82,7 +86,7 @@ const Transports = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {transports.map((transport, index) => (
+                  {transports.results.map((transport, index) => (
                     <Tr
                       onClick={() => {
                         setOpen(!open);
@@ -97,62 +101,19 @@ const Transports = () => {
                 </tbody>
               </Table>
               <CardFooter className="py-4 bg-transparent border-0">
-                <nav aria-label="...">
-                  <Pagination
-                    className="pagination justify-content-end mb-0"
-                    listClassName="justify-content-end mb-0"
-                  >
-                    <PaginationItem className="disabled">
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                        tabIndex="-1"
-                      >
-                        <i className="fas fa-angle-left" />
-                        <span className="sr-only">Previous</span>
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem className="active">
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        1
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        2 <span className="sr-only">(current)</span>
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        3
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        <i className="fas fa-angle-right" />
-                        <span className="sr-only">Next</span>
-                      </PaginationLink>
-                    </PaginationItem>
-                  </Pagination>
-                </nav>
+                <Paginations
+                  count={transports.count}
+                  funcRequistion={getTransports}
+                />
               </CardFooter>
             </Card>
           </div>
         </Row>
       </Container>
-       <SubAffiliateRegistrationModel open={openAddTransport} setOpen={setOpenAddTransport}/>
+      <SubAffiliateRegistrationModel
+        open={openAddTransport}
+        setOpen={setOpenAddTransport}
+      />
       <ModalMembro open={open} setOpen={setOpen} transport={transport} />
     </>
   );

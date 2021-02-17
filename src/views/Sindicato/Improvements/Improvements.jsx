@@ -44,7 +44,7 @@ const Improvements = () => {
   const cardData = [
     {
       title: "Benfeitorias",
-      progress: improvements.length,
+      progress: improvements.count,
       comparison: 2,
       comparisonDate: "Desde do último mês",
       icon: "fas fa-hammer text-white",
@@ -87,7 +87,7 @@ const Improvements = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {improvements.map((improvement, index) => (
+                  {improvements.results.map((improvement, index) => (
                     <Tr
                       onClick={() => {
                         setOpen(!open);
