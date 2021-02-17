@@ -116,22 +116,21 @@ const setAllotments = (allotments) => ({
 
 export const getHabitations = (offset = 0, limit = 10) => async (dispatch) => {
   try {
-    const response = await api.get("resident/habitation/");
+    const response = await api.get(`resident/habitation/?offset=${offset}&limit=${limit}`);
 
-    console.log("funcionou", response.data)
 
-    // const habitations = await Promise.all(
-    //   response.data.map(async (item) => {
-    //     const allotmentData = await api.get(
-    //       `allotment/allotment/${item.allotment}/`
-    //     );
+    response.data.results = await Promise.all(
+      response.data.results.map(async (item) => {
+        const allotmentData = await api.get(
+          `allotment/allotment/${item.allotment}/`
+        );
 
-    //     return {
-    //       ...item,
-    //       property_name: allotmentData.data.property_name,
-    //     };
-    //   })
-    // );
+        return {
+          ...item,
+          property_name: allotmentData.data.property_name,
+        };
+      })
+    );
 
     dispatch(setHabitations(response.data));
   } catch (err) {

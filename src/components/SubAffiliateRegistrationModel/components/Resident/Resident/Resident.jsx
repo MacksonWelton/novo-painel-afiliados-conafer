@@ -1,13 +1,19 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Col, FormGroup, Input, Row } from "reactstrap";
 import { getAllotments } from "redux/actions/Membros";
 
 const Reisdent = ({ inputResident, setInputReisdent }) => {
 
+  const dispatch =  useDispatch()
+
   useEffect(() => {
-    getAllotments();
+    dispatch(getAllotments());
   }, []);
+
+  const allotments = useSelector((state) => state.MembersReducer.allotments);
+
+  console.log(allotments)
 
   const habitations = useSelector((state) => state.MembersReducer.habitations);
 
@@ -43,7 +49,7 @@ const Reisdent = ({ inputResident, setInputReisdent }) => {
                 <option value="" hidden>
                   Escolha uma opção
                 </option>
-                {habitations.map((habitation, i) => (
+                {allotments.results.map((habitation, i) => (
                   <option key={i} value={habitation.id}>
                     {habitation.property_name}
                   </option>

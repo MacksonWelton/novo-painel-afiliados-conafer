@@ -1,12 +1,13 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Col, FormGroup, Input, Row } from "reactstrap";
 import { getAllotments } from "redux/actions/Membros";
 
 const Habitation = ({ inputHabitation, setInputHabitation }) => {
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    getAllotments();
+    dispatch(getAllotments());
   }, []);
 
   const allotments = useSelector((state) => state.MembersReducer.allotments);
