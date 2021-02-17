@@ -49,11 +49,11 @@ const AnimalProduction = () => {
   const cardData = [
     {
       title: "Animais",
-      progress: animalsProductions.length,
+      progress: animalsProductions.count,
       comparison: 2,
       comparisonDate: "Desde do último mês",
-      icon: "far fa-chart-bar text-white",
-      color: "bg-orange",
+      icon: "fas fa-drumstick-bite text-white",
+      color: "bg-red",
     }
   ];
 
@@ -107,7 +107,7 @@ const AnimalProduction = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {animalsProductions.map((production, index) => (
+                  {animalsProductions.results.map((production, index) => (
                     <Tr
                       onClick={() => {
                         setOpen(!open);

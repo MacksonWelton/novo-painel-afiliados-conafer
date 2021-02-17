@@ -2,11 +2,11 @@ import api from "services/api";
 import { setAlert } from "./Alertas";
 import converterDataToFormData from "../../utils/converterDataToFormData";
 
-export const getMembers = () => async (dispatch) => {
+export const getMembers = (offset = 0, limit = 10) => async (dispatch) => {
   try {
-    const response = await api.get("member/member/");
+    const response = await api.get(`member/member/?offset=${offset}&limit=${limit}`);
 
-    dispatch(setMembers(response.data));
+    dispatch(setMembers(response.data))
   } catch (err) {
     console.error(err.message);
     if (!err.response) {
@@ -74,9 +74,49 @@ export const newHabitation = (habitation) => async (dispatch) => {
   }
 };
 
-export const getHabitations = () => async (dispatch) => {
+export const getAllotments = (offset = 0, limit = 10) => async (dispatch) => {
   try {
-    const response = await api.get("resident/habitation/");
+    const response = await api.get(`allotment/allotment/?offset=${offset}&limit=${limit}`);
+
+    response.data.results = await Promise.all(
+      response.data.results.map(async (item) => {
+
+        const bioma = await api.get(`allotment/bioma/${item.bioma}/`);
+
+        return {
+          ...item,
+          biomaName: bioma.data.name,
+        };
+      })
+    );
+
+    dispatch(setAllotments(response.data));
+  } catch (err) {
+    console.error(err.response);
+    if (!err.response) {
+      dispatch(
+        setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
+      );
+    } else if (err.response.status === 401) {
+      dispatch(setAlert(err.response.status, err.response.data.detail, true));
+    } else {
+      dispatch(
+        setAlert(err.response.status, err.response.data.error_description, true)
+      );
+    }
+  }
+};
+
+const setAllotments = (allotments) => ({
+  type: "SET_ALLOTMENTS",
+  payload: {
+    allotments,
+  },
+});
+
+export const getHabitations = (offset = 0, limit = 10) => async (dispatch) => {
+  try {
+    const response = await api.get(`resident/habitation/`);
 
     const habitations = await Promise.all(
       response.data.map(async (item) => {
@@ -137,10 +177,12 @@ export const newResident = (resident) => async (dispatch) => {
   }
 };
 
-export const getResidents = () => async (dispatch) => {
+export const getResidents = (offset = 0, limit = 10) => async (dispatch) => {
   try {
-    const response = await api.get("resident/resident/");
+    const response = await api.get(`resident/resident/?offset=${offset}&limit=${limit}`);
+
     dispatch(setResidents(response.data));
+
   } catch (err) {
     console.error(err.message);
     if (!err.response) {
@@ -161,45 +203,6 @@ const setResidents = (residents) => ({
   type: "SET_RESIDENTS",
   payload: {
     residents,
-  },
-});
-
-export const getAllotments = () => async (dispatch) => {
-  try {
-    const response = await api.get(`allotment/allotment/`);
-
-    const allotments = await Promise.all(
-      response.data.map(async (item) => {
-        const bioma = await api.get(`allotment/bioma/${item.bioma}/`);
-
-        return {
-          ...item,
-          biomaName: bioma.data.name,
-        };
-      })
-    );
-
-    dispatch(setAllotments(allotments));
-  } catch (err) {
-    console.error(err.response);
-    if (!err.response) {
-      dispatch(
-        setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
-      );
-    } else if (err.response.status === 401) {
-      dispatch(setAlert(err.response.status, err.response.data.detail, true));
-    } else {
-      dispatch(
-        setAlert(err.response.status, err.response.data.error_description, true)
-      );
-    }
-  }
-};
-
-const setAllotments = (allotments) => ({
-  type: "SET_ALLOTMENTS",
-  payload: {
-    allotments,
   },
 });
 
@@ -230,12 +233,12 @@ const setAllotmentById = (allotment) => ({
   },
 });
 
-export const getDiagnosisAgriculturalSystems = () => async (dispatch) => {
+export const getDiagnosisAgriculturalSystems = (offset = 0, limit = 10) => async (dispatch) => {
   try {
-    const response = await api("/agricultural_system/agricultural_system/");
+    const response = await api(`/agricultural_system/agricultural_system/?offset=${offset}&limit=${limit}`);
 
-    const diagnosisAgriculturalSystems = await Promise.all(
-      response.data.map(async (item) => {
+    response.data.results = await Promise.all(
+      response.data.results.map(async (item) => {
         const allotmentData = await api.get(
           `allotment/allotment/${item.allotment}/`
         );
@@ -249,7 +252,7 @@ export const getDiagnosisAgriculturalSystems = () => async (dispatch) => {
       })
     );
 
-    dispatch(setDiagnosisAgriculturalSystems(diagnosisAgriculturalSystems));
+    dispatch(setDiagnosisAgriculturalSystems(response.data));
   } catch (err) {
     console.error(err.message);
     if (!err.response) {
@@ -374,12 +377,12 @@ export const newPsicultureProduction = (inputPsicultureProduction) => async (
   }
 };
 
-export const getProductions = () => async (dispatch) => {
+export const getProductions = (offset = 0, limit = 10) => async (dispatch) => {
   try {
-    const response = await api.get("production/production/");
+    const response = await api.get(`production/production/?offset=${offset}&limit=${limit}`);
 
-    const productions = await Promise.all(
-      response.data.map(async (item) => {
+    response.data.results = await Promise.all(
+      response.data.results.map(async (item) => {
         const nameProduction = await api.get(
           `production/name_production/${item.production}/`
         );
@@ -396,7 +399,7 @@ export const getProductions = () => async (dispatch) => {
       })
     );
 
-    dispatch(setProductions(productions));
+    dispatch(setProductions(response.data));
   } catch (err) {
     console.error(err.message);
     if (!err.response) {
@@ -420,12 +423,12 @@ const setProductions = (productions) => ({
   },
 });
 
-export const getVegetablesProductions = () => async (dispatch) => {
+export const getVegetablesProductions = (offset = 0, limit = 10) => async (dispatch) => {
   try {
-    const response = await api.get("production/vegetables_production/");
+    const response = await api.get(`production/vegetables_production/?offset=${offset}&limit=${limit}`);
 
-    const vegetablesProductions = await Promise.all(
-      response.data.map(async (item) => {
+    response.data.results = await Promise.all(
+      response.data.results.map(async (item) => {
         const nameProduction = await api.get(
           `production/name_production/${item.production}/`
         );
@@ -442,7 +445,7 @@ export const getVegetablesProductions = () => async (dispatch) => {
       })
     );
 
-    dispatch(setVegetablesProductions(vegetablesProductions));
+    dispatch(setVegetablesProductions(response.data));
   } catch (err) {
     console.error(err.message);
     if (!err.response) {
@@ -466,12 +469,12 @@ const setVegetablesProductions = (vegetablesProductions) => ({
   },
 });
 
-export const getAnimalsProductions = () => async (dispatch) => {
+export const getAnimalsProductions = (offset = 0, limit = 10) => async (dispatch) => {
   try {
-    const response = await api.get("production/animal_production/");
+    const response = await api.get(`production/animal_production/?offset=${offset}&limit=${limit}`);
 
-    const animalsProductions = await Promise.all(
-      response.data.map(async (item) => {
+    response.data.results = await Promise.all(
+      response.data.results.map(async (item) => {
         const nameProduction = await api.get(
           `production/name_production/${item.production}/`
         );
@@ -488,7 +491,7 @@ export const getAnimalsProductions = () => async (dispatch) => {
       })
     );
 
-    dispatch(setAnimalsProductions(animalsProductions));
+    dispatch(setAnimalsProductions(response.data));
   } catch (err) {
     console.error(err.message);
     if (!err.response) {
@@ -512,12 +515,12 @@ const setAnimalsProductions = (animalsProductions) => ({
   },
 });
 
-export const getPsicultureProductions = () => async (dispatch) => {
+export const getPsicultureProductions = (offset = 0, limit = 10) => async (dispatch) => {
   try {
-    const response = await api.get("psiculture/psiculture/");
+    const response = await api.get(`psiculture/psiculture/?offset=${offset}&limit=${limit}`);
 
-    const psicultureProductions = await Promise.all(
-      response.data.map(async (item) => {
+    response.data.results = await Promise.all(
+      response.data.results.map(async (item) => {
         const allotmentData = await api.get(
           `allotment/allotment/${item.allotment}/`
         );
@@ -529,7 +532,7 @@ export const getPsicultureProductions = () => async (dispatch) => {
       })
     );
 
-    dispatch(setPsicultureProductions(psicultureProductions));
+    dispatch(setPsicultureProductions(response.data));
   } catch (err) {
     console.error(err.message);
     if (!err.response) {
@@ -553,12 +556,12 @@ const setPsicultureProductions = (psicultureProductions) => ({
   },
 });
 
-export const getImprovements = () => async (dispatch) => {
+export const getImprovements = (offset = 0, limit = 10) => async (dispatch) => {
   try {
-    const response = await api.get("improvement/improvement/");
+    const response = await api.get(`improvement/improvement/?offset=${offset}&limit=${limit}`);
 
-    const improvements = await Promise.all(
-      response.data.map(async (item) => {
+    response.data.results = await Promise.all(
+      response.data.results.map(async (item) => {
         const allotmentData = await api.get(
           `allotment/allotment/${item.allotment}/`
         );
@@ -570,7 +573,7 @@ export const getImprovements = () => async (dispatch) => {
       })
     );
 
-    dispatch(setImprovements(improvements));
+    dispatch(setImprovements(response.data));
   } catch (err) {
     console.error(err.message);
     if (!err.response) {
@@ -594,12 +597,12 @@ const setImprovements = (improvements) => ({
   },
 });
 
-export const getTransports = () => async (dispatch) => {
+export const getTransports = (offset = 0, limit = 10) => async (dispatch) => {
   try {
-    const response = await api.get("transport/transport/");
+    const response = await api.get(`transport/transport/?offset=${offset}&limit=${limit}`);
 
-    const transports = await Promise.all(
-      response.data.map(async (item) => {
+    response.data.results = await Promise.all(
+      response.data.results.map(async (item) => {
         const allotmentData = await api.get(
           `allotment/allotment/${item.allotment}/`
         );
@@ -611,7 +614,7 @@ export const getTransports = () => async (dispatch) => {
       })
     );
 
-    dispatch(setTransports(transports));
+    dispatch(setTransports(response.data));
   } catch (err) {
     console.error(err.message);
     if (!err.response) {
@@ -635,12 +638,12 @@ const setTransports = (transports) => ({
   },
 });
 
-export const getTechnicalVisits = () => async (dispatch) => {
+export const getTechnicalVisits = (offset = 0, limit = 10) => async (dispatch) => {
   try {
-    const response = await api.get("technical_visit/technical_visit/");
+    const response = await api.get(`technical_visit/technical_visit/?offset=${offset}&limit=${limit}`);
 
-    const technicalVisits = await Promise.all(
-      response.data.map(async (item) => {
+    response.data.results = await Promise.all(
+      response.data.results.map(async (item) => {
         const allotmentData = await api.get(
           `allotment/allotment/${item.allotment}/`
         );
@@ -652,7 +655,7 @@ export const getTechnicalVisits = () => async (dispatch) => {
       })
     );
 
-    dispatch(setTechnicalVisits(technicalVisits));
+    dispatch(setTechnicalVisits(response.data));
   } catch (err) {
     console.error(err.message);
     if (!err.response) {
@@ -676,12 +679,12 @@ const setTechnicalVisits = (technicalVisits) => ({
   },
 });
 
-export const getDocuments = () => async (dispatch) => {
+export const getDocuments = (offset = 0, limit = 10) => async (dispatch) => {
   try {
-    const response = await api.get("documentation/documentation/");
+    const response = await api.get(`documentation/documentation/?offset=${offset}&limit=${limit}`);
 
-    const documents = await Promise.all(
-      response.data.map(async (item) => {
+    response.data.results = await Promise.all(
+      response.data.results.map(async (item) => {
         const member = await api.get(`member/member/${item.member}`);
 
         return {
@@ -693,7 +696,7 @@ export const getDocuments = () => async (dispatch) => {
       })
     );
 
-    dispatch(setDocuments(documents));
+    dispatch(setDocuments(response.data));
   } catch (err) {
     console.error(err.message);
     if (!err.response) {

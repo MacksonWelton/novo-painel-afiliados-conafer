@@ -1,17 +1,41 @@
 const initialState = {
   member: null,
-  residents: [],
-  habitations: [],
-  allotments: [],
-  diagnosisAgriculturalSystems: [],
-  productions: [],
-  vegetablesProductions: [],
-  animalsProductions: [],
-  psicultureProductions: [],
-  improvements: [],
-  transports: [],
-  technicalVisits: [],
-  documents: [],
+  residents: {
+    results: []
+  },
+  habitations: {
+    results: []
+  },
+  allotments: {
+    results: [],
+  },
+  diagnosisAgriculturalSystems: {
+    results: [],
+  },
+  productions: {
+    results: []
+  },
+  vegetablesProductions: {
+    results: []
+  },
+  animalsProductions: {
+    results: []
+  },
+  psicultureProductions: {
+    results: []
+  },
+  improvements: {
+    results: []
+  },
+  transports: {
+    results: []
+  },
+  technicalVisits: {
+    results: []
+  },
+  documents: {
+    results: [],
+  },
   allotment: "",
   production: "",
   improvement: "",
@@ -19,7 +43,9 @@ const initialState = {
   technicalVisit: "",
   productionName: [],
   typeProduction: [],
-  members: [],
+  members: {
+    results: [],
+  },
   biomes: [],
   submitMessage: "",
 };

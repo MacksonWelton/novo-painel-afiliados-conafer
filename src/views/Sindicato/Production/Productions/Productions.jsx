@@ -25,6 +25,7 @@ import { CardHeaderStyled } from "views/Contratos/styles";
 import ModalMembro from "components/ModalMembro/ModalMembro";
 import StatsCard from "components/StatsCard/StatsCard";
 import SubAffiliateRegistrationModel from "components/SubAffiliateRegistrationModel/SubAffiliateRegistrationModel";
+import Paginations from "components/Paginations/Paginations";
 
 const Productions = () => {
   const dispatch = useDispatch();
@@ -49,11 +50,11 @@ const Productions = () => {
   const cardData = [
     {
       title: "Produção",
-      progress: productions.length,
+      progress: productions.count,
       comparison: 2,
       comparisonDate: "Desde do último mês",
-      icon: "far fa-chart-bar text-white",
-      color: "bg-orange",
+      icon: "fas fa-chart-pie text-white",
+      color: "bg-primary",
     }
   ];
 
@@ -92,7 +93,7 @@ const Productions = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {productions.map((production, index) => (
+                  {productions.results.map((production, index) => (
                     <Tr
                       onClick={() => {
                         setOpen(!open);
@@ -109,56 +110,7 @@ const Productions = () => {
                 </tbody>
               </Table>
               <CardFooter className="py-4 bg-transparent border-0">
-                <nav aria-label="...">
-                  <Pagination
-                    className="pagination justify-content-end mb-0"
-                    listClassName="justify-content-end mb-0"
-                  >
-                    <PaginationItem className="disabled">
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                        tabIndex="-1"
-                      >
-                        <i className="fas fa-angle-left" />
-                        <span className="sr-only">Previous</span>
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem className="active">
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        1
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        2 <span className="sr-only">(current)</span>
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        3
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        <i className="fas fa-angle-right" />
-                        <span className="sr-only">Next</span>
-                      </PaginationLink>
-                    </PaginationItem>
-                  </Pagination>
-                </nav>
+              <Paginations count={productions.count} funcRequistion={getProductions}/>
               </CardFooter>
             </Card>
           </div>

@@ -77,24 +77,24 @@ const Index = () => {
     (state) => state.MembersReducer.documents
   );
 
-  if (!data.datasets[0].data.length && members.length) {
+  if (!data.datasets[0].data.length && members.count) {
     setData({
       ...data,
       datasets: [
         {
           ...data.datasets[0],
           data: [
-            members.filter((item) => item.state === "AC").length,
-            members.filter((item) => item.state === "AL").length,
-            members.filter((item) => item.state === "AP").length,
-            members.filter((item) => item.state === "BA").length,
-            members.filter((item) => item.state === "CE").length,
-            members.filter((item) => item.state === "ES").length,
-            members.filter((item) => item.state === "GO").length,
-            members.filter((item) => item.state === "MA").length,
-            members.filter((item) => item.state === "MT").length,
-            members.filter((item) => item.state === "MS").length,
-            members.filter((item) => item.state === "MG").length,
+            members.results.filter((item) => item.state === "AC").length,
+            members.results.filter((item) => item.state === "AL").length,
+            members.results.filter((item) => item.state === "AP").length,
+            members.results.filter((item) => item.state === "BA").length,
+            members.results.filter((item) => item.state === "CE").length,
+            members.results.filter((item) => item.state === "ES").length,
+            members.results.filter((item) => item.state === "GO").length,
+            members.results.filter((item) => item.state === "MA").length,
+            members.results.filter((item) => item.state === "MT").length,
+            members.results.filter((item) => item.state === "MS").length,
+            members.results.filter((item) => item.state === "MG").length,
           ],
         },
       ],
@@ -121,7 +121,7 @@ const Index = () => {
   const cardData = [
     {
       title: "Membros",
-      progress: members.length,
+      progress: members.count,
       comparison: 5,
       comparisonDate: "Desde do último mês",
       icon: "fas fa-user-friends",
@@ -129,7 +129,7 @@ const Index = () => {
     },
     {
       title: "Lotes",
-      progress: allotments.length,
+      progress: allotments.count,
       comparison: 3,
       comparisonDate: "Desde do último mês",
       icon: "fas fa-map-marked-alt text-white",
@@ -137,7 +137,7 @@ const Index = () => {
     },
     {
       title: "Diag. de S. Agrários",
-      progress: diagnosisAgriculturalSystems.length,
+      progress: diagnosisAgriculturalSystems.count,
       comparison: 3,
       comparisonDate: "Desde do último mês",
       icon: "fas fa-leaf text-white",
@@ -145,7 +145,7 @@ const Index = () => {
     },
     {
       title: "Produção",
-      progress: productions.length,
+      progress: productions.count,
       comparison: 2,
       comparisonDate: "Desde do último mês",
       icon: "far fa-chart-bar text-white",
@@ -161,7 +161,7 @@ const Index = () => {
     },
     {
       title: "Transportes",
-      progress: transports.length,
+      progress: transports.count,
       comparison: 2,
       comparisonDate: "Desde do último mês",
       icon: "fas fa-truck text-white",
@@ -169,7 +169,7 @@ const Index = () => {
     },
     {
       title: "Visitas Técnicas",
-      progress: technicalVisits.length,
+      progress: technicalVisits.count,
       comparison: 2,
       comparisonDate: "Desde do último mês",
       icon: "fas fa-user-check text-white",
@@ -177,7 +177,7 @@ const Index = () => {
     },
     {
       title: "Documentos",
-      progress: documents.length,
+      progress: documents.count,
       comparison: 2,
       comparisonDate: "Desde do último mês",
       icon: "fas fa-file-alt text-white",
@@ -207,7 +207,7 @@ const Index = () => {
                 <MapaAfiliados
                   usersPFAffiliation={usersPFAffiliation}
                   usersPJAffiliation={usersPJAffiliation}
-                  allotments={allotments}
+                  allotments={allotments.results}
                 />
               </CardBody>
             </Card>

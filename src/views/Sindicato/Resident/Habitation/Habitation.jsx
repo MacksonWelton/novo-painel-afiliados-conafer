@@ -44,7 +44,7 @@ const Habitation = () => {
   const cardData = [
     {
       title: "Moradias",
-      progress: habitations.length,
+      progress: habitations.count,
       comparison: 2,
       comparisonDate: "Desde do último mês",
       icon: "fas fa-home text-white",
@@ -81,7 +81,7 @@ const Habitation = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {habitations.map((habitation, index) => (
+                  {habitations.results.map((habitation, index) => (
                     <Tr
                       onClick={() => {
                         setOpen(!open);
