@@ -2,16 +2,14 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Col, FormGroup, Input, Row } from "reactstrap";
 import { getAllotments } from "redux/actions/Membros";
-import {formatReal} from "../../../../utils/converterToMoney";
+import { formatReal } from "../../../../utils/converterToMoney";
 
 const Transport = ({ inputTransport, setInputTransport }) => {
-
   useEffect(() => {
     getAllotments();
   }, []);
 
   const allotments = useSelector((state) => state.MembersReducer.allotments);
-
 
   const handleChangeInput = (event) => {
     const { name, value } = event.target;
@@ -29,7 +27,7 @@ const Transport = ({ inputTransport, setInputTransport }) => {
           <Col lg="6">
             <FormGroup>
               <label className="form-control-label" htmlFor="allotment">
-                Lote{" "}<small className="text-red">(obrigatório)</small>
+                Lote <small className="text-red">(obrigatório)</small>
               </label>
               <Input
                 className="form-control-alternative"
@@ -90,11 +88,15 @@ const Transport = ({ inputTransport, setInputTransport }) => {
                 placeholder="Ex: 100,00"
                 value={inputTransport.own_road_transport_cost}
                 onChange={(event) => {
-                  event = {target: {
-                    name: event.target.name,
-                    value: formatReal(event.target.value)
-                  }}
-                  handleChangeInput(event)}}
+                  event = {
+                    target: {
+                      name: event.target.name,
+                      value: formatReal(event.target.value),
+                    },
+                  };
+                  handleChangeInput(event);
+                }}
+                maxLength="16"
               />
             </FormGroup>
           </Col>
@@ -115,11 +117,15 @@ const Transport = ({ inputTransport, setInputTransport }) => {
                 placeholder="Ex: 150,00"
                 value={inputTransport.waterway_transportation_cost}
                 onChange={(event) => {
-                  event = {target: {
-                    name: event.target.name,
-                    value: formatReal(event.target.value)
-                  }}
-                  handleChangeInput(event)}}
+                  event = {
+                    target: {
+                      name: event.target.name,
+                      value: formatReal(event.target.value),
+                    },
+                  };
+                  handleChangeInput(event);
+                }}
+                maxLength="16"
               />
             </FormGroup>
           </Col>
@@ -140,11 +146,15 @@ const Transport = ({ inputTransport, setInputTransport }) => {
                 placeholder="Ex: 150,00"
                 value={inputTransport.road_chartered_transport_cost}
                 onChange={(event) => {
-                  event = {target: {
-                    name: event.target.name,
-                    value: formatReal(event.target.value)
-                  }}
-                  handleChangeInput(event)}}
+                  event = {
+                    target: {
+                      name: event.target.name,
+                      value: formatReal(event.target.value),
+                    },
+                  };
+                  handleChangeInput(event);
+                }}
+                maxLength="16"
               />
             </FormGroup>
           </Col>
@@ -165,11 +175,15 @@ const Transport = ({ inputTransport, setInputTransport }) => {
                 placeholder="Ex: 100,00"
                 value={inputTransport.waterway_chartered_transportation_cost}
                 onChange={(event) => {
-                  event = {target: {
-                    name: event.target.name,
-                    value: formatReal(event.target.value)
-                  }}
-                  handleChangeInput(event)}}
+                  event = {
+                    target: {
+                      name: event.target.name,
+                      value: formatReal(event.target.value),
+                    },
+                  };
+                  handleChangeInput(event);
+                }}
+                maxLength="16"
               />
             </FormGroup>
           </Col>

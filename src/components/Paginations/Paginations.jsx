@@ -22,7 +22,6 @@ const Paginations = ({ count, funcRequistion }) => {
   const handleChangePage = (page = 1, number = 10) => {
 
     if (page < 0 || page === pages.length) {
-      console.log("chamou")
       return;
     }
 

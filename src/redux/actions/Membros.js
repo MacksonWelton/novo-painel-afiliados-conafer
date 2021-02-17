@@ -116,22 +116,24 @@ const setAllotments = (allotments) => ({
 
 export const getHabitations = (offset = 0, limit = 10) => async (dispatch) => {
   try {
-    const response = await api.get(`resident/habitation/`);
+    const response = await api.get("resident/habitation/");
 
-    const habitations = await Promise.all(
-      response.data.map(async (item) => {
-        const allotmentData = await api.get(
-          `allotment/allotment/${item.allotment}/`
-        );
+    console.log("funcionou", response.data)
 
-        return {
-          ...item,
-          property_name: allotmentData.data.property_name,
-        };
-      })
-    );
+    // const habitations = await Promise.all(
+    //   response.data.map(async (item) => {
+    //     const allotmentData = await api.get(
+    //       `allotment/allotment/${item.allotment}/`
+    //     );
 
-    dispatch(setHabitations(habitations));
+    //     return {
+    //       ...item,
+    //       property_name: allotmentData.data.property_name,
+    //     };
+    //   })
+    // );
+
+    dispatch(setHabitations(response.data));
   } catch (err) {
     console.error(err.message);
     if (!err.response) {
@@ -430,7 +432,7 @@ export const getVegetablesProductions = (offset = 0, limit = 10) => async (dispa
     response.data.results = await Promise.all(
       response.data.results.map(async (item) => {
         const nameProduction = await api.get(
-          `production/name_production/${item.production}/`
+          `production/name_production?type_production=Vegetal`
         );
 
         const allotmentData = await api.get(
@@ -476,7 +478,7 @@ export const getAnimalsProductions = (offset = 0, limit = 10) => async (dispatch
     response.data.results = await Promise.all(
       response.data.results.map(async (item) => {
         const nameProduction = await api.get(
-          `production/name_production/${item.production}/`
+          `production/name_production?type_production=Animal`
         );
 
         const allotmentData = await api.get(
@@ -985,9 +987,15 @@ const newDocuments = (inputDocumentationFile, inputDocumentationList) => async (
   }
 };
 
-export const getProductionName = () => async (dispatch) => {
+export const getProductionName = (type) => async (dispatch) => {
   try {
-    const response = await api.get("production/name_production/");
+    let response;
+    if (type) {
+       response = await api.get(`production/name_production/?type_production=${type}`);
+    } else {
+      response = response = await api.get(`production/name_production/`);
+    }
+
 
     dispatch(setProductionName(response.data));
   } catch (err) {

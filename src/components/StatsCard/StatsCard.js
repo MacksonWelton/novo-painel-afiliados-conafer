@@ -34,7 +34,7 @@ const StatsCard = ({ CardData }) => {
                   ) : (
                     <i className="fas fa-arrow-down" />
                   )}{" "}
-                  {card.comparison}%
+                  {card.comparison}
                 </span>{" "}
                 <span className="text-nowrap">{card.comparisonDate}</span>
               </p>

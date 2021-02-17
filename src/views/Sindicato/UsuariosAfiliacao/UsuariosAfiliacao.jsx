@@ -41,6 +41,7 @@ import { CardHeaderStyled } from "../../../views/Contratos/styles";
 import BotoesDeAcao from "../../../components/BotoesDeAcao/BotoesDeAcao";
 import FormUsuarioAfiliacao from "../../../components/FormUsuarioAfiliacao/FormUsuarioAfiliacao";
 import AnimacaoCarregamento from "../../../components/AnimacaoCarregamento/AnimacaoCarregamento";
+import Paginations from "components/Paginations/Paginations";
 
 const UsuariosAfiliacao = () => {
   const dispatch = useDispatch();
@@ -90,15 +91,6 @@ const UsuariosAfiliacao = () => {
     dispatch(newUserAffiliation(input, files));
   };
 
-
-  const handleAffiliatesActivations = (user) => {
-    let { id, name, email, is_active } = user;
-
-    const userData = {id, name, email, is_active: !is_active };
-
-    dispatch(updateAffiliatesActivation(userData));
-  };
-
   const handleChangeInputFile = (event) => {
     const name = event.target.name;
     const value = event.target.files[0];
@@ -136,15 +128,15 @@ const UsuariosAfiliacao = () => {
   const CardData = [
     {
       title: "Ativados",
-      progress: usersAffiliation.filter(user => user.is_active === true).length,
-      max: usersAffiliation.length,
+      progress: usersAffiliation.results.filter(user => user.is_active === true).length,
+      max: usersAffiliation.count,
       icon: "fas fa-user-check",
       color: "primary",
     },
     {
       title: "Desativados",
-      progress: usersAffiliation.filter(user => user.is_active === false).length,
-      max: usersAffiliation.length,
+      progress: usersAffiliation.results.filter(user => user.is_active === false).length,
+      max: usersAffiliation.count,
       icon: "fas fa-user-times",
       color: "gray",
     }
@@ -193,7 +185,7 @@ const UsuariosAfiliacao = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {usersAffiliation.map((user, index) => (
+                  {usersAffiliation.results.map((user, index) => (
                     <Tr
                       onClick={() => {
                         setOpen(!open);
@@ -204,108 +196,13 @@ const UsuariosAfiliacao = () => {
                       <td>{user.name}</td>
                       <td>{user.phone}</td>
                       <td>{user.email}</td>
-                      <td>
-                        <Badge color="" className="badge-dot">
-                          <i className={getBadge(user.is_active)} />
-                          {getStatus(user.is_active)}
-                        </Badge>
-                      </td>
-                      <td className="text-right">
-                        <UncontrolledDropdown>
-                          <DropdownToggle
-                            className="btn-icon-only text-light"
-                            href="#pablo"
-                            role="button"
-                            size="sm"
-                            color=""
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              e.preventDefault();
-                            }}
-                          >
-                            <i className="fas fa-ellipsis-v" />
-                          </DropdownToggle>
-                          <DropdownMenu className="dropdown-menu-arrow" right>
-                            <DropdownItem
-                              href="#"
-                              onClick={(e) => {
-                                user.is_active
-                                  ? e.preventDefault()
-                                  : handleAffiliatesActivations(user);
-                                e.stopPropagation();
-                              }}
-                            >
-                              Ativar
-                            </DropdownItem>
-                            <DropdownItem
-                              href="#"
-                              onClick={(e) => {
-                                user.is_active
-                                  ? handleAffiliatesActivations(user)
-                                  : e.preventDefault();
-                                e.stopPropagation();
-                              }}
-                            >
-                              Desativar
-                            </DropdownItem>
-                          </DropdownMenu>
-                        </UncontrolledDropdown>
-                      </td>
+                      <td>{getStatus(user.is_active)}</td>
                     </Tr>
                   ))}
                 </tbody>
               </Table>
               <CardFooter className="py-4 bg-transparent border-0">
-                <nav aria-label="...">
-                  <Pagination
-                    className="pagination justify-content-end mb-0"
-                    listClassName="justify-content-end mb-0"
-                  >
-                    <PaginationItem className="disabled">
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                        tabIndex="-1"
-                      >
-                        <i className="fas fa-angle-left" />
-                        <span className="sr-only">Previous</span>
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem className="active">
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        1
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        2 <span className="sr-only">(current)</span>
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        3
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        <i className="fas fa-angle-right" />
-                        <span className="sr-only">Next</span>
-                      </PaginationLink>
-                    </PaginationItem>
-                  </Pagination>
-                </nav>
+                <Paginations count={usersAffiliation.count} funcRequistion={getUsersAffiliation}/>
               </CardFooter>
             </Card>
           </div>

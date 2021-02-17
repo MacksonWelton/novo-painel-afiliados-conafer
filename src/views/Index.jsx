@@ -18,6 +18,8 @@ import {
   Col,
 } from "reactstrap";
 
+import moment from "moment";
+
 // core components
 import {
   chartOptions,
@@ -116,70 +118,90 @@ const Index = () => {
     dispatch
   ]);
 
+  console.log(members.results.filter(item => (
+    moment(item.created_at).format("MM/YYYY") === moment().format("MM/YYYY")
+  )).length)
+
   const [activeNav, setActiveNav] = useState(1);
   const [chartExample1Data, setChartExample1Data] = useState("data1");
   const cardData = [
     {
       title: "Membros",
       progress: members.count,
-      comparison: 5,
-      comparisonDate: "Desde do último mês",
+      comparison: members.results.filter(item => (
+        moment(item.created_at).format("MM/YYYY") === moment().format("MM/YYYY")
+      )).length,
+      comparisonDate: "Registrados neste mês",
       icon: "fas fa-user-friends",
       color: "bg-dark",
     },
     {
       title: "Lotes",
       progress: allotments.count,
-      comparison: 3,
-      comparisonDate: "Desde do último mês",
+      comparison: allotments.results.filter(item => (
+        moment(item.created_at).format("MM/YYYY") === moment().format("MM/YYYY")
+      )).length,
+      comparisonDate: "Registrados neste mês",
       icon: "fas fa-map-marked-alt text-white",
       color: "bg-yellow",
     },
     {
       title: "Diag. de S. Agrários",
       progress: diagnosisAgriculturalSystems.count,
-      comparison: 3,
-      comparisonDate: "Desde do último mês",
+      comparison:  diagnosisAgriculturalSystems.results.filter(item => (
+        moment(item.created_at).format("MM/YYYY") === moment().format("MM/YYYY")
+      )).length,
+      comparisonDate: "Registrados neste mês",
       icon: "fas fa-leaf text-white",
       color: "bg-green",
     },
     {
       title: "Produção",
       progress: productions.count,
-      comparison: 2,
-      comparisonDate: "Desde do último mês",
+      comparison: productions.results.filter(item => (
+        moment(item.created_at).format("MM/YYYY") === moment().format("MM/YYYY")
+      )).length,
+      comparisonDate: "Registrados neste mês",
       icon: "far fa-chart-bar text-white",
       color: "bg-primary",
     },
     {
       title: "Benfeitorias",
-      progress: improvements.length,
-      comparison: 2,
-      comparisonDate: "Desde do último mês",
+      progress: improvements.count,
+      comparison: improvements.results.filter(item => (
+        moment(item.created_at).format("MM/YYYY") === moment().format("MM/YYYY")
+      )).length,
+      comparisonDate: "Registrados neste mês",
       icon: "fas fa-hammer text-white",
       color: "bg-orange",
     },
     {
       title: "Transportes",
       progress: transports.count,
-      comparison: 2,
-      comparisonDate: "Desde do último mês",
+      comparison: transports.results.filter(item => (
+        moment(item.created_at).format("MM/YYYY") === moment().format("MM/YYYY")
+      )).length,
+      comparisonDate: "Registrados neste mês",
       icon: "fas fa-truck text-white",
       color: "bg-purple",
     },
     {
       title: "Visitas Técnicas",
       progress: technicalVisits.count,
-      comparison: 2,
-      comparisonDate: "Desde do último mês",
+      comparison: technicalVisits.results.filter(item => (
+        moment(item.created_at).format("MM/YYYY") === moment().format("MM/YYYY")
+      )).length,
+      comparisonDate: "Registrados neste mês",
       icon: "fas fa-user-check text-white",
       color: "bg-pink",
     },
     {
       title: "Documentos",
       progress: documents.count,
-      comparison: 2,
-      comparisonDate: "Desde do último mês",
+      comparison: documents.results.filter(item => (
+        moment(item.created_at).format("MM/YYYY") === moment().format("MM/YYYY")
+      )).length,
+      comparisonDate: "Registrados neste mês",
       icon: "fas fa-file-alt text-white",
       color: "bg-gray",
     },

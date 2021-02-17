@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 
+import moment from "moment";
+
 import { useDispatch, useSelector } from "react-redux";
 
 import {
   Card,
   CardFooter,
-  Pagination,
-  PaginationItem,
-  PaginationLink,
   Table,
   Container,
   Row,
@@ -51,8 +50,10 @@ const Productions = () => {
     {
       title: "Produção",
       progress: productions.count,
-      comparison: 2,
-      comparisonDate: "Desde do último mês",
+      comparison: productions.results.filter(item => (
+        moment(item.created_at).format("MM/YYYY") === moment().format("MM/YYYY")
+      )).length,
+      comparisonDate: "Registrado este mês",
       icon: "fas fa-chart-pie text-white",
       color: "bg-primary",
     }

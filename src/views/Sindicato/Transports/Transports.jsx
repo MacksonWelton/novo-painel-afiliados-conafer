@@ -1,18 +1,10 @@
 import React, { useEffect, useState } from "react";
 
+import moment from "moment";
+
 import { useDispatch, useSelector } from "react-redux";
 
-import {
-  Card,
-  CardFooter,
-  Pagination,
-  PaginationItem,
-  PaginationLink,
-  Table,
-  Container,
-  Row,
-  Button,
-} from "reactstrap";
+import { Card, CardFooter, Table, Container, Row, Button } from "reactstrap";
 
 import Header from "components/Headers/Header";
 
@@ -44,8 +36,12 @@ const Transports = () => {
     {
       title: "Transportes",
       progress: transports.count,
-      comparison: 2,
-      comparisonDate: "Desde do último mês",
+      comparison: transports.results.filter(
+        (item) =>
+          moment(item.created_at).format("MM/YYYY") ===
+          moment().format("MM/YYYY")
+      ).length,
+      comparisonDate: "Registrados neste mês",
       icon: "fas fa-truck text-white",
       color: "bg-purple",
     },

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 
+import moment from "moment";
+
 import { useDispatch, useSelector } from "react-redux";
 
 import {
@@ -16,9 +18,7 @@ import {
 
 import Header from "components/Headers/Header";
 
-import {
-  getHabitations,
-} from "../../../../redux/actions/Membros";
+import { getHabitations } from "../../../../redux/actions/Membros";
 
 import { Tr } from "./styles";
 import { CardHeaderStyled } from "views/Contratos/styles";
@@ -31,13 +31,13 @@ const Habitation = () => {
   const habitations = useSelector((state) => state.MembersReducer.habitations);
 
   useEffect(() => {
-    dispatch(getHabitations())
+    dispatch(getHabitations());
   }, [dispatch]);
 
   const [open, setOpen] = useState(false);
   const [openAddHabitation, setOpenAddHabitation] = useState({
     modal: false,
-    habitation: true
+    habitation: true,
   });
   const [habitation, setHabitation] = useState({});
 
@@ -45,8 +45,8 @@ const Habitation = () => {
     {
       title: "Moradias",
       progress: habitations.count,
-      comparison: 2,
-      comparisonDate: "Desde do último mês",
+      comparison: 5,
+      comparisonDate: "Registrados neste mês",
       icon: "fas fa-home text-white",
       color: "bg-orange",
     },
@@ -54,7 +54,7 @@ const Habitation = () => {
 
   return (
     <>
-      <Header children={<StatsCard CardData={cardData} />}/>
+      <Header children={<StatsCard CardData={cardData} />} />
       <Container className="mt--9" fluid>
         <Row className="mt-5">
           <div className="col">
@@ -63,7 +63,12 @@ const Habitation = () => {
                 <h3 className="text-white mb-0">Moradias</h3>
                 <div>
                   <Button
-                    onClick={() => setOpenAddHabitation({...openAddHabitation, modal: !openAddHabitation.modal})}
+                    onClick={() =>
+                      setOpenAddHabitation({
+                        ...openAddHabitation,
+                        modal: !openAddHabitation.modal,
+                      })
+                    }
                     className="m-auto"
                     color="primary"
                   >
@@ -150,7 +155,10 @@ const Habitation = () => {
           </div>
         </Row>
       </Container>
-       <SubAffiliateRegistrationModel open={openAddHabitation} setOpen={setOpenAddHabitation}/>
+      <SubAffiliateRegistrationModel
+        open={openAddHabitation}
+        setOpen={setOpenAddHabitation}
+      />
       <ModalMembro open={open} setOpen={setOpen} habitation={habitation} />
     </>
   );

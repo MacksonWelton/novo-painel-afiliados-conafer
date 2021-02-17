@@ -88,7 +88,7 @@ const AnimalProduction = ({
                 <option value="" hidden>
                   Escolha uma opção
                 </option>
-                {allotments.map((allotment, i) => (
+                {allotments.results.map((allotment, i) => (
                   <option key={i} value={allotment.id}>
                     {allotment.property_name}
                   </option>
