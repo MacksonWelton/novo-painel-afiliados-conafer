@@ -17,7 +17,7 @@ import Header from "components/Headers/Header";
 
 import {
   getAllotments,
-} from "../../../redux/actions/Membros";
+} from "../../../redux/actions/Allotments";
 
 import { Tr } from "./styles";
 import { CardHeaderStyled } from "views/Contratos/styles";
@@ -28,7 +28,7 @@ import Paginations from "components/Paginations/Paginations";
 
 const Allotments = () => {
   const dispatch = useDispatch();
-  const allotments = useSelector((state) => state.MembersReducer.allotments);
+  const allotments = useSelector((state) => state.AllotmentsReducer.allotments);
 
   useEffect(() => {
     dispatch(getAllotments())

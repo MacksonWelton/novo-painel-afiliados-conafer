@@ -52,7 +52,7 @@ const Login = () => {
         <Card className="bg-secondary shadow border-0">
           <CardHeader className="bg-transparent pb-5">
             <div className="text-muted text-center mt-3 mb--3">
-              <p>Entre com seu email e senha</p>
+              <b>Entre com seu email e senha</b>
             </div>
           </CardHeader>
           <CardBody className="px-lg-5 py-lg-5">

@@ -1,6 +1,6 @@
 import api from "services/api";
 import converterDataToFormData from "utils/converterDataToFormData";
-import { setAlert } from "./Alertas";
+import { setAlert } from "./Alerts";
 
 export const signUp = (userData) => async (dispatch) => {
   try {
@@ -197,53 +197,5 @@ const setTypeAgriculturalProduction = (typeProduction) => ({
   type: "SET_TYPE_PRODUCTION",
   payload: {
     typeProduction,
-  },
-});
-
-export const setBeneficiaryIdentity = (beneficiaryIdentity) => ({
-  type: "SET_BENEFICIARY_IDENTITY",
-  payload: {
-    beneficiaryIdentity,
-  },
-});
-
-export const setPlotLocation = (plotLocation) => ({
-  type: "SET_PLOT_LOCATION",
-  payload: {
-    plotLocation,
-  },
-});
-
-export const setHouses = (houses) => ({
-  type: "SET_HOUSES",
-  payload: {
-    houses,
-  },
-});
-
-export const deleteHouse = () => ({
-  type: "DELETE_HOUSE",
-});
-
-export const setFamilyUnitIdentification = (familyUnitIdentification) => ({
-  type: "SET_FAMILY_UNIT_IDENTIFICATION",
-  payload: {
-    familyUnitIdentification,
-  },
-});
-
-export const setGeneralFamilyUnitInfo = (generalFamilyUnitInfo) => ({
-  type: "SET_GENERAL_FAMILY_UNIT_INFO",
-  payload: {
-    generalFamilyUnitInfo,
-  },
-});
-
-export const setDiagnosisOfAgriculturalSystems = (
-  diagnosisOfAgriculturalSystems
-) => ({
-  type: "SET_DIAGNOSIS_OF_AGRICULTURAL_SYSTEMS",
-  payload: {
-    diagnosisOfAgriculturalSystems,
   },
 });

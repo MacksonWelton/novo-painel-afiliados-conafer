@@ -8,17 +8,21 @@ import {
   ModalHeader,
   Button,
 } from "reactstrap";
-import {
-  newMember,
-  newAllotment,
-  newDiagnosisAgriculturalSystems,
-  newVegetableProduction,
-  newProduction,
-  newImprovements,
-  newTransport,
-  newDocumentation,
-} from "redux/actions/Membros";
+import { newMember } from "redux/actions/Membros";
+
+import { newAllotment } from "../../redux/actions/Allotments";
+import { newProduction } from "../../redux/actions/Productions";
+import { newDiagnosisAgriculturalSystems } from "../../redux/actions/DiagnosisAgriculturalSystems";
+import { newImprovements } from "../../redux/actions/Improvements";
+import { newPsicultureProduction } from "redux/actions/Productions";
+import { newAnimalProduction } from "../../redux/actions/Productions";
+import { newVegetableProduction } from "../../redux/actions/Productions";
+import { newHabitation, newResident } from "../../redux/actions/Residents";
+import { newDocumentation } from "../../redux/actions/Documents";
 import { getUsersAffiliation } from "../../redux/actions/UsuariosAfiliacao";
+import { newTransport } from "redux/actions/Transports";
+import { newTechnicalVisit } from "redux/actions/TechnicalVisits";
+
 import Member from "./components/Member/Member";
 import Resident from "./components/Resident/Resident/Resident";
 import Allotment from "./components/Allotment/Allotment";
@@ -29,13 +33,9 @@ import Production from "./components/Production/Production/Production";
 import Improvement from "./components/Improvement/Improvement";
 import Transport from "./components/Transport/Transport";
 import TechnicalVisit from "./components/TechnicalVisit/TechnicalVisit";
-import { newTechnicalVisit } from "redux/actions/Membros";
 import Documentation from "./components/Documentation/Documentation";
-import { newResident } from "redux/actions/Membros";
 import Habitation from "./components/Resident/Habitation/Habitation";
 import AnimalProduction from "./components/Production/AnimalProduction/AnimalProduction";
-import { newPsicultureProduction } from "redux/actions/Membros";
-import { newAnimalProduction } from "redux/actions/Membros";
 
 const SubAffiliateRegistrationModel = ({ setOpen, open }) => {
   const dispatch = useDispatch();
@@ -49,9 +49,9 @@ const SubAffiliateRegistrationModel = ({ setOpen, open }) => {
     (state) => state.UsersAffiliationReducer.usersAffiliation
   );
 
-  if (usersAffilitationOptions.length === 0 && usersAffiliation.length) {
+  if (usersAffilitationOptions.length === 0 && usersAffiliation.results.length) {
     setUserAffiliationOptions(
-      usersAffiliation.map((item) => {
+      usersAffiliation.results.map((item) => {
         item.name = item.name_initials ? item.name_initials : item.name;
         return item;
       })
@@ -323,6 +323,8 @@ const SubAffiliateRegistrationModel = ({ setOpen, open }) => {
       dispatch(newResident(inputResident));
     } else if (open.allotment) {
       dispatch(newAllotment(inputAllotment, fileAllotment));
+    } else if (open.habitation) {
+      dispatch(newHabitation(inputHabitation));
     } else if (open.diagnosisAgriculturalSystems) {
       dispatch(
         newDiagnosisAgriculturalSystems(inputDiagnosisOfAgriculturalSystems)
@@ -330,7 +332,7 @@ const SubAffiliateRegistrationModel = ({ setOpen, open }) => {
     } else if (open.production) {
       dispatch(newProduction(inputProductionList));
     } else if (open.animal) {
-      dispatch(newAnimalProduction(inputAnimalProduction))
+      dispatch(newAnimalProduction(inputAnimalProduction));
     } else if (open.vegetable) {
       dispatch(newVegetableProduction(inputVegetablesProduction));
     } else if (open.psiculture) {

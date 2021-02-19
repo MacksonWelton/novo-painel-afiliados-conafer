@@ -11,7 +11,7 @@ import routes from "routes";
 
 import { connect } from "react-redux";
 
-import { setAlert } from "../redux/actions/Alertas";
+import { setAlert } from "../redux/actions/Alerts";
 import Alertas from "components/Alertas/Alertas";
 
 class Auth extends React.Component {

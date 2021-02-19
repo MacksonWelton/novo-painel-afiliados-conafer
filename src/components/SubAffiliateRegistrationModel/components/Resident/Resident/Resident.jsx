@@ -1,20 +1,20 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Col, FormGroup, Input, Row } from "reactstrap";
-import { getAllotments } from "redux/actions/Membros";
+import { getAllAllotments } from "redux/actions/Allotments";
 
-const Reisdent = ({ inputResident, setInputReisdent }) => {
+const Reisdent = ({ inputResident, setInputResident }) => {
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    getAllotments();
-  }, []);
+    dispatch(getAllAllotments());
+  }, [dispatch]);
 
-  const habitations = useSelector((state) => state.MembersReducer.habitations);
-
+  const allAllotments = useSelector((state) => state.AllotmentsReducer.allAllotments);
 
   const handleChangeInput = (event) => {
     const { name, value } = event.target;
-    setInputReisdent({ ...inputResident, [name]: value });
+    setInputResident({ ...inputResident, [name]: value });
   };
 
   return (
@@ -43,7 +43,7 @@ const Reisdent = ({ inputResident, setInputReisdent }) => {
                 <option value="" hidden>
                   Escolha uma opção
                 </option>
-                {habitations.map((habitation, i) => (
+                {allAllotments.map((habitation, i) => (
                   <option key={i} value={habitation.id}>
                     {habitation.property_name}
                   </option>
@@ -54,7 +54,8 @@ const Reisdent = ({ inputResident, setInputReisdent }) => {
           <Col lg="6">
             <FormGroup>
               <label className="form-control-label" htmlFor="resident_name">
-                Nome do Morador <small className="text-red">(obrigatório)</small>
+                Nome do Morador{" "}
+                <small className="text-red">(obrigatório)</small>
               </label>
               <Input
                 className="form-control-alternative"
@@ -73,8 +74,7 @@ const Reisdent = ({ inputResident, setInputReisdent }) => {
           <Col lg="6">
             <FormGroup>
               <label className="form-control-label" htmlFor="kinship">
-                Parentesco{" "}
-                <small className="text-red">(obrigatório)</small>
+                Parentesco <small className="text-red">(obrigatório)</small>
               </label>
               <Input
                 className="form-control-alternative"
@@ -93,11 +93,8 @@ const Reisdent = ({ inputResident, setInputReisdent }) => {
           </Col>
           <Col lg="6">
             <FormGroup>
-              <label
-                className="form-control-label"
-                htmlFor="sex"
-              >
-                Sexo:{" "}<small className="text-red">(obrigatório)</small>
+              <label className="form-control-label" htmlFor="sex">
+                Sexo: <small className="text-red">(obrigatório)</small>
               </label>
               <Input
                 className="form-control-alternative"
@@ -109,20 +106,20 @@ const Reisdent = ({ inputResident, setInputReisdent }) => {
                 onChange={handleChangeInput}
                 required
               >
-                  <option value="" hidden>Escolha uma opção</option>
-                  <option value="Masculino">Masculino</option>
-                  <option value="Feminino">Feminino</option>
-                  <option value="Outro">Outro</option>
-            </Input>
+                <option value="" hidden>
+                  Escolha uma opção
+                </option>
+                <option value="Masculino">Masculino</option>
+                <option value="Feminino">Feminino</option>
+                <option value="Outro">Outro</option>
+              </Input>
             </FormGroup>
           </Col>
           <Col lg="6">
             <FormGroup>
-              <label
-                className="form-control-label"
-                htmlFor="birthdate"
-              >
-                Data de nascimento{" "}<small className="text-red">(obrigatório)</small>
+              <label className="form-control-label" htmlFor="birthdate">
+                Data de nascimento{" "}
+                <small className="text-red">(obrigatório)</small>
               </label>
               <Input
                 className="form-control-alternative"
@@ -138,11 +135,8 @@ const Reisdent = ({ inputResident, setInputReisdent }) => {
           </Col>
           <Col lg="6">
             <FormGroup>
-              <label
-                className="form-control-label"
-                htmlFor="schooling"
-              >
-                Escolaridade{" "}<small className="text-red">(obrigatório)</small>
+              <label className="form-control-label" htmlFor="schooling">
+                Escolaridade <small className="text-red">(obrigatório)</small>
               </label>
               <Input
                 className="form-control-alternative"
@@ -165,7 +159,8 @@ const Reisdent = ({ inputResident, setInputReisdent }) => {
                 className="form-control-label"
                 htmlFor="main_source_income"
               >
-                Principal fonte de renda{" "}<small className="text-red">(obrigatório)</small>
+                Principal fonte de renda{" "}
+                <small className="text-red">(obrigatório)</small>
               </label>
               <Input
                 className="form-control-alternative"
@@ -184,10 +179,7 @@ const Reisdent = ({ inputResident, setInputReisdent }) => {
           </Col>
           <Col lg="6">
             <FormGroup>
-              <label
-                className="form-control-label"
-                htmlFor="generates_income"
-              >
+              <label className="form-control-label" htmlFor="generates_income">
                 Gera renda para a família
               </label>
               <Input
@@ -203,18 +195,17 @@ const Reisdent = ({ inputResident, setInputReisdent }) => {
                 onChange={handleChangeInput}
                 required
               >
-                  <option value="" hidden>Escolha uma opção</option>
-                  <option value={true}>Sim</option>
-                  <option value={false}>Não</option>
-                </Input>
+                <option value="" hidden>
+                  Escolha uma opção
+                </option>
+                <option value={true}>Sim</option>
+                <option value={false}>Não</option>
+              </Input>
             </FormGroup>
           </Col>
           <Col lg="6">
             <FormGroup>
-              <label
-                className="form-control-label"
-                htmlFor="batch_work_time"
-              >
+              <label className="form-control-label" htmlFor="batch_work_time">
                 Tempo trabalho no lote (anos)
               </label>
               <Input
@@ -234,11 +225,9 @@ const Reisdent = ({ inputResident, setInputReisdent }) => {
           </Col>
           <Col lg="6">
             <FormGroup>
-              <label
-                className="form-control-label"
-                htmlFor="issues_invoice"
-              >
-                Emite nota fiscal{" "}<small className="text-red">(obrigatório)</small>
+              <label className="form-control-label" htmlFor="issues_invoice">
+                Emite nota fiscal{" "}
+                <small className="text-red">(obrigatório)</small>
               </label>
               <Input
                 className="form-control-alternative"
@@ -251,19 +240,19 @@ const Reisdent = ({ inputResident, setInputReisdent }) => {
                 onChange={handleChangeInput}
                 required
               >
-                  <option value="" hidden>Escolha uma opção</option>
-                  <option value={true}>Sim</option>
-                  <option value={false}>Não</option>
-                </Input>
+                <option value="" hidden>
+                  Escolha uma opção
+                </option>
+                <option value={true}>Sim</option>
+                <option value={false}>Não</option>
+              </Input>
             </FormGroup>
           </Col>
           <Col lg="6">
             <FormGroup>
-              <label
-                className="form-control-label"
-                htmlFor="ex_beneficiary"
-              >
-                Ex-beneficiário{" "}<small className="text-red">(obrigatório)</small>
+              <label className="form-control-label" htmlFor="ex_beneficiary">
+                Ex-beneficiário{" "}
+                <small className="text-red">(obrigatório)</small>
               </label>
               <Input
                 className="form-control-alternative"
@@ -276,19 +265,18 @@ const Reisdent = ({ inputResident, setInputReisdent }) => {
                 onChange={handleChangeInput}
                 required
               >
-                  <option value="" hidden>Escolha uma opção</option>
-                  <option value={true}>Sim</option>
-                  <option value={false}>Não</option>
-                </Input>
+                <option value="" hidden>
+                  Escolha uma opção
+                </option>
+                <option value={true}>Sim</option>
+                <option value={false}>Não</option>
+              </Input>
             </FormGroup>
           </Col>
           <Col lg="6">
             <FormGroup>
-              <label
-                className="form-control-label"
-                htmlFor="activity"
-              >
-                Atividade{" "}<small className="text-red">(obrigatório)</small>
+              <label className="form-control-label" htmlFor="activity">
+                Atividade <small className="text-red">(obrigatório)</small>
               </label>
               <Input
                 className="form-control-alternative"
@@ -311,7 +299,8 @@ const Reisdent = ({ inputResident, setInputReisdent }) => {
                 className="form-control-label"
                 htmlFor="demotivating_activity"
               >
-                Atividade desmotivador{" "}<small className="text-red">(obrigatório)</small>
+                Atividade desmotivador{" "}
+                <small className="text-red">(obrigatório)</small>
               </label>
               <Input
                 className="form-control-alternative"
@@ -330,11 +319,8 @@ const Reisdent = ({ inputResident, setInputReisdent }) => {
           </Col>
           <Col lg="6">
             <FormGroup>
-              <label
-                className="form-control-label"
-                htmlFor="retired"
-              >
-                Aposentado{" "}<small className="text-red">(obrigatório)</small>
+              <label className="form-control-label" htmlFor="retired">
+                Aposentado <small className="text-red">(obrigatório)</small>
               </label>
               <Input
                 className="form-control-alternative"
@@ -346,19 +332,19 @@ const Reisdent = ({ inputResident, setInputReisdent }) => {
                 onChange={handleChangeInput}
                 required
               >
-                  <option value="" hidden>Escolha uma opção</option>
-                  <option value={true}>Sim</option>
-                  <option value={false}>Não</option>
-                </Input>
+                <option value="" hidden>
+                  Escolha uma opção
+                </option>
+                <option value={true}>Sim</option>
+                <option value={false}>Não</option>
+              </Input>
             </FormGroup>
           </Col>
           <Col lg="6">
             <FormGroup>
-              <label
-                className="form-control-label"
-                htmlFor="work_outside"
-              >
-                Trabalho remunerado fora do lote{" "}<small className="text-red">(obrigatório)</small>
+              <label className="form-control-label" htmlFor="work_outside">
+                Trabalho remunerado fora do lote{" "}
+                <small className="text-red">(obrigatório)</small>
               </label>
               <Input
                 className="form-control-alternative"
@@ -370,10 +356,12 @@ const Reisdent = ({ inputResident, setInputReisdent }) => {
                 onChange={handleChangeInput}
                 required
               >
-                  <option value="" hidden>Escolha uma opção</option>
-                  <option value={true}>Sim</option>
-                  <option value={false}>Não</option>
-                </Input>
+                <option value="" hidden>
+                  Escolha uma opção
+                </option>
+                <option value={true}>Sim</option>
+                <option value={false}>Não</option>
+              </Input>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -400,11 +388,8 @@ const Reisdent = ({ inputResident, setInputReisdent }) => {
           </Col>
           <Col lg="6">
             <FormGroup>
-              <label
-                className="form-control-label"
-                htmlFor="deficiency"
-              >
-                Deficiência{" "}<small className="text-red">(obrigatório)</small>
+              <label className="form-control-label" htmlFor="deficiency">
+                Deficiência <small className="text-red">(obrigatório)</small>
               </label>
               <Input
                 className="form-control-alternative"
@@ -416,18 +401,17 @@ const Reisdent = ({ inputResident, setInputReisdent }) => {
                 onChange={handleChangeInput}
                 required
               >
-                  <option value="" hidden>Escolha uma opção</option>
-                  <option value={true}>Sim</option>
-                  <option value={false}>Não</option>
-                </Input>
+                <option value="" hidden>
+                  Escolha uma opção
+                </option>
+                <option value={true}>Sim</option>
+                <option value={false}>Não</option>
+              </Input>
             </FormGroup>
           </Col>
           <Col lg="6">
             <FormGroup>
-              <label
-                className="form-control-label"
-                htmlFor="last_diceases"
-              >
+              <label className="form-control-label" htmlFor="last_diceases">
                 Doenças nos últimos dois anos
               </label>
               <Input
@@ -447,10 +431,7 @@ const Reisdent = ({ inputResident, setInputReisdent }) => {
           </Col>
           <Col lg="6">
             <FormGroup>
-              <label
-                className="form-control-label"
-                htmlFor="type_treatment"
-              >
+              <label className="form-control-label" htmlFor="type_treatment">
                 Tipo de tratamento
               </label>
               <Input
@@ -468,10 +449,7 @@ const Reisdent = ({ inputResident, setInputReisdent }) => {
           </Col>
           <Col lg="6">
             <FormGroup>
-              <label
-                className="form-control-label"
-                htmlFor="access_treatment"
-              >
+              <label className="form-control-label" htmlFor="access_treatment">
                 Forma de acesso ao tratamento
               </label>
               <Input

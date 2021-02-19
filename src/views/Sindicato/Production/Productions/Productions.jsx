@@ -17,7 +17,7 @@ import Header from "components/Headers/Header";
 
 import {
   getProductions,
-} from "../../../../redux/actions/Membros";
+} from "../../../../redux/actions/Productions";
 
 import { Tr } from "./styles";
 import { CardHeaderStyled } from "views/Contratos/styles";
@@ -29,7 +29,7 @@ import Paginations from "components/Paginations/Paginations";
 const Productions = () => {
   const dispatch = useDispatch();
   const productions = useSelector(
-    (state) => state.MembersReducer.productions
+    (state) => state.ProductionsReducer.productions
   );
   
   useEffect(() => {

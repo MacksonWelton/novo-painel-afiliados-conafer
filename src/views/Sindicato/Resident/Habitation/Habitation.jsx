@@ -7,9 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   Card,
   CardFooter,
-  Pagination,
-  PaginationItem,
-  PaginationLink,
   Table,
   Container,
   Row,
@@ -18,17 +15,18 @@ import {
 
 import Header from "components/Headers/Header";
 
-import { getHabitations } from "../../../../redux/actions/Membros";
+import { getHabitations } from "../../../../redux/actions/Residents";
 
 import { Tr } from "./styles";
 import { CardHeaderStyled } from "views/Contratos/styles";
 import ModalMembro from "components/ModalMembro/ModalMembro";
 import StatsCard from "components/StatsCard/StatsCard";
 import SubAffiliateRegistrationModel from "components/SubAffiliateRegistrationModel/SubAffiliateRegistrationModel";
+import Paginations from "components/Paginations/Paginations";
 
 const Habitation = () => {
   const dispatch = useDispatch();
-  const habitations = useSelector((state) => state.MembersReducer.habitations);
+  const habitations = useSelector((state) => state.ResidentsReducer.habitations);
 
   useEffect(() => {
     dispatch(getHabitations());
@@ -45,7 +43,11 @@ const Habitation = () => {
     {
       title: "Moradias",
       progress: habitations.count,
-      comparison: 5,
+      comparison: habitations.results.filter(
+        (item) =>
+          moment(item.created_at).format("MM/YYYY") ===
+          moment().format("MM/YYYY")
+      ).length,
       comparisonDate: "Registrados neste mês",
       icon: "fas fa-home text-white",
       color: "bg-orange",
@@ -100,56 +102,10 @@ const Habitation = () => {
                 </tbody>
               </Table>
               <CardFooter className="py-4 bg-transparent border-0">
-                <nav aria-label="...">
-                  <Pagination
-                    className="pagination justify-content-end mb-0"
-                    listClassName="justify-content-end mb-0"
-                  >
-                    <PaginationItem className="disabled">
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                        tabIndex="-1"
-                      >
-                        <i className="fas fa-angle-left" />
-                        <span className="sr-only">Previous</span>
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem className="active">
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        1
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        2 <span className="sr-only">(current)</span>
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        3
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        <i className="fas fa-angle-right" />
-                        <span className="sr-only">Next</span>
-                      </PaginationLink>
-                    </PaginationItem>
-                  </Pagination>
-                </nav>
+              <Paginations
+                  count={habitations.count}
+                  funcRequistion={getHabitations}
+                />
               </CardFooter>
             </Card>
           </div>

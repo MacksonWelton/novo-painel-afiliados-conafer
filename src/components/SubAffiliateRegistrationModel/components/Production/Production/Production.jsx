@@ -2,7 +2,7 @@ import { DeleteForeverOutlined } from "@material-ui/icons";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Input, FormGroup, Row, Table, Col } from "reactstrap";
-import { getProductionName, getTypeProduction } from "redux/actions/Membros";
+import { getProductionName, getTypeProduction } from "redux/actions/Productions";
 
 const Production = ({
   usersAffiliation,
@@ -17,11 +17,11 @@ const Production = ({
   }, [dispatch]);
 
   const typeProduction = useSelector(
-    (state) => state.MembersReducer.typeProduction
+    (state) => state.ProductionsReducer.typeProduction
   );
 
   const productionName = useSelector(
-    (state) => state.MembersReducer.productionName
+    (state) => state.ProductionsReducer.productionName
   );
 
   const [inputProduction, setInputProduction] = useState({

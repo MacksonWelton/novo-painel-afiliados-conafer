@@ -1,17 +1,19 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Input, FormGroup, Col, Row } from "reactstrap";
-import { getAllotments } from "redux/actions/Membros";
+import { getAllAllotments } from "redux/actions/Allotments";
 import { formatReal } from "utils/converterToMoney";
 
 const DiagnosisAgriculturalSystems = ({
   inputDiagnosisOfAgriculturalSystems,
   setInputDiagnosisOfAgriculturalSystems,
 }) => {
-  const allotments = useSelector((state) => state.MembersReducer.allotments);
+  const dispatch = useDispatch();
+
+  const allAllotments = useSelector((state) => state.AllotmentsReducer.allAllotments);
 
   useEffect(() => {
-    getAllotments();
+    dispatch(getAllAllotments());
   }, [])
 
   const handleChangeInput = (event) => {
@@ -49,7 +51,7 @@ const DiagnosisAgriculturalSystems = ({
                 <option value="" hidden>
                   Escolha uma opção
                 </option>
-                {allotments.map((allotment, i) => (
+                {allAllotments.map((allotment, i) => (
                   <option key={i} value={allotment.id}>
                     {allotment.property_name}
                   </option>

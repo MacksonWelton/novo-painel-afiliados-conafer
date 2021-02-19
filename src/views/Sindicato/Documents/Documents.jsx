@@ -15,7 +15,7 @@ import {
 
 import Header from "components/Headers/Header";
 
-import { getDocuments } from "../../../redux/actions/Membros";
+import { getDocuments } from "../../../redux/actions/Documents";
 
 import { Tr } from "./styles";
 import { CardHeaderStyled } from "views/Contratos/styles";
@@ -26,7 +26,7 @@ import Paginations from "components/Paginations/Paginations";
 
 const Documents = () => {
   const dispatch = useDispatch();
-  const documents = useSelector((state) => state.MembersReducer.documents);
+  const documents = useSelector((state) => state.DocumentsReducer.documents);
 
   useEffect(() => {
     dispatch(getDocuments());
@@ -41,7 +41,7 @@ const Documents = () => {
   const cardData = [
     {
       title: "Documentos",
-      progress: documents.length,
+      progress: documents.count,
       comparison: documents.results.filter(item => (
         moment(item.created_at).format("MM/YYYY") === moment().format("MM/YYYY")
       )).length,

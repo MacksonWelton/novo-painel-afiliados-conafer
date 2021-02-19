@@ -34,15 +34,16 @@ import MapaAfiliados from "../components/MapaAfiliados/MapaAfiliados";
 import { useSelector, useDispatch } from "react-redux";
 import { getUsersAffiliation } from "../redux/actions/UsuariosAfiliacao";
 import {
-  getAllotments,
-  getDiagnosisAgriculturalSystems,
-  getDocuments,
-  getImprovements,
   getMembers,
-  getProductions,
-  getTechnicalVisits,
-  getTransports,
 } from "../redux/actions/Membros";
+
+import {getAllotments} from "../redux/actions/Allotments";
+import {getProductions} from "../redux/actions/Productions";
+import {getDiagnosisAgriculturalSystems} from "../redux/actions/DiagnosisAgriculturalSystems";
+import {getTransports} from "../redux/actions/Transports";
+import {getImprovements} from "../redux/actions/Improvements";
+import {getTechnicalVisits} from "../redux/actions/TechnicalVisits";
+import {getDocuments} from "../redux/actions/Documents";
 
 const Index = () => {
   const dispatch = useDispatch();
@@ -61,22 +62,22 @@ const Index = () => {
   );
 
   const members = useSelector((state) => state.MembersReducer.members);
-  const allotments = useSelector((state) => state.MembersReducer.allotments);
+  const allotments = useSelector((state) => state.AllotmentsReducer.allotments);
   const diagnosisAgriculturalSystems = useSelector(
-    (state) => state.MembersReducer.diagnosisAgriculturalSystems
+    (state) => state.DiagnosisAgriculturalSystemsReducer.diagnosisAgriculturalSystems
   );
-  const productions = useSelector((state) => state.MembersReducer.productions);
+  const productions = useSelector((state) => state.ProductionsReducer.productions);
   const improvements = useSelector(
-    (state) => state.MembersReducer.improvements
+    (state) => state.ImprovementsReducer.improvements
   );
   const transports = useSelector(
-    (state) => state.MembersReducer.transports
+    (state) => state.TransportsReducer.transports
   );
   const technicalVisits = useSelector(
-    (state) => state.MembersReducer.technicalVisits
+    (state) => state.TechnicalVisitsReducer.technicalVisits
   );
   const documents = useSelector(
-    (state) => state.MembersReducer.documents
+    (state) => state.DocumentsReducer.documents
   );
 
   if (!data.datasets[0].data.length && members.count) {
@@ -117,10 +118,6 @@ const Index = () => {
   }, [
     dispatch
   ]);
-
-  console.log(members.results.filter(item => (
-    moment(item.created_at).format("MM/YYYY") === moment().format("MM/YYYY")
-  )).length)
 
   const [activeNav, setActiveNav] = useState(1);
   const [chartExample1Data, setChartExample1Data] = useState("data1");

@@ -11,7 +11,7 @@ import routes from "routes";
 import Logo from "../assets/img/brand/sistemalogo.png";
 import Alertas from "components/Alertas/Alertas";
 import { connect } from "react-redux";
-import { setAlert } from "redux/actions/Alertas";
+import { setAlert } from "redux/actions/Alerts";
 
 class Admin extends React.Component {
   constructor(props) {

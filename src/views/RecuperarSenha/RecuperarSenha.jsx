@@ -38,11 +38,12 @@ const RecuperarSenha = () => {
         <Card className="bg-secondary shadow border-0">
           <CardHeader className="bg-transparent pb-5">
             <div className="text-muted text-center mt-3 mb--3">
-              <p>Digite seu e-mail abaixo</p>
+              <p>Entre em contato por meio do e-mail abaixo</p>
             </div>
           </CardHeader>
-          <CardBody className="px-lg-5 py-lg-5">
-            <Form role="form" onSubmit={submitForm}>
+          <CardBody className="px-lg-5 py-lg-5 text-center">
+            contato@conafer.org.br
+            {/* <Form role="form" onSubmit={submitForm}>
               <FormGroup className="mb-3">
                 <InputGroup className="input-group-alternative">
                   <InputGroupAddon addonType="prepend">
@@ -65,7 +66,7 @@ const RecuperarSenha = () => {
                   </Button>
                 </Link>
               </div>
-            </Form>
+            </Form> */}
           </CardBody>
         </Card>
         <Row className="mt-3">

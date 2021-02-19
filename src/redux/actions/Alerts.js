@@ -14,3 +14,10 @@ export const setVisibleAlert = (show) => {
     show
   }
 })}
+
+export const setSubmitMessage = (submitMessage) => ({
+  type: "SET_SUBMIT_MESSAGE",
+  payload: {
+    submitMessage,
+  },
+});

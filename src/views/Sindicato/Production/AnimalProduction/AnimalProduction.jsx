@@ -8,7 +8,7 @@ import { Card, CardFooter, Table, Container, Row, Button } from "reactstrap";
 
 import Header from "components/Headers/Header";
 
-import { getAnimalsProductions } from "../../../../redux/actions/Membros";
+import { getAnimalsProductions } from "../../../../redux/actions/Productions";
 
 import { Tr } from "./styles";
 import { CardHeaderStyled } from "views/Contratos/styles";
@@ -20,7 +20,7 @@ import Paginations from "components/Paginations/Paginations";
 const AnimalProduction = () => {
   const dispatch = useDispatch();
   const animalsProductions = useSelector(
-    (state) => state.MembersReducer.animalsProductions
+    (state) => state.ProductionsReducer.animalsProductions
   );
 
   useEffect(() => {
