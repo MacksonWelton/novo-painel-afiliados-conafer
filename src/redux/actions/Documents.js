@@ -145,7 +145,21 @@ export const getBithCertificates = (documentId) => async (dispatch) => {
 
     dispatch(setBithCertificates(response.data));
   } catch (err) {
-    console.log(err);
+    if (!err.response) {
+      dispatch(
+        setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
+      );
+    } else if (err.response.status === 401) {
+      if (err.response.data.detail) {
+        dispatch(setAlert(err.response.status, err.response.data.detail, true));
+      } else {
+        dispatch(setSubmitMessage(Object.values(err.response.data).join(" ")));
+      }
+    } else {
+      dispatch(
+        setAlert(err.response.status, err.response.data.error_description, true)
+      );
+    }
   }
 };
 
@@ -164,7 +178,21 @@ export const getCPFS= (documentId) => async (dispatch) => {
 
     dispatch(setCPFS(response.data));
   } catch (err) {
-    console.log(err);
+    if (!err.response) {
+      dispatch(
+        setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
+      );
+    } else if (err.response.status === 401) {
+      if (err.response.data.detail) {
+        dispatch(setAlert(err.response.status, err.response.data.detail, true));
+      } else {
+        dispatch(setSubmitMessage(Object.values(err.response.data).join(" ")));
+      }
+    } else {
+      dispatch(
+        setAlert(err.response.status, err.response.data.error_description, true)
+      );
+    }
   }
 };
 
@@ -183,7 +211,21 @@ export const getEconomicActivities = (documentId) => async (dispatch) => {
 
     dispatch(setEconomicActivities(response.data));
   } catch (err) {
-    console.log(err);
+    if (!err.response) {
+      dispatch(
+        setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
+      );
+    } else if (err.response.status === 401) {
+      if (err.response.data.detail) {
+        dispatch(setAlert(err.response.status, err.response.data.detail, true));
+      } else {
+        dispatch(setSubmitMessage(Object.values(err.response.data).join(" ")));
+      }
+    } else {
+      dispatch(
+        setAlert(err.response.status, err.response.data.error_description, true)
+      );
+    }
   }
 };
 
@@ -202,7 +244,21 @@ export const getImprovementsImage = (documentId) => async (dispatch) => {
 
     dispatch(setImprovementsImage(response.data));
   } catch (err) {
-    console.log(err);
+    if (!err.response) {
+      dispatch(
+        setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
+      );
+    } else if (err.response.status === 401) {
+      if (err.response.data.detail) {
+        dispatch(setAlert(err.response.status, err.response.data.detail, true));
+      } else {
+        dispatch(setSubmitMessage(Object.values(err.response.data).join(" ")));
+      }
+    } else {
+      dispatch(
+        setAlert(err.response.status, err.response.data.error_description, true)
+      );
+    }
   }
 };
 
