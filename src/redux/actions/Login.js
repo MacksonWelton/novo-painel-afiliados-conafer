@@ -1,5 +1,5 @@
 import api from "services/api";
-import { setAlert } from "./Alertas";
+import { setAlert } from "./Alerts";
 
 export const login = (data) => async (dispatch) => {
   const { email, password } = data;

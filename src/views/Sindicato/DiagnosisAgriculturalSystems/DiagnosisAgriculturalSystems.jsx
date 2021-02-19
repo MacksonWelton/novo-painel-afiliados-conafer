@@ -15,7 +15,7 @@ import {
 
 import Header from "components/Headers/Header";
 
-import { getDiagnosisAgriculturalSystems } from "../../../redux/actions/Membros";
+import { getDiagnosisAgriculturalSystems } from "../../../redux/actions/DiagnosisAgriculturalSystems";
 
 import { Tr } from "./styles";
 import { CardHeaderStyled } from "views/Contratos/styles";
@@ -27,7 +27,7 @@ import Paginations from "components/Paginations/Paginations";
 const DiagnosisAgriculturalSystems = () => {
   const dispatch = useDispatch();
   const diagnosisAgriculturalSystems = useSelector(
-    (state) => state.MembersReducer.diagnosisAgriculturalSystems
+    (state) => state.DiagnosisAgriculturalSystemsReducer.diagnosisAgriculturalSystems
   );
 
   useEffect(() => {

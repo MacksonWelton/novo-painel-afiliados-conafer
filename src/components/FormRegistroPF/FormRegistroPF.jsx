@@ -40,6 +40,7 @@ const FormRegistroPF = ({
   tableAgriculturalProduction,
   deleteAgriculturalProduction,
 }) => {
+
   const [invalidInput, setInvalidInput] = useState(false);
 
   const handleChangeInputZipCode = (res) => {

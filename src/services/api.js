@@ -1,5 +1,5 @@
 import axios from "axios";
-import { setAlert } from "redux/actions/Alertas";
+import { setAlert } from "redux/actions/Alerts";
 
 const api = axios.create({
   baseURL: "https://cra.conafer.org.br:7999/api/v1/"

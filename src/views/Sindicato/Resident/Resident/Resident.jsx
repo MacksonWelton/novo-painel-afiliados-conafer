@@ -8,7 +8,7 @@ import { Card, CardFooter, Table, Container, Row, Button } from "reactstrap";
 
 import Header from "components/Headers/Header";
 
-import { getResidents } from "../../../../redux/actions/Membros";
+import { getResidents } from "../../../../redux/actions/Residents";
 
 import { Tr } from "./styles";
 import { CardHeaderStyled } from "views/Contratos/styles";
@@ -19,7 +19,7 @@ import Paginations from "components/Paginations/Paginations";
 
 const Resident = () => {
   const dispatch = useDispatch();
-  const residents = useSelector((state) => state.MembersReducer.residents);
+  const residents = useSelector((state) => state.ResidentsReducer.residents);
 
   useEffect(() => {
     dispatch(getResidents());

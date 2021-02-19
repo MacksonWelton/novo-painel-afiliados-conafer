@@ -1,15 +1,18 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Col, FormGroup, Input, Row } from "reactstrap";
-import { getAllotments } from "redux/actions/Membros";
+import { getAllAllotments } from "redux/actions/Allotments";
 
 const TechnicalVisit = ({ inputTechnicalVisit, setInputTechnicalVisit }) => {
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    getAllotments();
+    dispatch(getAllAllotments());
   }, []);
 
-  const allotments = useSelector((state) => state.MembersReducer.allotments);
+  const allAllotments = useSelector(
+    (state) => state.AllotmentsReducer.allAllotments
+  );
 
   const handleChangeInput = (event) => {
     const { name, value } = event.target;
@@ -42,7 +45,7 @@ const TechnicalVisit = ({ inputTechnicalVisit, setInputTechnicalVisit }) => {
                 <option value="" hidden>
                   Escolha uma opção
                 </option>
-                {allotments.map((allotment, i) => (
+                {allAllotments.map((allotment, i) => (
                   <option key={i} value={allotment.id}>
                     {allotment.property_name}
                   </option>

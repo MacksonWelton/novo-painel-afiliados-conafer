@@ -8,7 +8,7 @@ import { Card, CardFooter, Table, Container, Row, Button } from "reactstrap";
 
 import Header from "components/Headers/Header";
 
-import { getVegetablesProductions } from "../../../../redux/actions/Membros";
+import { getVegetablesProductions } from "../../../../redux/actions/Productions";
 
 import { Tr } from "./styles";
 import { CardHeaderStyled } from "views/Contratos/styles";
@@ -20,7 +20,7 @@ import Paginations from "components/Paginations/Paginations";
 const VegetablesProduction = () => {
   const dispatch = useDispatch();
   const vegetablesProductions = useSelector(
-    (state) => state.MembersReducer.vegetablesProductions
+    (state) => state.ProductionsReducer.vegetablesProductions
   );
 
   useEffect(() => {

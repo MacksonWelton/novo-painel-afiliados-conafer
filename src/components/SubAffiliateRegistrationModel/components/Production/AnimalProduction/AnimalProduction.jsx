@@ -2,7 +2,8 @@ import { DeleteForeverOutlined } from "@material-ui/icons";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Input, FormGroup, Row, Table, Col } from "reactstrap";
-import { getProductionName, getAllotments } from "redux/actions/Membros";
+import { getProductionName } from "redux/actions/Productions";
+import { getAllAllotments } from "redux/actions/Allotments";
 import { formatReal } from "utils/converterToMoney";
 
 const AnimalProduction = ({
@@ -12,13 +13,13 @@ const AnimalProduction = ({
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getAllotments());
+    dispatch(getAllAllotments());
     dispatch(getProductionName("Animal"));
   }, [dispatch]);
 
-  const allotments = useSelector((state) => state.MembersReducer.allotments);
+  const allAllotments = useSelector((state) => state.AllotmentsReducer.allAllotments);
   const productionName = useSelector(
-    (state) => state.MembersReducer.productionName
+    (state) => state.ProductionsReducer.productionName
   );
 
   const [inputAnimal, setInputAnimal] = useState({
@@ -99,7 +100,7 @@ const AnimalProduction = ({
                 <option value="" hidden>
                   Escolha uma opção
                 </option>
-                {allotments.results.map((allotment, i) => (
+                {allAllotments.map((allotment, i) => (
                   <option key={i} value={allotment.id}>
                     {allotment.property_name}
                   </option>

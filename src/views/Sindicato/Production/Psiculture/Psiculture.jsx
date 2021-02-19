@@ -8,7 +8,7 @@ import { Card, CardFooter, Table, Container, Row, Button } from "reactstrap";
 
 import Header from "components/Headers/Header";
 
-import { getPsicultureProductions } from "../../../../redux/actions/Membros";
+import { getPsicultureProductions } from "../../../../redux/actions/Productions";
 
 import { Tr } from "./styles";
 import { CardHeaderStyled } from "views/Contratos/styles";
@@ -20,7 +20,7 @@ import Paginations from "components/Paginations/Paginations";
 const Psiculture = () => {
   const dispatch = useDispatch();
   const psicultureProductions = useSelector(
-    (state) => state.MembersReducer.psicultureProductions
+    (state) => state.ProductionsReducer.psicultureProductions
   );
 
   useEffect(() => {

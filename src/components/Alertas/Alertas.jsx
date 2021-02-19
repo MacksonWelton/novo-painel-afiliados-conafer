@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AlertSyled } from "./Styles";
-import { setVisibleAlert } from "redux/actions/Alertas";
+import { setVisibleAlert } from "redux/actions/Alerts";
 import { useHistory } from "react-router-dom";
 import { setAuthentication } from "../../redux/actions/Login";
-import { setAlert } from "redux/actions/Alertas";
+import { setAlert } from "redux/actions/Alerts";
 
 const Alertas = ({ alerts }) => {
   const dispatch = useDispatch();

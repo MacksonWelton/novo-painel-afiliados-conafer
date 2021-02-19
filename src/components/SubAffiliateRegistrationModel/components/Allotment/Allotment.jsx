@@ -2,7 +2,8 @@ import GoogleMaps from "components/GoogleMaps/GoogleMaps";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FormGroup, Col, Input, Row } from "reactstrap";
-import { getBiomes } from "redux/actions/Membros";
+import { getBiomes } from "redux/actions/Allotments";
+import { getAllMembers } from "redux/actions/Membros";
 
 const Allotment = ({
   inputAllotment,
@@ -13,11 +14,12 @@ const Allotment = ({
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(getAllMembers());
     dispatch(getBiomes());
   }, [dispatch]);
 
-  const members = useSelector((state) => state.MembersReducer.members);
-  const biomes = useSelector((state) => state.MembersReducer.biomes);
+  const allMembers = useSelector((state) => state.MembersReducer.allMembers);
+  const biomes = useSelector((state) => state.AllotmentsReducer.biomes);
   const lat = useSelector((state) => state.GoogleMapsReducer.lat);
   const lng = useSelector((state) => state.GoogleMapsReducer.lng);
 
@@ -77,7 +79,7 @@ const Allotment = ({
                 <option value="" hidden>
                   Escolha uma opção
                 </option>
-                {members.map((member, i) => (
+                {allMembers.map((member, i) => (
                   <option key={i} value={member.id}>
                     {member.name}
                   </option>

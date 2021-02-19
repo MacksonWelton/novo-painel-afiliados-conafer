@@ -3,16 +3,8 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
-  Badge,
   Card,
   CardFooter,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
-  DropdownToggle,
-  Pagination,
-  PaginationItem,
-  PaginationLink,
   Table,
   Container,
   Row,
@@ -22,7 +14,6 @@ import {
   ModalBody,
   ModalFooter,
   Col,
-  Input,
   Form,
 } from "reactstrap";
 
@@ -32,13 +23,11 @@ import {
   getUsersAffiliation,
   getUserAffiliation,
   newUserAffiliation,
-  updateAffiliatesActivation,
 } from "../../../redux/actions/UsuariosAfiliacao";
 
-import { InputStyled, Tr } from "./styles";
+import { Tr } from "./styles";
 import ProgressCard from "../../../components/ProgressCard/ProgressCard";
 import { CardHeaderStyled } from "../../../views/Contratos/styles";
-import BotoesDeAcao from "../../../components/BotoesDeAcao/BotoesDeAcao";
 import FormUsuarioAfiliacao from "../../../components/FormUsuarioAfiliacao/FormUsuarioAfiliacao";
 import AnimacaoCarregamento from "../../../components/AnimacaoCarregamento/AnimacaoCarregamento";
 import Paginations from "components/Paginations/Paginations";
@@ -106,14 +95,6 @@ const UsuariosAfiliacao = () => {
         ...files,
         [name]: { ...files[name], fileName: "", value: "" },
       });
-    }
-  };
-
-  const getBadge = (is_active) => {
-    if (is_active) {
-      return "bg-primary";
-    } else {
-      return "bg-red";
     }
   };
 

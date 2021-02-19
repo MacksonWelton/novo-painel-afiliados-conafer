@@ -8,7 +8,7 @@ import { Card, CardFooter, Table, Container, Row, Button } from "reactstrap";
 
 import Header from "components/Headers/Header";
 
-import { getTechnicalVisits } from "../../../redux/actions/Membros";
+import { getTechnicalVisits } from "../../../redux/actions/TechnicalVisits";
 
 import { Tr } from "./styles";
 import { CardHeaderStyled } from "views/Contratos/styles";
@@ -20,7 +20,7 @@ import Paginations from "components/Paginations/Paginations";
 const TechnicalVisit = () => {
   const dispatch = useDispatch();
   const technicalVisits = useSelector(
-    (state) => state.MembersReducer.technicalVisits
+    (state) => state.TechnicalVisitsReducer.technicalVisits
   );
 
   useEffect(() => {

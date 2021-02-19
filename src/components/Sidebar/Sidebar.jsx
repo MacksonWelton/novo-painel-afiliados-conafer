@@ -131,7 +131,7 @@ class Sidebar extends React.Component {
             <NavLink
               href="#pablo"
               data-toggle="collapse"
-              aria-expanded={this.state[prop.state]}
+              aria-expanded={this.state[prop.state] && this.state.key === key}
               className={classnames({
                 active: this.getCollapseInitialState(prop.views),
               })}

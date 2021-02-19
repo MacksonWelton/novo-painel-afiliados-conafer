@@ -1,6 +1,6 @@
 import api from "services/api";
 import converterDataToFormData from "utils/converterDataToFormData";
-import { setAlert } from "./Alertas";
+import { setAlert } from "./Alerts";
 
 export const getProfile = () => async (dispatch) => {
   try {

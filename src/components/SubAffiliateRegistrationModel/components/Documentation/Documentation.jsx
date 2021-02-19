@@ -17,7 +17,7 @@ const Documentation = ({
 
   useEffect(() => {
     dispatch(getMembers());
-  }, [])
+  }, [dispatch])
 
   const members = useSelector(state => state.MembersReducer.members);
 
@@ -140,7 +140,7 @@ const Documentation = ({
                 <option value="" hidden>
                   Escolha uma opção
                 </option>
-                {members.map((member, i) => (
+                {members.results.map((member, i) => (
                   <option key={i} value={member.id}>
                     {member.name}
                   </option>
@@ -168,7 +168,7 @@ const Documentation = ({
                     {inputDocumentationFile.front_domain_title.fileName
                       ? inputDocumentationFile.front_domain_title.fileName.substring(
                           0,
-                          40
+                          30
                         )
                       : "Escolher Arquivo"}
                     <Input
@@ -194,7 +194,7 @@ const Documentation = ({
                     {inputDocumentationFile.back_domain_title.fileName
                       ? inputDocumentationFile.back_domain_title.fileName.substring(
                           0,
-                          40
+                          30
                         )
                       : "Escolher Arquivo"}
                     <Input
@@ -230,7 +230,7 @@ const Documentation = ({
                     {inputDocumentationFile.front_nesting_card.fileName
                       ? inputDocumentationFile.front_nesting_card.fileName.substring(
                           0,
-                          40
+                          30
                         )
                       : "Escolher Arquivo"}
                     <Input
@@ -256,7 +256,7 @@ const Documentation = ({
                     {inputDocumentationFile.back_nesting_card.fileName
                       ? inputDocumentationFile.back_nesting_card.fileName.substring(
                           0,
-                          40
+                          30
                         )
                       : "Escolher Arquivo"}
                     <Input
@@ -292,7 +292,7 @@ const Documentation = ({
                     {inputDocumentationFile.georeferencing.fileName
                       ? inputDocumentationFile.georeferencing.fileName.substring(
                           0,
-                          40
+                          30
                         )
                       : "Escolher Arquivo"}
                     <Input
@@ -321,14 +321,14 @@ const Documentation = ({
                   className="form-control-label ml-2"
                   htmlFor="front_beneficiary_rg"
                 >
-                  RG do beneficiário frente
+                  RG do beneficiário frente{" "}<small className="text-red">(obrigatório)</small>
                 </label>
                 <FormGroup>
                   <label className="btn bg-light ml-1 mb-0">
                     {inputDocumentationFile.front_beneficiary_rg.fileName
                       ? inputDocumentationFile.front_beneficiary_rg.fileName.substring(
                           0,
-                          40
+                          30
                         )
                       : "Escolher Arquivo"}
                     <Input
@@ -348,14 +348,14 @@ const Documentation = ({
                   className="form-control-label ml-2"
                   htmlFor="back_beneficiary_rg"
                 >
-                  RG do beneficiário verso
+                  RG do beneficiário verso{" "}<small className="text-red">(obrigatório)</small>
                 </label>
                 <FormGroup>
                   <label className="btn bg-light ml-1 mb-0">
                     {inputDocumentationFile.back_beneficiary_rg.fileName
                       ? inputDocumentationFile.back_beneficiary_rg.fileName.substring(
                           0,
-                          40
+                          30
                         )
                       : "Escolher Arquivo"}
                     <Input
@@ -392,7 +392,7 @@ const Documentation = ({
                     {inputDocumentationFile.front_companion_rg.fileName
                       ? inputDocumentationFile.front_companion_rg.fileName.substring(
                           0,
-                          40
+                          30
                         )
                       : "Escolher Arquivo"}
                     <Input
@@ -402,7 +402,6 @@ const Documentation = ({
                       id="front_companion_rg"
                       title="RG do companheiro frente"
                       onChange={handleChangeInputFile}
-                      required
                     />
                   </label>
                 </FormGroup>
@@ -419,7 +418,7 @@ const Documentation = ({
                     {inputDocumentationFile.back_companion_rg.fileName
                       ? inputDocumentationFile.back_companion_rg.fileName.substring(
                           0,
-                          40
+                          30
                         )
                       : "Escolher Arquivo"}
                     <Input
@@ -429,7 +428,6 @@ const Documentation = ({
                       id="back_companion_rg"
                       title="RG do companheiro verso"
                       onChange={handleChangeInputFile}
-                      required
                     />
                   </label>
                 </FormGroup>
@@ -454,7 +452,10 @@ const Documentation = ({
             <FormGroup>
               <label className="btn bg-light ml-1 mb-0">
                 {files.birth_certificates.fileName
-                  ? files.birth_certificates.fileName
+                  ? files.birth_certificates.fileName.substring(
+                    0,
+                    30
+                  )
                   : "Escolher Arquivo"}
                 <Input
                   className="d-none"
@@ -463,7 +464,6 @@ const Documentation = ({
                   id="birth_certificates"
                   title="Certidão de Nascimento"
                   onChange={handleChangeInputOtherFiles}
-                  required
                 />
               </label>
             </FormGroup>
@@ -513,7 +513,7 @@ const Documentation = ({
       <Col lg="12" className="border p-4 mb-3 shadow rounded">
         <Row>
           <div className="col-12">
-            <h2 className="text-center mb-4">CPF_files's</h2>
+            <h2 className="text-center mb-4">CPF's</h2>
             <hr />
           </div>
           <Col lg="6">
@@ -521,7 +521,7 @@ const Documentation = ({
               className="form-control-label ml-2"
               htmlFor="cpf_files"
             >
-              CPF_files's
+              CPF's
             </label>
             <FormGroup>
               <label className="btn bg-light ml-1 mb-0">
@@ -533,9 +533,8 @@ const Documentation = ({
                   type="file"
                   name="cpf_files"
                   id="cpf_files"
-                  title="CPF_files's"
+                  title="CPF's"
                   onChange={handleChangeInputOtherFiles}
-                  required
                 />
               </label>
             </FormGroup>
@@ -601,9 +600,8 @@ const Documentation = ({
                   type="file"
                   name="economic_activities"
                   id="economic_activities"
-                  title="CPF_files's"
+                  title="Atividades economicas"
                   onChange={handleChangeInputOtherFiles}
-                  required
                 />
               </label>
             </FormGroup>
@@ -675,7 +673,6 @@ const Documentation = ({
                   id="improvements_image"
                   title="Imagens de benfeitorias"
                   onChange={handleChangeInputOtherFiles}
-                  required
                 />
               </label>
             </FormGroup>

@@ -7,6 +7,14 @@ import ProposalsReducer from "./reducers/Propostas";
 import ProfileReducer from "./reducers/Perfil";
 import PaymentsReducer from "./reducers/Mensalidades";
 import MembersReducer from "./reducers/Membros";
+import ResidentsReducer from "./reducers/Residents";
+import AllotmentsReducer from "./reducers/Allotments";
+import DiagnosisAgriculturalSystemsReducer from "./reducers/DiagnosisAgriculturalSystems";
+import ImprovementsReducer from "./reducers/Improvements";
+import TransportsReducer from "./reducers/Transports";
+import TechnicalVisitsReducer from "./reducers/TechnicalVisits";
+import ProductionsReducer from "./reducers/Productions";
+import DocumentsReducer from "./reducers/Documents";
 import RegistroReducer from "./reducers/Registro";
 import GoogleMapsReducer from "./reducers/GoogleMaps";
 import LoginReducer from "./reducers/Login";
@@ -21,6 +29,14 @@ const Reducers = combineReducers({
   ProfileReducer,
   PaymentsReducer,
   MembersReducer,
+  AllotmentsReducer,
+  ResidentsReducer,
+  ImprovementsReducer,
+  DiagnosisAgriculturalSystemsReducer,
+  ProductionsReducer,
+  TransportsReducer,
+  TechnicalVisitsReducer,
+  DocumentsReducer,
   RegistroReducer,
   GoogleMapsReducer,
   LoginReducer,

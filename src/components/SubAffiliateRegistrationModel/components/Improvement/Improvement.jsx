@@ -1,10 +1,12 @@
 import { DeleteForeverOutlined } from "@material-ui/icons";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Button, Col, FormGroup, Input, Row, Table } from "reactstrap";
-import { getAllotments } from "redux/actions/Membros";
+import { getAllAllotments } from "redux/actions/Allotments";
 
 const Improvement = ({ inputImprovements, setInputImprovements }) => {
+  const dispatch = useDispatch();
+
   const [inputImprovement, setInputImprovement] = useState({
     improvement: "",
     type_improvement: "",
@@ -13,10 +15,10 @@ const Improvement = ({ inputImprovements, setInputImprovements }) => {
   });
 
   useEffect(() => {
-    getAllotments();
+    dispatch(getAllAllotments());
   }, []);
 
-  const allotments = useSelector((state) => state.MembersReducer.allotments);
+  const allAllotments = useSelector((state) => state.AllotmentsReducer.allAllotments);
 
   const handleChangeInput = (event) => {
     const { name, value } = event.target;
@@ -66,7 +68,7 @@ const Improvement = ({ inputImprovements, setInputImprovements }) => {
                 <option value="" hidden>
                   Escolha uma opção
                 </option>
-                {allotments.map((allotment, i) => (
+                {allAllotments.map((allotment, i) => (
                   <option key={i} value={allotment.id}>
                     {allotment.property_name}
                   </option>

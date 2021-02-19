@@ -7,9 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   Card,
   CardFooter,
-  Pagination,
-  PaginationItem,
-  PaginationLink,
   Table,
   Container,
   Row,
@@ -18,7 +15,7 @@ import {
 
 import Header from "components/Headers/Header";
 
-import { getHabitations } from "../../../../redux/actions/Membros";
+import { getHabitations } from "../../../../redux/actions/Residents";
 
 import { Tr } from "./styles";
 import { CardHeaderStyled } from "views/Contratos/styles";
@@ -29,7 +26,7 @@ import Paginations from "components/Paginations/Paginations";
 
 const Habitation = () => {
   const dispatch = useDispatch();
-  const habitations = useSelector((state) => state.MembersReducer.habitations);
+  const habitations = useSelector((state) => state.ResidentsReducer.habitations);
 
   useEffect(() => {
     dispatch(getHabitations());
