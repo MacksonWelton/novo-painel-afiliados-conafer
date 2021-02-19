@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Col, FormGroup, Input, Row } from "reactstrap";
 import { getAllAllotments } from "redux/actions/Allotments";
 
-const Reisdent = ({ inputResident, setInputReisdent }) => {
+const Reisdent = ({ inputResident, setInputResident }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -14,7 +14,7 @@ const Reisdent = ({ inputResident, setInputReisdent }) => {
 
   const handleChangeInput = (event) => {
     const { name, value } = event.target;
-    setInputReisdent({ ...inputResident, [name]: value });
+    setInputResident({ ...inputResident, [name]: value });
   };
 
   return (

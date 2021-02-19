@@ -17,7 +17,7 @@ import { newImprovements } from "../../redux/actions/Improvements";
 import { newPsicultureProduction } from "redux/actions/Productions";
 import { newAnimalProduction } from "../../redux/actions/Productions";
 import { newVegetableProduction } from "../../redux/actions/Productions";
-import { newResident } from "../../redux/actions/Residents";
+import { newHabitation, newResident } from "../../redux/actions/Residents";
 import { newDocumentation } from "../../redux/actions/Documents";
 import { getUsersAffiliation } from "../../redux/actions/UsuariosAfiliacao";
 import { newTransport } from "redux/actions/Transports";
@@ -323,6 +323,8 @@ const SubAffiliateRegistrationModel = ({ setOpen, open }) => {
       dispatch(newResident(inputResident));
     } else if (open.allotment) {
       dispatch(newAllotment(inputAllotment, fileAllotment));
+    } else if (open.habitation) {
+      dispatch(newHabitation(inputHabitation));
     } else if (open.diagnosisAgriculturalSystems) {
       dispatch(
         newDiagnosisAgriculturalSystems(inputDiagnosisOfAgriculturalSystems)

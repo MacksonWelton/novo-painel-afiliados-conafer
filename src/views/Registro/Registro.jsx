@@ -56,7 +56,7 @@ const Registro = () => {
         <Card className="bg-secondary shadow border-0">
           <CardHeader className="bg-transparent pb-5">
           <div className="text-muted text-center mt-3 mb--3">
-              <p>Crie uma conta com os dados requeridos</p>
+              <b>Crie uma conta com os dados requeridos</b>
             </div>
           </CardHeader>
           <CardBody className="px-lg-5 py-lg-5">
