@@ -5,6 +5,7 @@ const initialState = {
   habitations: {
     results: [],
   },
+  allHabitations: [],
 };
 
 const ResidentsReducer = (state = initialState, action) => {
@@ -13,6 +14,8 @@ const ResidentsReducer = (state = initialState, action) => {
       return { ...state, residents: action.payload.residents };
     case "SET_HABITATIONS":
       return { ...state, habitations: action.payload.habitations };
+    case "SET_ALL_HABITATIONS":
+      return { ...state, allHabitations: action.payload.allHabitations };
     default:
       return state;
   }

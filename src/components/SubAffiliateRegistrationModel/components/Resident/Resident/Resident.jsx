@@ -1,16 +1,18 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Col, FormGroup, Input, Row } from "reactstrap";
-import { getAllAllotments } from "redux/actions/Allotments";
+import { getAllHabitations } from "redux/actions/Residents";
 
 const Reisdent = ({ inputResident, setInputResident }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getAllAllotments());
+    dispatch(getAllHabitations());
   }, [dispatch]);
 
-  const allAllotments = useSelector((state) => state.AllotmentsReducer.allAllotments);
+  const allHabitations = useSelector(
+    (state) => state.ResidentsReducer.allHabitations
+  );
 
   const handleChangeInput = (event) => {
     const { name, value } = event.target;
@@ -27,15 +29,15 @@ const Reisdent = ({ inputResident, setInputResident }) => {
           </Col>
           <Col lg="6">
             <FormGroup>
-              <label className="form-control-label" htmlFor="allotment">
-                Lote <small className="text-red">(obrigatório)</small>
+              <label className="form-control-label" htmlFor="habitation">
+                Moradia <small className="text-red">(obrigatório)</small>
               </label>
               <Input
                 className="form-control-alternative"
                 type="select"
-                name="allotment"
-                id="allotment"
-                title="Lote"
+                name="habitation"
+                id="habitation"
+                title="Moradia"
                 value={inputResident.habitation}
                 onChange={handleChangeInput}
                 required
@@ -43,7 +45,7 @@ const Reisdent = ({ inputResident, setInputResident }) => {
                 <option value="" hidden>
                   Escolha uma opção
                 </option>
-                {allAllotments.map((habitation, i) => (
+                {allHabitations.map((habitation, i) => (
                   <option key={i} value={habitation.id}>
                     {habitation.property_name}
                   </option>
@@ -308,7 +310,7 @@ const Reisdent = ({ inputResident, setInputResident }) => {
                 name="demotivating_activity"
                 id="demotivating_activity"
                 title="Atividade desmotivador"
-                placeholder="Ex: Pouco produtiva"
+                placeholder="Ex: Pouca produtividade"
                 value={inputResident.demotivating_activity}
                 onChange={handleChangeInput}
                 required
@@ -416,7 +418,7 @@ const Reisdent = ({ inputResident, setInputResident }) => {
               </label>
               <Input
                 className="form-control-alternative"
-                type="number"
+                type="text"
                 name="last_diceases"
                 id="last_diceases"
                 title="Doenças nos últimos dois anos"
@@ -436,7 +438,7 @@ const Reisdent = ({ inputResident, setInputResident }) => {
               </label>
               <Input
                 className="form-control-alternative"
-                type="number"
+                type="text"
                 name="type_treatment"
                 id="type_treatment"
                 title="Tipo de tratamento"
@@ -454,11 +456,11 @@ const Reisdent = ({ inputResident, setInputResident }) => {
               </label>
               <Input
                 className="form-control-alternative"
-                type="number"
+                type="text"
                 name="access_treatment"
                 id="access_treatment"
                 title="Forma de acesso ao tratamento"
-                placeholder="Ex: Medicação"
+                placeholder="Ex: Plano de saúde"
                 value={inputResident.access_treatment}
                 onChange={handleChangeInput}
                 maxLength="255"

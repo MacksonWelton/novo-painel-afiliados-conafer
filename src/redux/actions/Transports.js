@@ -3,7 +3,7 @@ import { setAlert, setSubmitMessage } from "./Alerts";
 
 export const newTransport = (inputTransport) => async (dispatch) => {
     try {
-      await api.post("transport/transport", inputTransport);
+      await api.post("transport/transport/", inputTransport);
   
       dispatch(setAlert(200, "Dados foram gravados com sucesso!", true));
   

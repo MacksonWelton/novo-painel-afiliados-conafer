@@ -85,13 +85,13 @@ const Resident = ({ resident }) => {
             <Col lg="6" className="mb-3">
               <Content>
                 <b>Aposentado:</b>{" "}
-                {resident.retired}
+                {resident.retired ? "Sim" : "Não"}
               </Content>
             </Col>
             <Col lg="6" className="mb-3">
               <Content>
                 <b>Trabalho remunerado fora do lote:</b>{" "}
-                {resident.work_outside}
+                {resident.work_outside ? "Sim" : "Não"}
               </Content>
             </Col>
             <Col lg="6" className="mb-3">
@@ -103,7 +103,7 @@ const Resident = ({ resident }) => {
             <Col lg="6" className="mb-3">
               <Content>
                 <b>Deficiência:</b>{" "}
-                {resident.deficiency}
+                {resident.deficiency ? "Sim" : "Não"}
               </Content>
             </Col>
             <Col lg="6" className="mb-3">

@@ -20,6 +20,7 @@ import GoogleMapsReducer from "./reducers/GoogleMaps";
 import LoginReducer from "./reducers/Login";
 import AlertsReducer from "./reducers/Alertas";
 import UsersAffiliationReducer from "./reducers/UsuariosAfiliacao";
+import CalledReducer from "./reducers/Called";
 
 const Reducers = combineReducers({
   ContractsReducer,
@@ -41,7 +42,8 @@ const Reducers = combineReducers({
   GoogleMapsReducer,
   LoginReducer,
   AlertsReducer,
-  UsersAffiliationReducer
+  UsersAffiliationReducer,
+  CalledReducer
 });
 
 export default Reducers;

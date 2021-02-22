@@ -12,6 +12,8 @@ import Transports from "./components/Transports";
 import TechnicalVisit from "./components/TechnicalVisit";
 import Documents from "./components/Documents";
 import Habitation from "./components/Habitation";
+import Call from "./components/Call";
+import AnimalsProduction from "./components/AnimalsProduction";
 
 const ModalMembro = ({
   open,
@@ -29,6 +31,7 @@ const ModalMembro = ({
   transport,
   technicalVisit,
   document,
+  call
 }) => {
   const ref = useRef();
 
@@ -45,7 +48,6 @@ const ModalMembro = ({
           setOpen(!open);
         }}
       >
-        RAPATRA
       </ModalHeader>
       <ModalBody>
         <div ref={ref}>
@@ -62,12 +64,13 @@ const ModalMembro = ({
           {vegetablesProduction && (
             <VegetablesProduction vegetablesProduction={vegetablesProduction} />
           )}
-          {/* {animalsProduction} */}
+          {animalsProduction && <AnimalsProduction animalsProduction={animalsProduction}/>}
           {psiculture && <Psiculture psiculture={psiculture} />}
           {improvement && <Improvements improvement={improvement} />}
           {transport && <Transports transport={transport} />}
           {technicalVisit && <TechnicalVisit technicalVisit={technicalVisit} />}
           {document && <Documents document={document} />}
+          {call && <Call call={call} />}
         </div>
       </ModalBody>
       <ModalFooter className="d-flex justify-content-end">

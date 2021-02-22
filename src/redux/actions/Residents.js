@@ -23,10 +23,54 @@ export const newHabitation = (habitation) => async (dispatch) => {
   }
 };
 
+export const getAllHabitations = () => async (dispatch) => {
+  try {
+
+    const response = await api.get("resident/habitation");
+
+    response.data = await Promise.all(
+      response.data.map(async (item) => {
+        const allotmentData = await api.get(
+          `allotment/allotment/${item.allotment}/`
+        );
+
+        return {
+          ...item,
+          property_name: allotmentData.data.property_name,
+        };
+      })
+    );
+
+
+    dispatch(setAllHabitations(response.data));
+
+  } catch (err) {
+    console.error(err.message);
+    if (!err.response) {
+      dispatch(
+        setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
+      );
+    } else if (err.response.status === 401) {
+      dispatch(setAlert(err.response.status, err.response.data.detail, true));
+    } else {
+      dispatch(
+        setAlert(err.response.status, err.response.data.error_description, true)
+      );
+    }
+  }
+}
+
+const setAllHabitations = (allHabitations) => ({
+  type: "SET_ALL_HABITATIONS",
+  payload: {
+    allHabitations
+  }
+})
+
 export const getHabitations = (offset = 0, limit = 10) => async (dispatch) => {
   try {
     const response = await api.get(
-      `resident/habitation?offset=${offset}&limit=${limit}`
+      `resident/habitation/?offset=${offset}&limit=${limit}`
     );
 
     response.data.results = await Promise.all(

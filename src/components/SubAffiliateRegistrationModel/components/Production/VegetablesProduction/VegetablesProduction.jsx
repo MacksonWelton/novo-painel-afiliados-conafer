@@ -28,7 +28,7 @@ const VegetablesProduction = ({
     annual_production: 0,
     price_per_kg: "",
     annual_marketed: 0,
-    how_much_sell: 0,
+    how_much_sell: "",
     seedling_origin: "",
     creole_seed: "",
     pest_problems: "",
@@ -166,7 +166,7 @@ const VegetablesProduction = ({
                 name="price_per_kg"
                 id="price_per_kg"
                 title="Preço por Kg"
-                placeholder="Ex: 50,00"
+                placeholder="Ex: 50.00"
                 value={inputVegetables.price_per_kg}
                 onChange={(event) => {
                   event = {target: {
@@ -206,7 +206,7 @@ const VegetablesProduction = ({
                 name="how_much_sell"
                 id="how_much_sell"
                 title="Quanto vende (kg)"
-                placeholder="Ex: 10,00"
+                placeholder="Ex: 10.00"
                 value={inputVegetables.how_much_sell}
                 onChange={(event) => {
                   event = {target: {
@@ -214,7 +214,6 @@ const VegetablesProduction = ({
                     value: formatReal(event.target.value)
                   }}
                   handleChangeInput(event)}}
-                maxLength="16"
               />
             </FormGroup>
           </Col>
