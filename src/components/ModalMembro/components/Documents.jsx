@@ -26,8 +26,6 @@ const Documents = ({ document }) => {
     improvementsImage,
   } = useSelector((state) => state.DocumentsReducer);
 
-  console.log(document);
-
   return (
     <>
       <Title>Documentos</Title>

@@ -36,6 +36,8 @@ import TechnicalVisit from "./components/TechnicalVisit/TechnicalVisit";
 import Documentation from "./components/Documentation/Documentation";
 import Habitation from "./components/Resident/Habitation/Habitation";
 import AnimalProduction from "./components/Production/AnimalProduction/AnimalProduction";
+import Call from "./components/Call/Call";
+import { newCall } from "redux/actions/Called";
 
 const SubAffiliateRegistrationModel = ({ setOpen, open }) => {
   const dispatch = useDispatch();
@@ -49,7 +51,10 @@ const SubAffiliateRegistrationModel = ({ setOpen, open }) => {
     (state) => state.UsersAffiliationReducer.usersAffiliation
   );
 
-  if (usersAffilitationOptions.length === 0 && usersAffiliation.results.length) {
+  if (
+    usersAffilitationOptions.length === 0 &&
+    usersAffiliation.results.length
+  ) {
     setUserAffiliationOptions(
       usersAffiliation.results.map((item) => {
         item.name = item.name_initials ? item.name_initials : item.name;
@@ -314,6 +319,13 @@ const SubAffiliateRegistrationModel = ({ setOpen, open }) => {
     improvements_image: [],
   });
 
+  const [inputCall, setInputCall] = useState({
+    text: "",
+    questioned_by: "",
+  });
+
+  const [inputCallFiles, setInputCallFiles] = useState([]);
+
   const handleSubmitForm = (event) => {
     event.preventDefault();
 
@@ -351,6 +363,8 @@ const SubAffiliateRegistrationModel = ({ setOpen, open }) => {
           inputDocumentationList
         )
       );
+    } else if (open.call) {
+      dispatch(newCall(inputCall, inputCallFiles));
     }
   };
 
@@ -453,6 +467,14 @@ const SubAffiliateRegistrationModel = ({ setOpen, open }) => {
               setInputDocumentationFile={setInputDocumentationFile}
               inputDocumentationList={inputDocumentationList}
               setInputDocumentationList={setInputDocumentationList}
+            />
+          )}
+          {open.call && (
+            <Call
+              inputCall={inputCall}
+              setInputCall={setInputCall}
+              inputCallFiles={inputCallFiles}
+              setInputCallFiles={setInputCallFiles}
             />
           )}
         </ModalBody>

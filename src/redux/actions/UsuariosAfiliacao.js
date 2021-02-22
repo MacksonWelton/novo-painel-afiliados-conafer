@@ -106,33 +106,10 @@ const setUsersPFAFFiliation = (usersPFAffiliation) => ({
   }
 });
 
-export const updateAffiliatesActivation = (user) => async (dispatch) => {
-  try {
-    const response = await api.patch(`/user/user_affiliation/${user.id}/`, user);
-    dispatch(setAlert(response.status, "Ativação realizada com sucesso!", true));
-  } catch (err) {
-    console.error(err.message);
-    if (!err.response) {
-      dispatch(setAlert(400, "Ocorreu um erro de conexão com o servidor.", true));
-    } else if (err.response.status === 400 || err.response.status === 401) {
-      dispatch(setAlert(err.response.status, err.response.data.detail, true));
-    } else {
-      dispatch(setAlert(err.response.status, err.response.data.error_description, true));
-    }
-  }
-}
-
-export const downloadUsersAffiliates = () => () => {
-  try {
-
-  } catch(err) {
-
-  }
-}
-
 export const getUserAffiliation = () => async (dispatch) => {
   try {
     const response = await api.get("user/detail/user_affiliation/");
+
     dispatch(setUserAffiliation(response.data))
   } catch (err) {
     console.error(err.message);
@@ -151,5 +128,22 @@ const setUserAffiliation = (userAffiliation) => ({
   type: "USER_AFFILIATION",
   payload: {
     userAffiliation
+  }
+})
+
+export const getUserAffiliationById = (id) => async (dispatch) => {
+  try {
+    const response = await api.get(`user/user_affiliation/${id}`);
+
+    dispatch(setUserAffiliationById(response.data));
+  } catch (err) {
+
+  }
+}
+
+const setUserAffiliationById = (userAffiliationById) => ({
+  type: "SET_USER_AFFILIATION_BY_ID",
+  payload: {
+    userAffiliationById
   }
 })

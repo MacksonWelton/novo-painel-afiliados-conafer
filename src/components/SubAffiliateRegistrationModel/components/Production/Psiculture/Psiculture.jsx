@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Input, FormGroup, Row, Table, Col } from "reactstrap";
 import { getAllAllotments } from "redux/actions/Allotments";
+import { formatReal } from "utils/converterToMoney";
 
 const AnimalProduction = ({
   inputPsicultureProduction,
@@ -10,7 +11,9 @@ const AnimalProduction = ({
 }) => {
   const dispatch = useDispatch();
 
-  const allAllotments = useSelector((state) => state.AllotmentsReducer.allAllotments);
+  const allAllotments = useSelector(
+    (state) => state.AllotmentsReducer.allAllotments
+  );
 
   useEffect(() => {
     dispatch(getAllAllotments());
@@ -46,7 +49,6 @@ const AnimalProduction = ({
       inputPsiculture.food_supplementation &&
       inputPsiculture.annual_food_supplementation &&
       inputPsiculture.goal &&
-      inputPsiculture.fish_pay &&
       inputPsiculture.reservoir_size &&
       inputPsiculture.meat_production &&
       inputPsiculture.purchase_price &&
@@ -54,13 +56,17 @@ const AnimalProduction = ({
       inputPsiculture.average_price &&
       inputPsiculture.mai_marketing_channels
     ) {
-      setInputPsicultureProduction([...inputPsicultureProduction, inputPsiculture]);
+      setInputPsicultureProduction([
+        ...inputPsicultureProduction,
+        inputPsiculture,
+      ]);
     }
   };
 
-
   const removePsicultureInTable = (index) => {
-    setInputPsicultureProduction(inputPsicultureProduction.filter((item, i) => i !== index));
+    setInputPsicultureProduction(
+      inputPsicultureProduction.filter((item, i) => i !== index)
+    );
   };
 
   return (
@@ -74,7 +80,7 @@ const AnimalProduction = ({
           <Col lg="6">
             <FormGroup>
               <label className="form-control-label" htmlFor="allotment">
-                Lote
+                Lote <small className="text-red">(obrigatório)</small>
               </label>
               <Input
                 className="form-control-alternative"
@@ -163,19 +169,27 @@ const AnimalProduction = ({
                 className="form-control-label"
                 htmlFor="food_supplementation"
               >
-                Complementação alimentar{" "}
+                Complementação alimentar (quanto gasta em R$){" "}
                 <small className="text-red">(obrigatório)</small>
               </label>
               <Input
                 className="form-control-alternative"
-                type="number"
+                type="text"
                 name="food_supplementation"
                 id="food_supplementation"
-                placeholder="Ex: Ração"
+                placeholder="Ex: R$ 1000.00"
                 value={inputPsiculture.food_supplementation}
-                onChange={handleChangeInput}
+                onChange={(event) => {
+                  event = {
+                    target: {
+                      name: event.target.name,
+                      value: formatReal(event.target.value),
+                    },
+                  };
+                  handleChangeInput(event);
+                }}
                 required
-                min="1"
+                minLength="4"
               />
             </FormGroup>
           </Col>
@@ -190,14 +204,22 @@ const AnimalProduction = ({
               </label>
               <Input
                 className="form-control-alternative"
-                type="number"
+                type="text"
                 name="annual_food_supplementation"
                 id="annual_food_supplementation"
-                placeholder="Ex: R$ 1.500,00"
+                placeholder="Ex: R$ 1500.00"
                 value={inputPsiculture.annual_food_supplementation}
-                onChange={handleChangeInput}
+                onChange={(event) => {
+                  event = {
+                    target: {
+                      name: event.target.name,
+                      value: formatReal(event.target.value),
+                    },
+                  };
+                  handleChangeInput(event);
+                }}
                 required
-                min="0"
+                minLength="4"
               />
             </FormGroup>
           </Col>
@@ -270,14 +292,22 @@ const AnimalProduction = ({
               </label>
               <Input
                 className="form-control-alternative"
-                type="number"
+                type="text"
                 name="purchase_price"
                 id="purchase_price"
                 placeholder="Ex: R$ 35,00"
                 value={inputPsiculture.purchase_price}
-                onChange={handleChangeInput}
+                onChange={(event) => {
+                  event = {
+                    target: {
+                      name: event.target.name,
+                      value: formatReal(event.target.value),
+                    },
+                  };
+                  handleChangeInput(event);
+                }}
                 required
-                min="0"
+                minLength="4"
               />
             </FormGroup>
           </Col>
@@ -330,14 +360,22 @@ const AnimalProduction = ({
               </label>
               <Input
                 className="form-control-alternative"
-                type="number"
+                type="text"
                 name="average_price"
                 id="average_price"
                 placeholder="Ex: R$ 40,00"
                 value={inputPsiculture.average_price}
-                onChange={handleChangeInput}
+                onChange={(event) => {
+                  event = {
+                    target: {
+                      name: event.target.name,
+                      value: formatReal(event.target.value),
+                    },
+                  };
+                  handleChangeInput(event);
+                }}
                 required
-                min="0"
+                minLength="4"
               />
             </FormGroup>
           </Col>
@@ -368,11 +406,11 @@ const AnimalProduction = ({
               Adicionar
             </Button>
           </Col>
-          <Col>
+          <Col lg="12">
             <Table>
               <thead>
                 <tr>
-                  <th>Tipo</th>
+                  <th className="wrap">Tipo</th>
                   <th>Produção</th>
                   <th></th>
                 </tr>

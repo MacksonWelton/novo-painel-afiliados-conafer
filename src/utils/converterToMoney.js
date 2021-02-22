@@ -1,13 +1,12 @@
 import { mask } from "remask";
 
 export function formatReal(numero) {
+
   switch (numero.length) {
     case 2:
       return mask(numero, ["9.99"]);
-    case 3: 
+    case 5: 
     return mask(numero, ["99.99"]);
-    case 4:
-      return mask(numero, ["99.99"]);
     case 6:
       return mask(numero, ["999.99"]);
     case 7:
@@ -30,6 +29,8 @@ export function formatReal(numero) {
       return mask(numero, ["999999999999.99"]);
     case 16:
       return mask(numero, ["9999999999999.99"]);
+    case 17:
+      return mask(numero, ["99999999999999.99"]);
     default:
       return;
   }

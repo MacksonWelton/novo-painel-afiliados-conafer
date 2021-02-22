@@ -70,7 +70,7 @@ const DiagnosisAgriculturalSystems = ({
                 name="income_off_lot"
                 id="income_off_lot"
                 title="Qual é a renda extra lote (fora do lote) anual?"
-                placeholder="Ex: 1.000,00"
+                placeholder="Ex: 1000.00"
                 value={inputDiagnosisOfAgriculturalSystems.income_off_lot}
                 onChange={(event) => {
                   event = {target: {
@@ -161,7 +161,7 @@ const DiagnosisAgriculturalSystems = ({
               </Input>
             </FormGroup>
           </Col>
-          <Col lg="6">
+          <Col lg="6" className="d-flex flex-column justify-content-end">
             <FormGroup>
               <label
                 className="form-control-label"
@@ -310,7 +310,7 @@ const DiagnosisAgriculturalSystems = ({
               </Input>
             </FormGroup>
           </Col>
-          <Col lg="6">
+          <Col lg="6" className="d-flex flex-column justify-content-end">
             <FormGroup>
               <label className="form-control-label" htmlFor="fixed_employees">
                 Quantos empregados permanentes
@@ -471,7 +471,7 @@ const DiagnosisAgriculturalSystems = ({
               />
             </FormGroup>
           </Col>
-          <Col lg="6">
+          <Col lg="6" className="d-flex flex-column justify-content-end">
             <FormGroup>
               <label
                 className="form-control-label"
@@ -621,7 +621,7 @@ const DiagnosisAgriculturalSystems = ({
               </Input>
             </FormGroup>
           </Col>
-          <Col lg="6">
+          <Col lg="6" className="d-flex flex-column justify-content-end">
             <FormGroup>
               <label className="form-control-label" htmlFor="riparian_forest">
                 Fontes de água natural no lote são protegidas por mata ciliar?{" "}

@@ -96,7 +96,7 @@ const Habitation = () => {
                       }}
                       key={index}
                     >
-                      <td>{habitation.allotmentName}</td>
+                      <td>{habitation.property_name}</td>
                     </Tr>
                   ))}
                 </tbody>
