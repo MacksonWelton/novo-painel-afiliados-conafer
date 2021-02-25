@@ -2,8 +2,9 @@ const initialState = {
   calledAnswers: {
     results: [],
   },
-  answer: {},
+  answer: null,
   callAnswersByQuestion: [],
+  attachmentByQuestion: []
 };
 
 const CalledReducer = (state = initialState, action) => {
@@ -17,6 +18,8 @@ const CalledReducer = (state = initialState, action) => {
         ...state,
         callAnswersByQuestion: action.payload.callAnswersByQuestion,
       };
+    case "SET_CALL_ATTACHMENT_BY_QUESTION":
+      return {...state, attachmentByQuestion: action.payload.attachmentByQuestion}
     default:
       return state;
   }

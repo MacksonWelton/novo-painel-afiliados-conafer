@@ -18,7 +18,7 @@ import DocumentsReducer from "./reducers/Documents";
 import RegistroReducer from "./reducers/Registro";
 import GoogleMapsReducer from "./reducers/GoogleMaps";
 import LoginReducer from "./reducers/Login";
-import AlertsReducer from "./reducers/Alertas";
+import AlertsReducer from "./reducers/Alerts";
 import UsersAffiliationReducer from "./reducers/UsuariosAfiliacao";
 import CalledReducer from "./reducers/Called";
 

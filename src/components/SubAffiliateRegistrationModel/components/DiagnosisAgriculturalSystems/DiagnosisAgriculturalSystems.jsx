@@ -14,7 +14,7 @@ const DiagnosisAgriculturalSystems = ({
 
   useEffect(() => {
     dispatch(getAllAllotments());
-  }, [])
+  }, [dispatch])
 
   const handleChangeInput = (event) => {
     const { name, value } = event.target;

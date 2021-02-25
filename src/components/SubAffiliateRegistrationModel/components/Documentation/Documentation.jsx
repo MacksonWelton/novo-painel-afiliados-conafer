@@ -135,6 +135,7 @@ const Documentation = ({
                 title="Lote"
                 value={inputDocumentation.member}
                 onChange={handleChangeInput}
+                accept=".pdf,.doc,.docx,.xlsx,.csv,image/*"
                 required
               >
                 <option value="" hidden>
@@ -178,6 +179,7 @@ const Documentation = ({
                       id="front_domain_title"
                       title="Título domínio frente"
                       onChange={handleChangeInputFile}
+                      accept=".pdf,.doc,.docx,.xlsx,.csv,image/*"
                     />
                   </label>
                 </FormGroup>
@@ -204,6 +206,7 @@ const Documentation = ({
                       id="back_domain_title"
                       title="Título domínio verso"
                       onChange={handleChangeInputFile}
+                      accept=".pdf,.doc,.docx,.xlsx,.csv,image/*"
                     />
                   </label>
                 </FormGroup>
@@ -240,6 +243,7 @@ const Documentation = ({
                       id="front_nesting_card"
                       title="Cartão assentamento frente"
                       onChange={handleChangeInputFile}
+                      accept=".pdf,.doc,.docx,.xlsx,.csv,image/*"
                     />
                   </label>
                 </FormGroup>
@@ -266,6 +270,7 @@ const Documentation = ({
                       id="back_nesting_card"
                       title="Cartão assentamento verso"
                       onChange={handleChangeInputFile}
+                      accept=".pdf,.doc,.docx,.xlsx,.csv,image/*"
                     />
                   </label>
                 </FormGroup>
@@ -302,6 +307,7 @@ const Documentation = ({
                       id="georeferencing"
                       title="Georeferenciamento"
                       onChange={handleChangeInputFile}
+                      accept=".pdf,.doc,.docx,.xlsx,.csv,image/*"
                     />
                   </label>
                 </FormGroup>
@@ -338,6 +344,7 @@ const Documentation = ({
                       id="front_beneficiary_rg"
                       title="RG do beneficiário frente"
                       onChange={handleChangeInputFile}
+                      accept=".pdf,.doc,.docx,.xlsx,.csv,image/*"
                       required
                     />
                   </label>
@@ -365,6 +372,7 @@ const Documentation = ({
                       id="back_beneficiary_rg"
                       title="RG do beneficiário verso"
                       onChange={handleChangeInputFile}
+                      accept=".pdf,.doc,.docx,.xlsx,.csv,image/*"
                       required
                     />
                   </label>
@@ -402,6 +410,7 @@ const Documentation = ({
                       id="front_companion_rg"
                       title="RG do companheiro frente"
                       onChange={handleChangeInputFile}
+                      accept=".pdf,.doc,.docx,.xlsx,.csv,image/*"
                     />
                   </label>
                 </FormGroup>
@@ -428,6 +437,7 @@ const Documentation = ({
                       id="back_companion_rg"
                       title="RG do companheiro verso"
                       onChange={handleChangeInputFile}
+                      accept=".pdf,.doc,.docx,.xlsx,.csv,image/*"
                     />
                   </label>
                 </FormGroup>
@@ -464,6 +474,7 @@ const Documentation = ({
                   id="birth_certificates"
                   title="Certidão de Nascimento"
                   onChange={handleChangeInputOtherFiles}
+                  accept=".pdf,.doc,.docx,.xlsx,.csv,image/*"
                 />
               </label>
             </FormGroup>
@@ -535,6 +546,7 @@ const Documentation = ({
                   id="cpf_files"
                   title="CPF's"
                   onChange={handleChangeInputOtherFiles}
+                  accept=".pdf,.doc,.docx,.xlsx,.csv,image/*"
                 />
               </label>
             </FormGroup>
@@ -602,6 +614,7 @@ const Documentation = ({
                   id="economic_activities"
                   title="Atividades economicas"
                   onChange={handleChangeInputOtherFiles}
+                  accept=".pdf,.doc,.docx,.xlsx,.csv,image/*"
                 />
               </label>
             </FormGroup>
@@ -673,6 +686,7 @@ const Documentation = ({
                   id="improvements_image"
                   title="Imagens de benfeitorias"
                   onChange={handleChangeInputOtherFiles}
+                  accept="image/*"
                 />
               </label>
             </FormGroup>

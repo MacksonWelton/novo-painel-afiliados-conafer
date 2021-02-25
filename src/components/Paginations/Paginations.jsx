@@ -3,36 +3,42 @@ import { useDispatch } from "react-redux";
 import { Pagination, PaginationItem, PaginationLink } from "reactstrap";
 
 const Paginations = ({ count, funcRequistion }) => {
-
   const dispatch = useDispatch();
 
   const [pages, setPages] = useState([]);
-  const [currentPage, setCurrentPage] = useState(0);
-  const [numberItems, setNumberItems] = useState({
-    offset: 0,
-    limit: 10,
-  })
+  const [currentPage, setCurrentPage] = useState(1);
   const [interator, setInterator] = useState(0);
 
-  if (count > 0 && interator < Math.ceil(count / 10)) {
+  if (count > 0 && interator < Math.ceil(count / 10) && interator <= 9) {
     setPages([...pages, interator + 1]);
     setInterator(interator + 1);
   }
 
-  const handleChangePage = (page = 1, number = 10) => {
+  const handleChangePages = (page, advance = 10) => {
+    let i = page + 1;
+    const aux = [];
 
-    if (page < 0 || page === pages.length) {
+    while (i <= page + advance && i < Math.ceil(count / 10)) {
+      aux.push(i);
+      i++;
+    }
+
+    setPages(aux);
+    setCurrentPage(page + 1);
+
+    dispatch(funcRequistion(page + 1, 10));
+  };
+
+  const handleChangePage = (page = 1, limit = 10) => {
+    if (page < 0 || page > pages[pages.length - 1]) {
       return;
     }
 
-    
-    const  offset = number * page;
-    const limit = offset + number;
+    const offset = limit * (page - 1);
 
     setCurrentPage(page);
     dispatch(funcRequistion(offset, limit));
-    setNumberItems({...numberItems, offset: offset, limit: numberItems.limit + limit});
-  }
+  };
 
   return (
     <nav aria-label="...">
@@ -41,10 +47,10 @@ const Paginations = ({ count, funcRequistion }) => {
         listClassName="justify-content-end mb-0"
       >
         <>
-          <PaginationItem className={currentPage === 0 ? "disabled" : ""}>
+          <PaginationItem className={currentPage > 10 ? "" : "disabled"}>
             <PaginationLink
               href="#pablo"
-              onClick={() => handleChangePage(currentPage - 1)}
+              onClick={() => handleChangePages(pages[0] - 11)}
               // tabIndex="-1"
             >
               <i className="fas fa-angle-left" />
@@ -54,19 +60,30 @@ const Paginations = ({ count, funcRequistion }) => {
 
           {pages.map((page, i) => (
             <div key={i}>
-              <PaginationItem className={currentPage === i ? "active" : ""}>
+              <PaginationItem className={currentPage === page ? "active" : ""}>
                 <PaginationLink
                   href="#pablo"
-                  onClick={() => handleChangePage(i)}
+                  onClick={() => handleChangePage(page)}
                 >
                   {page}
                 </PaginationLink>
               </PaginationItem>
             </div>
           ))}
-          <PaginationItem className={currentPage === pages.length - 1 ? "disabled" : ""}>
-            <PaginationLink href="#pablo" onClick={() => handleChangePage(currentPage + 1)}>
-              <div><i className="fas fa-angle-right" /></div>
+          <PaginationItem
+            className={
+              pages[pages.length - 1] < Math.ceil(count / 10)
+                ? ""
+                : "disabled"
+            }
+          >
+            <PaginationLink
+              href="#pablo"
+              onClick={() => handleChangePages(pages[pages.length - 1])}
+            >
+              <div>
+                <i className="fas fa-angle-right" />
+              </div>
               <span className="sr-only">Next</span>
             </PaginationLink>
           </PaginationItem>

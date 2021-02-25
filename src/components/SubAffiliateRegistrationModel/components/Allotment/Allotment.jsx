@@ -295,7 +295,7 @@ const Allotment = ({
                   name="lot_geometry"
                   id="lot_geometry"
                   onChange={handleChangeInputFile}
-                  accept="image/png, image/jpeg, .pdf"
+                  accept="image/*"
                 />
               </label>
             </FormGroup>

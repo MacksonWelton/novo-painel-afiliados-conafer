@@ -212,11 +212,11 @@ var routes = [
   },
   {
     path: "/suporte",
-    name: "Ajuda",
+    name: "Suporte",
     icon: "ni ni-support-16 text-primary",
     component: Suporte,
     layout: "/admin",
-    show: false,
+    show: true,
   },
   {
     path: "/user-profile",

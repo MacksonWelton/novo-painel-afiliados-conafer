@@ -59,7 +59,7 @@ const Allotment = ({ allotment }) => {
                 <b>Coordenadas geográficas: </b>
                 {allotment.coordinates}
               </div>
-              <MapaAfiliados members={[allotment]} />
+              <MapaAfiliados allotments={[allotment]} />
             </div>
           </Col>
           <Col lg="12" className="mb-3">

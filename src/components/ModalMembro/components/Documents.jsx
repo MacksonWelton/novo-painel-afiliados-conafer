@@ -17,7 +17,7 @@ const Documents = ({ document }) => {
     dispatch(getCPFS(document.id));
     dispatch(getEconomicActivities(document.id));
     dispatch(getImprovementsImage(document.id));
-  }, []);
+  }, [dispatch, document.id]);
 
   const {
     birthCertificates,
@@ -36,59 +36,71 @@ const Documents = ({ document }) => {
               <b>Membro:</b> {document.member}
             </Content>
           </Col>
-          <Col lg="12" className="mb-3">
+          <Col lg="6" className="mb-3">
             <Content>
               <div className="mb-3">
                 <b>Título domínio frente:</b>{" "}
               </div>
               {document.front_domain_title && (
-                <img
-                  src={document.front_domain_title}
-                  width="100%"
-                  alt="Título domínio frente"
-                />
+                <div className="mb-3">
+                  <a
+                    className="border p-2 rounded"
+                    href={document.front_domain_title}
+                  >
+                    Download <i className="fas fa-download"></i>
+                  </a>
+                </div>
               )}
             </Content>
           </Col>
-          <Col lg="12" className="mb-3">
+          <Col lg="6" className="mb-3">
             <Content>
               <div className="mb-3">
                 <b>Título domínio verso:</b>{" "}
               </div>
               {document.back_domain_title && (
-                <img
-                  src={document.back_domain_title}
-                  width="100%"
-                  alt="Título domínio verso"
-                />
+                <div className="mb-3">
+                  <a
+                    className="border p-2 rounded"
+                    href={document.back_domain_title}
+                  >
+                    Download <i className="fas fa-download"></i>
+                  </a>
+                </div>
               )}
             </Content>
           </Col>
-          <Col lg="12" className="mb-3">
+          <Col lg="6" className="mb-3">
             <Content>
               <div className="mb-3">
                 <b>Cartão assentamento frente:</b>{" "}
               </div>
               {document.front_nesting_card && (
-                <img
-                  src={document.front_nesting_card}
-                  width="100%"
-                  alt="Cartão assentamento frente"
-                />
+                <div className="mb-3">
+                  <a
+                    className="border p-2 rounded"
+                    href={document.front_nesting_card}
+                  >
+                    Download <i className="fas fa-download"></i>
+                  </a>
+                </div>
               )}
             </Content>
           </Col>
-          <Col lg="12" className="mb-3">
+          <Col lg="6" className="mb-3">
             <Content>
               <div className="mb-3">
                 <b>Cartão assentamento verso:</b>{" "}
               </div>
               {document.back_nesting_card && (
-                <img
-                  src={document.back_nesting_card}
-                  width="100%"
-                  alt="Cartão assentamento verso"
-                />
+                <div className="mb-3">
+                  <a
+                    className="border p-2 rounded"
+                    href={document.back_nesting_card}
+                  >
+                    Download <i className="fas fa-download"></i>
+                  </a>
+                </div>
               )}
             </Content>
           </Col>
@@ -98,67 +110,82 @@ const Documents = ({ document }) => {
                 <b>Gerenciamento:</b>{" "}
               </div>
               {document.georeferencing && (
-                <img
-                  src={document.georeferencing}
-                  width="100%"
-                  alt="Gerenciamento"
-                />
+                <div className="mb-3">
+                  <a
+                    className="border p-2 rounded"
+                    href={document.georeferencing}
+                  >
+                    Download <i className="fas fa-download"></i>
+                  </a>
+                </div>
               )}
             </Content>
           </Col>
-          <Col lg="12" className="mb-3">
+          <Col lg="6" className="mb-3">
             <Content>
               <div className="mb-3">
                 <b>RG do beneficiário frente:</b>{" "}
               </div>
               {document.front_beneficiary_rg && (
-                <img
-                  src={document.front_beneficiary_rg}
-                  width="100%"
-                  alt="RG do beneficiário frente"
-                />
+                <div className="mb-3">
+                  <a
+                    className="border p-2 rounded"
+                    href={document.front_beneficiary_rg}
+                  >
+                    Download <i className="fas fa-download"></i>
+                  </a>
+                </div>
               )}
             </Content>
           </Col>
-          <Col lg="12" className="mb-3">
+          <Col lg="6" className="mb-3">
             <Content>
               <div className="mb-3">
                 <b>RG do beneficiário verso:</b>{" "}
               </div>
               {document.back_beneficiary_rg && (
-                <img
-                  src={document.back_beneficiary_rg}
-                  width="100%"
-                  alt="RG do beneficiário verso"
-                />
+                <div className="mb-3">
+                  <a
+                    className="border p-2 rounded"
+                    href={document.back_beneficiary_rg}
+                  >
+                    Download <i className="fas fa-download"></i>
+                  </a>
+                </div>
               )}
             </Content>
           </Col>
-          <Col lg="12" className="mb-3">
+          <Col lg="6" className="mb-3">
             <Content>
               <div className="mb-3">
                 <b>RG do companheiro frente:</b>{" "}
               </div>
               {document.front_companion_rg && (
-                <img
-                  src={document.front_companion_rg}
-                  width="100%"
-                  alt="RG do companheiro frente"
-                />
+                <div className="mb-3">
+                  <a
+                    className="border p-2 rounded"
+                    href={document.front_companion_rg}
+                  >
+                    Download <i className="fas fa-download"></i>
+                  </a>
+                </div>
               )}
             </Content>
           </Col>
-          <Col lg="12" className="mb-3">
+          <Col lg="6" className="mb-3">
             <Content>
               <div className="mb-3">
                 <b>RG do companheiro verso:</b>{" "}
               </div>
               {document.back_companion_rg && (
-                <img
-                  src={document.back_companion_rg}
-                  width="100%"
-                  alt="RG do companheiro verso"
-                />
+                <div className="mb-3">
+                  <a
+                    className="border p-2 rounded"
+                    href={document.back_companion_rg}
+                  >
+                    Download <i className="fas fa-download"></i>
+                  </a>
+                </div>
               )}
             </Content>
           </Col>
@@ -169,12 +196,15 @@ const Documents = ({ document }) => {
               </div>
               <Row>
                 {birthCertificates.map((certificate, i) => (
-                  <Col key={i} lg="12 mb-2">
-                    <img
-                      src={certificate.archive}
-                      width="100%"
-                      alt="Ceritidão de Nascimento"
-                    />
+                  <Col key={i} lg="4">
+                    <div className="mb-3">
+                      <a
+                        className="border p-2 rounded"
+                        href={certificate.archive}
+                      >
+                        Download {i + 1} <i className="fas fa-download"></i>
+                      </a>
+                    </div>
                   </Col>
                 ))}
               </Row>
@@ -187,12 +217,12 @@ const Documents = ({ document }) => {
               </div>
               <Row>
                 {cpfs.map((cpf, i) => (
-                  <Col key={i} lg="12 mb-2">
-                    <img
-                      src={cpf.archive}
-                      width="100%"
-                      alt="CPF"
-                    />
+                  <Col key={i} lg="4">
+                    <div className="mb-3">
+                      <a className="border p-2 rounded" href={cpf.archive}>
+                        Download {i + 1}  <i className="fas fa-download"></i>
+                      </a>
+                    </div>
                   </Col>
                 ))}
               </Row>
@@ -205,12 +235,15 @@ const Documents = ({ document }) => {
               </div>
               <Row>
                 {economicActivities.map((activitie, i) => (
-                  <Col key={i} lg="12 mb-2">
-                    <img
-                      src={activitie.archive}
-                      width="100%"
-                      alt="Atividade Economica"
-                    />
+                  <Col key={i} lg="4">
+                    <div className="mb-3">
+                      <a
+                        className="border p-2 rounded"
+                        href={activitie.archive}
+                      >
+                        Download {i + 1}  <i className="fas fa-download"></i>
+                      </a>
+                    </div>
                   </Col>
                 ))}
               </Row>
@@ -223,7 +256,7 @@ const Documents = ({ document }) => {
               </div>
               <Row>
                 {improvementsImage.map((improvement, i) => (
-                  <Col key={i} lg="12 mb-2">
+                  <Col key={i} lg="12">
                     <img
                       src={improvement.archive}
                       width="100%"

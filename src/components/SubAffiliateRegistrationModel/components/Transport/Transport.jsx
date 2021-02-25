@@ -10,7 +10,7 @@ const Transport = ({ inputTransport, setInputTransport }) => {
 
   useEffect(() => {
     dispatch(getAllAllotments());
-  }, []);
+  }, [dispatch]);
 
   const allAllotments = useSelector((state) => state.AllotmentsReducer.allAllotments);
 

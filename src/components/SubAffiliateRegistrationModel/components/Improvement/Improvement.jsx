@@ -16,7 +16,7 @@ const Improvement = ({ inputImprovements, setInputImprovements }) => {
 
   useEffect(() => {
     dispatch(getAllAllotments());
-  }, []);
+  }, [dispatch]);
 
   const allAllotments = useSelector((state) => state.AllotmentsReducer.allAllotments);
 

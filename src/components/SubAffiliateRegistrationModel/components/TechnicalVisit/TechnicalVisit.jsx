@@ -8,7 +8,7 @@ const TechnicalVisit = ({ inputTechnicalVisit, setInputTechnicalVisit }) => {
 
   useEffect(() => {
     dispatch(getAllAllotments());
-  }, []);
+  }, [dispatch]);
 
   const allAllotments = useSelector(
     (state) => state.AllotmentsReducer.allAllotments

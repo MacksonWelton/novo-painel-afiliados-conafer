@@ -93,31 +93,35 @@ const MapaAfiliados = ({
       lat: Number(e.latLng.lat().toFixed(7)),
       lng: Number(e.latLng.lng().toFixed(7)),
       memberInfo,
-      allotmentInfo
+      allotmentInfo,
     });
   };
 
   const addAddressInUsersPFAffiliation = async () => {
     setUsers({
       ...users,
-      usersPFAffiliation: await Promise.all(usersPFAffiliation.map(async (affiliate) => {
-        const address = `${affiliate.address} ${affiliate.city} ${affiliate.state}`;
-        affiliate.coordinates = await googleMapsCoordinates(address);
-        return affiliate;
-      })),
+      usersPFAffiliation: await Promise.all(
+        usersPFAffiliation.map(async (affiliate) => {
+          const address = `${affiliate.address} ${affiliate.city} ${affiliate.state}`;
+          affiliate.coordinates = await googleMapsCoordinates(address);
+          return affiliate;
+        })
+      ),
     });
-  }
+  };
 
   const AddAddressInUsersPJAffiliation = async () => {
     setUsers({
       ...users,
-      usersPJAffiliation: await Promise.all(usersPJAffiliation.map(async (affiliate) => {
-        const address = `${affiliate.address} ${affiliate.city} ${affiliate.state}`;
-        affiliate.coordinates = await googleMapsCoordinates(address);
-        return affiliate;
-      })),
+      usersPJAffiliation: await Promise.all(
+        usersPJAffiliation.map(async (affiliate) => {
+          const address = `${affiliate.address} ${affiliate.city} ${affiliate.state}`;
+          affiliate.coordinates = await googleMapsCoordinates(address);
+          return affiliate;
+        })
+      ),
     });
-  }
+  };
 
   if (users.usersPFAffiliation === "" && usersPFAffiliation[0]) {
     addAddressInUsersPFAffiliation();
@@ -135,7 +139,6 @@ const MapaAfiliados = ({
     >
       {allotments &&
         allotments.map((allotment, i) => {
-
           if (!member) {
             dispatch(getMemberById(allotment.member));
           }
@@ -202,16 +205,21 @@ const MapaAfiliados = ({
         >
           <div
             className="bg-gradient-default rounded shadow p-3 text-white"
-            style={{ minWidth: "250px" }}
+
           >
             <h3 className="text-white">Informações</h3>
             <hr className="border-white my-2" />
             <p className="m-0">
-              <strong>Nome:</strong> {map.memberInfo.name}
+              <strong>Nome:</strong>{" "}
+              {map.memberInfo.name_initials
+                ? map.memberInfo.name_initials
+                : map.memberInfo.name}
             </p>
             <p className="m-0">
               <strong>Telefone:</strong>{" "}
-              {map.memberInfo.contact_phone ? map.memberInfo.contact_phone : map.memberInfo.phone}
+              {map.memberInfo.contact_phone
+                ? map.memberInfo.contact_phone
+                : map.memberInfo.phone}
             </p>
             <p className="mb-3">
               <strong>Email:</strong> {map.memberInfo.email}
