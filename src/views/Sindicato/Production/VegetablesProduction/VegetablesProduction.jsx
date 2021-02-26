@@ -4,7 +4,15 @@ import moment from "moment";
 
 import { useDispatch, useSelector } from "react-redux";
 
-import { Card, CardFooter, Table, Container, Row, Button } from "reactstrap";
+import {
+  Card,
+  CardFooter,
+  Table,
+  Container,
+  Row,
+  Button,
+  Input,
+} from "reactstrap";
 
 import Header from "components/Headers/Header";
 
@@ -33,6 +41,7 @@ const VegetablesProduction = () => {
     vegetable: true,
   });
   const [vegetablesProduction, setVegetablesProduction] = useState({});
+  const [lines, setLines] = useState(10);
 
   const cardData = [
     {
@@ -49,6 +58,10 @@ const VegetablesProduction = () => {
     },
   ];
 
+  const handleChangeLines = (event) => {
+    setLines(Number(event.target.value));
+  };
+
   return (
     <>
       <Header children={<StatsCard CardData={cardData} />} />
@@ -58,6 +71,21 @@ const VegetablesProduction = () => {
             <Card className="bg-default shadow">
               <CardHeaderStyled>
                 <h3 className="text-white mb-0">Produção de Vegetais</h3>
+                <div className="d-flex align-items-center">
+                  <Input
+                    className="form-control-alternative"
+                    type="select"
+                    id="list"
+                    title="Quantidade de linhas por página"
+                    onChange={handleChangeLines}
+                    value={lines}
+                  >
+                    <option value={10}>10</option>
+                    <option value={25}>25</option>
+                    <option value={50}>50</option>
+                    <option value={100}>100</option>
+                  </Input>
+                </div>
                 <div>
                   <Button
                     onClick={() =>
@@ -139,6 +167,7 @@ const VegetablesProduction = () => {
                 <Paginations
                   count={vegetablesProductions.count}
                   funcRequistion={getVegetablesProductions}
+                  lines={lines}
                 />
               </CardFooter>
             </Card>

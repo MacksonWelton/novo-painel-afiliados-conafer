@@ -21,6 +21,7 @@ import LoginReducer from "./reducers/Login";
 import AlertsReducer from "./reducers/Alerts";
 import UsersAffiliationReducer from "./reducers/UsuariosAfiliacao";
 import CalledReducer from "./reducers/Called";
+import ErrorReducer from "./reducers/Error";
 
 const Reducers = combineReducers({
   ContractsReducer,
@@ -43,7 +44,8 @@ const Reducers = combineReducers({
   LoginReducer,
   AlertsReducer,
   UsersAffiliationReducer,
-  CalledReducer
+  CalledReducer,
+  ErrorReducer
 });
 
 export default Reducers;

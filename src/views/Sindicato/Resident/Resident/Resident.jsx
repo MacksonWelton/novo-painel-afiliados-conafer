@@ -4,7 +4,7 @@ import moment from "moment";
 
 import { useDispatch, useSelector } from "react-redux";
 
-import { Card, CardFooter, Table, Container, Row, Button } from "reactstrap";
+import { Card, CardFooter, Table, Container, Row, Button, Input } from "reactstrap";
 
 import Header from "components/Headers/Header";
 
@@ -20,17 +20,18 @@ import Paginations from "components/Paginations/Paginations";
 const Resident = () => {
   const dispatch = useDispatch();
   const residents = useSelector((state) => state.ResidentsReducer.residents);
-
+  
   useEffect(() => {
     dispatch(getResidents());
   }, [dispatch]);
-
+  
   const [open, setOpen] = useState(false);
   const [openAddResident, setOpenAddResident] = useState({
     modal: false,
     resident: true,
   });
   const [resident, setResident] = useState({});
+  const [lines, setLines] = useState(10);
 
   const cardData = [
     {
@@ -47,6 +48,10 @@ const Resident = () => {
     },
   ];
 
+  const handleChangeLines = (event) => {
+    setLines(Number(event.target.value));
+  };
+
   return (
     <>
       <Header children={<StatsCard CardData={cardData} />} />
@@ -56,6 +61,21 @@ const Resident = () => {
             <Card className="bg-default shadow">
               <CardHeaderStyled>
                 <h3 className="text-white mb-0">Moradores</h3>
+                <div className="d-flex align-items-center">
+                  <Input
+                    className="form-control-alternative"
+                    type="select"
+                    id="list"
+                    title="Quantidade de linhas por página"
+                    onChange={handleChangeLines}
+                    value={lines}
+                  >
+                    <option value={10}>10</option>
+                    <option value={25}>25</option>
+                    <option value={50}>50</option>
+                    <option value={100}>100</option>
+                  </Input>
+                </div>
                 <div>
                   <Button
                     onClick={() =>

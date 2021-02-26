@@ -11,14 +11,14 @@ const Member = ({match, member}) => {
 
   return (
     <>
-    <Nav tabs>
+    {/* <Nav tabs>
     <NavItem>
           <NavLink onClick={() => setTab("data")} href="#">Dados</NavLink>
         </NavItem>
         <NavItem>
           <NavLink onClick={() => setTab("edit")} href="#">Editar</NavLink>
         </NavItem>
-    </Nav>
+    </Nav> */}
     <Title>Dados de Membro</Title>
         <div>
             <Row>

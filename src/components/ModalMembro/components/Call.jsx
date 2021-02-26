@@ -147,7 +147,7 @@ const Call = ({ call }) => {
                   >
                     <p className="d-flex justify-content-between">
                       <small className="bg-green p-1 rounded text-default">
-                        <i className="fas fa-headset"></i> {answer.answered_by}
+                        <i className="fas fa-headset"></i>{" "}Equipe de Suporte
                       </small>{" "}
                       <small>
                         {moment(answer.created_at).format("DD/MM/YYYY")} às{" "}
@@ -230,7 +230,7 @@ const Call = ({ call }) => {
                               <p className="d-flex justify-content-between">
                                 <small className="bg-green p-1 rounded">
                                   <i className="fas fa-headset"></i>{" "}
-                                  {answer.answered_by}
+                                  Equipe de Suporte
                                 </small>{" "}
                                 <small>
                                   {moment(answer.created_at).format(

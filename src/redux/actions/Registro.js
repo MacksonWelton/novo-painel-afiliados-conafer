@@ -1,18 +1,15 @@
 import api from "services/api";
 import converterDataToFormData from "utils/converterDataToFormData";
 import { setAlert } from "./Alerts";
+import { setError } from "./Error";
 
 export const signUp = (userData) => async (dispatch) => {
   try {
-    const response = await api.post(
-      "user/user_affiliation/",
-      userData,
-      {
-        header: {
-          "content-type": "application/json",
-        },
-      }
-    );
+    const response = await api.post("user/user_affiliation/", userData, {
+      header: {
+        "content-type": "application/json",
+      },
+    });
 
     dispatch(
       setAlert(
@@ -31,19 +28,14 @@ export const signUp = (userData) => async (dispatch) => {
         setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
       );
     } else if (err.response.data.email) {
-      dispatch(
-        setAlert(err.response.status, err.response.data.email[0], true)
-      );
+      dispatch(setAlert(err.response.status, err.response.data.email[0], true));
     } else if (err.response.data[0]) {
-      dispatch(
-        setAlert(err.response.status, err.response.data[0], true)
-      );
+      dispatch(setAlert(err.response.status, err.response.data[0], true));
     } else {
       dispatch(
         setAlert(err.response.status, err.response.data.error_description, true)
       );
     }
-
   }
 };
 
@@ -93,15 +85,11 @@ export const pjAffiliateRegister = (
   const formData = converterDataToFormData(input, files);
 
   try {
-    const response = await api.post(
-      "affiliation/affiliation_pj/",
-      formData,
-      {
-        headers: {
-          "Content-Type": `multipart/form-data; boundary=${formData._boundary}`,
-        },
-      }
-    );
+    const response = await api.post("affiliation/affiliation_pj/", formData, {
+      headers: {
+        "Content-Type": `multipart/form-data; boundary=${formData._boundary}`,
+      },
+    });
 
     if (agriculturalProduction.length > 0 && response.data.id) {
       dispatch(
@@ -116,11 +104,15 @@ export const pjAffiliateRegister = (
     console.error(err.response);
     // console.error(err.message);
     if (!err.response) {
-      dispatch(setAlert(400, "Ocorreu um erro de conexão com o servidor.", true));
+      dispatch(
+        setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
+      );
     } else if (err.response.status === 400 || err.response.status === 401) {
       dispatch(setAlert(err.response.status, err.response.data.detail, true));
     } else {
-      dispatch(setAlert(err.response.status, err.response.data.error_description, true));
+      dispatch(
+        setAlert(err.response.status, err.response.data.error_description, true)
+      );
     }
   }
 };
@@ -146,11 +138,15 @@ const newAgriculturalProduction = (id, agriculturalProduction) => async (
     console.error(err.response);
     // console.error(err.message);
     if (!err.response) {
-      dispatch(setAlert(400, "Ocorreu um erro de conexão com o servidor.", true));
+      dispatch(
+        setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
+      );
     } else if (err.response.status === 400 || err.response.status === 401) {
       dispatch(setAlert(err.response.status, err.response.data.detail, true));
     } else {
-      dispatch(setAlert(err.response.status, err.response.data.error_description, true));
+      dispatch(
+        setAlert(err.response.status, err.response.data.error_description, true)
+      );
     }
   }
 };
@@ -159,10 +155,7 @@ export const pfAffiliateRegister = (userData, agriculturalProduction) => async (
   dispatch
 ) => {
   try {
-    const response = await api.post(
-      "affiliation/affiliation_pf/",
-      userData
-    );
+    const response = await api.post("affiliation/affiliation_pf/", userData);
 
     if (agriculturalProduction.length > 0 && response.data.id) {
       dispatch(
@@ -177,11 +170,18 @@ export const pfAffiliateRegister = (userData, agriculturalProduction) => async (
     console.error(err.response);
     // console.error(err.message);
     if (!err.response) {
-      dispatch(setAlert(400, "Ocorreu um erro de conexão com o servidor.", true));
-    } else if (err.response.status === 400 || err.response.status === 401) {
+      dispatch(
+        setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
+      );
+    } else if (err.response.status === 400) {
+      setAlert(400, "Formulário contém dados incorretos.", true)
+      dispatch(setError(err.response.data));
+    } else if (err.response.status === 401) {
       dispatch(setAlert(err.response.status, err.response.data.detail, true));
     } else {
-      dispatch(setAlert(err.response.status, err.response.data.error_description, true));
+      dispatch(
+        setAlert(err.response.status, err.response.data.error_description, true)
+      );
     }
   }
 };

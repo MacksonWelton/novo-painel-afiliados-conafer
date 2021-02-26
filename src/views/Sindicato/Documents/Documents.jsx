@@ -11,6 +11,7 @@ import {
   Container,
   Row,
   Button,
+  Input,
 } from "reactstrap";
 
 import Header from "components/Headers/Header";
@@ -38,6 +39,8 @@ const Documents = () => {
     documentation: true,
   });
   const [document, setDocument] = useState({});
+  const [lines, setLines] = useState(10);
+
   const cardData = [
     {
       title: "Documentos",
@@ -51,6 +54,10 @@ const Documents = () => {
     },
   ];
 
+  const handleChangeLines = (event) => {
+    setLines(Number(event.target.value));
+  };
+
   return (
     <>
       <Header children={<StatsCard CardData={cardData} />} />
@@ -60,6 +67,21 @@ const Documents = () => {
             <Card className="bg-default shadow">
               <CardHeaderStyled>
                 <h3 className="text-white mb-0">Documentos</h3>
+                <div className="d-flex align-items-center">
+                  <Input
+                    className="form-control-alternative"
+                    type="select"
+                    id="list"
+                    title="Quantidade de linhas por página"
+                    onChange={handleChangeLines}
+                    value={lines}
+                  >
+                    <option value={10}>10</option>
+                    <option value={25}>25</option>
+                    <option value={50}>50</option>
+                    <option value={100}>100</option>
+                  </Input>
+                </div>
                 <div>
                   <Button
                     onClick={() =>
@@ -103,7 +125,7 @@ const Documents = () => {
                 </tbody>
               </Table>
               <CardFooter className="py-4 bg-transparent border-0">
-                <Paginations count={documents.count} funcRequistion={getDocuments}/>
+                <Paginations count={documents.count} funcRequistion={getDocuments} lines={lines}/>
               </CardFooter>
             </Card>
           </div>

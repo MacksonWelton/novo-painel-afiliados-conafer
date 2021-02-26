@@ -24,6 +24,7 @@ import { findZipCode } from "../../utils/findZipCode";
 
 import countries from "../../utils/listaDePaises.json";
 import states from "../../utils/listaDeEstadosBrasileiros.json";
+import { useSelector } from "react-redux";
 
 const FormRegistroPF = ({
   input,
@@ -40,7 +41,6 @@ const FormRegistroPF = ({
   tableAgriculturalProduction,
   deleteAgriculturalProduction,
 }) => {
-
   const [invalidInput, setInvalidInput] = useState(false);
 
   const handleChangeInputZipCode = (res) => {
@@ -51,6 +51,8 @@ const FormRegistroPF = ({
       address: res.street,
     });
   };
+
+  const error = useSelector((state) => state.ErrorReducer.error);
 
   return (
     <div>
@@ -80,6 +82,11 @@ const FormRegistroPF = ({
                       minLength="1"
                       required
                     />
+                    <small className="text-red">
+                      {error.hasOwnProperty("name")
+                        ? `* ${error.name.join(" ")}`
+                        : ""}
+                    </small>
                   </FormGroup>
                 </Col>
                 <Col lg="6">
@@ -96,6 +103,11 @@ const FormRegistroPF = ({
                       onChange={handleChangeInput}
                       required
                     />
+                    <small className="text-red">
+                      {error.hasOwnProperty("birthdate")
+                        ? `* ${error.birthdate.join(" ")}`
+                        : ""}
+                    </small>
                   </FormGroup>
                 </Col>
                 <Col lg="6">
@@ -120,6 +132,11 @@ const FormRegistroPF = ({
                       <option value="Feminino">Feminino</option>
                       <option value="Outro">Outro</option>
                     </Input>
+                    <small className="text-red">
+                      {error.hasOwnProperty("sex")
+                        ? `* ${error.sex.join(" ")}`
+                        : ""}
+                    </small>
                   </FormGroup>
                 </Col>
                 <Col lg="6">
@@ -139,6 +156,11 @@ const FormRegistroPF = ({
                       minLength="1"
                       required
                     />
+                    <small className="text-red">
+                      {error.hasOwnProperty("citizenship")
+                        ? `* ${error.citizenship.join(" ")}`
+                        : ""}
+                    </small>
                   </FormGroup>
                 </Col>
                 <Col lg="6">
@@ -168,6 +190,11 @@ const FormRegistroPF = ({
                         </option>
                       ))}
                     </Input>
+                    <small className="text-red">
+                      {error.hasOwnProperty("nacionality")
+                        ? `* ${error.nacionality.join(" ")}`
+                        : ""}
+                    </small>
                   </FormGroup>
                 </Col>
                 <Col lg="6">
@@ -195,6 +222,11 @@ const FormRegistroPF = ({
                       <option value="Divorciado(a)">Divorciado(a)</option>
                       <option value="Viúvo(a)">Viúvo(a)</option>
                     </Input>
+                    <small className="text-red">
+                      {error.hasOwnProperty("marital_status")
+                        ? `* ${error.marital_status.join(" ")}`
+                        : ""}
+                    </small>
                   </FormGroup>
                 </Col>
                 <Col lg="6">
@@ -246,6 +278,11 @@ const FormRegistroPF = ({
                       minLength="1"
                       required
                     />
+                    <small className="text-red">
+                      {error.hasOwnProperty("rg")
+                        ? `* ${error.rg.join(" ")}`
+                        : ""}
+                    </small>
                   </FormGroup>
                 </Col>
                 <Col lg="6">
@@ -267,6 +304,11 @@ const FormRegistroPF = ({
                       onChange={handleChangeInput}
                       required
                     />
+                    <small className="text-red">
+                      {error.hasOwnProperty("organ_issuing")
+                        ? `* ${error.organ_issuing.join(" ")}`
+                        : ""}
+                    </small>
                   </FormGroup>
                 </Col>
                 <Col lg="6">
@@ -287,6 +329,11 @@ const FormRegistroPF = ({
                       onChange={handleChangeInput}
                       required
                     />
+                    <small className="text-red">
+                      {error.hasOwnProperty("emission_date")
+                        ? `* ${error.emission_date.join(" ")}`
+                        : ""}
+                    </small>
                   </FormGroup>
                 </Col>
                 <Col lg="6">
@@ -307,6 +354,11 @@ const FormRegistroPF = ({
                       minLength="1"
                       required
                     />
+                    <small className="text-red">
+                      {error.hasOwnProperty("voter_title")
+                        ? `* ${error.voter_title.join(" ")}`
+                        : ""}
+                    </small>
                   </FormGroup>
                 </Col>
                 <Col lg="6">
@@ -330,6 +382,11 @@ const FormRegistroPF = ({
                       minLength="1"
                       required
                     />
+                    <small className="text-red">
+                      {error.hasOwnProperty("electoral_zone")
+                        ? `* ${error.electoral_zone.join(" ")}`
+                        : ""}
+                    </small>
                   </FormGroup>
                 </Col>
                 <Col lg="6">
@@ -348,6 +405,11 @@ const FormRegistroPF = ({
                       minLength="1"
                       required
                     />
+                    <small className="text-red">
+                      {error.hasOwnProperty("section")
+                        ? `* ${error.section.join(" ")}`
+                        : ""}
+                    </small>
                   </FormGroup>
                 </Col>
                 <Col lg="6">
@@ -371,6 +433,11 @@ const FormRegistroPF = ({
                       <option value={true}>Sim</option>
                       <option value={false}>Não</option>
                     </Input>
+                    <small className="text-red">
+                      {error.hasOwnProperty("with_gorup")
+                        ? `* ${error.with_gorup.join(" ")}`
+                        : ""}
+                    </small>
                   </FormGroup>
                 </Col>
                 {input.with_gorup ? (
@@ -390,6 +457,11 @@ const FormRegistroPF = ({
                         max="2147483647"
                         min="0"
                       />
+                      <small className="text-red">
+                        {error.hasOwnProperty("how_many")
+                          ? `* ${error.how_many.join(" ")}`
+                          : ""}
+                      </small>
                     </FormGroup>
                   </Col>
                 ) : null}
@@ -410,6 +482,11 @@ const FormRegistroPF = ({
                       minLength="1"
                       required
                     />
+                    <small className="text-red">
+                      {error.hasOwnProperty("mother_name")
+                        ? `* ${error.mother_name.join(" ")}`
+                        : ""}
+                    </small>
                   </FormGroup>
                 </Col>
                 {input.marital_status === "Casado(a)" ||
@@ -437,6 +514,11 @@ const FormRegistroPF = ({
                             input.marital_status === "União Estável"
                           }
                         />
+                        <small className="text-red">
+                          {error.hasOwnProperty("partner_name")
+                            ? `* ${error.partner_name.join(" ")}`
+                            : ""}
+                        </small>
                       </FormGroup>
                     </Col>
                     <Col lg="6">
@@ -462,6 +544,11 @@ const FormRegistroPF = ({
                             input.marital_status === "União Estável"
                           }
                         />
+                        <small className="text-red">
+                          {error.hasOwnProperty("marital_status")
+                            ? `* ${error.marital_status.join(" ")}`
+                            : ""}
+                        </small>
                       </FormGroup>
                     </Col>
                   </>
@@ -490,6 +577,11 @@ const FormRegistroPF = ({
                       minLength="1"
                       required
                     />
+                    <small className="text-red">
+                      {error.hasOwnProperty("cep")
+                        ? `* ${error.cep.join(" ")}`
+                        : ""}
+                    </small>
                   </FormGroup>
                 </Col>
                 <Col lg="6">
@@ -509,6 +601,11 @@ const FormRegistroPF = ({
                       minLength="1"
                       required
                     />
+                    <small className="text-red">
+                      {error.hasOwnProperty("address")
+                        ? `* ${error.address.join(" ")}`
+                        : ""}
+                    </small>
                   </FormGroup>
                 </Col>
                 <Col lg="6">
@@ -528,6 +625,11 @@ const FormRegistroPF = ({
                       minLength="1"
                       required
                     />
+                    <small className="text-red">
+                      {error.hasOwnProperty("city")
+                        ? `* ${error.city.join(" ")}`
+                        : ""}
+                    </small>
                   </FormGroup>
                 </Col>
                 <Col lg="6">
@@ -556,6 +658,11 @@ const FormRegistroPF = ({
                         </option>
                       ))}
                     </Input>
+                    <small className="text-red">
+                      {error.hasOwnProperty("state")
+                        ? `* ${error.state.join(" ")}`
+                        : ""}
+                    </small>
                   </FormGroup>
                 </Col>
                 <Col lg="6">
@@ -584,6 +691,11 @@ const FormRegistroPF = ({
                         </option>
                       ))}
                     </Input>
+                    <small className="text-red">
+                      {error.hasOwnProperty("country")
+                        ? `* ${error.country.join(" ")}`
+                        : ""}
+                    </small>
                   </FormGroup>
                 </Col>
                 <Col lg="6">
@@ -604,6 +716,11 @@ const FormRegistroPF = ({
                       minLength="1"
                       required
                     />
+                    <small className="text-red">
+                      {error.hasOwnProperty("phone")
+                        ? `* ${error.phone.join(" ")}`
+                        : ""}
+                    </small>
                   </FormGroup>
                 </Col>
                 <Col lg="6">
@@ -621,6 +738,11 @@ const FormRegistroPF = ({
                       onChange={handleChangeInput}
                       required
                     />
+                    <small className="text-red">
+                      {error.hasOwnProperty("email")
+                        ? `* ${error.email.join(" ")}`
+                        : ""}
+                    </small>
                   </FormGroup>
                 </Col>
                 <Col lg="6">
@@ -629,7 +751,7 @@ const FormRegistroPF = ({
                       className="form-control-label"
                       htmlFor="entity_group"
                     >
-                      Grupo da sua Entidade (se houver){" "}
+                      Grupo da sua Entidade{" "}
                       <small className="text-red">(obrigatório)</small>
                     </label>
                     <Input
@@ -637,7 +759,7 @@ const FormRegistroPF = ({
                       type="select"
                       name="entity_group"
                       id="entity_group"
-                      title="Grupo da sua Entidade (se houver)"
+                      title="Grupo da sua entidade"
                       onChange={handleChangeInput}
                       required
                     >
@@ -647,12 +769,17 @@ const FormRegistroPF = ({
                       <option value="Associação Indígena">
                         Associação Indígena
                       </option>
-                      <option value="Associação de Moradores">
-                        Associação de Moradores
+                      <option value="Associação de moradores">
+                        Associação de moradores
                       </option>
                       <option value="Coletivo">Coletivo</option>
                       <option value="Outros">Outros</option>
                     </Input>
+                    <small className="text-red">
+                      {error.hasOwnProperty("entity_group")
+                        ? `* ${error.entity_group.join(" ")}`
+                        : ""}
+                    </small>
                   </FormGroup>
                 </Col>
                 <Col lg="6">
@@ -679,6 +806,11 @@ const FormRegistroPF = ({
                       <option value={true}>Sim</option>
                       <option value={false}>Não</option>
                     </Input>
+                    <small className="text-red">
+                      {error.hasOwnProperty("always_been_rural")
+                        ? `* ${error.always_been_rural.join(" ")}`
+                        : ""}
+                    </small>
                   </FormGroup>
                 </Col>
                 <Col lg="6">
@@ -705,6 +837,11 @@ const FormRegistroPF = ({
                       <option value={true}>Sim</option>
                       <option value={false}>Não</option>
                     </Input>
+                    <small className="text-red">
+                      {error.hasOwnProperty("incra_ocupation")
+                        ? `* ${error.incra_ocupation.join(" ")}`
+                        : ""}
+                    </small>
                   </FormGroup>
                 </Col>
                 <Col lg="6">
@@ -722,6 +859,11 @@ const FormRegistroPF = ({
                       onChange={handleChangeInput}
                       maxLength="20"
                     />
+                    <small className="text-red">
+                      {error.hasOwnProperty("ater_core")
+                        ? `* ${error.ater_core.join(" ")}`
+                        : ""}
+                    </small>
                   </FormGroup>
                 </Col>
                 <Col lg="6">
@@ -743,6 +885,11 @@ const FormRegistroPF = ({
                       max="2147483647"
                       min="0"
                     />
+                    <small className="text-red">
+                      {error.hasOwnProperty("year_residence")
+                        ? `* ${error.year_residence.join(" ")}`
+                        : ""}
+                    </small>
                   </FormGroup>
                 </Col>
                 <Col lg="6">
@@ -760,6 +907,11 @@ const FormRegistroPF = ({
                       onChange={handleChangeInput}
                       maxLength="30"
                     />
+                    <small className="text-red">
+                      {error.hasOwnProperty("rb_status")
+                        ? `* ${error.rb_status.join(" ")}`
+                        : ""}
+                    </small>
                   </FormGroup>
                 </Col>
                 <Col lg="6">
@@ -780,6 +932,11 @@ const FormRegistroPF = ({
                       onChange={handleChangeInput}
                       maxLength="30"
                     />
+                    <small className="text-red">
+                      {error.hasOwnProperty("collect_code")
+                        ? `* ${error.collect_code.join(" ")}`
+                        : ""}
+                    </small>
                   </FormGroup>
                 </Col>
                 <Col lg="6">
@@ -800,6 +957,11 @@ const FormRegistroPF = ({
                       onChange={handleChangeInput}
                       maxLength="30"
                     />
+                    <small className="text-red">
+                      {error.hasOwnProperty("settlement_code")
+                        ? `* ${error.settlement_code.join(" ")}`
+                        : ""}
+                    </small>
                   </FormGroup>
                 </Col>
                 <Col lg="6">
@@ -824,6 +986,11 @@ const FormRegistroPF = ({
                       <option value="Agricultor">Agricultor</option>
                       <option value="Outra">Outra</option>
                     </Input>
+                    <small className="text-red">
+                      {error.hasOwnProperty("profession")
+                        ? `* ${error.profession.join(" ")}`
+                        : ""}
+                    </small>
                   </FormGroup>
                 </Col>
                 {input.profession !== "" &&
@@ -846,6 +1013,11 @@ const FormRegistroPF = ({
                         onChange={handleChangeInput}
                         required
                       />
+                      <small className="text-red">
+                        {error.hasOwnProperty("profession")
+                          ? `* ${error.profession.join(" ")}`
+                          : ""}
+                      </small>
                     </FormGroup>
                   </Col>
                 ) : null}
@@ -915,6 +1087,12 @@ const FormRegistroPF = ({
               <Button color="primary" type="submit">
                 Enviar Informações
               </Button>
+              {Object.keys(error).length > 0 && (
+                <div className="mt-3 p-2 text-white bg-red rounded">
+                  Atenção: Role a página para cima e corrija os campos que
+                  contém um * seguindo de um texto em vermelho.
+                </div>
+              )}
             </CardFooter>
           </Form>
         </Card>

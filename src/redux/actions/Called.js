@@ -38,12 +38,6 @@ export const getCallAnswerById = (answerId) => async (dispatch) => {
   try {
     const response = await api.get(`call/anwser/${answerId}`);
 
-    const answeredBy = await api.get(
-      `user/user_affiliation/${response.data.answered_by}`
-    );
-
-    response.data.answered_by = answeredBy.data.name;
-
     const files = await api.get(`call/attachment?call=${response.data.id}`);
     response.data.files = files.data;
 
@@ -77,9 +71,6 @@ export const getCallAnswersByQuestion = (questionId) => async (dispatch) => {
 
     response.data = await Promise.all(
       response.data.map(async (answer) => {
-        const answeredBy = await api.get(
-          `user/user_affiliation/${answer.answered_by}`
-        );
 
         const files = await api.get(`call/attachment?call=${answer.id}`);
 
@@ -97,9 +88,6 @@ export const getCallAnswersByQuestion = (questionId) => async (dispatch) => {
 
             answers.data = await Promise.all(
               answers.data.map(async (answer) => {
-                const answeredBy = await api.get(
-                  `user/user_affiliation/${answer.answered_by}`
-                );
 
                 const files = await api.get(
                   `call/attachment?call=${answer.id}`
@@ -107,7 +95,6 @@ export const getCallAnswersByQuestion = (questionId) => async (dispatch) => {
 
                 return {
                   ...answer,
-                  answered_by: answeredBy.data.name,
                   files: files.data,
                 };
               })
@@ -123,7 +110,6 @@ export const getCallAnswersByQuestion = (questionId) => async (dispatch) => {
 
         return {
           ...answer,
-          answered_by: answeredBy.data.name,
           files: files.data,
           questions: questions.data,
         };

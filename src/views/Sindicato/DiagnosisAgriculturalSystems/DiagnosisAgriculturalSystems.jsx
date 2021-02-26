@@ -11,6 +11,7 @@ import {
   Container,
   Row,
   Button,
+  Input,
 } from "reactstrap";
 
 import Header from "components/Headers/Header";
@@ -27,7 +28,8 @@ import Paginations from "components/Paginations/Paginations";
 const DiagnosisAgriculturalSystems = () => {
   const dispatch = useDispatch();
   const diagnosisAgriculturalSystems = useSelector(
-    (state) => state.DiagnosisAgriculturalSystemsReducer.diagnosisAgriculturalSystems
+    (state) =>
+      state.DiagnosisAgriculturalSystemsReducer.diagnosisAgriculturalSystems
   );
 
   useEffect(() => {
@@ -46,19 +48,26 @@ const DiagnosisAgriculturalSystems = () => {
     diagnosisAgriculturalSystem,
     setDiagnosisAgriculturalSystem,
   ] = useState({});
+  const [lines, setLines] = useState(10);
 
   const cardData = [
     {
       title: "Diag. de S. Agrários",
       progress: diagnosisAgriculturalSystems.count,
-      comparison: diagnosisAgriculturalSystems.results.filter(item => (
-        moment(item.created_at).format("MM/YYYY") === moment().format("MM/YYYY")
-      )).length,
+      comparison: diagnosisAgriculturalSystems.results.filter(
+        (item) =>
+          moment(item.created_at).format("MM/YYYY") ===
+          moment().format("MM/YYYY")
+      ).length,
       comparisonDate: "Registrado este mês",
       icon: "fas fa-leaf text-white",
       color: "bg-green",
     },
   ];
+
+  const handleChangeLines = (event) => {
+    setLines(Number(event.target.value));
+  };
 
   return (
     <>
@@ -71,6 +80,21 @@ const DiagnosisAgriculturalSystems = () => {
                 <h3 className="text-white mb-0">
                   Diagnóstico de Sistemas Agrários
                 </h3>
+                <div className="d-flex align-items-center">
+                  <Input
+                    className="form-control-alternative"
+                    type="select"
+                    id="list"
+                    title="Quantidade de linhas por página"
+                    onChange={handleChangeLines}
+                    value={lines}
+                  >
+                    <option value={10}>10</option>
+                    <option value={25}>25</option>
+                    <option value={50}>50</option>
+                    <option value={100}>100</option>
+                  </Input>
+                </div>
                 <div>
                   <Button
                     onClick={() =>
@@ -117,15 +141,16 @@ const DiagnosisAgriculturalSystems = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {diagnosisAgriculturalSystems.results.map((diagnosis, index) => (
-                    <Tr
-                      onClick={() => {
-                        setOpen(!open);
-                        setDiagnosisAgriculturalSystem(diagnosis);
-                      }}
-                      key={index}
-                    >
-                      {/* <td
+                  {diagnosisAgriculturalSystems.results.map(
+                    (diagnosis, index) => (
+                      <Tr
+                        onClick={() => {
+                          setOpen(!open);
+                          setDiagnosisAgriculturalSystem(diagnosis);
+                        }}
+                        key={index}
+                      >
+                        {/* <td
                         className="d-flex justify-content-end"
                         onClick={(e) => e.stopPropagation()}
                       >
@@ -141,15 +166,20 @@ const DiagnosisAgriculturalSystems = () => {
                           onChange={handleChangeCheckbox}
                         />
                       </td> */}
-                      <td>{diagnosis.allotmentName}</td>
-                      <td>{diagnosis.allotment_city}</td>
-                      <td>{diagnosis.allotment_state}</td>
-                    </Tr>
-                  ))}
+                        <td>{diagnosis.allotmentName}</td>
+                        <td>{diagnosis.allotment_city}</td>
+                        <td>{diagnosis.allotment_state}</td>
+                      </Tr>
+                    )
+                  )}
                 </tbody>
               </Table>
               <CardFooter className="py-4 bg-transparent border-0">
-              <Paginations count={diagnosisAgriculturalSystems} funcRequistion={getDiagnosisAgriculturalSystems}/>
+                <Paginations
+                  count={diagnosisAgriculturalSystems}
+                  funcRequistion={getDiagnosisAgriculturalSystems}
+                  lines={lines}
+                />
               </CardFooter>
             </Card>
           </div>
