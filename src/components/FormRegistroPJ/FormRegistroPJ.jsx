@@ -415,7 +415,7 @@ const FormRegistroPJ = ({
                       className="form-control-label"
                       htmlFor="entity_group"
                     >
-                      Grupo da sua entidade (se houver)
+                      Grupo da sua entidade
                     </label>
                     <Input
                       className="form-control-alternative"

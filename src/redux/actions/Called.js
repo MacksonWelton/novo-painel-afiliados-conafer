@@ -36,7 +36,10 @@ const setCalledAnswers = (calledAnswers) => ({
 
 export const getCallAnswerById = (answerId) => async (dispatch) => {
   try {
-    const response = await api.get(`call/?call=${answerId}`);
+    const response = await api.get(`call/anwser/${answerId}`);
+
+    const files = await api.get(`call/attachment?call=${response.data.id}`);
+    response.data.files = files.data;
 
     dispatch(setCallAnswerById(response.data));
   } catch (err) {
@@ -64,15 +67,52 @@ const setCallAnswerById = (answer) => ({
 
 export const getCallAnswersByQuestion = (questionId) => async (dispatch) => {
   try {
-    const response = await api.get(`call/anwser/?question=${questionId}`);
+    const response = await api.get(`call/anwser/?call=${questionId}`);
 
     response.data = await Promise.all(
       response.data.map(async (answer) => {
-        const answeredBy = await api.get(
-          `user/user_affiliation/${answer.answered_by}`
+
+        const files = await api.get(`call/attachment?call=${answer.id}`);
+
+        const questions = await api.get(`call/question/?call=${answer.id}`);
+
+        questions.data = await Promise.all(
+          questions.data.map(async (question) => {
+            const questionedBy = await api.get(
+              `user/user_affiliation/${question.questioned_by}`
+            );
+
+            const files = await api.get(`call/attachment?call=${question.id}`);
+
+            const answers = await api.get(`call/anwser/?call=${question.id}`);
+
+            answers.data = await Promise.all(
+              answers.data.map(async (answer) => {
+
+                const files = await api.get(
+                  `call/attachment?call=${answer.id}`
+                );
+
+                return {
+                  ...answer,
+                  files: files.data,
+                };
+              })
+            );
+            return {
+              ...question,
+              questioned_by: questionedBy.data.name,
+              answers: answers.data,
+              files: files.data,
+            };
+          })
         );
 
-        return { ...answer, answered_by: answeredBy.data.name };
+        return {
+          ...answer,
+          files: files.data,
+          questions: questions.data,
+        };
       })
     );
 
@@ -102,11 +142,12 @@ const setCallAnswersByQuestion = (callAnswersByQuestion) => ({
 
 export const newCall = (input, inputFile) => async (dispatch) => {
   try {
-
-    const response = await api.post("call/question/", input)
+    const response = await api.post("call/question/", input);
 
     dispatch(getCalledAnswers());
     dispatch(newCallAttachments(response.data, inputFile));
+
+    dispatch(setAlert(200, "Dados foram gravados com sucesso!", true));
   } catch (err) {
     console.error(err.message);
     if (!err.response) {
@@ -123,11 +164,7 @@ export const newCall = (input, inputFile) => async (dispatch) => {
   }
 };
 
-const newCallAttachments = (call, callFiles) => async (
-  dispatch
-) => {
-
-
+const newCallAttachments = (call, callFiles) => async (dispatch) => {
   try {
     for (const file of callFiles) {
       const fileId = {
@@ -138,20 +175,13 @@ const newCallAttachments = (call, callFiles) => async (
         archive: file,
       };
 
-      const formDataAttachments = await converterDataToFormData(
-        fileId,
-        files
-      );
+      const formDataAttachments = await converterDataToFormData(fileId, files);
 
-      await api.post(
-        "call/attachment/",
-        formDataAttachments,
-        {
-          headers: {
-            "Content-Type": `multipart/form-data; boundary=${formDataAttachments._boundary}`,
-          },
-        }
-      );
+      await api.post("call/attachment/", formDataAttachments, {
+        headers: {
+          "Content-Type": `multipart/form-data; boundary=${formDataAttachments._boundary}`,
+        },
+      });
     }
   } catch (err) {
     if (!err.response) {
@@ -172,5 +202,33 @@ const newCallAttachments = (call, callFiles) => async (
   }
 };
 
+export const getCallAttachmentByQuestion = (questionId) => async (dispatch) => {
+  try {
+    const response = await api.get(`call/attachment?call=${questionId}`);
 
+    dispatch(setCallAttachmentByQuestion(response.data));
+  } catch (err) {
+    if (!err.response) {
+      dispatch(
+        setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
+      );
+    } else if (err.response.status === 401) {
+      if (err.response.data.detail) {
+        dispatch(setAlert(err.response.status, err.response.data.detail, true));
+      } else {
+        dispatch(setSubmitMessage(Object.values(err.response.data).join(" ")));
+      }
+    } else {
+      dispatch(
+        setAlert(err.response.status, err.response.data.error_description, true)
+      );
+    }
+  }
+};
 
+const setCallAttachmentByQuestion = (attachmentByQuestion) => ({
+  type: "SET_CALL_ATTACHMENT_BY_QUESTION",
+  payload: {
+    attachmentByQuestion,
+  },
+});

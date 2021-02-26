@@ -26,9 +26,7 @@ const Call = ({
     (state) => state.UsersAffiliationReducer.userAffiliation
   );
 
-  
   if (inputCall.questioned_by === "" && userAffiliation.id) {
-      console.log(userAffiliation.id)
     setInputCall({ ...inputCall, questioned_by: userAffiliation.id });
   }
 
@@ -63,7 +61,7 @@ const Call = ({
   const addFile = (event) => {
     const name = event.target.name;
 
-    if (files[name].value) {
+    if (files[name].value && files[name].value.size < 10485760) {
       setInputCallFiles([...inputCallFiles, files[name]]);
 
       setFiles({
@@ -88,7 +86,7 @@ const Call = ({
           <Col lg="12">
             <FormGroup>
               <label className="form-control-label" htmlFor="text">
-                Texto <small className="text-red">(obrigatório)</small>
+                Escreva uma mensagem <small className="text-red">(obrigatório)</small>
               </label>
               <Input
                 className="form-control-alternative"
@@ -96,14 +94,15 @@ const Call = ({
                 name="text"
                 id="text"
                 title="Texto"
+                placeholder="Ex: Estou tendo problemas ao cadastrar um novo usuário no sistema."
                 value={inputCall.text}
                 onChange={handleChangeInput}
-                rows="6"
+                rows="8"
                 required
               />
             </FormGroup>
           </Col>
-          <Col lg="4">
+          <Col lg="4" className="text-center">
             <label className="form-control-label" htmlFor="archive">
               Anexar arquivos
             </label>
@@ -118,6 +117,7 @@ const Call = ({
                   name="archive"
                   id="archive"
                   title="Arquivo"
+                  accept=".pdf,.doc,.docx,.xlsx,.csv,image/*"
                   onChange={handleChangeInputFile}
                 />
               </label>

@@ -270,10 +270,10 @@ class Sidebar extends React.Component {
                   <i className="fas fa-users" />
                   <span>Usuários</span>
                 </DropdownItem>
-                {/* <DropdownItem to="/admin/suporte" tag={Link}>
+                <DropdownItem to="/admin/suporte" tag={Link}>
                   <i className="ni ni-support-16" />
-                  <span>Ajuda</span>
-                </DropdownItem> */}
+                  <span>Suporte</span>
+                </DropdownItem>
                 <DropdownItem divider />
                 <DropdownItem onClick={this.exit} style={{cursor: "pointer"}}>
                   <i className="ni ni-user-run" />

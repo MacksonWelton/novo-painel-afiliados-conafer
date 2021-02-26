@@ -1,38 +1,49 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Pagination, PaginationItem, PaginationLink } from "reactstrap";
+import PropTypes from "prop-types";
 
-const Paginations = ({ count, funcRequistion }) => {
-
+const Paginations = ({ count, funcRequistion, lines }) => {
   const dispatch = useDispatch();
 
   const [pages, setPages] = useState([]);
-  const [currentPage, setCurrentPage] = useState(0);
-  const [numberItems, setNumberItems] = useState({
-    offset: 0,
-    limit: 10,
-  })
+  const [currentPage, setCurrentPage] = useState(1);
   const [interator, setInterator] = useState(0);
 
-  if (count > 0 && interator < Math.ceil(count / 10)) {
+  useEffect(() => {
+    dispatch(funcRequistion((currentPage - 1) * lines, lines));
+  }, [lines]);
+
+  if (count > 0 && interator < Math.ceil(count / lines) && interator <= 9) {
     setPages([...pages, interator + 1]);
     setInterator(interator + 1);
   }
 
-  const handleChangePage = (page = 1, number = 10) => {
+  const handleChangePages = (page, advance = 10) => {
+    let i = page + 1;
+    const aux = [];
 
-    if (page < 0 || page === pages.length) {
+    while (i <= page + advance && i < Math.ceil(count / lines)) {
+      aux.push(i);
+      i++;
+    }
+
+    setPages(aux);
+    setCurrentPage(page + 1);
+
+    dispatch(funcRequistion(page + 1, 10));
+  };
+
+  const handleChangePage = (page = 1, limit = lines) => {
+    if (page < 0 || page > pages[pages.length - 1]) {
       return;
     }
 
-    
-    const  offset = number * page;
-    const limit = offset + number;
+    const offset = limit * (page - 1);
 
     setCurrentPage(page);
     dispatch(funcRequistion(offset, limit));
-    setNumberItems({...numberItems, offset: offset, limit: numberItems.limit + limit});
-  }
+  };
 
   return (
     <nav aria-label="...">
@@ -41,39 +52,56 @@ const Paginations = ({ count, funcRequistion }) => {
         listClassName="justify-content-end mb-0"
       >
         <>
-          <PaginationItem className={currentPage === 0 ? "disabled" : ""}>
-            <PaginationLink
-              href="#pablo"
-              onClick={() => handleChangePage(currentPage - 1)}
-              // tabIndex="-1"
-            >
-              <i className="fas fa-angle-left" />
-              <span className="sr-only">Previous</span>
-            </PaginationLink>
-          </PaginationItem>
+          {currentPage > 10 && (
+            <PaginationItem>
+              <PaginationLink
+                href="#pablo"
+                onClick={() => handleChangePages(pages[0] - 11)}
+                title="Clique para retornar"
+              >
+                <i className="fas fa-angle-left" />
+                <span className="sr-only">Previous</span>
+              </PaginationLink>
+            </PaginationItem>
+          )}
 
           {pages.map((page, i) => (
             <div key={i}>
-              <PaginationItem className={currentPage === i ? "active" : ""}>
+              <PaginationItem className={currentPage === page ? "active" : ""}>
                 <PaginationLink
                   href="#pablo"
-                  onClick={() => handleChangePage(i)}
+                  onClick={() => handleChangePage(page)}
+                  title={`Clique para ir para página ${page}`}
                 >
                   {page}
                 </PaginationLink>
               </PaginationItem>
             </div>
           ))}
-          <PaginationItem className={currentPage === pages.length - 1 ? "disabled" : ""}>
-            <PaginationLink href="#pablo" onClick={() => handleChangePage(currentPage + 1)}>
-              <div><i className="fas fa-angle-right" /></div>
-              <span className="sr-only">Next</span>
-            </PaginationLink>
-          </PaginationItem>
+          {pages[pages.length - 1] < Math.ceil(count / lines) && (
+            <PaginationItem>
+              <PaginationLink
+                href="#pablo"
+                onClick={() => handleChangePages(pages[pages.length - 1])}
+                title="Clique para ver mais"
+              >
+                <div>
+                  <i className="fas fa-angle-right" />
+                </div>
+                <span className="sr-only">Next</span>
+              </PaginationLink>
+            </PaginationItem>
+          )}
         </>
       </Pagination>
     </nav>
   );
+};
+
+Paginations.propTypes = {
+  count: PropTypes.number,
+  funcRequistion: PropTypes.func.isRequired,
+  lines: PropTypes.number.isRequired,
 };
 
 export default Paginations;

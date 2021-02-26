@@ -1,12 +1,25 @@
-import React from 'react';
-import { Row, Col } from 'reactstrap';
+import React, {useState} from 'react';
+import { Row, Col, Nav, NavItem, NavLink } from 'reactstrap';
 import moment from "moment";
 import {Title, Content} from "./Styles";
 
-const Member = ({member}) => {
+const Member = ({match, member}) => {
+
+  const [tab, setTab] = useState("data");
+
+  console.log(window.location.pathname)
+
   return (
     <>
-    <Title>Teste</Title>
+    {/* <Nav tabs>
+    <NavItem>
+          <NavLink onClick={() => setTab("data")} href="#">Dados</NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink onClick={() => setTab("edit")} href="#">Editar</NavLink>
+        </NavItem>
+    </Nav> */}
+    <Title>Dados de Membro</Title>
         <div>
             <Row>
               <Col lg="12" className="mb-3">

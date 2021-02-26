@@ -11,6 +11,7 @@ import {
   Container,
   Row,
   Button,
+  Input,
 } from "reactstrap";
 
 import Header from "components/Headers/Header";
@@ -38,6 +39,7 @@ const Habitation = () => {
     habitation: true,
   });
   const [habitation, setHabitation] = useState({});
+  const [lines, setLines] = useState(10);
 
   const cardData = [
     {
@@ -54,6 +56,10 @@ const Habitation = () => {
     },
   ];
 
+  const handleChangeLines = (event) => {
+    setLines(Number(event.target.value));
+  };
+
   return (
     <>
       <Header children={<StatsCard CardData={cardData} />} />
@@ -63,6 +69,21 @@ const Habitation = () => {
             <Card className="bg-default shadow">
               <CardHeaderStyled>
                 <h3 className="text-white mb-0">Moradias</h3>
+                <div className="d-flex align-items-center">
+                  <Input
+                    className="form-control-alternative"
+                    type="select"
+                    id="list"
+                    title="Quantidade de linhas por página"
+                    onChange={handleChangeLines}
+                    value={lines}
+                  >
+                    <option value={10}>10</option>
+                    <option value={25}>25</option>
+                    <option value={50}>50</option>
+                    <option value={100}>100</option>
+                  </Input>
+                </div>
                 <div>
                   <Button
                     onClick={() =>
@@ -105,6 +126,7 @@ const Habitation = () => {
               <Paginations
                   count={habitations.count}
                   funcRequistion={getHabitations}
+                  lines={lines}
                 />
               </CardFooter>
             </Card>

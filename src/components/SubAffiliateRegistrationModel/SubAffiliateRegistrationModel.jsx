@@ -19,7 +19,10 @@ import { newAnimalProduction } from "../../redux/actions/Productions";
 import { newVegetableProduction } from "../../redux/actions/Productions";
 import { newHabitation, newResident } from "../../redux/actions/Residents";
 import { newDocumentation } from "../../redux/actions/Documents";
-import { getUsersAffiliation } from "../../redux/actions/UsuariosAfiliacao";
+import {
+  getUsersPFAffiliation,
+  getUsersPJAffiliation,
+} from "../../redux/actions/UsuariosAfiliacao";
 import { newTransport } from "redux/actions/Transports";
 import { newTechnicalVisit } from "redux/actions/TechnicalVisits";
 
@@ -38,29 +41,51 @@ import Habitation from "./components/Resident/Habitation/Habitation";
 import AnimalProduction from "./components/Production/AnimalProduction/AnimalProduction";
 import Call from "./components/Call/Call";
 import { newCall } from "redux/actions/Called";
+import { Link } from "react-router-dom";
 
 const SubAffiliateRegistrationModel = ({ setOpen, open }) => {
   const dispatch = useDispatch();
-  const [usersAffilitationOptions, setUserAffiliationOptions] = useState([]);
 
   useEffect(() => {
-    dispatch(getUsersAffiliation());
+    dispatch(getUsersPJAffiliation());
+    dispatch(getUsersPFAffiliation());
   }, [dispatch]);
 
-  const usersAffiliation = useSelector(
-    (state) => state.UsersAffiliationReducer.usersAffiliation
+  const usersPFAffiliation = useSelector(
+    (state) => state.UsersAffiliationReducer.usersPFAffiliation
   );
 
-  if (
-    usersAffilitationOptions.length === 0 &&
-    usersAffiliation.results.length
-  ) {
-    setUserAffiliationOptions(
-      usersAffiliation.results.map((item) => {
-        item.name = item.name_initials ? item.name_initials : item.name;
-        return item;
-      })
-    );
+  const usersPJAffiliation = useSelector(
+    (state) => state.UsersAffiliationReducer.usersPJAffiliation
+  );
+
+  const [users, setUsers] = useState({
+    pf: true,
+    pj: true,
+  });
+
+  const [usersAffiliation, setUsersAffiliation] = useState([]);
+
+  if (users.pf && usersPFAffiliation[0]) {
+    setUsers({ ...users, pf: !users.pf });
+
+    usersPFAffiliation.forEach((affiliation) => {
+      setUsersAffiliation([
+        ...usersAffiliation,
+        { id: affiliation.id, name: affiliation.name },
+      ]);
+    });
+  }
+
+  if (users.pj && usersPJAffiliation[0]) {
+    setUsers({ ...users, pj: !users.pj });
+
+    usersPJAffiliation.forEach((affiliation) => {
+      setUsersAffiliation([
+        ...usersAffiliation,
+        { id: affiliation.id, name: affiliation.name_initials },
+      ]);
+    });
   }
 
   const [inputMember, setInputMember] = useState({
@@ -374,114 +399,141 @@ const SubAffiliateRegistrationModel = ({ setOpen, open }) => {
         toggle={() => {
           setOpen({ ...open, modal: !open.modal });
         }}
-      >
-        RAPATRA
-      </ModalHeader>
+      ></ModalHeader>
       <Form onSubmit={handleSubmitForm}>
         <ModalBody>
-          {open.member && (
-            <Member
-              inputMember={inputMember}
-              setInputMember={setInputMember}
-              usersAffiliation={usersAffilitationOptions}
-            />
-          )}
-          {open.habitation && (
-            <Habitation
-              inputHabitation={inputHabitation}
-              setInputHabitation={setInputHabitation}
-            />
-          )}
-          {open.resident && (
-            <Resident
-              inputResident={inputResident}
-              setInputResident={setInputResident}
-            />
-          )}
-          {open.allotment && (
-            <Allotment
-              inputAllotment={inputAllotment}
-              setInputAllotment={setInputAllotment}
-              fileAllotment={fileAllotment}
-              setFileAllotment={setFileAllotment}
-            />
-          )}
-          {open.diagnosisAgriculturalSystems && (
-            <DiagnosisAgriculturalSystems
-              inputDiagnosisOfAgriculturalSystems={
-                inputDiagnosisOfAgriculturalSystems
-              }
-              setInputDiagnosisOfAgriculturalSystems={
-                setInputDiagnosisOfAgriculturalSystems
-              }
-            />
-          )}
-          {open.production && (
-            <Production
-              inputProductionList={inputProductionList}
-              setInputProductionList={setInputProductionList}
-              usersAffiliation={usersAffilitationOptions}
-            />
-          )}
-          {open.animal && (
-            <AnimalProduction
-              inputAnimalProduction={inputAnimalProduction}
-              setInputAnimalProduction={setInputAnimalProduction}
-            />
-          )}
-          {open.vegetable && (
-            <VegetablesProduction
-              inputVegetablesProduction={inputVegetablesProduction}
-              setInputVegetablesProduction={setInputVegetablesProduction}
-            />
-          )}
-          {open.psiculture && (
-            <Psiculture
-              inputPsicultureProduction={inputPsicultureProduction}
-              setInputPsicultureProduction={setInputPsicultureProduction}
-            />
-          )}
-          {open.improvement && (
-            <Improvement
-              inputImprovements={inputImprovements}
-              setInputImprovements={setInputImprovements}
-            />
-          )}
-          {open.transport && (
-            <Transport
-              inputTransport={inputTransport}
-              setInputTransport={setInputTransport}
-            />
-          )}
-          {open.technicalVisit && (
-            <TechnicalVisit
-              inputTechnicalVisit={inputTechnicalVisit}
-              setInputTechnicalVisit={setInputTechnicalVisit}
-            />
-          )}
-          {open.documentation && (
-            <Documentation
-              inputDocumentation={inputDocumentation}
-              setInputDocumentation={setInputDocumentation}
-              inputDocumentationFile={inputDocumentationFile}
-              setInputDocumentationFile={setInputDocumentationFile}
-              inputDocumentationList={inputDocumentationList}
-              setInputDocumentationList={setInputDocumentationList}
-            />
-          )}
-          {open.call && (
-            <Call
-              inputCall={inputCall}
-              setInputCall={setInputCall}
-              inputCallFiles={inputCallFiles}
-              setInputCallFiles={setInputCallFiles}
-            />
+          {!usersAffiliation.length ? (
+            <>
+              <h3>
+                <span className="text-danger">Atenção: </span>Você apenas poderá cadastrar novos membros caso o seu
+                cadastro esteja completo.
+              </h3>
+              <div className="px-lg-5 py-lg-5 d-flex flex-column align-items-center">
+              <Link
+                to="/admin/registration-pj"
+                onClick={() => setOpen({ ...open, modal: !open.modal })}
+                className="mb-3 p-2 bg-primary w-100 text-white text-center rounded"
+              >
+                PESSOA JURÍDICA
+              </Link>
+              <Link
+                to="/admin/registration-pf"
+                onClick={() => setOpen({ ...open, modal: !open.modal })}
+                className="mb-3 p-2 bg-primary w-100 text-white text-center rounded"
+              >
+                PESSOA FÍSICA
+              </Link>
+              </div>
+            </>
+          ) : (
+            <>
+              {open.member && (
+                <Member
+                  inputMember={inputMember}
+                  setInputMember={setInputMember}
+                  usersAffiliation={usersAffiliation}
+                />
+              )}
+              {open.habitation && (
+                <Habitation
+                  inputHabitation={inputHabitation}
+                  setInputHabitation={setInputHabitation}
+                />
+              )}
+              {open.resident && (
+                <Resident
+                  inputResident={inputResident}
+                  setInputResident={setInputResident}
+                />
+              )}
+              {open.allotment && (
+                <Allotment
+                  inputAllotment={inputAllotment}
+                  setInputAllotment={setInputAllotment}
+                  fileAllotment={fileAllotment}
+                  setFileAllotment={setFileAllotment}
+                />
+              )}
+              {open.diagnosisAgriculturalSystems && (
+                <DiagnosisAgriculturalSystems
+                  inputDiagnosisOfAgriculturalSystems={
+                    inputDiagnosisOfAgriculturalSystems
+                  }
+                  setInputDiagnosisOfAgriculturalSystems={
+                    setInputDiagnosisOfAgriculturalSystems
+                  }
+                />
+              )}
+              {open.production && (
+                <Production
+                  inputProductionList={inputProductionList}
+                  setInputProductionList={setInputProductionList}
+                  usersAffiliation={usersAffiliation}
+                />
+              )}
+              {open.animal && (
+                <AnimalProduction
+                  inputAnimalProduction={inputAnimalProduction}
+                  setInputAnimalProduction={setInputAnimalProduction}
+                />
+              )}
+              {open.vegetable && (
+                <VegetablesProduction
+                  inputVegetablesProduction={inputVegetablesProduction}
+                  setInputVegetablesProduction={setInputVegetablesProduction}
+                />
+              )}
+              {open.psiculture && (
+                <Psiculture
+                  inputPsicultureProduction={inputPsicultureProduction}
+                  setInputPsicultureProduction={setInputPsicultureProduction}
+                />
+              )}
+              {open.improvement && (
+                <Improvement
+                  inputImprovements={inputImprovements}
+                  setInputImprovements={setInputImprovements}
+                />
+              )}
+              {open.transport && (
+                <Transport
+                  inputTransport={inputTransport}
+                  setInputTransport={setInputTransport}
+                />
+              )}
+              {open.technicalVisit && (
+                <TechnicalVisit
+                  inputTechnicalVisit={inputTechnicalVisit}
+                  setInputTechnicalVisit={setInputTechnicalVisit}
+                />
+              )}
+              {open.documentation && (
+                <Documentation
+                  inputDocumentation={inputDocumentation}
+                  setInputDocumentation={setInputDocumentation}
+                  inputDocumentationFile={inputDocumentationFile}
+                  setInputDocumentationFile={setInputDocumentationFile}
+                  inputDocumentationList={inputDocumentationList}
+                  setInputDocumentationList={setInputDocumentationList}
+                />
+              )}
+              {open.call && (
+                <Call
+                  inputCall={inputCall}
+                  setInputCall={setInputCall}
+                  inputCallFiles={inputCallFiles}
+                  setInputCallFiles={setInputCallFiles}
+                />
+              )}{" "}
+            </>
           )}
         </ModalBody>
         <ModalFooter>
-          <Button color="primary" type="submit">
-            Enviar
-          </Button>
+          {usersAffiliation.length > 0 && (
+            <Button color="primary" type="submit">
+              Enviar
+            </Button>
+          )}
           <Button
             color="secondary"
             onClick={() => setOpen({ ...open, modal: !open.modal })}
