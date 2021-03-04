@@ -5,9 +5,9 @@ export const login = (data) => async (dispatch) => {
   const { email, password } = data;
   const userData = {
     grant_type: "password",
-    client_id: "3pI4EPaVJmzFzSHyvFMrKNj3t1jE4GMqnrapUaDE",
+    client_id: "wYPRf7krowjsT0cfkybyxNBz4D1d43txi67L4oWR",
     client_secret:
-      "XBOUKCtSTKgdYujIKMlAzbMOMbkcuC95ES7hrpDhAsgxVKtQVDV0XIJct1seUOdAyZZerdmHhWAN10fMmwZE4tV1JtXYVHqdcOQnSMcyovNtCm3m4M02EesS41gBusx7",
+      "vV1AvWoHBU7xvjBWylCo1ijEYKugah43sCKQuFDzv3rlj7jUAX09DEeojfT7Fcvn4OMwKt6OKthQTGCS4bcwkig6vejdlf2S6547MiWa3FwDLkKggKm0AsTQxcx0zvmN",
     username: email,
     password: password,
   };
@@ -58,9 +58,9 @@ export const refreshToken = () => async (dispatch) => {
 
     const body = {
       grant_type: "refresh_token",
-      client_id: "3pI4EPaVJmzFzSHyvFMrKNj3t1jE4GMqnrapUaDE",
+      client_id: "wYPRf7krowjsT0cfkybyxNBz4D1d43txi67L4oWR",
       client_secret:
-        "XBOUKCtSTKgdYujIKMlAzbMOMbkcuC95ES7hrpDhAsgxVKtQVDV0XIJct1seUOdAyZZerdmHhWAN10fMmwZE4tV1JtXYVHqdcOQnSMcyovNtCm3m4M02EesS41gBusx7",
+        "vV1AvWoHBU7xvjBWylCo1ijEYKugah43sCKQuFDzv3rlj7jUAX09DEeojfT7Fcvn4OMwKt6OKthQTGCS4bcwkig6vejdlf2S6547MiWa3FwDLkKggKm0AsTQxcx0zvmN",
       refresh_token: refresh_token,
     };
 
