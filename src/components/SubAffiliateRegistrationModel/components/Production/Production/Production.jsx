@@ -2,7 +2,10 @@ import { DeleteForeverOutlined } from "@material-ui/icons";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Input, FormGroup, Row, Table, Col } from "reactstrap";
-import { getProductionName, getTypeProduction } from "redux/actions/Productions";
+import {
+  getProductionName,
+  getTypeProduction,
+} from "../../../../../redux/actions/Productions";
 
 const Production = ({
   usersAffiliation,
@@ -29,29 +32,53 @@ const Production = ({
     production: "",
     how_produces: 0,
     type_production: "",
-    issues_invoice: 0,
+    issues_invoice: "",
   });
+
+  const [inputProductionTable, setIn1utProductionTable] = useState({
+    production: "",
+    how_produces: "",
+    issues_invoice: "",
+  });
+
+  const [inputProductionsTable, setInputProductionsTable] = useState([]);
 
   const handleChangeInput = (event) => {
     const { name, value } = event.target;
     setInputProduction({ ...inputProduction, [name]: value });
+
+    if (name === "production") {
+      setIn1utProductionTable({
+        ...inputProductionTable,
+        [name]: event.target[event.target.selectedIndex].text,
+      });
+    } else {
+      setIn1utProductionTable({ ...inputProductionTable, [name]: value });
+    }
   };
 
-  const addVegetablesInTable = () => {
+  const addProduction = () => {
     if (
+      inputProduction.affiliation &&
       inputProduction.production &&
-      inputProduction.seedling_origin &&
-      inputProduction.creole_seed &&
-      inputProduction.irrigated_area &&
-      inputProduction.generates_waste
+      inputProduction.how_produces &&
+      inputProduction.type_production &&
+      inputProduction.issues_invoice
     ) {
       setInputProductionList([...inputProductionList, inputProduction]);
+      setInputProductionsTable([
+        ...inputProductionsTable,
+        inputProductionTable,
+      ]);
     }
   };
 
   const removeVegetablesInTable = (index) => {
     setInputProductionList(
       inputProductionList.filter((item, i) => i !== index)
+    );
+    setInputProductionsTable(
+      inputProductionsTable.filter((item, i) => i !== index)
     );
   };
 
@@ -66,7 +93,7 @@ const Production = ({
           <Col lg="6">
             <FormGroup>
               <label className="form-control-label" htmlFor="affiliation">
-                Afiliação
+                Afiliação <small className="text-red">(obrigatório)</small>
               </label>
               <Input
                 className="form-control-alternative"
@@ -81,7 +108,7 @@ const Production = ({
                   Escolha uma opção
                 </option>
                 {usersAffiliation.map((afilliate, i) => (
-                  <option key={i} value={afilliate.affiliation}>
+                  <option key={i} value={afilliate.id}>
                     {afilliate.name}
                   </option>
                 ))}
@@ -118,7 +145,7 @@ const Production = ({
           <Col lg="6">
             <FormGroup>
               <label className="form-control-label" htmlFor="how_produces">
-                Quanto produz
+                Quanto produz <small className="text-red">(obrigatório)</small>
               </label>
               <Input
                 className="form-control-alternative"
@@ -135,7 +162,8 @@ const Production = ({
           <Col lg="6">
             <FormGroup>
               <label className="form-control-label" htmlFor="type_production">
-                Tipo de produção
+                Tipo de produção{" "}
+                <small className="text-red">(obrigatório)</small>
               </label>
               <Input
                 className="form-control-alternative"
@@ -162,7 +190,7 @@ const Production = ({
           <Col lg="6">
             <FormGroup>
               <label className="form-control-label" htmlFor="issues_invoice">
-                Emite nota?
+                Emite nota? <small className="text-red">(obrigatório)</small>
               </label>
               <Input
                 className="form-control-alternative"
@@ -170,7 +198,6 @@ const Production = ({
                 name="issues_invoice"
                 id="issues_invoice"
                 title="Emite nota?"
-                placeholder="Ex: R$ 50,00"
                 value={inputProduction.issues_invoice}
                 onChange={handleChangeInput}
                 required
@@ -178,36 +205,34 @@ const Production = ({
                 <option value="" hidden>
                   Escolha uma opção
                 </option>
-                <option value={true}>
-                  Sim
-                </option>
-                <option value={false}>
-                  Não
-                </option>
+                <option value={true}>Sim</option>
+                <option value={false}>Não</option>
               </Input>
             </FormGroup>
           </Col>
           <Col lg="12" className="mb-3 d-flex justify-content-center">
-            <Button color="primary" onClick={addVegetablesInTable}>
+            <Button color="primary" onClick={addProduction}>
               Adicionar
             </Button>
           </Col>
           <Col lg="12">
-            <Table>
+            <Table responsive>
               <thead>
                 <tr>
-                  <th>Nome</th>
-                  <th>Quanto produz</th>
-                  <th>Emite nota?</th>
+                  <th className="text-wrap">Nome</th>
+                  <th className="text-wrap">Quanto produz</th>
+                  <th className="text-wrap">Emite nota?</th>
                   <th></th>
                 </tr>
               </thead>
               <tbody>
-                {inputProductionList.map((item, i) => (
+                {inputProductionsTable.map((item, i) => (
                   <tr key={i}>
-                    <td className="border">{item.production}</td>
+                    <td className="border text-wrap">{item.production}</td>
                     <td className="border">{item.how_produces}</td>
-                    <td className="border">{item.issues_invoice}</td>
+                    <td className="border">
+                      {item.issues_invoice ? "Sim" : "Não"}
+                    </td>
                     <td className="border">
                       <Button onClick={() => removeVegetablesInTable(i)}>
                         <DeleteForeverOutlined />

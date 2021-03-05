@@ -1,4 +1,8 @@
 const initialState = {
+  production: null,
+  vegetablesProduction: null,
+  animalsProduction: null,
+  psiculture: null,
   productions: {
     results: [],
   },
@@ -17,8 +21,22 @@ const initialState = {
 
 const ProductionsReducer = (state = initialState, action) => {
   switch (action.type) {
+    case "SET_PRODUCTION":
+      return { ...state, production: action.payload.production };
     case "SET_PRODUCTIONS":
       return { ...state, productions: action.payload.productions };
+    case "SET_ANIMALS_PRODUCTION":
+      return { ...state, animalsProduction: action.payload.animalsProduction };
+    case "SET_VEGETABLES_PRODUCTION":
+      return {
+        ...state,
+        vegetablesProduction: action.payload.vegetablesProduction,
+      };
+    case "SET_PSICULTURE_PRODUCTION":
+      return {
+        ...state,
+        psiculture: action.payload.psiculture,
+      };
     case "SET_VEGETABLES_PRODUCTIONS":
       return {
         ...state,

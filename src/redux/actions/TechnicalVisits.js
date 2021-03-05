@@ -71,3 +71,41 @@ const setTechnicalVisits = (technicalVisits) => ({
     technicalVisits,
   },
 });
+
+export const getTechnicalVisitById = (id) => async (dispatch) => {
+  try {
+    const response = await api.get(`technical_visit/technical_visit/${id}/`);
+
+    const allotmentData = await api.get(
+      `allotment/allotment/${response.data.allotment}/`
+    );
+
+    response.data.allotmentName = allotmentData.data.property_name;
+
+    dispatch(setTechnicalVisit(response.data));
+  } catch (err) {
+    console.error(err.message);
+  }
+};
+
+const setTechnicalVisit = (technicalVisit) => ({
+  type: "SET_TECHNICAL_VISIT",
+  payload: {
+    technicalVisit,
+  },
+});
+
+export const updateTechnicalVisit = (input) => async (dispatch) => {
+  try {
+    const response = await api.put(
+      `technical_visit/technical_visit/${input.id}/`,
+      input
+    );
+
+    dispatch(setAlert(200, "Dados foram gravados com sucesso!", true));
+    dispatch(setTechnicalVisit(response.data));
+    dispatch(getTechnicalVisits());
+  } catch (err) {
+    console.error(err.message);
+  }
+};

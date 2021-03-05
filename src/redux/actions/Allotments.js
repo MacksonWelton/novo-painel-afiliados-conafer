@@ -112,6 +112,10 @@ export const getAllotmentById = (id) => async (dispatch) => {
   try {
     const response = await api.get(`allotment/allotment/${id}/`);
 
+    const biomaName = await api.get(`allotment/bioma/${response.data.bioma}/`);
+
+    response.data.biomaName = biomaName.data.name;
+
     dispatch(setAllotmentById(response.data));
   } catch (err) {
     if (!err.response) {
@@ -129,7 +133,7 @@ export const getAllotmentById = (id) => async (dispatch) => {
 };
 
 const setAllotmentById = (allotment) => ({
-  type: "",
+  type: "SET_ALLOTMENT",
   payload: {
     allotment,
   },
@@ -159,5 +163,50 @@ const setBiomes = (biomes) => ({
   type: "BIOMES",
   payload: {
     biomes,
+  },
+});
+
+export const updateAllotment = (inputAllotment, fileAllotment) => async (
+  dispatch
+) => {
+  try {
+    const formDataAllotment = converterDataToFormData(
+      inputAllotment,
+      fileAllotment
+    );
+
+    const response = await api.put(
+      `allotment/allotment/${inputAllotment.id}/`,
+      formDataAllotment,
+      {
+        headers: {
+          "Content-Type": `multipart/form-data; boundary=${formDataAllotment._boundary}`,
+        },
+      }
+    );
+
+    dispatch(setAlert(200, "Dados foram gravados com sucesso!", true));
+    dispatch(getAllotments());
+    dispatch(setAllotment(response.data));
+  } catch (err) {
+    console.error(err.message);
+    if (!err.response) {
+      dispatch(
+        setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
+      );
+    } else if (err.response.status === 401) {
+      dispatch(setAlert(err.response.status, err.response.data.detail, true));
+    } else {
+      dispatch(
+        setAlert(err.response.status, err.response.data.error_description, true)
+      );
+    }
+  }
+};
+
+const setAllotment = (allotment) => ({
+  type: "SET_ALLOTMENT",
+  payload: {
+    allotment,
   },
 });

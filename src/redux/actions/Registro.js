@@ -82,7 +82,7 @@ export const pjAffiliateRegister = (
   files,
   agriculturalProduction
 ) => async (dispatch) => {
-  const formData = converterDataToFormData(input, files);
+  const formData = await converterDataToFormData(input, files);
 
   try {
     const response = await api.post("affiliation/affiliation_pj/", formData, {

@@ -34,11 +34,12 @@ const FormUsuarioAfiliacao = ({
               onChange={handleChangeInput}
               required
             />
+            <small className="text-red mt-3 mr-2">(obrigatório)</small>   
           </InputGroup>
         </FormGroup>
       </Col>
       <Col lg="12">
-        <div style={{width: "50%"}}>
+        <div style={{ width: "50%" }}>
           {files.profilepic.value ? (
             <img
               className="w-25 ml-2 mb-2 rounded"
@@ -46,8 +47,8 @@ const FormUsuarioAfiliacao = ({
               alt=""
             />
           ) : null}
-          </div>
-        <FormGroup>
+        </div>
+        <FormGroup>  
           <InputGroup>
             <label className="btn bg-light ml-1 mb-0">
               {files.profilepic.fileName
@@ -79,6 +80,7 @@ const FormUsuarioAfiliacao = ({
               onChange={handleChangeInput}
               required
             />
+          <small className="text-red mt-3 mr-2">(obrigatório)</small>   
           </InputGroup>
         </FormGroup>
       </Col>
@@ -99,6 +101,7 @@ const FormUsuarioAfiliacao = ({
               onChange={handleChangeInput}
               required
             />
+          <small className="text-red mt-3 mr-2">(obrigatório)</small>   
           </InputGroup>
         </FormGroup>
       </Col>
@@ -118,6 +121,7 @@ const FormUsuarioAfiliacao = ({
               onChange={handleChangeInput}
               required
             />
+          <small className="text-red mt-3 mr-2">(obrigatório)</small>   
           </InputGroup>
         </FormGroup>
       </Col>
@@ -137,6 +141,7 @@ const FormUsuarioAfiliacao = ({
               onChange={handleChangeInput}
               required
             />
+          <small className="text-red mt-3 mr-2">(obrigatório)</small>   
           </InputGroup>
         </FormGroup>
       </Col>

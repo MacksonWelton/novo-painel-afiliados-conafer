@@ -2,9 +2,10 @@ import { DeleteForeverOutlined } from "@material-ui/icons";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Input, FormGroup, Row, Table, Col } from "reactstrap";
-import { getProductionName } from "redux/actions/Productions";
-import {getAllAllotments} from "redux/actions/Allotments";
-import { formatReal } from "utils/converterToMoney";
+import { getProductionName } from "../../../../../redux/actions/Productions";
+import {getAllAllotments} from "../../../../../redux/actions/Allotments";
+import { formatReal } from "../../../../../utils/converterToMoney";
+import convertVoidPropertiestoNullValue from "utils/convertVoidPropertiestoNullValue";
 
 const VegetablesProduction = ({
   inputVegetablesProduction,
@@ -68,7 +69,7 @@ const VegetablesProduction = ({
       inputVegetables.irrigated_area &&
       inputVegetables.generates_waste
     ) {
-      setInputVegetablesProduction([...inputVegetablesProduction, inputVegetables]);
+      setInputVegetablesProduction([...inputVegetablesProduction, convertVoidPropertiestoNullValue(inputVegetables)]);
       setInputVegetablesTable([...inputVegetablesTable, inputVegetableTable]);
     }
   };

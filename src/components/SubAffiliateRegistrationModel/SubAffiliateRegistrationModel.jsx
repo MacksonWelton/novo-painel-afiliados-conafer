@@ -14,7 +14,7 @@ import { newAllotment } from "../../redux/actions/Allotments";
 import { newProduction } from "../../redux/actions/Productions";
 import { newDiagnosisAgriculturalSystems } from "../../redux/actions/DiagnosisAgriculturalSystems";
 import { newImprovements } from "../../redux/actions/Improvements";
-import { newPsicultureProduction } from "redux/actions/Productions";
+import { newPsicultureProduction } from "../../redux/actions/Productions";
 import { newAnimalProduction } from "../../redux/actions/Productions";
 import { newVegetableProduction } from "../../redux/actions/Productions";
 import { newHabitation, newResident } from "../../redux/actions/Residents";
@@ -42,6 +42,7 @@ import AnimalProduction from "./components/Production/AnimalProduction/AnimalPro
 import Call from "./components/Call/Call";
 import { newCall } from "redux/actions/Called";
 import { Link } from "react-router-dom";
+import convertVoidPropertiestoNullValue from "utils/convertVoidPropertiestoNullValue";
 
 const SubAffiliateRegistrationModel = ({ setOpen, open }) => {
   const dispatch = useDispatch();
@@ -106,14 +107,14 @@ const SubAffiliateRegistrationModel = ({ setOpen, open }) => {
     phone: "",
     alternative_phone: "",
     state: "",
-    country: "",
+    country: "Brasil",
     city: "",
     district: "",
     address: "",
     number: 0,
     cep: "",
     location_zone: "",
-    collection_code: "",
+    collection_code: 0,
     status: "",
     operational_core: "",
     has_contract: "",
@@ -355,31 +356,31 @@ const SubAffiliateRegistrationModel = ({ setOpen, open }) => {
     event.preventDefault();
 
     if (open.member) {
-      dispatch(newMember(inputMember));
+      dispatch(newMember(convertVoidPropertiestoNullValue(inputMember)));
     } else if (open.resident) {
-      dispatch(newResident(inputResident));
+      dispatch(newResident(convertVoidPropertiestoNullValue(inputResident)));
     } else if (open.allotment) {
-      dispatch(newAllotment(inputAllotment, fileAllotment));
+      dispatch(newAllotment(convertVoidPropertiestoNullValue(inputAllotment, fileAllotment)));
     } else if (open.habitation) {
-      dispatch(newHabitation(inputHabitation));
+      dispatch(newHabitation(convertVoidPropertiestoNullValue(inputHabitation)));
     } else if (open.diagnosisAgriculturalSystems) {
       dispatch(
-        newDiagnosisAgriculturalSystems(inputDiagnosisOfAgriculturalSystems)
+        newDiagnosisAgriculturalSystems(convertVoidPropertiestoNullValue(inputDiagnosisOfAgriculturalSystems))
       );
     } else if (open.production) {
       dispatch(newProduction(inputProductionList));
     } else if (open.animal) {
-      dispatch(newAnimalProduction(inputAnimalProduction));
+      dispatch(newAnimalProduction(convertVoidPropertiestoNullValue(inputAnimalProduction)));
     } else if (open.vegetable) {
-      dispatch(newVegetableProduction(inputVegetablesProduction));
+      dispatch(newVegetableProduction(convertVoidPropertiestoNullValue(inputVegetablesProduction)));
     } else if (open.psiculture) {
-      dispatch(newPsicultureProduction(inputPsicultureProduction));
+      dispatch(newPsicultureProduction(convertVoidPropertiestoNullValue(inputPsicultureProduction)));
     } else if (open.improvement) {
       dispatch(newImprovements(inputImprovements));
     } else if (open.transport) {
-      dispatch(newTransport(inputTransport));
+      dispatch(newTransport(convertVoidPropertiestoNullValue(inputTransport)));
     } else if (open.technicalVisit) {
-      dispatch(newTechnicalVisit(inputTechnicalVisit));
+      dispatch(newTechnicalVisit(convertVoidPropertiestoNullValue(inputTechnicalVisit)));
     } else if (open.documentation) {
       dispatch(
         newDocumentation(
@@ -405,24 +406,24 @@ const SubAffiliateRegistrationModel = ({ setOpen, open }) => {
           {!usersAffiliation.length ? (
             <>
               <h3>
-                <span className="text-danger">Atenção: </span>Você apenas poderá cadastrar novos membros caso o seu
-                cadastro esteja completo.
+                <span className="text-danger">Atenção: </span>Você apenas poderá
+                cadastrar novos membros caso o seu cadastro esteja completo.
               </h3>
               <div className="px-lg-5 py-lg-5 d-flex flex-column align-items-center">
-              <Link
-                to="/admin/registration-pj"
-                onClick={() => setOpen({ ...open, modal: !open.modal })}
-                className="mb-3 p-2 bg-primary w-100 text-white text-center rounded"
-              >
-                PESSOA JURÍDICA
-              </Link>
-              <Link
-                to="/admin/registration-pf"
-                onClick={() => setOpen({ ...open, modal: !open.modal })}
-                className="mb-3 p-2 bg-primary w-100 text-white text-center rounded"
-              >
-                PESSOA FÍSICA
-              </Link>
+                <Link
+                  to="/admin/registration-pj"
+                  onClick={() => setOpen({ ...open, modal: !open.modal })}
+                  className="mb-3 p-2 bg-primary w-100 text-white text-center rounded"
+                >
+                  PESSOA JURÍDICA
+                </Link>
+                <Link
+                  to="/admin/registration-pf"
+                  onClick={() => setOpen({ ...open, modal: !open.modal })}
+                  className="mb-3 p-2 bg-primary w-100 text-white text-center rounded"
+                >
+                  PESSOA FÍSICA
+                </Link>
               </div>
             </>
           ) : (

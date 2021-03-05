@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Input, FormGroup, Col, Row } from "reactstrap";
-import { getAllAllotments } from "redux/actions/Allotments";
-import { formatReal } from "utils/converterToMoney";
+import { getAllAllotments } from "../../../../redux/actions/Allotments";
+import { formatReal } from "../../../../utils/converterToMoney";
 
 const DiagnosisAgriculturalSystems = ({
   inputDiagnosisOfAgriculturalSystems,

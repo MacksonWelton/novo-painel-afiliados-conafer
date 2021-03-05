@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { Col, FormGroup, Input, Row } from "reactstrap";
 import { mask, unMask } from "remask";
 import { findZipCode } from "utils/findZipCode";
@@ -21,6 +22,8 @@ const Member = ({ inputMember, setInputMember, usersAffiliation }) => {
     const { name, value } = event.target;
     setInputMember({ ...inputMember, [name]: value });
   };
+
+  const error = useSelector((state) => state.ErrorReducer.error);
 
   return (
     <>
@@ -48,11 +51,16 @@ const Member = ({ inputMember, setInputMember, usersAffiliation }) => {
                     Escolha uma opção
                   </option>
                   {usersAffiliation.map((afilliate, i) => (
-                    <option key={i} value={afilliate.affiliation}>
+                    <option key={i} value={afilliate.id}>
                       {afilliate.name}
                     </option>
                   ))}
                 </Input>
+                <small className="text-red">
+                  {error.hasOwnProperty("affiliation")
+                    ? `* ${error.affiliation.join(" ")}`
+                    : ""}
+                </small>
               </FormGroup>
             </Col>
             <Col lg="6">
@@ -74,6 +82,11 @@ const Member = ({ inputMember, setInputMember, usersAffiliation }) => {
                   minLength="1"
                   required
                 />
+                <small className="text-red">
+                  {error.hasOwnProperty("name")
+                    ? `* ${error.name.join(" ")}`
+                    : ""}
+                </small>
               </FormGroup>
             </Col>
             <Col lg="6">
@@ -104,6 +117,11 @@ const Member = ({ inputMember, setInputMember, usersAffiliation }) => {
                     O número do CPF está incorreto. Por favor, tente novamente.
                   </small>
                 )}
+                <small className="text-red">
+                  {error.hasOwnProperty("cpf")
+                    ? `* ${error.cpf.join(" ")}`
+                    : ""}
+                </small>
               </FormGroup>
             </Col>
             <Col lg="6">
@@ -137,6 +155,11 @@ const Member = ({ inputMember, setInputMember, usersAffiliation }) => {
                   maxLength="14"
                   onChange={handleChangeInput}
                 />
+                <small className="text-red">
+                  {error.hasOwnProperty("nis")
+                    ? `* ${error.nis.join(" ")}`
+                    : ""}
+                </small>
               </FormGroup>
             </Col>
             <Col lg="6">
@@ -154,6 +177,11 @@ const Member = ({ inputMember, setInputMember, usersAffiliation }) => {
                   onChange={handleChangeInput}
                   maxLength="254"
                 />
+                <small className="text-red">
+                  {error.hasOwnProperty("email")
+                    ? `* ${error.email.join(" ")}`
+                    : ""}
+                </small>
               </FormGroup>
             </Col>
             <Col lg="6">
@@ -172,6 +200,11 @@ const Member = ({ inputMember, setInputMember, usersAffiliation }) => {
                   maxLength="17"
                   minLength="1"
                 />
+                <small className="text-red">
+                  {error.hasOwnProperty("phone")
+                    ? `* ${error.phone.join(" ")}`
+                    : ""}
+                </small>
               </FormGroup>
             </Col>
             <Col lg="6">
@@ -194,6 +227,11 @@ const Member = ({ inputMember, setInputMember, usersAffiliation }) => {
                   onChange={handleChangeInput}
                   maxLength="17"
                 />
+                <small className="text-red">
+                  {error.hasOwnProperty("alternative_phone")
+                    ? `* ${error.alternative_phone.join(" ")}`
+                    : ""}
+                </small>
               </FormGroup>
             </Col>
             <Col lg="6">
@@ -203,13 +241,18 @@ const Member = ({ inputMember, setInputMember, usersAffiliation }) => {
                 </label>
                 <Input
                   className="form-control-alternative"
-                  type="text"
+                  type="number"
                   name="collection_code"
                   title="Código de Coleta"
                   placeholder="Ex: 0000"
                   value={inputMember.collection_code}
                   onChange={handleChangeInput}
                 />
+                <small className="text-red">
+                  {error.hasOwnProperty("collection_code")
+                    ? `* ${error.collection_code.join(" ")}`
+                    : ""}
+                </small>
               </FormGroup>
             </Col>
             <Col lg="6">
@@ -227,8 +270,12 @@ const Member = ({ inputMember, setInputMember, usersAffiliation }) => {
                   onChange={handleChangeInput}
                   maxLength="30"
                   minLength="1"
-                  required
                 />
+                <small className="text-red">
+                  {error.hasOwnProperty("citizenship")
+                    ? `* ${error.citizenship.join(" ")}`
+                    : ""}
+                </small>
               </FormGroup>
             </Col>
             <Col lg="6">
@@ -245,6 +292,11 @@ const Member = ({ inputMember, setInputMember, usersAffiliation }) => {
                   value={inputMember.rb_status}
                   onChange={handleChangeInput}
                 />
+                <small className="text-red">
+                  {error.hasOwnProperty("rb_status")
+                    ? `* ${error.rb_status.join(" ")}`
+                    : ""}
+                </small>
               </FormGroup>
             </Col>
             <Col lg="6">
@@ -269,6 +321,11 @@ const Member = ({ inputMember, setInputMember, usersAffiliation }) => {
                   <option value={true}>Sim</option>
                   <option value={false}>Não</option>
                 </Input>
+                <small className="text-red">
+                  {error.hasOwnProperty("incra_area")
+                    ? `* ${error.incra_area.join(" ")}`
+                    : ""}
+                </small>
               </FormGroup>
             </Col>
           </Row>
@@ -295,6 +352,11 @@ const Member = ({ inputMember, setInputMember, usersAffiliation }) => {
                   value={inputMember.status}
                   onChange={handleChangeInput}
                 />
+                <small className="text-red">
+                  {error.hasOwnProperty("status")
+                    ? `* ${error.status.join(" ")}`
+                    : ""}
+                </small>
               </FormGroup>
             </Col>
             <Col lg="6">
@@ -321,6 +383,11 @@ const Member = ({ inputMember, setInputMember, usersAffiliation }) => {
                   <option value="Divorciado(a)">Divorciado(a)</option>
                   <option value="Viúvo(a)">Viúvo(a)</option>
                 </Input>
+                <small className="text-red">
+                  {error.hasOwnProperty("marital_status")
+                    ? `* ${error.marital_status.join(" ")}`
+                    : ""}
+                </small>
               </FormGroup>
             </Col>
             <Col lg="6">
@@ -340,6 +407,11 @@ const Member = ({ inputMember, setInputMember, usersAffiliation }) => {
                   minLength="1"
                   required
                 />
+                <small className="text-red">
+                  {error.hasOwnProperty("mother_name")
+                    ? `* ${error.mother_name.join(" ")}`
+                    : ""}
+                </small>
               </FormGroup>
             </Col>
             {(inputMember.marital_status === "União Estável" ||
@@ -360,6 +432,11 @@ const Member = ({ inputMember, setInputMember, usersAffiliation }) => {
                       onChange={handleChangeInput}
                       required
                     />
+                    <small className="text-red">
+                      {error.hasOwnProperty("spouse_name")
+                        ? `* ${error.spouse_name.join(" ")}`
+                        : ""}
+                    </small>
                   </FormGroup>
                 </Col>
                 <Col lg="6">
@@ -380,6 +457,11 @@ const Member = ({ inputMember, setInputMember, usersAffiliation }) => {
                       maxLength="14"
                       required
                     />
+                    <small className="text-red">
+                      {error.hasOwnProperty("spouse_cpf")
+                        ? `* ${error.spouse_cpf.join(" ")}`
+                        : ""}
+                    </small>
                   </FormGroup>
                 </Col>
               </>
@@ -401,6 +483,11 @@ const Member = ({ inputMember, setInputMember, usersAffiliation }) => {
                   minLength="1"
                   onChange={handleChangeInput}
                 />
+                <small className="text-red">
+                  {error.hasOwnProperty("nationality")
+                    ? `* ${error.nationality.join(" ")}`
+                    : ""}
+                </small>
               </FormGroup>
             </Col>
           </Row>
@@ -430,6 +517,11 @@ const Member = ({ inputMember, setInputMember, usersAffiliation }) => {
                   value={inputMember.operational_core}
                   onChange={handleChangeInput}
                 />
+                <small className="text-red">
+                  {error.hasOwnProperty("operational_core")
+                    ? `* ${error.operational_core.join(" ")}`
+                    : ""}
+                </small>
               </FormGroup>
             </Col>
             <Col lg="6">
@@ -447,6 +539,11 @@ const Member = ({ inputMember, setInputMember, usersAffiliation }) => {
                   onChange={handleChangeInput}
                   maxLength="17"
                 />
+                <small className="text-red">
+                  {error.hasOwnProperty("location_zone")
+                    ? `* ${error.location_zone.join(" ")}`
+                    : ""}
+                </small>
               </FormGroup>
             </Col>
             <Col lg="6">
@@ -471,6 +568,11 @@ const Member = ({ inputMember, setInputMember, usersAffiliation }) => {
                   maxLength="10"
                   minLength="1"
                 />
+                <small className="text-red">
+                  {error.hasOwnProperty("cep")
+                    ? `* ${error.cep.join(" ")}`
+                    : ""}
+                </small>
               </FormGroup>
             </Col>
             <Col lg="6">
@@ -488,6 +590,11 @@ const Member = ({ inputMember, setInputMember, usersAffiliation }) => {
                   onChange={handleChangeInput}
                   maxLength="17"
                 />
+                <small className="text-red">
+                  {error.hasOwnProperty("address")
+                    ? `* ${error.address.join(" ")}`
+                    : ""}
+                </small>
               </FormGroup>
             </Col>
             <Col lg="6">
@@ -506,6 +613,11 @@ const Member = ({ inputMember, setInputMember, usersAffiliation }) => {
                   maxLength="17"
                   required
                 />
+                <small className="text-red">
+                  {error.hasOwnProperty("district")
+                    ? `* ${error.district.join(" ")}`
+                    : ""}
+                </small>
               </FormGroup>
             </Col>
             <Col lg="6">
@@ -525,6 +637,11 @@ const Member = ({ inputMember, setInputMember, usersAffiliation }) => {
                   min="0"
                   required
                 />
+                <small className="text-red">
+                  {error.hasOwnProperty("number")
+                    ? `* ${error.number.join(" ")}`
+                    : ""}
+                </small>
               </FormGroup>
             </Col>
             <Col lg="6">
@@ -543,6 +660,11 @@ const Member = ({ inputMember, setInputMember, usersAffiliation }) => {
                   maxLength="17"
                   required
                 />
+                <small className="text-red">
+                  {error.hasOwnProperty("city")
+                    ? `* ${error.city.join(" ")}`
+                    : ""}
+                </small>
               </FormGroup>
             </Col>
             <Col lg="6">
@@ -588,6 +710,11 @@ const Member = ({ inputMember, setInputMember, usersAffiliation }) => {
                   <option value="SE">Sergipe</option>
                   <option value="TO">Tocantins</option>
                 </Input>
+                <small className="text-red">
+                  {error.hasOwnProperty("state")
+                    ? `* ${error.state.join(" ")}`
+                    : ""}
+                </small>
               </FormGroup>
             </Col>
             <Col lg="6">
@@ -597,7 +724,7 @@ const Member = ({ inputMember, setInputMember, usersAffiliation }) => {
                 </label>
                 <Input
                   className="form-control-alternative"
-                  type="text"
+                  type="select"
                   id="country"
                   name="country"
                   title="País"
@@ -605,7 +732,25 @@ const Member = ({ inputMember, setInputMember, usersAffiliation }) => {
                   value={inputMember.country}
                   onChange={handleChangeInput}
                   maxLength="17"
-                />
+                >
+                  <option value="Brasil">Brasil</option>
+                  <option value="Argentina">Argentina</option>
+                  <option value="Bolívia">Bolívia</option>
+                  <option value="Chile">Chile</option>
+                  <option value="Colômbia">Colômbia</option>
+                  <option value="Equador">Equador</option>
+                  <option value="Guiana">Guiana</option>
+                  <option value="Paraguai">Paraguai</option>
+                  <option value="Peru">Peru</option>
+                  <option value="Suriname">Suriname</option>
+                  <option value="Uruguai">Uruguai</option>
+                  <option value="Venezuela">Venezuela</option>
+                </Input>
+                <small className="text-red">
+                  {error.hasOwnProperty("country")
+                    ? `* ${error.country.join(" ")}`
+                    : ""}
+                </small>
               </FormGroup>
             </Col>
             <Col lg="6">
@@ -626,6 +771,11 @@ const Member = ({ inputMember, setInputMember, usersAffiliation }) => {
                   min="0"
                   required
                 />
+                <small className="text-red">
+                  {error.hasOwnProperty("year_residence")
+                    ? `* ${error.year_residence.join(" ")}`
+                    : ""}
+                </small>
               </FormGroup>
             </Col>
             <Col lg="6">
@@ -645,6 +795,11 @@ const Member = ({ inputMember, setInputMember, usersAffiliation }) => {
                   value={inputMember.concession_validity}
                   onChange={handleChangeInput}
                 />
+                <small className="text-red">
+                  {error.hasOwnProperty("concession_validity")
+                    ? `* ${error.concession_validity.join(" ")}`
+                    : ""}
+                </small>
               </FormGroup>
             </Col>
             <Col lg="6">
@@ -667,6 +822,11 @@ const Member = ({ inputMember, setInputMember, usersAffiliation }) => {
                   <option value={true}>Sim</option>
                   <option value={false}>Não</option>
                 </Input>
+                <small className="text-red">
+                  {error.hasOwnProperty("always_resided")
+                    ? `* ${error.always_resided.join(" ")}`
+                    : ""}
+                </small>
               </FormGroup>
             </Col>
             <Col lg="6">
@@ -694,6 +854,11 @@ const Member = ({ inputMember, setInputMember, usersAffiliation }) => {
                   <option value={true}>Sim</option>
                   <option value={false}>Não</option>
                 </Input>
+                <small className="text-red">
+                  {error.hasOwnProperty("beneficiary_knows_limit")
+                    ? `* ${error.beneficiary_knows_limit.join(" ")}`
+                    : ""}
+                </small>
               </FormGroup>
             </Col>
             <Col lg="6">
@@ -718,6 +883,11 @@ const Member = ({ inputMember, setInputMember, usersAffiliation }) => {
                   <option value={true}>Sim</option>
                   <option value={false}>Não</option>
                 </Input>
+                <small className="text-red">
+                  {error.hasOwnProperty("lot_has_marking")
+                    ? `* ${error.lot_has_marking.join(" ")}`
+                    : ""}
+                </small>
               </FormGroup>
             </Col>
             <Col lg="6">
@@ -742,6 +912,11 @@ const Member = ({ inputMember, setInputMember, usersAffiliation }) => {
                   <option value={true}>Sim</option>
                   <option value={false}>Não</option>
                 </Input>
+                <small className="text-red">
+                  {error.hasOwnProperty("has_contract")
+                    ? `* ${error.has_contract.join(" ")}`
+                    : ""}
+                </small>
               </FormGroup>
             </Col>
           </Row>

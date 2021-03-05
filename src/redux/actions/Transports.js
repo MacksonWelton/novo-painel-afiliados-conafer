@@ -2,30 +2,30 @@ import api from "services/api";
 import { setAlert, setSubmitMessage } from "./Alerts";
 
 export const newTransport = (inputTransport) => async (dispatch) => {
-    try {
-      await api.post("transport/transport/", inputTransport);
-  
-      dispatch(setAlert(200, "Dados foram gravados com sucesso!", true));
-  
-      dispatch(getTransports());
-    } catch (err) {
-      if (!err.response) {
-        dispatch(
-          setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
-        );
-      } else if (err.response.status === 401) {
-        if (err.response.data.detail) {
-          dispatch(setAlert(err.response.status, err.response.data.detail, true));
-        } else {
-          dispatch(setSubmitMessage(Object.values(err.response.data).join(" ")));
-        }
+  try {
+    await api.post("transport/transport/", inputTransport);
+
+    dispatch(setAlert(200, "Dados foram gravados com sucesso!", true));
+
+    dispatch(getTransports());
+  } catch (err) {
+    if (!err.response) {
+      dispatch(
+        setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
+      );
+    } else if (err.response.status === 401) {
+      if (err.response.data.detail) {
+        dispatch(setAlert(err.response.status, err.response.data.detail, true));
       } else {
-        dispatch(
-          setAlert(err.response.status, err.response.data.error_description, true)
-        );
+        dispatch(setSubmitMessage(Object.values(err.response.data).join(" ")));
       }
+    } else {
+      dispatch(
+        setAlert(err.response.status, err.response.data.error_description, true)
+      );
     }
-  };
+  }
+};
 
 export const getTransports = (offset = 0, limit = 10) => async (dispatch) => {
   try {
@@ -69,3 +69,60 @@ const setTransports = (transports) => ({
     transports,
   },
 });
+
+export const getTransportById = (id) => async (dispatch) => {
+  try {
+    const response = await api.get(`transport/transport/${id}/`);
+
+    const allotmentData = await api.get(
+      `allotment/allotment/${response.data.allotment}/`
+    );
+
+    response.data.allotmentName = allotmentData.data.property_name;
+
+    dispatch(setTransport(response.data));
+  } catch (err) {
+    console.error(err.message);
+    if (!err.response) {
+      dispatch(
+        setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
+      );
+    } else if (err.response.status === 401) {
+      dispatch(setAlert(err.response.status, err.response.data.detail, true));
+    } else {
+      dispatch(
+        setAlert(err.response.status, err.response.data.error_description, true)
+      );
+    }
+  }
+};
+
+const setTransport = (transport) => ({
+  type: "SET_TRANSPORT",
+  payload: {
+    transport,
+  },
+});
+
+export const updateTransport = (input) => async (dispatch) => {
+  try {
+    const response = await api.put(`transport/transport/${input.id}/`, input);
+
+    dispatch(setAlert(200, "Dados foram gravados com sucesso!", true));
+    dispatch(setTransport(response.data));
+    dispatch(getTransports());
+  } catch (err) {
+    console.error(err.message);
+    if (!err.response) {
+      dispatch(
+        setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
+      );
+    } else if (err.response.status === 401) {
+      dispatch(setAlert(err.response.status, err.response.data.detail, true));
+    } else {
+      dispatch(
+        setAlert(err.response.status, err.response.data.error_description, true)
+      );
+    }
+  }
+};

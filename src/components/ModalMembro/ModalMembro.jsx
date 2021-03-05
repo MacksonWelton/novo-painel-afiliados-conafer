@@ -1,19 +1,19 @@
 import React, { useRef } from "react";
 import { Modal, ModalBody, ModalFooter, ModalHeader, Button } from "reactstrap";
-import Member from "./components/Member";
-import Allotment from "./components/Allotment";
-import Resident from "./components/Resident";
-import DiagnosisAgriculturalSystems from "./components/DiagnosisAgriculturalSystems";
-import Producao from "./components/Producao";
-import VegetablesProduction from "./components/VegetablesProduction";
-import Psiculture from "./components/Psiculture";
-import Improvements from "./components/Improvements";
-import Transports from "./components/Transports";
-import TechnicalVisit from "./components/TechnicalVisit";
-import Documents from "./components/Documents";
-import Habitation from "./components/Habitation";
-import Call from "./components/Call";
-import AnimalsProduction from "./components/AnimalsProduction";
+import Member from "./components/Member/Member";
+import Allotment from "./components/Allotment/Allotment";
+import Resident from "./components/Resident/Resident";
+import DiagnosisAgriculturalSystems from "./components/DiagnosisAgriculturalSystems/DiagnosisAgriculturalSystems";
+import Producao from "./components/Production/Production/Producao";
+import VegetablesProduction from "./components/Production/VegetablesProduction/VegetablesProduction";
+import Psiculture from "./components/Production/Psiculture/Psiculture";
+import Improvements from "./components/Improvements/Improvements";
+import Transports from "./components/Transport/Transports";
+import TechnicalVisit from "./components/TechnicalVisit/TechnicalVisit";
+import Documents from "./components/Documents/Documents";
+import Habitation from "./components/Habitation/Habitation";
+import Call from "./components/Call/Call";
+import AnimalsProduction from "./components/Production/AnimalsProduction/AnimalsProduction";
 
 const ModalMembro = ({
   open,
@@ -51,25 +51,25 @@ const ModalMembro = ({
       </ModalHeader>
       <ModalBody>
         <div ref={ref}>
-          {member && <Member member={member} />}
-          {habitation && <Habitation habitation={habitation} />}
-          {resident && <Resident resident={resident}/>}
-          {allotment && <Allotment allotment={allotment} />}
+          {member && <Member memberData={member} />}
+          {allotment && <Allotment allotmentData={allotment} />}
+          {habitation && <Habitation habitationData={habitation} />}
+          {resident && <Resident residentData={resident}/>}
           {diagnosisAgriculturalSystem && (
             <DiagnosisAgriculturalSystems
-              diagnosisAgriculturalSystem={diagnosisAgriculturalSystem}
+            diagnosisAgriculturalSystemData={diagnosisAgriculturalSystem}
             />
           )}
-          {production && <Producao production={production} />}
+          {production && <Producao productionData={production} />}
           {vegetablesProduction && (
-            <VegetablesProduction vegetablesProduction={vegetablesProduction} />
+            <VegetablesProduction vegetablesProductionData={vegetablesProduction} />
           )}
-          {animalsProduction && <AnimalsProduction animalsProduction={animalsProduction}/>}
-          {psiculture && <Psiculture psiculture={psiculture} />}
-          {improvement && <Improvements improvement={improvement} />}
-          {transport && <Transports transport={transport} />}
-          {technicalVisit && <TechnicalVisit technicalVisit={technicalVisit} />}
-          {document && <Documents document={document} />}
+          {animalsProduction && <AnimalsProduction animalsProductionData={animalsProduction}/>}
+          {psiculture && <Psiculture psicultureData={psiculture} />}
+          {improvement && <Improvements improvementData={improvement} />}
+          {transport && <Transports transportData={transport} />}
+          {technicalVisit && <TechnicalVisit technicalVisitData={technicalVisit} />}
+          {document && <Documents documentData={document} />}
           {call && <Call call={call} />}
         </div>
       </ModalBody>

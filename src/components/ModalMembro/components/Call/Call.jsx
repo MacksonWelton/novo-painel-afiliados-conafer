@@ -12,7 +12,7 @@ import {
   Table,
 } from "reactstrap";
 import { getUserAffiliationById } from "redux/actions/UsuariosAfiliacao";
-import { Content } from "./Styles";
+import { Content } from "../Styles";
 import {
   getCallAttachmentByQuestion,
   getCallAnswersByQuestion,

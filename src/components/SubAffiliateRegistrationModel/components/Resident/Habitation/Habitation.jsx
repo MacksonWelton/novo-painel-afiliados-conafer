@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Col, FormGroup, Input, Row } from "reactstrap";
-import { getAllAllotments } from "redux/actions/Allotments";
+import { getAllAllotments } from "../../../../../redux/actions/Allotments";
 
 const Habitation = ({ inputHabitation, setInputHabitation }) => {
   const dispatch = useDispatch();
@@ -11,6 +11,7 @@ const Habitation = ({ inputHabitation, setInputHabitation }) => {
   }, [dispatch]);
 
   const allAllotments = useSelector((state) => state.AllotmentsReducer.allAllotments);
+  const error = useSelector((state) => state.ErrorReducer.error);
 
 
   const handleChangeInput = (event) => {
@@ -51,6 +52,11 @@ const Habitation = ({ inputHabitation, setInputHabitation }) => {
                   </option>
                 ))}
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("property_name")
+                  ? `* ${error.property_name.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
         </Row>

@@ -2,8 +2,8 @@ import { DeleteForeverOutlined } from "@material-ui/icons";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Input, FormGroup, Row, Table, Col } from "reactstrap";
-import { getAllAllotments } from "redux/actions/Allotments";
-import { formatReal } from "utils/converterToMoney";
+import { getAllAllotments } from "../../../../../redux/actions/Allotments";
+import { formatReal } from "../../../../../utils/converterToMoney";
 
 const AnimalProduction = ({
   inputPsicultureProduction,

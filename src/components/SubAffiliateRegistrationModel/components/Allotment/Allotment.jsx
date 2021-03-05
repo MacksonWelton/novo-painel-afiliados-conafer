@@ -2,8 +2,8 @@ import GoogleMaps from "components/GoogleMaps/GoogleMaps";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FormGroup, Col, Input, Row } from "reactstrap";
-import { getBiomes } from "redux/actions/Allotments";
-import { getAllMembers } from "redux/actions/Membros";
+import { getBiomes } from "../../../../redux/actions/Allotments";
+import { getAllMembers } from "../../../../redux/actions/Membros";
 
 const Allotment = ({
   inputAllotment,
@@ -22,6 +22,7 @@ const Allotment = ({
   const biomes = useSelector((state) => state.AllotmentsReducer.biomes);
   const lat = useSelector((state) => state.GoogleMapsReducer.lat);
   const lng = useSelector((state) => state.GoogleMapsReducer.lng);
+  const error = useSelector((state) => state.ErrorReducer.error);
 
   const handleChangeInput = (event) => {
     const { name, value } = event.target;
@@ -85,6 +86,11 @@ const Allotment = ({
                   </option>
                 ))}
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("member")
+                  ? `* ${error.member.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -110,6 +116,11 @@ const Allotment = ({
                   </option>
                 ))}
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("bioma")
+                  ? `* ${error.bioma.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -129,6 +140,11 @@ const Allotment = ({
                 minLength="1"
                 required
               />
+              <small className="text-red">
+                {error.hasOwnProperty("operational_core")
+                  ? `* ${error.operational_core.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -178,6 +194,11 @@ const Allotment = ({
                 <option value="SE">Sergipe</option>
                 <option value="TO">Tocantins</option>
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("allotment_state")
+                  ? `* ${error.allotment_state.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -196,6 +217,11 @@ const Allotment = ({
                 minLength="1"
                 required
               />
+              <small className="text-red">
+                {error.hasOwnProperty("allotment_city")
+                  ? `* ${error.allotment_city.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -215,6 +241,11 @@ const Allotment = ({
                 minLength="1"
                 required
               />
+              <small className="text-red">
+                {error.hasOwnProperty("settlement")
+                  ? `* ${error.settlement.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -237,6 +268,11 @@ const Allotment = ({
                 min="0"
                 required
               />
+              <small className="text-red">
+                {error.hasOwnProperty("incra_allotment_number")
+                  ? `* ${error.incra_allotment_number.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -257,6 +293,11 @@ const Allotment = ({
                 minLength="1"
                 required
               />
+              <small className="text-red">
+                {error.hasOwnProperty("access_way")
+                  ? `* ${error.access_way.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -277,6 +318,11 @@ const Allotment = ({
                 minLength="1"
                 required
               />
+              <small className="text-red">
+                {error.hasOwnProperty("coordinates")
+                  ? `* ${error.coordinates.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -298,6 +344,11 @@ const Allotment = ({
                   accept="image/*"
                 />
               </label>
+              <small className="text-red">
+                {error.hasOwnProperty("lot_geometry")
+                  ? `* ${error.lot_geometry.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="12">
@@ -331,6 +382,11 @@ const Allotment = ({
                 min="0"
                 required
               />
+              <small className="text-red">
+                {error.hasOwnProperty("thirst")
+                  ? `* ${error.thirst.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -348,6 +404,11 @@ const Allotment = ({
                 onChange={handleChangeInput}
                 min="0"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("own_planting")
+                  ? `* ${error.own_planting.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -365,6 +426,11 @@ const Allotment = ({
                 onChange={handleChangeInput}
                 min="0"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("native_forest")
+                  ? `* ${error.native_forest.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -399,6 +465,11 @@ const Allotment = ({
                 onChange={handleChangeInput}
                 min="0"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("fallow_capoeira")
+                  ? `* ${error.fallow_capoeira.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -416,6 +487,11 @@ const Allotment = ({
                 onChange={handleChangeInput}
                 min="0"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("native_pasture")
+                  ? `* ${error.native_pasture.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -433,6 +509,11 @@ const Allotment = ({
                 onChange={handleChangeInput}
                 min="0"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("planted_pasture")
+                  ? `* ${error.planted_pasture.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -450,6 +531,11 @@ const Allotment = ({
                 onChange={handleChangeInput}
                 min="0"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("degraded_area")
+                  ? `* ${error.degraded_area.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -467,6 +553,11 @@ const Allotment = ({
                 onChange={handleChangeInput}
                 min="0"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("batch_partnership")
+                  ? `* ${error.batch_partnership.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -487,6 +578,11 @@ const Allotment = ({
                 onChange={handleChangeInput}
                 min="0"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("third_party_partnership")
+                  ? `* ${error.third_party_partnership.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -505,6 +601,11 @@ const Allotment = ({
                 min="0"
                 required
               />
+              <small className="text-red">
+                {error.hasOwnProperty("total")
+                  ? `* ${error.total.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
         </Row>
@@ -533,6 +634,11 @@ const Allotment = ({
                 <option value={true}>Sim</option>
                 <option value={false}>Não</option>
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("has_garden")
+                  ? `* ${error.has_garden.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -557,6 +663,11 @@ const Allotment = ({
                 <option value={true}>Sim</option>
                 <option value={false}>Não</option>
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("grow_medicinal_plants")
+                  ? `* ${error.grow_medicinal_plants.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
         </Row>
@@ -582,6 +693,11 @@ const Allotment = ({
                 onChange={handleChangeInput}
                 required
               />
+              <small className="text-red">
+                {error.hasOwnProperty("production_system")
+                  ? `* ${error.production_system.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -599,6 +715,11 @@ const Allotment = ({
                 onChange={handleChangeInput}
                 required
               />
+              <small className="text-red">
+                {error.hasOwnProperty("planting_type")
+                  ? `* ${error.planting_type.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -616,6 +737,11 @@ const Allotment = ({
                 onChange={handleChangeInput}
                 required
               />
+              <small className="text-red">
+                {error.hasOwnProperty("management")
+                  ? `* ${error.management.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -634,6 +760,11 @@ const Allotment = ({
                 min="0"
                 required
               />
+              <small className="text-red">
+                {error.hasOwnProperty("planted_area")
+                  ? `* ${error.planted_area.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -652,6 +783,11 @@ const Allotment = ({
                 max="2147483647"
                 min="0"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("amount_crops")
+                  ? `* ${error.amount_crops.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
         </Row>
@@ -685,6 +821,11 @@ const Allotment = ({
                 <option value={true}>Sim</option>
                 <option value={false}>Não</option>
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("wild_animals_sighted_lot")
+                  ? `* ${error.wild_animals_sighted_lot.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -711,6 +852,11 @@ const Allotment = ({
                 <option value={true}>Sim</option>
                 <option value={false}>Não</option>
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("wild_animals_cause_problems")
+                  ? `* ${error.wild_animals_cause_problems.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
         </Row>
@@ -737,6 +883,11 @@ const Allotment = ({
                 min="0"
                 required
               />
+              <small className="text-red">
+                {error.hasOwnProperty("oxen")
+                  ? `* ${error.oxen.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="4">
@@ -755,6 +906,11 @@ const Allotment = ({
                 min="0"
                 required
               />
+              <small className="text-red">
+                {error.hasOwnProperty("equine")
+                  ? `* ${error.equine.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="4">
@@ -773,6 +929,11 @@ const Allotment = ({
                 min="0"
                 required
               />
+              <small className="text-red">
+                {error.hasOwnProperty("mules")
+                  ? `* ${error.mules.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
         </Row>
@@ -803,6 +964,11 @@ const Allotment = ({
                 min="0"
                 required
               />
+              <small className="text-red">
+                {error.hasOwnProperty("documentation_area")
+                  ? `* ${error.documentation_area.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -821,6 +987,11 @@ const Allotment = ({
                 onChange={handleChangeInput}
                 required
               />
+              <small className="text-red">
+                {error.hasOwnProperty("property_name")
+                  ? `* ${error.property_name.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -844,6 +1015,11 @@ const Allotment = ({
                 <option value={true}>Sim</option>
                 <option value={false}>Não</option>
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("georeferenced")
+                  ? `* ${error.georeferenced.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -867,6 +1043,11 @@ const Allotment = ({
                 minLength="1"
                 required
               />
+              <small className="text-red">
+                {error.hasOwnProperty("property_ownership")
+                  ? `* ${error.property_ownership.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
         </Row>
@@ -897,6 +1078,11 @@ const Allotment = ({
                 <option value={true}>Sim</option>
                 <option value={false}>Não</option>
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("domain_title")
+                  ? `* ${error.domain_title.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -919,6 +1105,9 @@ const Allotment = ({
                 <option value={true}>Sim</option>
                 <option value={false}>Não</option>
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("ccu") ? `* ${error.ccu.join(" ")}` : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -941,6 +1130,11 @@ const Allotment = ({
                 <option value={true}>Sim</option>
                 <option value={false}>Não</option>
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("ccru")
+                  ? `* ${error.ccru.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -963,6 +1157,11 @@ const Allotment = ({
                 <option value={true}>Sim</option>
                 <option value={false}>Não</option>
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("regularization")
+                  ? `* ${error.regularization.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
         </Row>
@@ -990,6 +1189,11 @@ const Allotment = ({
                 onChange={handleChangeInput}
                 maxLength="60"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("sncr")
+                  ? `* ${error.sncr.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -1007,6 +1211,11 @@ const Allotment = ({
                 onChange={handleChangeInput}
                 maxLength="60"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("incra_certificate")
+                  ? `* ${error.incra_certificate.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
         </Row>
@@ -1037,6 +1246,11 @@ const Allotment = ({
                 <option value={true}>Sim</option>
                 <option value={false}>Não</option>
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("join_pra")
+                  ? `* ${error.join_pra.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -1057,6 +1271,11 @@ const Allotment = ({
                 onChange={handleChangeInput}
                 maxLength="300"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("alternatives_regularize_deficit")
+                  ? `* ${error.alternatives_regularize_deficit.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -1077,6 +1296,11 @@ const Allotment = ({
                 onChange={handleChangeInput}
                 maxLength="300"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("how_want_make_up_deficit_area")
+                  ? `* ${error.how_want_make_up_deficit_area.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -1100,6 +1324,11 @@ const Allotment = ({
                 <option value={true}>Sim</option>
                 <option value={false}>Não</option>
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("has_tac_with_app")
+                  ? `* ${error.has_tac_with_app.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -1126,6 +1355,11 @@ const Allotment = ({
                 <option value={true}>Sim</option>
                 <option value={false}>Não</option>
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("has_infractions_committed")
+                  ? `* ${error.has_infractions_committed.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -1149,6 +1383,11 @@ const Allotment = ({
                 <option value={true}>Sim</option>
                 <option value={false}>Não</option>
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("property_has_arvn")
+                  ? `* ${error.property_has_arvn.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -1169,6 +1408,11 @@ const Allotment = ({
                 onChange={handleChangeInput}
                 maxLength="60"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("what_want_to_with_surplus_area")
+                  ? `* ${error.what_want_to_with_surplus_area.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -1191,6 +1435,11 @@ const Allotment = ({
                 <option value={true}>Sim</option>
                 <option value={false}>Não</option>
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("has_rppn")
+                  ? `* ${error.has_rppn.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -1213,6 +1462,11 @@ const Allotment = ({
                 <option value={true}>Sim</option>
                 <option value={false}>Não</option>
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("has_crf")
+                  ? `* ${error.has_crf.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -1229,6 +1483,11 @@ const Allotment = ({
                 onChange={handleChangeInput}
                 required
               />
+              <small className="text-red">
+                {error.hasOwnProperty("rli_period")
+                  ? `* ${error.rli_period.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -1255,6 +1514,11 @@ const Allotment = ({
                 <option value={true}>Sim</option>
                 <option value={false}>Não</option>
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("size_changes_after")
+                  ? `* ${error.size_changes_after.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
         </Row>
@@ -1286,6 +1550,11 @@ const Allotment = ({
                 <option value={true}>Sim</option>
                 <option value={false}>Não</option>
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("qa_meets_family")
+                  ? `* ${error.qa_meets_family.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
         </Row>
@@ -1315,6 +1584,11 @@ const Allotment = ({
                 min="1"
                 required
               />
+              <small className="text-red">
+                {error.hasOwnProperty("water")
+                  ? `* ${error.water.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -1334,6 +1608,11 @@ const Allotment = ({
                 min="1"
                 required
               />
+              <small className="text-red">
+                {error.hasOwnProperty("climate")
+                  ? `* ${error.climate.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -1353,6 +1632,11 @@ const Allotment = ({
                 min="1"
                 required
               />
+              <small className="text-red">
+                {error.hasOwnProperty("ground")
+                  ? `* ${error.ground.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -1372,6 +1656,11 @@ const Allotment = ({
                 min="1"
                 required
               />
+              <small className="text-red">
+                {error.hasOwnProperty("vegetation")
+                  ? `* ${error.vegetation.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -1398,6 +1687,11 @@ const Allotment = ({
                 <option value={true}>Sim</option>
                 <option value={false}>Não</option>
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("develops_activity_qa")
+                  ? `* ${error.develops_activity_qa.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="12">
@@ -1415,6 +1709,11 @@ const Allotment = ({
                 onChange={handleChangeInput}
                 maxLength="255"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("what_activity_qa")
+                  ? `* ${error.what_activity_qa.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -1441,6 +1740,11 @@ const Allotment = ({
                 <option value={true}>Sim</option>
                 <option value={false}>Não</option>
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("everyday_actions_interfere")
+                  ? `* ${error.everyday_actions_interfere.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="12">
@@ -1458,6 +1762,11 @@ const Allotment = ({
                 onChange={handleChangeInput}
                 maxLength="255"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("what_shape")
+                  ? `* ${error.what_shape.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="12">
@@ -1479,6 +1788,11 @@ const Allotment = ({
                 onChange={handleChangeInput}
                 maxLength="255"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("exchange_experience")
+                  ? `* ${error.exchange_experience.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -1499,6 +1813,11 @@ const Allotment = ({
                 onChange={handleChangeInput}
                 maxLength="255"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("which_organization")
+                  ? `* ${error.which_organization.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="12">
@@ -1519,6 +1838,11 @@ const Allotment = ({
                 onChange={handleChangeInput}
                 maxLength="255"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("activities_interest")
+                  ? `* ${error.activities_interest.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
         </Row>
@@ -1549,6 +1873,11 @@ const Allotment = ({
                 onChange={handleChangeInput}
                 maxLength="300"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("positive_in_settlement")
+                  ? `* ${error.positive_in_settlement.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="12">
@@ -1569,6 +1898,11 @@ const Allotment = ({
                 onChange={handleChangeInput}
                 maxLength="300"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("negative_in_settlement")
+                  ? `* ${error.negative_in_settlement.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="12">
@@ -1589,6 +1923,11 @@ const Allotment = ({
                 onChange={handleChangeInput}
                 maxLength="300"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("main_ownership_restrictions")
+                  ? `* ${error.main_ownership_restrictions.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="12">
@@ -1609,6 +1948,11 @@ const Allotment = ({
                 onChange={handleChangeInput}
                 maxLength="255"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("future_expectations_property")
+                  ? `* ${error.future_expectations_property.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -1633,6 +1977,11 @@ const Allotment = ({
                 <option value={true}>Sim</option>
                 <option value={false}>Não</option>
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("rural_tourism")
+                  ? `* ${error.rural_tourism.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
         </Row>

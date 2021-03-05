@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Col, FormGroup, Input, Row } from "reactstrap";
-import { getAllAllotments } from "redux/actions/Allotments";
+import { getAllAllotments } from "../../../../redux/actions/Allotments";
 import { formatReal } from "../../../../utils/converterToMoney";
 
 const Transport = ({ inputTransport, setInputTransport }) => {

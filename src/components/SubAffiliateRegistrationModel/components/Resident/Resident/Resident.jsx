@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Col, FormGroup, Input, Row } from "reactstrap";
-import { getAllHabitations } from "redux/actions/Residents";
+import { getAllHabitations } from "../../../../../redux/actions/Residents";
 
 const Reisdent = ({ inputResident, setInputResident }) => {
   const dispatch = useDispatch();
@@ -13,6 +13,7 @@ const Reisdent = ({ inputResident, setInputResident }) => {
   const allHabitations = useSelector(
     (state) => state.ResidentsReducer.allHabitations
   );
+  const error = useSelector((state) => state.ErrorReducer.error);
 
   const handleChangeInput = (event) => {
     const { name, value } = event.target;
@@ -51,6 +52,11 @@ const Reisdent = ({ inputResident, setInputResident }) => {
                   </option>
                 ))}
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("habitation")
+                  ? `* ${error.habitation.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -71,6 +77,11 @@ const Reisdent = ({ inputResident, setInputResident }) => {
                 maxLength="255"
                 minLength="1"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("resident_name")
+                  ? `* ${error.resident_name.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -91,6 +102,11 @@ const Reisdent = ({ inputResident, setInputResident }) => {
                 maxLength="50"
                 minLength="1"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("kinship")
+                  ? `* ${error.kinship.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -115,6 +131,9 @@ const Reisdent = ({ inputResident, setInputResident }) => {
                 <option value="Feminino">Feminino</option>
                 <option value="Outro">Outro</option>
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("sex") ? `* ${error.sex.join(" ")}` : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -133,6 +152,11 @@ const Reisdent = ({ inputResident, setInputResident }) => {
                 onChange={handleChangeInput}
                 required
               />
+              <small className="text-red">
+                {error.hasOwnProperty("birthdate")
+                  ? `* ${error.birthdate.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -153,6 +177,11 @@ const Reisdent = ({ inputResident, setInputResident }) => {
                 maxLength="255"
                 minLength="1"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("schooling")
+                  ? `* ${error.schooling.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -177,6 +206,11 @@ const Reisdent = ({ inputResident, setInputResident }) => {
                 maxLength="255"
                 minLength="1"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("main_source_income")
+                  ? `* ${error.main_source_income.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -203,6 +237,11 @@ const Reisdent = ({ inputResident, setInputResident }) => {
                 <option value={true}>Sim</option>
                 <option value={false}>Não</option>
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("generates_income")
+                  ? `* ${error.generates_income.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -223,6 +262,11 @@ const Reisdent = ({ inputResident, setInputResident }) => {
                 max="2147483647"
                 min="0"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("batch_work_time")
+                  ? `* ${error.batch_work_time.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -248,6 +292,11 @@ const Reisdent = ({ inputResident, setInputResident }) => {
                 <option value={true}>Sim</option>
                 <option value={false}>Não</option>
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("issues_invoice")
+                  ? `* ${error.issues_invoice.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -273,6 +322,11 @@ const Reisdent = ({ inputResident, setInputResident }) => {
                 <option value={true}>Sim</option>
                 <option value={false}>Não</option>
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("ex_beneficiary")
+                  ? `* ${error.ex_beneficiary.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -293,6 +347,11 @@ const Reisdent = ({ inputResident, setInputResident }) => {
                 maxLength="255"
                 minLength="1"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("activity")
+                  ? `* ${error.activity.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -317,6 +376,11 @@ const Reisdent = ({ inputResident, setInputResident }) => {
                 maxLength="255"
                 minLength="1"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("demotivating_activity")
+                  ? `* ${error.demotivating_activity.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -340,6 +404,11 @@ const Reisdent = ({ inputResident, setInputResident }) => {
                 <option value={true}>Sim</option>
                 <option value={false}>Não</option>
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("retired")
+                  ? `* ${error.retired.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -364,6 +433,11 @@ const Reisdent = ({ inputResident, setInputResident }) => {
                 <option value={true}>Sim</option>
                 <option value={false}>Não</option>
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("work_outside")
+                  ? `* ${error.work_outside.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -386,6 +460,11 @@ const Reisdent = ({ inputResident, setInputResident }) => {
                 max="2147483647"
                 min="0"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("initial_age_work_outside")
+                  ? `* ${error.initial_age_work_outside.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -409,6 +488,11 @@ const Reisdent = ({ inputResident, setInputResident }) => {
                 <option value={true}>Sim</option>
                 <option value={false}>Não</option>
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("deficiency")
+                  ? `* ${error.deficiency.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -429,6 +513,11 @@ const Reisdent = ({ inputResident, setInputResident }) => {
                 maxLength="255"
                 minLength="1"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("last_diceases")
+                  ? `* ${error.last_diceases.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -447,6 +536,11 @@ const Reisdent = ({ inputResident, setInputResident }) => {
                 onChange={handleChangeInput}
                 maxLength="255"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("type_treatment")
+                  ? `* ${error.type_treatment.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -465,6 +559,11 @@ const Reisdent = ({ inputResident, setInputResident }) => {
                 onChange={handleChangeInput}
                 maxLength="255"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("access_treatment")
+                  ? `* ${error.access_treatment.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
         </Row>

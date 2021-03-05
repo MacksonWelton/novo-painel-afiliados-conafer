@@ -2,9 +2,9 @@ import { DeleteForeverOutlined } from "@material-ui/icons";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Input, FormGroup, Row, Table, Col } from "reactstrap";
-import { getProductionName } from "redux/actions/Productions";
-import { getAllAllotments } from "redux/actions/Allotments";
-import { formatReal } from "utils/converterToMoney";
+import { getProductionName } from "../../../../../redux/actions/Productions";
+import { getAllAllotments } from "../../../../../redux/actions/Allotments";
+import { formatReal } from "../../../../../utils/converterToMoney";
 
 const AnimalProduction = ({
   inputAnimalProduction,
@@ -17,7 +17,9 @@ const AnimalProduction = ({
     dispatch(getProductionName("Animal"));
   }, [dispatch]);
 
-  const allAllotments = useSelector((state) => state.AllotmentsReducer.allAllotments);
+  const allAllotments = useSelector(
+    (state) => state.AllotmentsReducer.allAllotments
+  );
   const productionName = useSelector(
     (state) => state.ProductionsReducer.productionName
   );
@@ -49,11 +51,13 @@ const AnimalProduction = ({
     setInputAnimal({ ...inputAnimal, [name]: value });
 
     if (name === "production") {
-      setInputAnimalTable({...inputAnimalTable, [name]: event.target[event.target.selectedIndex].text});
+      setInputAnimalTable({
+        ...inputAnimalTable,
+        [name]: event.target[event.target.selectedIndex].text,
+      });
     } else {
-      setInputAnimalTable({...inputAnimalTable, [name]: value});
+      setInputAnimalTable({ ...inputAnimalTable, [name]: value });
     }
-
   };
 
   const addAnimalInTable = () => {
@@ -71,7 +75,9 @@ const AnimalProduction = ({
   };
 
   const removeAnimalInTable = (index) => {
-    setInputAnimalProduction(inputAnimalProduction.filter((item, i) => i !== index));
+    setInputAnimalProduction(
+      inputAnimalProduction.filter((item, i) => i !== index)
+    );
     setInputAnimalsTable(inputAnimalsTable.filter((item, i) => i !== index));
   };
 
@@ -86,7 +92,7 @@ const AnimalProduction = ({
           <Col lg="6">
             <FormGroup>
               <label className="form-control-label" htmlFor="allotment">
-                Lote
+                Lote <small className="text-red">(obrigatório)</small>
               </label>
               <Input
                 className="form-control-alternative"
@@ -138,7 +144,8 @@ const AnimalProduction = ({
           <Col lg="6">
             <FormGroup>
               <label className="form-control-label" htmlFor="mensal_production">
-                Produção mensal (Kg){" "}<small className="text-red">(obrigatório)</small>
+                Produção mensal (Kg){" "}
+                <small className="text-red">(obrigatório)</small>
               </label>
               <Input
                 className="form-control-alternative"
@@ -156,7 +163,8 @@ const AnimalProduction = ({
           <Col lg="6">
             <FormGroup>
               <label className="form-control-label" htmlFor="mensal_marketed">
-                Quantidade comercializada mensal (Kg){" "}<small className="text-red">(obrigatório)</small>
+                Quantidade comercializada mensal (Kg){" "}
+                <small className="text-red">(obrigatório)</small>
               </label>
               <Input
                 className="form-control-alternative"
@@ -174,8 +182,12 @@ const AnimalProduction = ({
           </Col>
           <Col lg="6">
             <FormGroup>
-              <label className="form-control-label" htmlFor="food_supplementation">
-                Tipo de complementação alimentar{" "}<small className="text-red">(obrigatório)</small>
+              <label
+                className="form-control-label"
+                htmlFor="food_supplementation"
+              >
+                Tipo de complementação alimentar{" "}
+                <small className="text-red">(obrigatório)</small>
               </label>
               <Input
                 className="form-control-alternative"
@@ -194,8 +206,12 @@ const AnimalProduction = ({
           </Col>
           <Col lg="6">
             <FormGroup>
-              <label className="form-control-label" htmlFor="food_supplementation_value">
-                Recursos em complementação alimentar{" "}<small className="text-red">(obrigatório)</small>
+              <label
+                className="form-control-label"
+                htmlFor="food_supplementation_value"
+              >
+                Recursos em complementação alimentar{" "}
+                <small className="text-red">(obrigatório)</small>
               </label>
               <Input
                 className="form-control-alternative"
@@ -206,18 +222,22 @@ const AnimalProduction = ({
                 placeholder="Ex: 100,00"
                 value={inputAnimal.food_supplementation_value}
                 onChange={(event) => {
-                  event = {target: {
-                    name: event.target.name,
-                    value: formatReal(event.target.value)
-                  }}
-                  handleChangeInput(event)}}
+                  event = {
+                    target: {
+                      name: event.target.name,
+                      value: formatReal(event.target.value),
+                    },
+                  };
+                  handleChangeInput(event);
+                }}
               />
             </FormGroup>
           </Col>
           <Col lg="6">
             <FormGroup>
               <label className="form-control-label" htmlFor="production_type">
-                Tipo de produção (corte ou derivado){" "}<small className="text-red">(obrigatório)</small>
+                Tipo de produção (corte ou derivado){" "}
+                <small className="text-red">(obrigatório)</small>
               </label>
               <Input
                 className="form-control-alternative"

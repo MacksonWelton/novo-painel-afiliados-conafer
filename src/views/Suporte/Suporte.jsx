@@ -8,7 +8,6 @@ import { Card, CardFooter, Table, Container, Row, Button, Input } from "reactstr
 
 import Header from "../../components/Headers/Header";
 import { Tr } from "./styles";
-import ProgressCard from "../../components/ProgressCard/ProgressCard";
 import { CardHeaderStyled } from "./styles";
 import { getCalledAnswers } from "redux/actions/Called";
 import ModalMembro from "components/ModalMembro/ModalMembro";

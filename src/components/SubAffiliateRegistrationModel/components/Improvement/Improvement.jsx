@@ -2,7 +2,7 @@ import { DeleteForeverOutlined } from "@material-ui/icons";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Col, FormGroup, Input, Row, Table } from "reactstrap";
-import { getAllAllotments } from "redux/actions/Allotments";
+import { getAllAllotments } from "../../../../redux/actions/Allotments";
 
 const Improvement = ({ inputImprovements, setInputImprovements }) => {
   const dispatch = useDispatch();
@@ -64,6 +64,7 @@ const Improvement = ({ inputImprovements, setInputImprovements }) => {
                 onChange={handleChangeInput}
                 maxLength="255"
                 minLength="1"
+                required
               >
                 <option value="" hidden>
                   Escolha uma opção
@@ -92,6 +93,7 @@ const Improvement = ({ inputImprovements, setInputImprovements }) => {
                 onChange={handleChangeInput}
                 maxLength="255"
                 minLength="1"
+                required
               />
             </FormGroup>
           </Col>
@@ -111,6 +113,7 @@ const Improvement = ({ inputImprovements, setInputImprovements }) => {
                 onChange={handleChangeInput}
                 maxLength="255"
                 minLength="1"
+                required
               />
             </FormGroup>
           </Col>
@@ -130,6 +133,7 @@ const Improvement = ({ inputImprovements, setInputImprovements }) => {
                 onChange={handleChangeInput}
                 maxLength="255"
                 minLength="1"
+                required
               />
             </FormGroup>
           </Col>
@@ -149,6 +153,7 @@ const Improvement = ({ inputImprovements, setInputImprovements }) => {
                 onChange={handleChangeInput}
                 maxLength="255"
                 minLength="1"
+                required
               />
             </FormGroup>
           </Col>

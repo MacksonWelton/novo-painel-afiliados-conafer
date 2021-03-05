@@ -121,6 +121,7 @@ const Psiculture = () => {
                 <Paginations
                   count={psiculture.count}
                   funcRequistion={getPsicultureProductions}
+                  lines={lines}
                 />
               </CardFooter>
             </Card>
