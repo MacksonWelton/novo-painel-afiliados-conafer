@@ -1,18 +1,21 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Col, FormGroup, Input, Row } from "reactstrap";
-import { getAllAllotments } from "redux/actions/Allotments";
+import { getAllAllotments } from "../../../../redux/actions/Allotments";
 import { formatReal } from "../../../../utils/converterToMoney";
 
 const Transport = ({ inputTransport, setInputTransport }) => {
-
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getAllAllotments());
   }, [dispatch]);
 
-  const allAllotments = useSelector((state) => state.AllotmentsReducer.allAllotments);
+  const allAllotments = useSelector(
+    (state) => state.AllotmentsReducer.allAllotments
+  );
+
+  const error = useSelector((state) => state.ErrorReducer.error);
 
   const handleChangeInput = (event) => {
     const { name, value } = event.target;
@@ -51,6 +54,11 @@ const Transport = ({ inputTransport, setInputTransport }) => {
                   </option>
                 ))}
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("allotment")
+                  ? `* ${error.allotment.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -72,6 +80,11 @@ const Transport = ({ inputTransport, setInputTransport }) => {
                 maxLength="255"
                 minLength="1"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("means_transport")
+                  ? `* ${error.means_transport.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -101,6 +114,11 @@ const Transport = ({ inputTransport, setInputTransport }) => {
                 }}
                 maxLength="16"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("own_road_transport_cost")
+                  ? `* ${error.own_road_transport_cost.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -130,6 +148,11 @@ const Transport = ({ inputTransport, setInputTransport }) => {
                 }}
                 maxLength="16"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("waterway_transportation_cost")
+                  ? `* ${error.waterway_transportation_cost.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -159,6 +182,11 @@ const Transport = ({ inputTransport, setInputTransport }) => {
                 }}
                 maxLength="16"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("road_chartered_transport_cost")
+                  ? `* ${error.road_chartered_transport_cost.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -188,6 +216,11 @@ const Transport = ({ inputTransport, setInputTransport }) => {
                 }}
                 maxLength="16"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("waterway_chartered_transportation_cost")
+                  ? `* ${error.waterway_chartered_transportation_cost.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
         </Row>

@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Input, FormGroup, Col, Row } from "reactstrap";
-import { getAllAllotments } from "redux/actions/Allotments";
-import { formatReal } from "utils/converterToMoney";
+import { getAllAllotments } from "../../../../redux/actions/Allotments";
+import { formatReal } from "../../../../utils/converterToMoney";
 
 const DiagnosisAgriculturalSystems = ({
   inputDiagnosisOfAgriculturalSystems,
@@ -10,11 +10,15 @@ const DiagnosisAgriculturalSystems = ({
 }) => {
   const dispatch = useDispatch();
 
-  const allAllotments = useSelector((state) => state.AllotmentsReducer.allAllotments);
+  const allAllotments = useSelector(
+    (state) => state.AllotmentsReducer.allAllotments
+  );
+
+  const error = useSelector((state) => state.ErrorReducer.error);
 
   useEffect(() => {
     dispatch(getAllAllotments());
-  }, [dispatch])
+  }, [dispatch]);
 
   const handleChangeInput = (event) => {
     const { name, value } = event.target;
@@ -57,6 +61,11 @@ const DiagnosisAgriculturalSystems = ({
                   </option>
                 ))}
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("allotment")
+                  ? `* ${error.allotment.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6" className="d-flex align-items-end">
@@ -73,13 +82,21 @@ const DiagnosisAgriculturalSystems = ({
                 placeholder="Ex: 1000.00"
                 value={inputDiagnosisOfAgriculturalSystems.income_off_lot}
                 onChange={(event) => {
-                  event = {target: {
-                    name: event.target.name,
-                    value: formatReal(event.target.value)
-                  }}
-                  handleChangeInput(event)}}
-                  maxLength="16"
+                  event = {
+                    target: {
+                      name: event.target.name,
+                      value: formatReal(event.target.value),
+                    },
+                  };
+                  handleChangeInput(event);
+                }}
+                maxLength="16"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("income_off_lot")
+                  ? `* ${error.income_off_lot.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -110,6 +127,11 @@ const DiagnosisAgriculturalSystems = ({
                 <option value={true}>Sim</option>
                 <option value={false}>Não</option>
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("government_assistance")
+                  ? `* ${error.government_assistance.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -134,6 +156,11 @@ const DiagnosisAgriculturalSystems = ({
                 <option value={true}>Sim</option>
                 <option value={false}>Não</option>
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("housing_policy")
+                  ? `* ${error.housing_policy.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -159,6 +186,11 @@ const DiagnosisAgriculturalSystems = ({
                 <option value={true}>Sim</option>
                 <option value={false}>Não</option>
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("financing_line")
+                  ? `* ${error.financing_line.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6" className="d-flex flex-column justify-content-end">
@@ -188,6 +220,11 @@ const DiagnosisAgriculturalSystems = ({
                 <option value={true}>Sim</option>
                 <option value={false}>Não</option>
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("has_rural_communication")
+                  ? `* ${error.has_rural_communication.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -209,6 +246,11 @@ const DiagnosisAgriculturalSystems = ({
                 title="Comunicação rural - Tipo"
                 maxLength="255"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("rural_communication")
+                  ? `* ${error.rural_communication.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -235,6 +277,11 @@ const DiagnosisAgriculturalSystems = ({
                 minLength="1"
                 required
               />
+              <small className="text-red">
+                {error.hasOwnProperty("final_destination_waste")
+                  ? `* ${error.final_destination_waste.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -263,6 +310,11 @@ const DiagnosisAgriculturalSystems = ({
                 <option value={true}>Sim</option>
                 <option value={false}>Não</option>
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("has_basic_sanitation")
+                  ? `* ${error.has_basic_sanitation.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6" className="d-flex flex-column justify-content-end">
@@ -284,6 +336,11 @@ const DiagnosisAgriculturalSystems = ({
                 minLength="1"
                 required
               />
+              <small className="text-red">
+                {error.hasOwnProperty("schools_transport")
+                  ? `* ${error.schools_transport.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -308,6 +365,11 @@ const DiagnosisAgriculturalSystems = ({
                 <option value={true}>Sim</option>
                 <option value={false}>Não</option>
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("hire_employees")
+                  ? `* ${error.hire_employees.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6" className="d-flex flex-column justify-content-end">
@@ -327,6 +389,11 @@ const DiagnosisAgriculturalSystems = ({
                 max="2147483647"
                 min="0"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("fixed_employees")
+                  ? `* ${error.fixed_employees.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -354,6 +421,11 @@ const DiagnosisAgriculturalSystems = ({
                 <option value={true}>Sim</option>
                 <option value={false}>Não</option>
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("technical_assistance")
+                  ? `* ${error.technical_assistance.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -383,6 +455,11 @@ const DiagnosisAgriculturalSystems = ({
                 <option value={true}>Sim</option>
                 <option value={false}>Não</option>
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("reminds_burning_in_lot")
+                  ? `* ${error.reminds_burning_in_lot.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col
@@ -403,6 +480,11 @@ const DiagnosisAgriculturalSystems = ({
                 value={inputDiagnosisOfAgriculturalSystems.year_burning}
                 onChange={handleChangeInput}
               />
+              <small className="text-red">
+                {error.hasOwnProperty("year_burning")
+                  ? `* ${error.year_burning.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -427,6 +509,11 @@ const DiagnosisAgriculturalSystems = ({
                 <option value={true}>Sim</option>
                 <option value={false}>Não</option>
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("has_water_access")
+                  ? `* ${error.has_water_access.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -451,6 +538,11 @@ const DiagnosisAgriculturalSystems = ({
                 <option value={true}>Sim</option>
                 <option value={false}>Não</option>
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("has_energy")
+                  ? `* ${error.has_energy.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -469,6 +561,11 @@ const DiagnosisAgriculturalSystems = ({
                 maxLength="255"
                 required
               />
+              <small className="text-red">
+                {error.hasOwnProperty("network_type")
+                  ? `* ${error.network_type.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6" className="d-flex flex-column justify-content-end">
@@ -498,6 +595,11 @@ const DiagnosisAgriculturalSystems = ({
                 <option value={true}>Sim</option>
                 <option value={false}>Não</option>
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("energy_meets_production")
+                  ? `* ${error.energy_meets_production.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -525,6 +627,11 @@ const DiagnosisAgriculturalSystems = ({
                 <option value={true}>Sim</option>
                 <option value={false}>Não</option>
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("complements_energy")
+                  ? `* ${error.complements_energy.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -546,6 +653,11 @@ const DiagnosisAgriculturalSystems = ({
                 minLength="1"
                 required
               />
+              <small className="text-red">
+                {error.hasOwnProperty("uses_any_these")
+                  ? `* ${error.uses_any_these.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -570,6 +682,11 @@ const DiagnosisAgriculturalSystems = ({
                 <option value={true}>Sim</option>
                 <option value={false}>Não</option>
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("want_to_get")
+                  ? `* ${error.want_to_get.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -595,6 +712,11 @@ const DiagnosisAgriculturalSystems = ({
                 <option value={true}>Sim</option>
                 <option value={false}>Não</option>
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("potable_water")
+                  ? `* ${error.potable_water.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6" className="d-flex align-items-end">
@@ -619,6 +741,11 @@ const DiagnosisAgriculturalSystems = ({
                 <option value={true}>Sim</option>
                 <option value={false}>Não</option>
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("year_water_access")
+                  ? `* ${error.year_water_access.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6" className="d-flex flex-column justify-content-end">
@@ -643,6 +770,11 @@ const DiagnosisAgriculturalSystems = ({
                 <option value={true}>Sim</option>
                 <option value={false}>Não</option>
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("riparian_forest")
+                  ? `* ${error.riparian_forest.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -670,6 +802,11 @@ const DiagnosisAgriculturalSystems = ({
                 min="0"
                 required
               />
+              <small className="text-red">
+                {error.hasOwnProperty("distance_water_intake")
+                  ? `* ${error.distance_water_intake.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6" className="d-flex align-items-end">
@@ -695,6 +832,11 @@ const DiagnosisAgriculturalSystems = ({
                 <option value={true}>Sim</option>
                 <option value={false}>Não</option>
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("alteration_water_course")
+                  ? `* ${error.alteration_water_course.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -722,6 +864,11 @@ const DiagnosisAgriculturalSystems = ({
                 <option value={true}>Sim</option>
                 <option value={false}>Não</option>
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("captures_rain_water")
+                  ? `* ${error.captures_rain_water.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6" className="d-flex align-items-end">
@@ -745,9 +892,22 @@ const DiagnosisAgriculturalSystems = ({
                 maxLength="255"
                 required
               />
+              <small className="text-red">
+                {error.hasOwnProperty("how_uses_rainwater")
+                  ? `* ${error.how_uses_rainwater.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
         </Row>
+      </Col>
+      <Col lg="12">
+        {Object.keys(error).length > 0 && (
+          <div className="mt-3 p-2 text-white bg-red rounded">
+            Atenção: Role a página para cima e corrija os campos que contém um *
+            seguindo de um texto em vermelho.
+          </div>
+        )}
       </Col>
     </Row>
   );

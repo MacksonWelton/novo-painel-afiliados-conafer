@@ -19,6 +19,7 @@ import FormProduction from "components/FormProduction/FormProduction";
 import { cnpjValidator } from "../../utils/validators";
 import { clearInput } from "../../utils/validators";
 import { findZipCode } from "../../utils/findZipCode";
+import { useSelector } from "react-redux";
 
 const FormRegistroPJ = ({
   production,
@@ -35,6 +36,8 @@ const FormRegistroPJ = ({
   handleChecked,
   submitForm,
 }) => {
+  const error = useSelector((state) => state.ErrorReducer.error);
+
   const handleChangeZip = (res) => {
     setInput({
       ...input,
@@ -78,6 +81,11 @@ const FormRegistroPJ = ({
                       minLength="1"
                       required
                     />
+                    <small className="text-red">
+                      {error.hasOwnProperty("name_initials")
+                        ? `* ${error.name_initials.join(" ")}`
+                        : ""}
+                    </small>
                   </FormGroup>
                 </Col>
                 <Col lg="6">
@@ -104,6 +112,11 @@ const FormRegistroPJ = ({
                       minLength="1"
                       required
                     />
+                    <small className="text-red">
+                      {error.hasOwnProperty("cnpj")
+                        ? `* ${error.cnpj.join(" ")}`
+                        : ""}
+                    </small>
                   </FormGroup>
                 </Col>
                 <Col lg="6">
@@ -130,6 +143,11 @@ const FormRegistroPJ = ({
                       minLength="1"
                       required
                     />
+                    <small className="text-red">
+                      {error.hasOwnProperty("cep")
+                        ? `* ${error.cep.join(" ")}`
+                        : ""}
+                    </small>
                   </FormGroup>
                 </Col>
                 <Col lg="6">
@@ -150,6 +168,11 @@ const FormRegistroPJ = ({
                       minLength="1"
                       required
                     />
+                    <small className="text-red">
+                      {error.hasOwnProperty("address")
+                        ? `* ${error.address.join(" ")}`
+                        : ""}
+                    </small>
                   </FormGroup>
                 </Col>
                 <Col lg="6">
@@ -170,6 +193,11 @@ const FormRegistroPJ = ({
                       minLength="1"
                       required
                     />
+                    <small className="text-red">
+                      {error.hasOwnProperty("city")
+                        ? `* ${error.city.join(" ")}`
+                        : ""}
+                    </small>
                   </FormGroup>
                 </Col>
                 <Col lg="6">
@@ -214,6 +242,11 @@ const FormRegistroPJ = ({
                       <option value="SE">Sergipe</option>
                       <option value="TO">Tocantins</option>
                     </Input>
+                    <small className="text-red">
+                      {error.hasOwnProperty("state")
+                        ? `* ${error.state.join(" ")}`
+                        : ""}
+                    </small>
                   </FormGroup>
                 </Col>
                 <Col lg="6">
@@ -237,6 +270,11 @@ const FormRegistroPJ = ({
                       minLength="1"
                       required
                     />
+                    <small className="text-red">
+                      {error.hasOwnProperty("contact_name")
+                        ? `* ${error.contact_name.join(" ")}`
+                        : ""}
+                    </small>
                   </FormGroup>
                 </Col>
                 <Col lg="6">
@@ -261,6 +299,11 @@ const FormRegistroPJ = ({
                       minLength="1"
                       required
                     />
+                    <small className="text-red">
+                      {error.hasOwnProperty("contact_phone")
+                        ? `* ${error.contact_phone.join(" ")}`
+                        : ""}
+                    </small>
                   </FormGroup>
                 </Col>
                 <Col lg="6">
@@ -280,6 +323,11 @@ const FormRegistroPJ = ({
                       minLength="1"
                       required
                     />
+                    <small className="text-red">
+                      {error.hasOwnProperty("email")
+                        ? `* ${error.email.join(" ")}`
+                        : ""}
+                    </small>
                   </FormGroup>
                 </Col>
                 <Col lg="6">
@@ -297,6 +345,11 @@ const FormRegistroPJ = ({
                       onChange={handleChangeInput}
                       maxLength="200"
                     />
+                    <small className="text-red">
+                      {error.hasOwnProperty("website")
+                        ? `* ${error.website.join(" ")}`
+                        : ""}
+                    </small>
                   </FormGroup>
                 </Col>
                 <Col lg="6">
@@ -317,6 +370,11 @@ const FormRegistroPJ = ({
                       onChange={handleChangeInput}
                       maxLength="255"
                     />
+                    <small className="text-red">
+                      {error.hasOwnProperty("social_networks")
+                        ? `* ${error.social_networks.join(" ")}`
+                        : ""}
+                    </small>
                   </FormGroup>
                 </Col>
                 <Col lg="6">
@@ -337,6 +395,11 @@ const FormRegistroPJ = ({
                       onChange={handleChangeInput}
                       required
                     />
+                    <small className="text-red">
+                      {error.hasOwnProperty("foundation_date")
+                        ? `* ${error.foundation_date.join(" ")}`
+                        : ""}
+                    </small>
                   </FormGroup>
                 </Col>
                 <Col lg="6">
@@ -359,6 +422,11 @@ const FormRegistroPJ = ({
                       max="2147483647"
                       required
                     />
+                    <small className="text-red">
+                      {error.hasOwnProperty("active_partners")
+                        ? `* ${error.active_partners.join(" ")}`
+                        : ""}
+                    </small>
                   </FormGroup>
                 </Col>
                 <Col lg="6">
@@ -381,6 +449,11 @@ const FormRegistroPJ = ({
                       max="2147483647"
                       required
                     />
+                    <small className="text-red">
+                      {error.hasOwnProperty("inactive_partners")
+                        ? `* ${error.inactive_partners.join(" ")}`
+                        : ""}
+                    </small>
                   </FormGroup>
                 </Col>
                 <Col lg="6">
@@ -407,6 +480,11 @@ const FormRegistroPJ = ({
                       <option value={true}>Sim</option>
                       <option value={false}>Não</option>
                     </Input>
+                    <small className="text-red">
+                      {error.hasOwnProperty("traditional_communities")
+                        ? `* ${error.traditional_communities.join(" ")}`
+                        : ""}
+                    </small>
                   </FormGroup>
                 </Col>
                 <Col lg="6">
@@ -432,6 +510,11 @@ const FormRegistroPJ = ({
                       <option value="SAFER">SAFER</option>
                       <option value="FAFER">FAFER</option>
                     </Input>
+                    <small className="text-red">
+                      {error.hasOwnProperty("entity_group")
+                        ? `* ${error.entity_group.join(" ")}`
+                        : ""}
+                    </small>
                   </FormGroup>
                 </Col>
               </Row>
@@ -463,6 +546,11 @@ const FormRegistroPJ = ({
                       minLength="1"
                       required
                     />
+                    <small className="text-red">
+                      {error.hasOwnProperty("objective")
+                        ? `* ${error.objective.join(" ")}`
+                        : ""}
+                    </small>
                   </FormGroup>
                 </Col>
                 <Col lg="12" className="mt-3">
@@ -482,6 +570,11 @@ const FormRegistroPJ = ({
                       minLength="1"
                       required
                     />
+                    <small className="text-red">
+                      {error.hasOwnProperty("services")
+                        ? `* ${error.services.join(" ")}`
+                        : ""}
+                    </small>
                   </FormGroup>
                 </Col>
                 <Col lg="12" className="mt-3">
@@ -503,6 +596,11 @@ const FormRegistroPJ = ({
                       minLength="1"
                       required
                     />
+                    <small className="text-red">
+                      {error.hasOwnProperty("wait_conafer")
+                        ? `* ${error.wait_conafer.join(" ")}`
+                        : ""}
+                    </small>
                   </FormGroup>
                 </Col>
               </Row>
@@ -548,6 +646,11 @@ const FormRegistroPJ = ({
                       accept="zip,application/octet-stream,application/zip,application/x-zip,application/x-zip-compressed"
                       required
                     />
+                    <small className="text-red">
+                      {error.hasOwnProperty("file_partners")
+                        ? `* ${error.file_partners.join(" ")}`
+                        : ""}
+                    </small>
                   </FormGroup>
                 </Col>
                 <Col lg="6">
@@ -568,6 +671,11 @@ const FormRegistroPJ = ({
                       accept="zip,application/octet-stream,application/zip,application/x-zip,application/x-zip-compressed"
                       required
                     />
+                    <small className="text-red">
+                      {error.hasOwnProperty("file_directory")
+                        ? `* ${error.file_directory.join(" ")}`
+                        : ""}
+                    </small>
                   </FormGroup>
                 </Col>
                 <Col lg="12" className="text-dark">
@@ -613,6 +721,11 @@ const FormRegistroPJ = ({
                     <label className="form-control-label" htmlFor="agree_terms">
                       Concordo com os Termos e Condições
                     </label>
+                    <small className="text-red">
+                      {error.hasOwnProperty("agree_terms")
+                        ? `* ${error.agree_terms.join(" ")}`
+                        : ""}
+                    </small>
                   </FormGroup>
                 </Col>
               </Row>
@@ -624,6 +737,14 @@ const FormRegistroPJ = ({
             </CardFooter>
           </Form>
         </Card>
+        <Col lg="12">
+        {Object.keys(error).length > 0 && (
+          <div className="mt-3 p-2 text-white bg-red rounded">
+            Atenção: Role a página para cima e corrija os campos que contém um *
+            seguindo de um texto em vermelho.
+          </div>
+        )}
+      </Col>
       </Col>
     </>
   );

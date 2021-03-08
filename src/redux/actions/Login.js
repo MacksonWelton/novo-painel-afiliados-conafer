@@ -24,9 +24,8 @@ export const login = (data) => async (dispatch) => {
     localStorage.setItem("refresh_token", response.data.refresh_token);
 
     const auth = localStorage.getItem("access_token") ? true : false;
-    
+
     dispatch(setAuthentication(auth));
-    
   } catch (err) {
     console.error(err.response);
     if (!err.response) {
@@ -50,10 +49,8 @@ export const setAuthentication = (auth) => ({
   },
 });
 
-
 export const refreshToken = () => async (dispatch) => {
   try {
-
     const refresh_token = await localStorage.getItem("refresh_token");
 
     const body = {
@@ -64,13 +61,13 @@ export const refreshToken = () => async (dispatch) => {
       refresh_token: refresh_token,
     };
 
-      const res = await api.post("oauth/token/", body);
+    const res = await api.post("oauth/token/", body);
 
-      localStorage.setItem("access_token", res.data.access_token);
-      localStorage.setItem("refresh_token", res.data.refresh_token);
-      localStorage.setItem("expires_in", res.data.expires_in);
-      localStorage.setItem("token_type", res.data.token_type);
-      localStorage.setItem("scope", res.data.scope);
+    localStorage.setItem("access_token", res.data.access_token);
+    localStorage.setItem("refresh_token", res.data.refresh_token);
+    localStorage.setItem("expires_in", res.data.expires_in);
+    localStorage.setItem("token_type", res.data.token_type);
+    localStorage.setItem("scope", res.data.scope);
   } catch (err) {
     dispatch(setAlert(400, "Ocorreu um erro de conexão com o servidor.", true));
     localStorage.clear();

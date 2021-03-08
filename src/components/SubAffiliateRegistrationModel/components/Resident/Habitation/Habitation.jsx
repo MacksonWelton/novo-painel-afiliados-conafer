@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Col, FormGroup, Input, Row } from "reactstrap";
-import { getAllAllotments } from "redux/actions/Allotments";
+import { getAllAllotments } from "../../../../../redux/actions/Allotments";
 
 const Habitation = ({ inputHabitation, setInputHabitation }) => {
   const dispatch = useDispatch();
@@ -10,14 +10,16 @@ const Habitation = ({ inputHabitation, setInputHabitation }) => {
     dispatch(getAllAllotments());
   }, [dispatch]);
 
-  const allAllotments = useSelector((state) => state.AllotmentsReducer.allAllotments);
+  const allAllotments = useSelector(
+    (state) => state.AllotmentsReducer.allAllotments
+  );
 
+  const error = useSelector((state) => state.ErrorReducer.error);
 
   const handleChangeInput = (event) => {
     const { name, value } = event.target;
     setInputHabitation({ ...inputHabitation, [name]: value });
   };
-
 
   return (
     <Row>
@@ -51,9 +53,22 @@ const Habitation = ({ inputHabitation, setInputHabitation }) => {
                   </option>
                 ))}
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("allotment")
+                  ? `* ${error.allotment.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
         </Row>
+      </Col>
+      <Col lg="12">
+        {Object.keys(error).length > 0 && (
+          <div className="mt-3 p-2 text-white bg-red rounded">
+            Atenção: Role a página para cima e corrija os campos que contém um *
+            seguindo de um texto em vermelho.
+          </div>
+        )}
       </Col>
     </Row>
   );

@@ -984,7 +984,7 @@ const FormRegistroPF = ({
                         Escolha uma opção
                       </option>
                       <option value="Agricultor">Agricultor</option>
-                      <option value="Outra">Outra</option>
+                      <option value="Outros">Outros</option>
                     </Input>
                     <small className="text-red">
                       {error.hasOwnProperty("profession")
@@ -993,34 +993,6 @@ const FormRegistroPF = ({
                     </small>
                   </FormGroup>
                 </Col>
-                {input.profession !== "" &&
-                input.profession !== "Agricultor" ? (
-                  <Col lg="6">
-                    <FormGroup>
-                      <label
-                        className="form-control-label"
-                        htmlFor="profession"
-                      >
-                        Outra Profissão
-                      </label>
-                      <Input
-                        className="form-control-alternative"
-                        type="text"
-                        name="profession"
-                        id="profession"
-                        title="Outra Profissão"
-                        placeholder="Ex: Eletricista"
-                        onChange={handleChangeInput}
-                        required
-                      />
-                      <small className="text-red">
-                        {error.hasOwnProperty("profession")
-                          ? `* ${error.profession.join(" ")}`
-                          : ""}
-                      </small>
-                    </FormGroup>
-                  </Col>
-                ) : null}
                 <Col lg="12">
                   <FormProduction
                     handleChangeInputAgriculturalProduction={

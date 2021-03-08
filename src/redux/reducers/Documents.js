@@ -1,4 +1,5 @@
 const initialState = {
+  document: null,
   documents: {
     results: [],
   },
@@ -10,6 +11,8 @@ const initialState = {
 
 const DocumentsReducer = (state = initialState, action) => {
   switch (action.type) {
+    case "SET_DOCUMENT":
+      return {...state, document: action.payload.document};
     case "SET_DOCUMENTS":
       return { ...state, documents: action.payload.documents };
     case "SET_BIRTH_CERTIFICATES":

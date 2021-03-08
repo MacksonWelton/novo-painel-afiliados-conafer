@@ -1,6 +1,6 @@
 import api from "services/api";
 import converterDataToFormData from "utils/converterDataToFormData";
-import { setAlert } from "./Alerts";
+import { setAlert, setSubmitMessage } from "./Alerts";
 import { setError } from "./Error";
 
 export const signUp = (userData) => async (dispatch) => {
@@ -82,7 +82,7 @@ export const pjAffiliateRegister = (
   files,
   agriculturalProduction
 ) => async (dispatch) => {
-  const formData = converterDataToFormData(input, files);
+  const formData = await converterDataToFormData(input, files);
 
   try {
     const response = await api.post("affiliation/affiliation_pj/", formData, {
@@ -102,12 +102,15 @@ export const pjAffiliateRegister = (
     );
   } catch (err) {
     console.error(err.response);
-    // console.error(err.message);
+    console.error(err.message);
     if (!err.response) {
       dispatch(
         setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
       );
-    } else if (err.response.status === 400 || err.response.status === 401) {
+    } else if (err.response.status === 400) {
+      setAlert(400, "Formulário contém dados incorretos.", true);
+      dispatch(setError(err.response.data));
+    } else if (err.response.status === 401) {
       dispatch(setAlert(err.response.status, err.response.data.detail, true));
     } else {
       dispatch(
@@ -167,14 +170,13 @@ export const pfAffiliateRegister = (userData, agriculturalProduction) => async (
       setAlert(response.status, "Cadastro realizado com sucesso!", true)
     );
   } catch (err) {
-    console.error(err.response);
-    // console.error(err.message);
+    console.error(err.message);
     if (!err.response) {
       dispatch(
         setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
       );
     } else if (err.response.status === 400) {
-      setAlert(400, "Formulário contém dados incorretos.", true)
+      setAlert(400, "Formulário contém dados incorretos.", true);
       dispatch(setError(err.response.data));
     } else if (err.response.status === 401) {
       dispatch(setAlert(err.response.status, err.response.data.detail, true));

@@ -10,6 +10,7 @@ import {
   Row,
   Col,
 } from "reactstrap";
+import { useSelector } from "react-redux";
 
 const FormUsuarioAfiliacao = ({
   files,
@@ -17,6 +18,8 @@ const FormUsuarioAfiliacao = ({
   handleChangeInput,
   handleChangeInputFile,
 }) => {
+  const error = useSelector((state) => state.ErrorReducer.error);
+
   return (
     <Row>
       <Col lg="12">
@@ -34,11 +37,15 @@ const FormUsuarioAfiliacao = ({
               onChange={handleChangeInput}
               required
             />
+            <small className="text-red mt-3 mr-2">(obrigatório)</small>
           </InputGroup>
+          <small className="text-red">
+            {error.hasOwnProperty("name") ? `* ${error.name.join(" ")}` : ""}
+          </small>
         </FormGroup>
       </Col>
       <Col lg="12">
-        <div style={{width: "50%"}}>
+        <div style={{ width: "50%" }}>
           {files.profilepic.value ? (
             <img
               className="w-25 ml-2 mb-2 rounded"
@@ -46,7 +53,7 @@ const FormUsuarioAfiliacao = ({
               alt=""
             />
           ) : null}
-          </div>
+        </div>
         <FormGroup>
           <InputGroup>
             <label className="btn bg-light ml-1 mb-0">
@@ -61,6 +68,11 @@ const FormUsuarioAfiliacao = ({
               />
             </label>
           </InputGroup>
+          <small className="text-red">
+            {error.hasOwnProperty("profilepic")
+              ? `* ${error.profilepic.join(" ")}`
+              : ""}
+          </small>
         </FormGroup>
       </Col>
       <Col lg="12">
@@ -79,7 +91,11 @@ const FormUsuarioAfiliacao = ({
               onChange={handleChangeInput}
               required
             />
+            <small className="text-red mt-3 mr-2">(obrigatório)</small>
           </InputGroup>
+          <small className="text-red">
+            {error.hasOwnProperty("email") ? `* ${error.email.join(" ")}` : ""}
+          </small>
         </FormGroup>
       </Col>
       <Col lg="12">
@@ -99,7 +115,11 @@ const FormUsuarioAfiliacao = ({
               onChange={handleChangeInput}
               required
             />
+            <small className="text-red mt-3 mr-2">(obrigatório)</small>
           </InputGroup>
+          <small className="text-red">
+            {error.hasOwnProperty("phone") ? `* ${error.phone.join(" ")}` : ""}
+          </small>
         </FormGroup>
       </Col>
       <Col lg="12">
@@ -118,7 +138,13 @@ const FormUsuarioAfiliacao = ({
               onChange={handleChangeInput}
               required
             />
+            <small className="text-red mt-3 mr-2">(obrigatório)</small>
           </InputGroup>
+          <small className="text-red">
+            {error.hasOwnProperty("password1")
+              ? `* ${error.password1.join(" ")}`
+              : ""}
+          </small>
         </FormGroup>
       </Col>
       <Col lg="12">
@@ -137,8 +163,22 @@ const FormUsuarioAfiliacao = ({
               onChange={handleChangeInput}
               required
             />
+            <small className="text-red mt-3 mr-2">(obrigatório)</small>
           </InputGroup>
+          <small className="text-red">
+            {error.hasOwnProperty("password2")
+              ? `* ${error.password2.join(" ")}`
+              : ""}
+          </small>
         </FormGroup>
+      </Col>
+      <Col lg="12">
+        {Object.keys(error).length > 0 && (
+          <div className="mt-3 p-2 text-white bg-red rounded">
+            Atenção: Role a página para cima e corrija os campos que contém um *
+            seguindo de um texto em vermelho.
+          </div>
+        )}
       </Col>
     </Row>
   );

@@ -2,7 +2,7 @@ import { DeleteForeverOutlined } from "@material-ui/icons";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Input, FormGroup, Col, Row, Button, Table } from "reactstrap";
-import {getMembers} from "../../../../redux/actions/Membros";
+import { getMembers } from "../../../../redux/actions/Membros";
 
 const Documentation = ({
   inputDocumentation,
@@ -14,12 +14,11 @@ const Documentation = ({
 }) => {
   const dispatch = useDispatch();
 
-
   useEffect(() => {
     dispatch(getMembers());
-  }, [dispatch])
+  }, [dispatch]);
 
-  const members = useSelector(state => state.MembersReducer.members);
+  const members = useSelector((state) => state.MembersReducer.members);
 
   const [files, setFiles] = useState({
     birth_certificates: {
@@ -41,9 +40,9 @@ const Documentation = ({
   });
 
   const handleChangeInput = (event) => {
-    const {name, value} = event.target;
-    setInputDocumentation({...inputDocumentation, [name]: value})
-  }
+    const { name, value } = event.target;
+    setInputDocumentation({ ...inputDocumentation, [name]: value });
+  };
 
   const handleChangeInputFile = (event) => {
     const name = event.target.name;
@@ -132,7 +131,7 @@ const Documentation = ({
                 type="select"
                 name="member"
                 id="member"
-                title="Lote"
+                title="Membro"
                 value={inputDocumentation.member}
                 onChange={handleChangeInput}
                 accept=".pdf,.doc,.docx,.xlsx,.csv,image/*"
@@ -327,7 +326,8 @@ const Documentation = ({
                   className="form-control-label ml-2"
                   htmlFor="front_beneficiary_rg"
                 >
-                  RG do beneficiário frente{" "}<small className="text-red">(obrigatório)</small>
+                  RG do beneficiário frente{" "}
+                  <small className="text-red">(obrigatório)</small>
                 </label>
                 <FormGroup>
                   <label className="btn bg-light ml-1 mb-0">
@@ -345,7 +345,11 @@ const Documentation = ({
                       title="RG do beneficiário frente"
                       onChange={handleChangeInputFile}
                       accept=".pdf,.doc,.docx,.xlsx,.csv,image/*"
-                      required
+                      required={
+                        inputDocumentationFile.front_beneficiary_rg.fileName
+                          ? false
+                          : true
+                      }
                     />
                   </label>
                 </FormGroup>
@@ -355,7 +359,8 @@ const Documentation = ({
                   className="form-control-label ml-2"
                   htmlFor="back_beneficiary_rg"
                 >
-                  RG do beneficiário verso{" "}<small className="text-red">(obrigatório)</small>
+                  RG do beneficiário verso{" "}
+                  <small className="text-red">(obrigatório)</small>
                 </label>
                 <FormGroup>
                   <label className="btn bg-light ml-1 mb-0">
@@ -373,7 +378,11 @@ const Documentation = ({
                       title="RG do beneficiário verso"
                       onChange={handleChangeInputFile}
                       accept=".pdf,.doc,.docx,.xlsx,.csv,image/*"
-                      required
+                      required={
+                        inputDocumentationFile.front_beneficiary_rg.fileName
+                          ? false
+                          : true
+                      }
                     />
                   </label>
                 </FormGroup>
@@ -462,10 +471,7 @@ const Documentation = ({
             <FormGroup>
               <label className="btn bg-light ml-1 mb-0">
                 {files.birth_certificates.fileName
-                  ? files.birth_certificates.fileName.substring(
-                    0,
-                    30
-                  )
+                  ? files.birth_certificates.fileName.substring(0, 30)
                   : "Escolher Arquivo"}
                 <Input
                   className="d-none"
@@ -500,22 +506,18 @@ const Documentation = ({
                 </tr>
               </thead>
               <tbody>
-                {inputDocumentationList.birth_certificates.map(
-                  (file, i) => (
-                    <tr key={i}>
-                      <td>{file.fileName.substring(0, 35)}</td>
-                      <td>
-                        <Button
-                          onClick={() =>
-                            removeFile("birth_certificates", i)
-                          }
-                        >
-                          <DeleteForeverOutlined />
-                        </Button>
-                      </td>
-                    </tr>
-                  )
-                )}
+                {inputDocumentationList.birth_certificates.map((file, i) => (
+                  <tr key={i}>
+                    <td>{file.fileName.substring(0, 35)}</td>
+                    <td>
+                      <Button
+                        onClick={() => removeFile("birth_certificates", i)}
+                      >
+                        <DeleteForeverOutlined />
+                      </Button>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </Table>
           </Col>
@@ -528,10 +530,7 @@ const Documentation = ({
             <hr />
           </div>
           <Col lg="6">
-            <label
-              className="form-control-label ml-2"
-              htmlFor="cpf_files"
-            >
+            <label className="form-control-label ml-2" htmlFor="cpf_files">
               CPF's
             </label>
             <FormGroup>
@@ -555,11 +554,7 @@ const Documentation = ({
             lg="6"
             className="d-flex align-items-center justify-content-center pt-2"
           >
-            <Button
-              name="cpf_files"
-              color="primary"
-              onClick={addDocumentation}
-            >
+            <Button name="cpf_files" color="primary" onClick={addDocumentation}>
               Adicionar
             </Button>
           </Col>
@@ -576,9 +571,7 @@ const Documentation = ({
                   <tr key={i}>
                     <td>{file.fileName.substring(0, 35)}</td>
                     <td>
-                      <Button
-                        onClick={() => removeFile("cpf_files", i)}
-                      >
+                      <Button onClick={() => removeFile("cpf_files", i)}>
                         <DeleteForeverOutlined />
                       </Button>
                     </td>
@@ -640,22 +633,18 @@ const Documentation = ({
                 </tr>
               </thead>
               <tbody>
-                {inputDocumentationList.economic_activities.map(
-                  (file, i) => (
-                    <tr key={i}>
-                      <td>{file.fileName.substring(0, 35)}</td>
-                      <td>
-                        <Button
-                          onClick={() =>
-                            removeFile("economic_activities", i)
-                          }
-                        >
-                          <DeleteForeverOutlined />
-                        </Button>
-                      </td>
-                    </tr>
-                  )
-                )}
+                {inputDocumentationList.economic_activities.map((file, i) => (
+                  <tr key={i}>
+                    <td>{file.fileName.substring(0, 35)}</td>
+                    <td>
+                      <Button
+                        onClick={() => removeFile("economic_activities", i)}
+                      >
+                        <DeleteForeverOutlined />
+                      </Button>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </Table>
           </Col>
@@ -712,22 +701,18 @@ const Documentation = ({
                 </tr>
               </thead>
               <tbody>
-                {inputDocumentationList.improvements_image.map(
-                  (file, i) => (
-                    <tr key={i}>
-                      <td>{file.fileName.substring(0, 35)}</td>
-                      <td>
-                        <Button
-                          onClick={() =>
-                            removeFile("improvements_image", i)
-                          }
-                        >
-                          <DeleteForeverOutlined />
-                        </Button>
-                      </td>
-                    </tr>
-                  )
-                )}
+                {inputDocumentationList.improvements_image.map((file, i) => (
+                  <tr key={i}>
+                    <td>{file.fileName.substring(0, 35)}</td>
+                    <td>
+                      <Button
+                        onClick={() => removeFile("improvements_image", i)}
+                      >
+                        <DeleteForeverOutlined />
+                      </Button>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </Table>
           </Col>

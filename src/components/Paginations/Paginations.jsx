@@ -12,7 +12,7 @@ const Paginations = ({ count, funcRequistion, lines }) => {
 
   useEffect(() => {
     dispatch(funcRequistion((currentPage - 1) * lines, lines));
-  }, [lines]);
+  }, [dispatch, funcRequistion, currentPage,lines]);
 
   if (count > 0 && interator < Math.ceil(count / lines) && interator <= 9) {
     setPages([...pages, interator + 1]);

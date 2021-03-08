@@ -2,9 +2,9 @@ import { DeleteForeverOutlined } from "@material-ui/icons";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Input, FormGroup, Row, Table, Col } from "reactstrap";
-import { getProductionName } from "redux/actions/Productions";
-import { getAllAllotments } from "redux/actions/Allotments";
-import { formatReal } from "utils/converterToMoney";
+import { getProductionName } from "../../../../../redux/actions/Productions";
+import { getAllAllotments } from "../../../../../redux/actions/Allotments";
+import { formatReal } from "../../../../../utils/converterToMoney";
 
 const AnimalProduction = ({
   inputAnimalProduction,
@@ -17,10 +17,14 @@ const AnimalProduction = ({
     dispatch(getProductionName("Animal"));
   }, [dispatch]);
 
-  const allAllotments = useSelector((state) => state.AllotmentsReducer.allAllotments);
+  const allAllotments = useSelector(
+    (state) => state.AllotmentsReducer.allAllotments
+  );
   const productionName = useSelector(
     (state) => state.ProductionsReducer.productionName
   );
+
+  const error = useSelector((state) => state.ErrorReducer.error);
 
   const [inputAnimal, setInputAnimal] = useState({
     allotment: "",
@@ -49,11 +53,13 @@ const AnimalProduction = ({
     setInputAnimal({ ...inputAnimal, [name]: value });
 
     if (name === "production") {
-      setInputAnimalTable({...inputAnimalTable, [name]: event.target[event.target.selectedIndex].text});
+      setInputAnimalTable({
+        ...inputAnimalTable,
+        [name]: event.target[event.target.selectedIndex].text,
+      });
     } else {
-      setInputAnimalTable({...inputAnimalTable, [name]: value});
+      setInputAnimalTable({ ...inputAnimalTable, [name]: value });
     }
-
   };
 
   const addAnimalInTable = () => {
@@ -71,7 +77,9 @@ const AnimalProduction = ({
   };
 
   const removeAnimalInTable = (index) => {
-    setInputAnimalProduction(inputAnimalProduction.filter((item, i) => i !== index));
+    setInputAnimalProduction(
+      inputAnimalProduction.filter((item, i) => i !== index)
+    );
     setInputAnimalsTable(inputAnimalsTable.filter((item, i) => i !== index));
   };
 
@@ -86,7 +94,7 @@ const AnimalProduction = ({
           <Col lg="6">
             <FormGroup>
               <label className="form-control-label" htmlFor="allotment">
-                Lote
+                Lote <small className="text-red">(obrigatório)</small>
               </label>
               <Input
                 className="form-control-alternative"
@@ -106,6 +114,11 @@ const AnimalProduction = ({
                   </option>
                 ))}
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("allotment")
+                  ? `* ${error.allotment.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -133,12 +146,18 @@ const AnimalProduction = ({
                   </option>
                 ))}
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("production")
+                  ? `* ${error.production.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
             <FormGroup>
               <label className="form-control-label" htmlFor="mensal_production">
-                Produção mensal (Kg){" "}<small className="text-red">(obrigatório)</small>
+                Produção mensal (Kg){" "}
+                <small className="text-red">(obrigatório)</small>
               </label>
               <Input
                 className="form-control-alternative"
@@ -151,12 +170,18 @@ const AnimalProduction = ({
                 required
                 min="0"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("mensal_production")
+                  ? `* ${error.mensal_production.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
             <FormGroup>
               <label className="form-control-label" htmlFor="mensal_marketed">
-                Quantidade comercializada mensal (Kg){" "}<small className="text-red">(obrigatório)</small>
+                Quantidade comercializada mensal (Kg){" "}
+                <small className="text-red">(obrigatório)</small>
               </label>
               <Input
                 className="form-control-alternative"
@@ -170,12 +195,21 @@ const AnimalProduction = ({
                 required
                 min="0"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("mensal_marketed")
+                  ? `* ${error.mensal_marketed.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
             <FormGroup>
-              <label className="form-control-label" htmlFor="food_supplementation">
-                Tipo de complementação alimentar{" "}<small className="text-red">(obrigatório)</small>
+              <label
+                className="form-control-label"
+                htmlFor="food_supplementation"
+              >
+                Tipo de complementação alimentar{" "}
+                <small className="text-red">(obrigatório)</small>
               </label>
               <Input
                 className="form-control-alternative"
@@ -190,12 +224,21 @@ const AnimalProduction = ({
                 maxLength="255"
                 minLength="1"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("food_supplementation")
+                  ? `* ${error.food_supplementation.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
             <FormGroup>
-              <label className="form-control-label" htmlFor="food_supplementation_value">
-                Recursos em complementação alimentar{" "}<small className="text-red">(obrigatório)</small>
+              <label
+                className="form-control-label"
+                htmlFor="food_supplementation_value"
+              >
+                Recursos em complementação alimentar{" "}
+                <small className="text-red">(obrigatório)</small>
               </label>
               <Input
                 className="form-control-alternative"
@@ -206,18 +249,27 @@ const AnimalProduction = ({
                 placeholder="Ex: 100,00"
                 value={inputAnimal.food_supplementation_value}
                 onChange={(event) => {
-                  event = {target: {
-                    name: event.target.name,
-                    value: formatReal(event.target.value)
-                  }}
-                  handleChangeInput(event)}}
+                  event = {
+                    target: {
+                      name: event.target.name,
+                      value: formatReal(event.target.value),
+                    },
+                  };
+                  handleChangeInput(event);
+                }}
               />
+              <small className="text-red">
+                {error.hasOwnProperty("food_supplementation_value")
+                  ? `* ${error.food_supplementation_value.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
             <FormGroup>
               <label className="form-control-label" htmlFor="production_type">
-                Tipo de produção (corte ou derivado){" "}<small className="text-red">(obrigatório)</small>
+                Tipo de produção (corte ou derivado){" "}
+                <small className="text-red">(obrigatório)</small>
               </label>
               <Input
                 className="form-control-alternative"
@@ -232,6 +284,11 @@ const AnimalProduction = ({
                 minLength="1"
                 required
               />
+              <small className="text-red">
+                {error.hasOwnProperty("production_type")
+                  ? `* ${error.production_type.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="12" className="mb-3 d-flex justify-content-center">
@@ -264,6 +321,14 @@ const AnimalProduction = ({
             </Table>
           </Col>
         </Row>
+      </Col>
+      <Col lg="12">
+        {Object.keys(error).length > 0 && (
+          <div className="mt-3 p-2 text-white bg-red rounded">
+            Atenção: Role a página para cima e corrija os campos que contém um *
+            seguindo de um texto em vermelho.
+          </div>
+        )}
       </Col>
     </Row>
   );

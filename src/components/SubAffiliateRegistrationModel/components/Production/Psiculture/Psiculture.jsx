@@ -2,8 +2,8 @@ import { DeleteForeverOutlined } from "@material-ui/icons";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Input, FormGroup, Row, Table, Col } from "reactstrap";
-import { getAllAllotments } from "redux/actions/Allotments";
-import { formatReal } from "utils/converterToMoney";
+import { getAllAllotments } from "../../../../../redux/actions/Allotments";
+import { formatReal } from "../../../../../utils/converterToMoney";
 
 const AnimalProduction = ({
   inputPsicultureProduction,
@@ -14,6 +14,8 @@ const AnimalProduction = ({
   const allAllotments = useSelector(
     (state) => state.AllotmentsReducer.allAllotments
   );
+
+  const error = useSelector((state) => state.ErrorReducer.error);
 
   useEffect(() => {
     dispatch(getAllAllotments());
@@ -100,6 +102,11 @@ const AnimalProduction = ({
                   </option>
                 ))}
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("allotment")
+                  ? `* ${error.allotment.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -119,6 +126,11 @@ const AnimalProduction = ({
                 maxLength="255"
                 minLength="1"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("type_psiculture")
+                  ? `* ${error.type_psiculture.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -138,6 +150,11 @@ const AnimalProduction = ({
                 maxLength="255"
                 minLength="1"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("management")
+                  ? `* ${error.management.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -161,6 +178,11 @@ const AnimalProduction = ({
                 maxLength="255"
                 minLength="1"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("harvesting_systems")
+                  ? `* ${error.harvesting_systems.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -191,6 +213,11 @@ const AnimalProduction = ({
                 required
                 minLength="4"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("food_supplementation")
+                  ? `* ${error.food_supplementation.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -221,6 +248,11 @@ const AnimalProduction = ({
                 required
                 minLength="4"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("annual_food_supplementation")
+                  ? `* ${error.annual_food_supplementation.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6" className="d-flex flex-column justify-content-end">
@@ -240,6 +272,11 @@ const AnimalProduction = ({
                 maxLength="255"
                 minLength="1"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("goal")
+                  ? `* ${error.goal.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -263,6 +300,11 @@ const AnimalProduction = ({
                 <option value={true}>Sim</option>
                 <option value={false}>Não</option>
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("fish_pay")
+                  ? `* ${error.fish_pay.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -282,6 +324,11 @@ const AnimalProduction = ({
                 max="2147483647"
                 min="1"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("reservoir_size")
+                  ? `* ${error.reservoir_size.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -309,6 +356,11 @@ const AnimalProduction = ({
                 required
                 minLength="4"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("purchase_price")
+                  ? `* ${error.purchase_price.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -328,6 +380,11 @@ const AnimalProduction = ({
                 max="2147483647"
                 min="1"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("meat_production")
+                  ? `* ${error.meat_production.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -350,6 +407,11 @@ const AnimalProduction = ({
                 max="2147483647"
                 min="1"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("commercialized_production")
+                  ? `* ${error.commercialized_production.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -377,6 +439,11 @@ const AnimalProduction = ({
                 required
                 minLength="4"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("average_price")
+                  ? `* ${error.average_price.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -399,6 +466,11 @@ const AnimalProduction = ({
                 required
                 minLength="1"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("mai_marketing_channels")
+                  ? `* ${error.mai_marketing_channels.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="12" className="mb-3 d-flex justify-content-center">
@@ -431,6 +503,14 @@ const AnimalProduction = ({
             </Table>
           </Col>
         </Row>
+      </Col>
+      <Col lg="12">
+        {Object.keys(error).length > 0 && (
+          <div className="mt-3 p-2 text-white bg-red rounded">
+            Atenção: Role a página para cima e corrija os campos que contém um *
+            seguindo de um texto em vermelho.
+          </div>
+        )}
       </Col>
     </Row>
   );

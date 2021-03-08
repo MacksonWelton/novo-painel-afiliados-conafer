@@ -1,4 +1,6 @@
 const initialState = {
+  habitation: null,
+  resident: null,
   residents: {
     results: [],
   },
@@ -10,6 +12,10 @@ const initialState = {
 
 const ResidentsReducer = (state = initialState, action) => {
   switch (action.type) {
+    case "SET_HABITATION":
+      return {...state, habitation: action.payload.habitation};
+    case "SET_RESIDENT":
+      return {...state, resident: action.payload.resident};
     case "SET_RESIDENTS":
       return { ...state, residents: action.payload.residents };
     case "SET_HABITATIONS":

@@ -2,7 +2,7 @@ import { DeleteForeverOutlined } from "@material-ui/icons";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Col, FormGroup, Input, Row, Table } from "reactstrap";
-import { getAllAllotments } from "redux/actions/Allotments";
+import { getAllAllotments } from "../../../../redux/actions/Allotments";
 
 const Improvement = ({ inputImprovements, setInputImprovements }) => {
   const dispatch = useDispatch();
@@ -18,7 +18,11 @@ const Improvement = ({ inputImprovements, setInputImprovements }) => {
     dispatch(getAllAllotments());
   }, [dispatch]);
 
-  const allAllotments = useSelector((state) => state.AllotmentsReducer.allAllotments);
+  const allAllotments = useSelector(
+    (state) => state.AllotmentsReducer.allAllotments
+  );
+
+  const error = useSelector((state) => state.ErrorReducer.error);
 
   const handleChangeInput = (event) => {
     const { name, value } = event.target;
@@ -64,6 +68,7 @@ const Improvement = ({ inputImprovements, setInputImprovements }) => {
                 onChange={handleChangeInput}
                 maxLength="255"
                 minLength="1"
+                required
               >
                 <option value="" hidden>
                   Escolha uma opção
@@ -74,6 +79,11 @@ const Improvement = ({ inputImprovements, setInputImprovements }) => {
                   </option>
                 ))}
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("allotment")
+                  ? `* ${error.allotment.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -92,7 +102,13 @@ const Improvement = ({ inputImprovements, setInputImprovements }) => {
                 onChange={handleChangeInput}
                 maxLength="255"
                 minLength="1"
+                required
               />
+              <small className="text-red">
+                {error.hasOwnProperty("improvement")
+                  ? `* ${error.improvement.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -111,7 +127,13 @@ const Improvement = ({ inputImprovements, setInputImprovements }) => {
                 onChange={handleChangeInput}
                 maxLength="255"
                 minLength="1"
+                required
               />
+              <small className="text-red">
+                {error.hasOwnProperty("type_improvement")
+                  ? `* ${error.type_improvement.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -130,7 +152,13 @@ const Improvement = ({ inputImprovements, setInputImprovements }) => {
                 onChange={handleChangeInput}
                 maxLength="255"
                 minLength="1"
+                required
               />
+              <small className="text-red">
+                {error.hasOwnProperty("age_improvement")
+                  ? `* ${error.age_improvement.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -149,7 +177,13 @@ const Improvement = ({ inputImprovements, setInputImprovements }) => {
                 onChange={handleChangeInput}
                 maxLength="255"
                 minLength="1"
+                required
               />
+              <small className="text-red">
+                {error.hasOwnProperty("footage")
+                  ? `* ${error.footage.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="12" className="mb-3 d-flex justify-content-center">
@@ -185,6 +219,14 @@ const Improvement = ({ inputImprovements, setInputImprovements }) => {
             </Table>
           </Col>
         </Row>
+      </Col>
+      <Col lg="12">
+        {Object.keys(error).length > 0 && (
+          <div className="mt-3 p-2 text-white bg-red rounded">
+            Atenção: Role a página para cima e corrija os campos que contém um *
+            seguindo de um texto em vermelho.
+          </div>
+        )}
       </Col>
     </Row>
   );
