@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/novo-painel-afiliados-conafer/static/css/main.9914bb28.chunk.css",
-    "main.js": "/novo-painel-afiliados-conafer/static/js/main.441ba2ef.chunk.js",
-    "main.js.map": "/novo-painel-afiliados-conafer/static/js/main.441ba2ef.chunk.js.map",
+    "main.js": "/novo-painel-afiliados-conafer/static/js/main.e9fd26d5.chunk.js",
+    "main.js.map": "/novo-painel-afiliados-conafer/static/js/main.e9fd26d5.chunk.js.map",
     "runtime-main.js": "/novo-painel-afiliados-conafer/static/js/runtime-main.0c155d2d.js",
     "runtime-main.js.map": "/novo-painel-afiliados-conafer/static/js/runtime-main.0c155d2d.js.map",
     "static/css/2.ca7218a3.chunk.css": "/novo-painel-afiliados-conafer/static/css/2.ca7218a3.chunk.css",
@@ -12,7 +12,7 @@
     "static/css/2.ca7218a3.chunk.css.map": "/novo-painel-afiliados-conafer/static/css/2.ca7218a3.chunk.css.map",
     "static/css/main.9914bb28.chunk.css.map": "/novo-painel-afiliados-conafer/static/css/main.9914bb28.chunk.css.map",
     "static/js/2.922a909a.chunk.js.LICENSE.txt": "/novo-painel-afiliados-conafer/static/js/2.922a909a.chunk.js.LICENSE.txt",
-    "static/js/main.441ba2ef.chunk.js.LICENSE.txt": "/novo-painel-afiliados-conafer/static/js/main.441ba2ef.chunk.js.LICENSE.txt",
+    "static/js/main.e9fd26d5.chunk.js.LICENSE.txt": "/novo-painel-afiliados-conafer/static/js/main.e9fd26d5.chunk.js.LICENSE.txt",
     "static/media/58889219bc2fc2ef3a1860aa.237cf336.png": "/novo-painel-afiliados-conafer/static/media/58889219bc2fc2ef3a1860aa.237cf336.png",
     "static/media/all.min.css": "/novo-painel-afiliados-conafer/static/media/fa-solid-900.afbdcbcc.woff",
     "static/media/fafer.bfcedd8f.svg": "/novo-painel-afiliados-conafer/static/media/fafer.bfcedd8f.svg",
@@ -26,6 +26,6 @@
     "static/css/2.ca7218a3.chunk.css",
     "static/js/2.922a909a.chunk.js",
     "static/css/main.9914bb28.chunk.css",
-    "static/js/main.441ba2ef.chunk.js"
+    "static/js/main.e9fd26d5.chunk.js"
   ]
 }
