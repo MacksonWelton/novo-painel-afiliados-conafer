@@ -1,5 +1,6 @@
 import api from "services/api";
 import { setAlert, setSubmitMessage } from "./Alerts";
+import { setError } from "./Error";
 
 export const newDiagnosisAgriculturalSystems = (
   inputDiagnosisOfAgriculturalSystems
@@ -18,6 +19,9 @@ export const newDiagnosisAgriculturalSystems = (
       dispatch(
         setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
       );
+    } else if (err.response.status === 400) {
+      setAlert(400, "Formulário contém dados incorretos.", true);
+      dispatch(setError(err.response.data));
     } else if (err.response.status === 401) {
       if (err.response.data.detail) {
         dispatch(setAlert(err.response.status, err.response.data.detail, true));
@@ -130,8 +134,15 @@ export const updateDiagnosisAgriculturalSystem = (input) => async (
       dispatch(
         setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
       );
+    } else if (err.response.status === 400) {
+      setAlert(400, "Formulário contém dados incorretos.", true);
+      dispatch(setError(err.response.data));
     } else if (err.response.status === 401) {
-      dispatch(setAlert(err.response.status, err.response.data.detail, true));
+      if (err.response.data.detail) {
+        dispatch(setAlert(err.response.status, err.response.data.detail, true));
+      } else {
+        dispatch(setSubmitMessage(Object.values(err.response.data).join(" ")));
+      }
     } else {
       dispatch(
         setAlert(err.response.status, err.response.data.error_description, true)

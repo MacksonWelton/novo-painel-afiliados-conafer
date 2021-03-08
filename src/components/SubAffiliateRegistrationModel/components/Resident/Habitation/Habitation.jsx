@@ -10,15 +10,16 @@ const Habitation = ({ inputHabitation, setInputHabitation }) => {
     dispatch(getAllAllotments());
   }, [dispatch]);
 
-  const allAllotments = useSelector((state) => state.AllotmentsReducer.allAllotments);
-  const error = useSelector((state) => state.ErrorReducer.error);
+  const allAllotments = useSelector(
+    (state) => state.AllotmentsReducer.allAllotments
+  );
 
+  const error = useSelector((state) => state.ErrorReducer.error);
 
   const handleChangeInput = (event) => {
     const { name, value } = event.target;
     setInputHabitation({ ...inputHabitation, [name]: value });
   };
-
 
   return (
     <Row>
@@ -53,13 +54,21 @@ const Habitation = ({ inputHabitation, setInputHabitation }) => {
                 ))}
               </Input>
               <small className="text-red">
-                {error.hasOwnProperty("property_name")
-                  ? `* ${error.property_name.join(" ")}`
+                {error.hasOwnProperty("allotment")
+                  ? `* ${error.allotment.join(" ")}`
                   : ""}
               </small>
             </FormGroup>
           </Col>
         </Row>
+      </Col>
+      <Col lg="12">
+        {Object.keys(error).length > 0 && (
+          <div className="mt-3 p-2 text-white bg-red rounded">
+            Atenção: Role a página para cima e corrija os campos que contém um *
+            seguindo de um texto em vermelho.
+          </div>
+        )}
       </Col>
     </Row>
   );

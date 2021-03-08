@@ -61,7 +61,6 @@ export const setMembers = (members) => ({
 });
 
 export const getMemberById = (id) => async (dispatch) => {
-  
   try {
     const response = await api.get(`member/member/${id}/`);
 
@@ -102,11 +101,9 @@ export const newMember = (inputMember) => async (dispatch) => {
         setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
       );
     } else if (err.response.status === 400) {
-      setAlert(400, "Formulário contém dados incorretos.", true)
+      setAlert(400, "Formulário contém dados incorretos.", true);
       dispatch(setError(err.response.data));
-    }
-    
-    else if (err.response.status === 401) {
+    } else if (err.response.status === 401) {
       if (err.response.data.detail) {
         dispatch(setAlert(err.response.status, err.response.data.detail, true));
       } else {
@@ -132,6 +129,9 @@ export const updateMember = (input) => async (dispatch) => {
       dispatch(
         setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
       );
+    } else if (err.response.status === 400) {
+      setAlert(400, "Formulário contém dados incorretos.", true);
+      dispatch(setError(err.response.data));
     } else if (err.response.status === 401) {
       if (err.response.data.detail) {
         dispatch(setAlert(err.response.status, err.response.data.detail, true));

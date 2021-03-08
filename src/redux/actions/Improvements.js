@@ -1,5 +1,6 @@
 import api from "services/api";
 import { setAlert, setSubmitMessage } from "./Alerts";
+import { setError } from "./Error";
 
 export const newImprovements = (inputImprovements) => async (dispatch) => {
   try {
@@ -10,10 +11,14 @@ export const newImprovements = (inputImprovements) => async (dispatch) => {
 
     dispatch(getImprovements());
   } catch (err) {
+    console.error(err.message);
     if (!err.response) {
       dispatch(
         setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
       );
+    } else if (err.response.status === 400) {
+      setAlert(400, "Formulário contém dados incorretos.", true);
+      dispatch(setError(err.response.data));
     } else if (err.response.status === 401) {
       if (err.response.data.detail) {
         dispatch(setAlert(err.response.status, err.response.data.detail, true));
@@ -121,6 +126,9 @@ export const updateImprovement = (input) => async (dispatch) => {
       dispatch(
         setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
       );
+    } else if (err.response.status === 400) {
+      setAlert(400, "Formulário contém dados incorretos.", true);
+      dispatch(setError(err.response.data));
     } else if (err.response.status === 401) {
       dispatch(setAlert(err.response.status, err.response.data.detail, true));
     } else {

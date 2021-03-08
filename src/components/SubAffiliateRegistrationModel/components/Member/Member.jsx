@@ -921,6 +921,14 @@ const Member = ({ inputMember, setInputMember, usersAffiliation }) => {
             </Col>
           </Row>
         </Col>
+        <Col lg="12">
+          {Object.keys(error).length > 0 && (
+            <div className="mt-3 p-2 text-white bg-red rounded">
+              Atenção: Role a página para cima e corrija os campos que contém um
+              * seguindo de um texto em vermelho.
+            </div>
+          )}
+        </Col>
       </Row>
     </>
   );

@@ -1,6 +1,7 @@
 import api from "services/api";
 import converterDataToFormData from "utils/converterDataToFormData";
 import { setAlert, setSubmitMessage } from "./Alerts";
+import { setError } from "./Error";
 
 export const newAllotment = (inputAllotment, fileAllotment) => async (
   dispatch
@@ -25,6 +26,9 @@ export const newAllotment = (inputAllotment, fileAllotment) => async (
       dispatch(
         setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
       );
+    } else if (err.response.status === 400) {
+      setAlert(400, "Formulário contém dados incorretos.", true);
+      dispatch(setError(err.response.data));
     } else if (err.response.status === 401) {
       if (err.response.data.detail) {
         dispatch(setAlert(err.response.status, err.response.data.detail, true));

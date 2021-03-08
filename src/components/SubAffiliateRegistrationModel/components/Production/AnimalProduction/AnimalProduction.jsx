@@ -24,6 +24,8 @@ const AnimalProduction = ({
     (state) => state.ProductionsReducer.productionName
   );
 
+  const error = useSelector((state) => state.ErrorReducer.error);
+
   const [inputAnimal, setInputAnimal] = useState({
     allotment: "",
     production: "",
@@ -112,6 +114,11 @@ const AnimalProduction = ({
                   </option>
                 ))}
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("allotment")
+                  ? `* ${error.allotment.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -139,6 +146,11 @@ const AnimalProduction = ({
                   </option>
                 ))}
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("production")
+                  ? `* ${error.production.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -158,6 +170,11 @@ const AnimalProduction = ({
                 required
                 min="0"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("mensal_production")
+                  ? `* ${error.mensal_production.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -178,6 +195,11 @@ const AnimalProduction = ({
                 required
                 min="0"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("mensal_marketed")
+                  ? `* ${error.mensal_marketed.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -202,6 +224,11 @@ const AnimalProduction = ({
                 maxLength="255"
                 minLength="1"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("food_supplementation")
+                  ? `* ${error.food_supplementation.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -231,6 +258,11 @@ const AnimalProduction = ({
                   handleChangeInput(event);
                 }}
               />
+              <small className="text-red">
+                {error.hasOwnProperty("food_supplementation_value")
+                  ? `* ${error.food_supplementation_value.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -252,6 +284,11 @@ const AnimalProduction = ({
                 minLength="1"
                 required
               />
+              <small className="text-red">
+                {error.hasOwnProperty("production_type")
+                  ? `* ${error.production_type.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="12" className="mb-3 d-flex justify-content-center">
@@ -284,6 +321,14 @@ const AnimalProduction = ({
             </Table>
           </Col>
         </Row>
+      </Col>
+      <Col lg="12">
+        {Object.keys(error).length > 0 && (
+          <div className="mt-3 p-2 text-white bg-red rounded">
+            Atenção: Role a página para cima e corrija os campos que contém um *
+            seguindo de um texto em vermelho.
+          </div>
+        )}
       </Col>
     </Row>
   );

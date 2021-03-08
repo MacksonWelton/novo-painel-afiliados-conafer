@@ -1,5 +1,6 @@
 import api from "services/api";
 import { setAlert, setSubmitMessage } from "./Alerts";
+import { setError } from "./Error";
 
 export const newProduction = (inputProduction) => async (dispatch) => {
   try {
@@ -11,10 +12,14 @@ export const newProduction = (inputProduction) => async (dispatch) => {
 
     dispatch(getProductions());
   } catch (err) {
+    console.error(err.message)
     if (!err.response) {
       dispatch(
         setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
       );
+    } else if (err.response.status === 400) {
+      setAlert(400, "Formulário contém dados incorretos.", true);
+      dispatch(setError(err.response.data));
     } else if (err.response.status === 401) {
       dispatch(setAlert(err.response.status, err.response.data.detail, true));
     } else {
@@ -130,6 +135,9 @@ export const newAnimalProduction = (inputAnimalProduction) => async (
       dispatch(
         setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
       );
+    } else if (err.response.status === 400) {
+      setAlert(400, "Formulário contém dados incorretos.", true);
+      dispatch(setError(err.response.data));
     } else if (err.response.status === 401) {
       dispatch(setAlert(err.response.status, err.response.data.detail, true));
     } else {
@@ -157,6 +165,9 @@ export const newVegetableProduction = (inputVegetablesProduction) => async (
       dispatch(
         setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
       );
+    } else if (err.response.status === 400) {
+      setAlert(400, "Formulário contém dados incorretos.", true);
+      dispatch(setError(err.response.data));
     } else if (err.response.status === 401) {
       dispatch(setAlert(err.response.status, err.response.data.detail, true));
     } else {
@@ -184,6 +195,9 @@ export const newPsicultureProduction = (inputPsicultureProduction) => async (
       dispatch(
         setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
       );
+    } else if (err.response.status === 400) {
+      setAlert(400, "Formulário contém dados incorretos.", true);
+      dispatch(setError(err.response.data));
     } else if (err.response.status === 401) {
       dispatch(setAlert(err.response.status, err.response.data.detail, true));
     } else {
@@ -422,12 +436,11 @@ export const updateProduction = (input) => async (dispatch) => {
       dispatch(
         setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
       );
+    } else if (err.response.status === 400) {
+      setAlert(400, "Formulário contém dados incorretos.", true);
+      dispatch(setError(err.response.data));
     } else if (err.response.status === 401) {
-      if (err.response.data.detail) {
-        dispatch(setAlert(err.response.status, err.response.data.detail, true));
-      } else {
-        dispatch(setSubmitMessage(Object.values(err.response.data).join(" ")));
-      }
+      dispatch(setAlert(err.response.status, err.response.data.detail, true));
     } else {
       dispatch(
         setAlert(err.response.status, err.response.data.error_description, true)
@@ -496,12 +509,11 @@ export const updateVegetablesProduction = (input) => async (dispatch) => {
       dispatch(
         setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
       );
+    } else if (err.response.status === 400) {
+      setAlert(400, "Formulário contém dados incorretos.", true);
+      dispatch(setError(err.response.data));
     } else if (err.response.status === 401) {
-      if (err.response.data.detail) {
-        dispatch(setAlert(err.response.status, err.response.data.detail, true));
-      } else {
-        dispatch(setSubmitMessage(Object.values(err.response.data).join(" ")));
-      }
+      dispatch(setAlert(err.response.status, err.response.data.detail, true));
     } else {
       dispatch(
         setAlert(err.response.status, err.response.data.error_description, true)
@@ -570,12 +582,11 @@ export const updateAnimalsProduction = (input) => async (dispatch) => {
       dispatch(
         setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
       );
+    } else if (err.response.status === 400) {
+      setAlert(400, "Formulário contém dados incorretos.", true);
+      dispatch(setError(err.response.data));
     } else if (err.response.status === 401) {
-      if (err.response.data.detail) {
-        dispatch(setAlert(err.response.status, err.response.data.detail, true));
-      } else {
-        dispatch(setSubmitMessage(Object.values(err.response.data).join(" ")));
-      }
+      dispatch(setAlert(err.response.status, err.response.data.detail, true));
     } else {
       dispatch(
         setAlert(err.response.status, err.response.data.error_description, true)
@@ -629,12 +640,11 @@ export const updatePsicultureProduction = (input) => async (dispatch) => {
       dispatch(
         setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
       );
+    } else if (err.response.status === 400) {
+      setAlert(400, "Formulário contém dados incorretos.", true);
+      dispatch(setError(err.response.data));
     } else if (err.response.status === 401) {
-      if (err.response.data.detail) {
-        dispatch(setAlert(err.response.status, err.response.data.detail, true));
-      } else {
-        dispatch(setSubmitMessage(Object.values(err.response.data).join(" ")));
-      }
+      dispatch(setAlert(err.response.status, err.response.data.detail, true));
     } else {
       dispatch(
         setAlert(err.response.status, err.response.data.error_description, true)

@@ -18,7 +18,11 @@ const Improvement = ({ inputImprovements, setInputImprovements }) => {
     dispatch(getAllAllotments());
   }, [dispatch]);
 
-  const allAllotments = useSelector((state) => state.AllotmentsReducer.allAllotments);
+  const allAllotments = useSelector(
+    (state) => state.AllotmentsReducer.allAllotments
+  );
+
+  const error = useSelector((state) => state.ErrorReducer.error);
 
   const handleChangeInput = (event) => {
     const { name, value } = event.target;
@@ -75,6 +79,11 @@ const Improvement = ({ inputImprovements, setInputImprovements }) => {
                   </option>
                 ))}
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("allotment")
+                  ? `* ${error.allotment.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -95,6 +104,11 @@ const Improvement = ({ inputImprovements, setInputImprovements }) => {
                 minLength="1"
                 required
               />
+              <small className="text-red">
+                {error.hasOwnProperty("improvement")
+                  ? `* ${error.improvement.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -115,6 +129,11 @@ const Improvement = ({ inputImprovements, setInputImprovements }) => {
                 minLength="1"
                 required
               />
+              <small className="text-red">
+                {error.hasOwnProperty("type_improvement")
+                  ? `* ${error.type_improvement.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -135,6 +154,11 @@ const Improvement = ({ inputImprovements, setInputImprovements }) => {
                 minLength="1"
                 required
               />
+              <small className="text-red">
+                {error.hasOwnProperty("age_improvement")
+                  ? `* ${error.age_improvement.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -155,6 +179,11 @@ const Improvement = ({ inputImprovements, setInputImprovements }) => {
                 minLength="1"
                 required
               />
+              <small className="text-red">
+                {error.hasOwnProperty("footage")
+                  ? `* ${error.footage.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="12" className="mb-3 d-flex justify-content-center">
@@ -190,6 +219,14 @@ const Improvement = ({ inputImprovements, setInputImprovements }) => {
             </Table>
           </Col>
         </Row>
+      </Col>
+      <Col lg="12">
+        {Object.keys(error).length > 0 && (
+          <div className="mt-3 p-2 text-white bg-red rounded">
+            Atenção: Role a página para cima e corrija os campos que contém um *
+            seguindo de um texto em vermelho.
+          </div>
+        )}
       </Col>
     </Row>
   );

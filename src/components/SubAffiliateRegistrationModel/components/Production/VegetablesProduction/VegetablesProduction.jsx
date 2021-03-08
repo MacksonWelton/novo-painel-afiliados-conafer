@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Input, FormGroup, Row, Table, Col } from "reactstrap";
 import { getProductionName } from "../../../../../redux/actions/Productions";
-import {getAllAllotments} from "../../../../../redux/actions/Allotments";
+import { getAllAllotments } from "../../../../../redux/actions/Allotments";
 import { formatReal } from "../../../../../utils/converterToMoney";
 import convertVoidPropertiestoNullValue from "utils/convertVoidPropertiestoNullValue";
 
@@ -18,10 +18,15 @@ const VegetablesProduction = ({
     dispatch(getProductionName("Vegetal"));
   }, [dispatch]);
 
-  const allAllotments = useSelector((state) => state.AllotmentsReducer.allAllotments);
+  const allAllotments = useSelector(
+    (state) => state.AllotmentsReducer.allAllotments
+  );
+
   const productionName = useSelector(
     (state) => state.ProductionsReducer.productionName
   );
+
+  const error = useSelector((state) => state.ErrorReducer.error);
 
   const [inputVegetables, setInputVegetables] = useState({
     allotment: "",
@@ -54,12 +59,14 @@ const VegetablesProduction = ({
     setInputVegetables({ ...inputVegetables, [name]: value });
 
     if (name === "production") {
-      setInputVegetableTable({...inputVegetableTable, [name]: event.target[event.target.selectedIndex].text});
+      setInputVegetableTable({
+        ...inputVegetableTable,
+        [name]: event.target[event.target.selectedIndex].text,
+      });
     } else {
-      setInputVegetableTable({...inputVegetableTable, [name]: value});
+      setInputVegetableTable({ ...inputVegetableTable, [name]: value });
     }
   };
-  
 
   const addVegetablesInTable = () => {
     if (
@@ -69,14 +76,21 @@ const VegetablesProduction = ({
       inputVegetables.irrigated_area &&
       inputVegetables.generates_waste
     ) {
-      setInputVegetablesProduction([...inputVegetablesProduction, convertVoidPropertiestoNullValue(inputVegetables)]);
+      setInputVegetablesProduction([
+        ...inputVegetablesProduction,
+        convertVoidPropertiestoNullValue(inputVegetables),
+      ]);
       setInputVegetablesTable([...inputVegetablesTable, inputVegetableTable]);
     }
   };
 
   const removeVegetablesInTable = (index) => {
-    setInputVegetablesProduction(inputVegetablesProduction.filter((item, i) => i !== index));
-    setInputVegetablesTable(inputVegetablesTable.filter((item, i) => i !== index));
+    setInputVegetablesProduction(
+      inputVegetablesProduction.filter((item, i) => i !== index)
+    );
+    setInputVegetablesTable(
+      inputVegetablesTable.filter((item, i) => i !== index)
+    );
   };
 
   return (
@@ -110,6 +124,11 @@ const VegetablesProduction = ({
                   </option>
                 ))}
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("allotment")
+                  ? `* ${error.allotment.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -137,12 +156,17 @@ const VegetablesProduction = ({
                   </option>
                 ))}
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("production")
+                  ? `* ${error.production.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
             <FormGroup>
               <label className="form-control-label" htmlFor="annual_production">
-                Produção anual{" "}<small className="text-red">(obrigatório)</small>
+                Produção anual <small className="text-red">(obrigatório)</small>
               </label>
               <Input
                 className="form-control-alternative"
@@ -154,6 +178,11 @@ const VegetablesProduction = ({
                 onChange={handleChangeInput}
                 min="0"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("annual_production")
+                  ? `* ${error.annual_production.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -170,13 +199,21 @@ const VegetablesProduction = ({
                 placeholder="Ex: 50.00"
                 value={inputVegetables.price_per_kg}
                 onChange={(event) => {
-                  event = {target: {
-                    name: event.target.name,
-                    value: formatReal(event.target.value)
-                  }}
-                  handleChangeInput(event)}}
+                  event = {
+                    target: {
+                      name: event.target.name,
+                      value: formatReal(event.target.value),
+                    },
+                  };
+                  handleChangeInput(event);
+                }}
                 maxLength="16"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("price_per_kg")
+                  ? `* ${error.price_per_kg.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -194,6 +231,11 @@ const VegetablesProduction = ({
                 onChange={handleChangeInput}
                 min="0"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("annual_marketed")
+                  ? `* ${error.annual_marketed.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -210,12 +252,20 @@ const VegetablesProduction = ({
                 placeholder="Ex: 10.00"
                 value={inputVegetables.how_much_sell}
                 onChange={(event) => {
-                  event = {target: {
-                    name: event.target.name,
-                    value: formatReal(event.target.value)
-                  }}
-                  handleChangeInput(event)}}
+                  event = {
+                    target: {
+                      name: event.target.name,
+                      value: formatReal(event.target.value),
+                    },
+                  };
+                  handleChangeInput(event);
+                }}
               />
+              <small className="text-red">
+                {error.hasOwnProperty("how_much_sell")
+                  ? `* ${error.how_much_sell.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -235,6 +285,11 @@ const VegetablesProduction = ({
                 onChange={handleChangeInput}
                 required
               />
+              <small className="text-red">
+                {error.hasOwnProperty("seedling_origin")
+                  ? `* ${error.seedling_origin.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -262,6 +317,11 @@ const VegetablesProduction = ({
                 <option value={true}>Sim</option>
                 <option value={false}>Não</option>
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("creole_seed")
+                  ? `* ${error.creole_seed.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -283,6 +343,11 @@ const VegetablesProduction = ({
                 <option value={true}>Sim</option>
                 <option value={false}>Não</option>
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("pest_problems")
+                  ? `* ${error.pest_problems.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -301,6 +366,11 @@ const VegetablesProduction = ({
                 min="0"
                 required
               />
+              <small className="text-red">
+                {error.hasOwnProperty("irrigated_area")
+                  ? `* ${error.irrigated_area.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -325,6 +395,11 @@ const VegetablesProduction = ({
                 <option value={true}>Sim</option>
                 <option value={false}>Não</option>
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("generates_waste")
+                  ? `* ${error.generates_waste.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="12" className="mb-3 d-flex justify-content-center">
@@ -357,6 +432,14 @@ const VegetablesProduction = ({
             </Table>
           </Col>
         </Row>
+      </Col>
+      <Col lg="12">
+        {Object.keys(error).length > 0 && (
+          <div className="mt-3 p-2 text-white bg-red rounded">
+            Atenção: Role a página para cima e corrija os campos que contém um *
+            seguindo de um texto em vermelho.
+          </div>
+        )}
       </Col>
     </Row>
   );

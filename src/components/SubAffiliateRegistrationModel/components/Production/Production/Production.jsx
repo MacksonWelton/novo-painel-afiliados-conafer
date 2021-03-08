@@ -27,6 +27,8 @@ const Production = ({
     (state) => state.ProductionsReducer.productionName
   );
 
+  const error = useSelector((state) => state.ErrorReducer.error);
+
   const [inputProduction, setInputProduction] = useState({
     affiliation: "",
     production: "",
@@ -113,6 +115,11 @@ const Production = ({
                   </option>
                 ))}
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("affiliation")
+                  ? `* ${error.affiliation.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -140,6 +147,11 @@ const Production = ({
                   </option>
                 ))}
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("production")
+                  ? `* ${error.production.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -157,6 +169,11 @@ const Production = ({
                 onChange={handleChangeInput}
                 min="0"
               />
+              <small className="text-red">
+                {error.hasOwnProperty("how_produces")
+                  ? `* ${error.how_produces.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -185,6 +202,11 @@ const Production = ({
                   </option>
                 ))}
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("type_production")
+                  ? `* ${error.type_production.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="6">
@@ -208,6 +230,11 @@ const Production = ({
                 <option value={true}>Sim</option>
                 <option value={false}>Não</option>
               </Input>
+              <small className="text-red">
+                {error.hasOwnProperty("issues_invoice")
+                  ? `* ${error.issues_invoice.join(" ")}`
+                  : ""}
+              </small>
             </FormGroup>
           </Col>
           <Col lg="12" className="mb-3 d-flex justify-content-center">
@@ -244,6 +271,14 @@ const Production = ({
             </Table>
           </Col>
         </Row>
+      </Col>
+      <Col lg="12">
+        {Object.keys(error).length > 0 && (
+          <div className="mt-3 p-2 text-white bg-red rounded">
+            Atenção: Role a página para cima e corrija os campos que contém um *
+            seguindo de um texto em vermelho.
+          </div>
+        )}
       </Col>
     </Row>
   );

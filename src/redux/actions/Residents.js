@@ -1,5 +1,6 @@
 import api from "services/api";
 import { setAlert } from "./Alerts";
+import { setError } from "./Error";
 
 export const newHabitation = (habitation) => async (dispatch) => {
   try {
@@ -13,6 +14,9 @@ export const newHabitation = (habitation) => async (dispatch) => {
       dispatch(
         setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
       );
+    } else if (err.response.status === 400) {
+      setAlert(400, "Formulário contém dados incorretos.", true);
+      dispatch(setError(err.response.data));
     } else if (err.response.status === 401) {
       dispatch(setAlert(err.response.status, err.response.data.detail, true));
     } else {
@@ -153,6 +157,9 @@ export const newResident = (resident) => async (dispatch) => {
       dispatch(
         setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
       );
+    } else if (err.response.status === 400) {
+      setAlert(400, "Formulário contém dados incorretos.", true);
+      dispatch(setError(err.response.data));
     } else if (err.response.status === 401) {
       dispatch(setAlert(err.response.status, err.response.data.detail, true));
     } else {
@@ -212,14 +219,14 @@ export const getResidentById = (id) => async (dispatch) => {
       );
     }
   }
-}
+};
 
 const setResident = (resident) => ({
   type: "SET_RESIDENT",
   payload: {
-    resident
-  }
-})
+    resident,
+  },
+});
 
 export const updateHabitation = (input) => async (dispatch) => {
   try {
@@ -234,6 +241,9 @@ export const updateHabitation = (input) => async (dispatch) => {
       dispatch(
         setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
       );
+    } else if (err.response.status === 400) {
+      setAlert(400, "Formulário contém dados incorretos.", true);
+      dispatch(setError(err.response.data));
     } else if (err.response.status === 401) {
       dispatch(setAlert(err.response.status, err.response.data.detail, true));
     } else {
@@ -246,7 +256,6 @@ export const updateHabitation = (input) => async (dispatch) => {
 
 export const updateResident = (input) => async (dispatch) => {
   try {
-
     const response = await api.put(`resident/resident/${input.id}/`, input);
 
     dispatch(setAlert(200, "Dados foram gravados com sucesso!", true));
@@ -258,6 +267,9 @@ export const updateResident = (input) => async (dispatch) => {
       dispatch(
         setAlert(400, "Ocorreu um erro de conexão com o servidor.", true)
       );
+    } else if (err.response.status === 400) {
+      setAlert(400, "Formulário contém dados incorretos.", true);
+      dispatch(setError(err.response.data));
     } else if (err.response.status === 401) {
       dispatch(setAlert(err.response.status, err.response.data.detail, true));
     } else {
@@ -266,4 +278,4 @@ export const updateResident = (input) => async (dispatch) => {
       );
     }
   }
-}
+};
