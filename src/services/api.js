@@ -2,7 +2,7 @@ import axios from "axios";
 import { setAlert } from "redux/actions/Alerts";
 
 const api = axios.create({
-  baseURL: "https://apisistema.conafer.org.br/"
+  baseURL: "https://apisistema.conafer.org.br/api/v1/"
 });
 
 api.interceptors.request.use(
