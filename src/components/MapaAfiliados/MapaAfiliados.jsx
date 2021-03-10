@@ -53,6 +53,7 @@ const MapaAfiliados = ({
     mapRef.current = map;
   }, []);
 
+
   if (loadError) {
     return (
       <div
@@ -136,6 +137,8 @@ const MapaAfiliados = ({
       zoom={4}
       onLoad={onMapLoad}
       onClick={() => setMap(null)}
+      options={{mapTypeControl: true, zoomControl: false, streetViewControl: false,   minZoom: 4,
+  maxZoom: 4, disableDefaultUI: true,}}
     >
       {allotments &&
         allotments.map((allotment, i) => {

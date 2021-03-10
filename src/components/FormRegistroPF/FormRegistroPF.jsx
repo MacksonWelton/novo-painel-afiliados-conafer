@@ -676,20 +676,22 @@ const FormRegistroPF = ({
                       name="country"
                       id="country"
                       title="País"
+                      value={input.country}
                       onChange={handleChangeInput}
                       required
                     >
-                      <option value="" hidden>
-                        Escolha uma opção
-                      </option>
-                      {countries.map((country) => (
-                        <option
-                          key={country.nome_pais}
-                          value={country.nome_pais}
-                        >
-                          {country.nome_pais}
-                        </option>
-                      ))}
+                      <option value="Brasil">Brasil</option>
+                      <option value="Argentina">Argentina</option>
+                      <option value="Bolívia">Bolívia</option>
+                      <option value="Chile">Chile</option>
+                      <option value="Colômbia">Colômbia</option>
+                      <option value="Equador">Equador</option>
+                      <option value="Guiana">Guiana</option>
+                      <option value="Paraguai">Paraguai</option>
+                      <option value="Peru">Peru</option>
+                      <option value="Suriname">Suriname</option>
+                      <option value="Uruguai">Uruguai</option>
+                      <option value="Venezuela">Venezuela</option>
                     </Input>
                     <small className="text-red">
                       {error.hasOwnProperty("country")
