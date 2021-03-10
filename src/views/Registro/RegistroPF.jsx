@@ -55,7 +55,7 @@ const RegistroPF = () => {
     collect_code: "",
     ater_core: "",
     year_residence: 0,
-    country: "",
+    country: "Brasil",
     address: "",
     cep: "",
     city: "",
